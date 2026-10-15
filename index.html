@@ -90,8 +90,13 @@ audio{width:100%;margin-top:10px}
 
 <section class="panel">
 <h2>Listen</h2>
+<div id="lessonAudio"><audio id="lessonPlayer" controls></audio>
+<div class="row"><label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">Choose my audio file<input type="file" id="audioFile" accept="audio/*" hidden></label><button class="btn alt" id="clearAudio">Remove my audio</button></div>
+<div class="msg" id="audioMsg" aria-live="polite"></div>
+<div class="note">Pick any recording from your phone (a voice memo, an mp3 or an m4a). It is saved on this device for this lesson only.</div></div>
+<h2 style="margin-top:18px">Computer voice (backup)</h2>
 <div class="row">
-<button class="btn" id="playBtn">Play lesson</button>
+<button class="btn alt" id="playBtn">Play computer voice</button>
 <button class="btn alt" id="stopBtn">Stop</button>
 <select id="rate" aria-label="Speed"><option value="0.6">Slow</option><option value="0.8" selected>Medium</option><option value="1">Normal</option></select>
 </div>
@@ -149,7 +154,7 @@ function drawVerses(){
    d.appendChild(r)});if(scripts.pr){var tp=document.createElement('div');tp.className='tip';tp.textContent=P[v.n].tip;d.appendChild(tp)}
   c.appendChild(d)});
 }
-function draw(){drawTabs();drawVerses();document.querySelectorAll('.step input').forEach(function(i){i.checked=false});document.getElementById('doneMsg').textContent=done[cur]?'You finished this lesson. Repeat it any time.':''}
+function draw(){drawTabs();drawVerses();loadAudio();document.querySelectorAll('.step input').forEach(function(i){i.checked=false});document.getElementById('doneMsg').textContent=done[cur]?'You finished this lesson. Repeat it any time.':''}
 document.querySelectorAll('.chip[data-s]').forEach(function(b){b.onclick=function(){var k=b.dataset.s,on=b.getAttribute('aria-pressed')==='true';if(on&&Object.keys(scripts).filter(function(x){return scripts[x]}).length===1)return;scripts[k]=on?0:1;b.setAttribute('aria-pressed',!on);drawVerses()}});
 document.getElementById('hideBtn').onclick=function(){hide=!hide;this.setAttribute('aria-pressed',hide);drawVerses()};
 document.getElementById('doneBtn').onclick=function(){done[cur]=1;ss('sp_done',done);var t=dstr(new Date());if(days.indexOf(t)<0){days.push(t);ss('sp_days',days)}drawStreak();draw()};
@@ -175,6 +180,19 @@ document.getElementById('recBtn').onclick=async function(){
   mr.start();b.textContent='Stop recording';m.textContent='Recording...';
  }catch(e){m.textContent='Microphone not available. Allow microphone access for this page, or open it in your browser directly.'}
 };
+function dbo(){return new Promise(function(res,rej){var r=indexedDB.open('sp_audio',1);r.onupgradeneeded=function(){r.result.createObjectStore('a')};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
+function dbget(k){return dbo().then(function(d){return new Promise(function(res,rej){var g=d.transaction('a').objectStore('a').get(k);g.onsuccess=function(){res(g.result)};g.onerror=function(){rej(g.error)}})})}
+function dbput(k,v){return dbo().then(function(d){return new Promise(function(res,rej){var t=d.transaction('a','readwrite');t.objectStore('a').put(v,k);t.oncomplete=res;t.onerror=function(){rej(t.error)}})})}
+function dbdel(k){return dbo().then(function(d){return new Promise(function(res,rej){var t=d.transaction('a','readwrite');t.objectStore('a').delete(k);t.oncomplete=res;t.onerror=function(){rej(t.error)}})})}
+var lp=document.getElementById('lessonPlayer'),am=document.getElementById('audioMsg'),aurl=null;
+function loadAudio(){
+ am.textContent='';if(aurl){URL.revokeObjectURL(aurl);aurl=null}
+ var fb=function(){lp.src='audio/lesson'+(cur+1)+'.mp3'};
+ try{dbget('lesson'+cur).then(function(b){if(b){aurl=URL.createObjectURL(b);lp.src=aurl;am.textContent='Playing your own audio for this lesson.'}else fb()}).catch(fb)}catch(e){fb()}
+}
+lp.onerror=function(){if(!aurl)am.textContent='No audio added for this lesson yet. Choose your own file, or use the computer voice below.'};
+document.getElementById('audioFile').onchange=function(){var f=this.files[0];if(!f)return;dbput('lesson'+cur,f).then(loadAudio).catch(function(){aurl=URL.createObjectURL(f);lp.src=aurl;am.textContent='Could not save the file on this device. It plays only until you leave the page.'});this.value=''};
+document.getElementById('clearAudio').onclick=function(){dbdel('lesson'+cur).then(loadAudio).catch(loadAudio)};
 drawStreak();draw();
 </script>
 </body>
