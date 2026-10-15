@@ -155,11 +155,12 @@ document.getElementById('hideBtn').onclick=function(){hide=!hide;this.setAttribu
 document.getElementById('doneBtn').onclick=function(){done[cur]=1;ss('sp_done',done);var t=dstr(new Date());if(days.indexOf(t)<0){days.push(t);ss('sp_days',days)}drawStreak();draw()};
 /* listen (computer voice placeholder) */
 var q=[],playing=false;
-function speakNext(){if(!playing||!q.length){playing=false;return}var u=new SpeechSynthesisUtterance(q.shift());u.lang='hi-IN';u.rate=parseFloat(document.getElementById('rate').value);u.onend=function(){setTimeout(speakNext,400)};u.onerror=speakNext;speechSynthesis.speak(u)}
+var voice=null;
+function speakNext(){if(!playing||!q.length){playing=false;return}var u=new SpeechSynthesisUtterance(q.shift());if(voice){u.voice=voice;u.lang=voice.lang}else{u.lang='en-IN'}u.rate=parseFloat(document.getElementById('rate').value);u.onend=function(){setTimeout(speakNext,400)};u.onerror=function(){document.getElementById('ttsMsg').textContent='The browser could not play the voice. Turn the volume up and make sure the silent switch is off.';playing=false};speechSynthesis.speak(u)}
 document.getElementById('playBtn').onclick=function(){
  var m=document.getElementById('ttsMsg');
  if(!('speechSynthesis' in window)){m.textContent='This browser cannot play the computer voice. Use a recording from your own source.';return}
- speechSynthesis.cancel();q=[];L[cur].v.forEach(function(v){v.l.forEach(function(l){q.push(l[0].replace(/[०-९।॥]/g,''))})});playing=true;m.textContent='';speakNext()};
+ speechSynthesis.cancel();var vs=speechSynthesis.getVoices(),hi=vs.filter(function(x){return x.lang.toLowerCase().indexOf('hi')===0})[0],en=vs.filter(function(x){return x.lang.toLowerCase().indexOf('en-in')===0})[0]||vs.filter(function(x){return x.lang.toLowerCase().indexOf('en')===0})[0];voice=hi||en||null;q=[];L[cur].v.forEach(function(v){v.l.forEach(function(l,i){q.push(hi?l[0].replace(/[०-९।॥]/g,''):P[v.n].l[i].replace(/-/g,''))})});playing=true;m.textContent=hi?'':'No Hindi voice found on this device, so the easy sounds are read in an English voice. To add a Hindi voice: Settings, Accessibility, Spoken Content, Voices.';speakNext()};
 document.getElementById('stopBtn').onclick=function(){playing=false;if('speechSynthesis' in window)speechSynthesis.cancel()};
 /* record */
 var mr=null,chunks=[],stream=null;
