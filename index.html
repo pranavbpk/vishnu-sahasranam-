@@ -6,194 +6,177 @@
 <title>Sahasranama Practice</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit&family=Noto+Serif+Telugu:wght@400;600&family=Literata:wght@400;600&display=swap">
 <style>
-:root{--bg:#f7f4fa;--card:#fff;--ink:#1d1b3a;--mute:#645f80;--line:#ddd6ea;--acc:#0e7c86;--acc-ink:#fff;--gold:#c98a00;--gold-bg:#fff3d1;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14122b;--card:#1d1a3d;--ink:#efecfa;--mute:#a49fc4;--line:#363160;--acc:#4cc3cd;--acc-ink:#0b1a1c;--gold:#f0b429;--gold-bg:#3a2f10;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#14122b;--card:#1d1a3d;--ink:#efecfa;--mute:#a49fc4;--line:#363160;--acc:#4cc3cd;--acc-ink:#0b1a1c;--gold:#f0b429;--gold-bg:#3a2f10;color-scheme:dark}
+:root{--bg:#f7f4fa;--card:#fff;--ink:#1d1b3a;--mute:#645f80;--line:#ddd6ea;--acc:#0e7c86;--acc-ink:#fff;--gold:#c98a00;--gold-bg:#fff3d1;--rec:#c0392b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14122b;--card:#1d1a3d;--ink:#efecfa;--mute:#a49fc4;--line:#363160;--acc:#4cc3cd;--acc-ink:#0b1a1c;--gold:#f0b429;--gold-bg:#3a2f10;--rec:#ff7b6b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14122b;--card:#1d1a3d;--ink:#efecfa;--mute:#a49fc4;--line:#363160;--acc:#4cc3cd;--acc-ink:#0b1a1c;--gold:#f0b429;--gold-bg:#3a2f10;--rec:#ff7b6b;color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 'Literata',Georgia,serif}
 main{max-width:640px;margin:0 auto;padding:20px 16px 48px}
-h1{font-size:1.5rem;margin:0 0 4px;font-weight:600}
-.sub{color:var(--mute);margin:0 0 16px;font-size:.95rem}
+h1{font-size:1.45rem;margin:0 0 2px;font-weight:600}
+h2{font-size:1.05rem;margin:22px 0 8px}
+.sub{color:var(--mute);margin:0;font-size:.92rem}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .streak{background:var(--gold-bg);color:var(--gold);border-radius:999px;padding:6px 12px;font-weight:600;font-size:.9rem;white-space:nowrap}
-.row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;align-items:center}
 button,select{font:inherit;color:inherit}
-.chip,.tab{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;cursor:pointer;min-height:40px}
-.chip[aria-pressed="true"],.tab[aria-selected="true"]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
-.tab.done::after{content:" ✓"}
+select{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-height:40px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;cursor:pointer;min-height:38px}
+.chip[aria-pressed="true"]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
 .verse{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
 .vn{color:var(--mute);font-size:.85rem;margin-bottom:6px}
 .ln{padding:6px 0;border-top:1px dashed var(--line)}
-.ln:first-of-type{border-top:0}
+.vn+.ln{border-top:0}
 .sa{font-family:'Tiro Devanagari Sanskrit','Noto Serif Devanagari',serif;font-size:1.55rem;line-height:1.6}
 .te{font-family:'Noto Serif Telugu','Gautami',serif;font-size:1.2rem;line-height:1.7}
-.en{font-size:1rem;color:var(--mute)}
+.en{color:var(--mute)}
 .pr{font-weight:600;font-size:1.05rem;color:var(--acc);word-spacing:.15em}
-.tip{margin-top:10px;padding:10px 12px;border-radius:8px;background:var(--gold-bg);color:var(--ink);font-size:.9rem}
-summary{font-weight:600;cursor:pointer}
-details ul{margin:10px 0 0;padding-left:20px}
-details li{margin:4px 0}
 .hide .ln{filter:blur(9px);cursor:pointer;transition:filter .2s}
 .hide .ln.show{filter:none}
+audio{width:100%;margin-top:10px}
+details{margin-top:10px}
+summary{cursor:pointer;font-weight:600}
+.tip{margin-top:8px;padding:10px 12px;border-radius:8px;background:var(--gold-bg);font-size:.9rem}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:16px 0}
-.panel h2{font-size:1.05rem;margin:0 0 8px}
+.panel h2{margin:0 0 8px}
 .btn{background:var(--acc);color:var(--acc-ink);border:0;border-radius:10px;padding:10px 16px;font-weight:600;cursor:pointer;min-height:44px}
 .btn.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.btn:disabled{opacity:.5}
+.btn.big{width:100%;min-height:56px;font-size:1.1rem}
+.btn.rec{background:var(--rec);color:#fff}
+.btn:disabled{opacity:.5;cursor:default}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-label.step{display:flex;gap:10px;align-items:flex-start;padding:6px 0}
-label.step input{width:20px;height:20px;margin-top:3px;accent-color:var(--acc)}
-audio{width:100%;margin-top:10px}
 .note{font-size:.85rem;color:var(--mute);margin-top:8px}
 .msg{color:var(--gold);font-size:.9rem;margin-top:8px;min-height:1.2em}
+.rec1{padding:8px 0;border-top:1px dashed var(--line)}
+ul{margin:10px 0 0;padding-left:20px}
 </style>
 </head>
 <body>
 <main>
 <div class="top">
-<div><h1>Vishnu Sahasranamam</h1><p class="sub">Learn two or three verses a day. Listen, read, chant, record.</p></div>
+<div><h1>Vishnu Sahasranamam</h1><p class="sub" id="prog"></p></div>
 <div class="streak" id="streak">0-day streak</div>
 </div>
 
-<div class="row" id="tabs" role="tablist" aria-label="Lessons"></div>
-
-<div class="row" aria-label="Scripts to show">
-<button class="chip" data-s="sa" aria-pressed="true">Sanskrit</button>
-<button class="chip" data-s="pr" aria-pressed="true">Easy sounds</button>
-<button class="chip" data-s="en" aria-pressed="true">English</button>
-<button class="chip" data-s="te" aria-pressed="true">Telugu</button>
-<button class="chip" id="hideBtn" aria-pressed="false">Hide text</button>
+<div class="row">
+<label>Pace <select id="pace"><option value="1">1 verse a day</option><option value="2">2 verses a day</option><option value="3">3 verses a day</option></select></label>
+<label>Go to verse <select id="startAt"></select></label>
+</div>
+<div class="row" aria-label="Show">
+<button class="chip" data-s="sa">Sanskrit</button>
+<button class="chip" data-s="pr">Easy sounds</button>
+<button class="chip" data-s="en">English</button>
+<button class="chip" data-s="te">Telugu</button>
+<button class="chip" id="hideBtn">Hide text</button>
 </div>
 
-<details class="panel" open><summary>How to read the easy sounds</summary><ul>
+<div id="rev"></div>
+<h2 id="todayH">Today</h2>
+<div id="today"></div>
+
+<section class="panel">
+<h2>Your turn</h2>
+<button class="btn big rec" id="recBtn">Record today's verses</button>
+<audio id="playback" controls hidden></audio>
+<div class="msg" id="recMsg" aria-live="polite"></div>
+<div class="note">Listen to the guide, then chant and record. Recordings stay on this device. Recording counts for your streak.</div>
+<div class="row"><button class="btn" id="finBtn" disabled>Finish today, next verses</button></div>
+<div class="msg" id="finMsg" aria-live="polite"></div>
+</section>
+
+<details class="panel"><summary>My recordings</summary><div id="mine" class="note">Loading...</div></details>
+
+<details class="panel"><summary>How to read the easy sounds</summary><ul>
 <li>Each dash is a beat. Say the pieces slowly, then speed up.</li>
 <li><b>aa, ee, oo</b> are held about twice as long as a, i, u.</li>
 <li><b>sh</b> sounds like "ship". <b>v</b> is between English v and w.</li>
 <li><b>bh, dh</b> are one sound: b or d with a small puff of air.</li>
 <li>A final <b>h</b> (Vishnuh) is a soft echo of the vowel, like "Vishnu-hu".</li>
-<li><b>r</b> is a light tap of the tongue.</li>
-<li>This is a rough guide in English letters. If your guru or family tradition says it differently, follow them.</li>
+<li>If your guru or family tradition says it differently, follow them.</li>
 </ul></details>
-
-<div id="verses"></div>
-
-<section class="panel">
-<h2>Today's practice</h2>
-<label class="step"><input type="checkbox"><span>Listen to the lesson 3 times</span></label>
-<label class="step"><input type="checkbox"><span>Read along while listening</span></label>
-<label class="step"><input type="checkbox"><span>Chant with the text hidden (tap a blurred line to peek)</span></label>
-<label class="step"><input type="checkbox"><span>Record yourself and play it back</span></label>
-<div class="row"><button class="btn" id="doneBtn">Mark lesson done</button></div>
-<div class="msg" id="doneMsg" aria-live="polite"></div>
-</section>
-
-<section class="panel">
-<h2>Listen</h2>
-<div id="lessonAudio"><audio id="lessonPlayer" controls></audio>
-<div class="row"><label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">Choose my audio file<input type="file" id="audioFile" accept="audio/*" hidden></label><button class="btn alt" id="clearAudio">Remove my audio</button></div>
-<div class="msg" id="audioMsg" aria-live="polite"></div>
-<div class="note">Pick any recording from your phone (a voice memo, an mp3 or an m4a). It is saved on this device for this lesson only.</div></div>
-<h2 style="margin-top:18px">Computer voice (backup)</h2>
-<div class="row">
-<button class="btn alt" id="playBtn">Play computer voice</button>
-<button class="btn alt" id="stopBtn">Stop</button>
-<select id="rate" aria-label="Speed"><option value="0.6">Slow</option><option value="0.8" selected>Medium</option><option value="1">Normal</option></select>
-</div>
-<div class="note">This is a computer voice that stands in for a teacher's recording. It can mispronounce Sanskrit, so treat it as a rough guide only.</div>
-<div class="msg" id="ttsMsg" aria-live="polite"></div>
-</section>
-
-<section class="panel">
-<h2>Record yourself</h2>
-<div class="row">
-<button class="btn" id="recBtn">Start recording</button>
-</div>
-<audio id="playback" controls hidden></audio>
-<div class="msg" id="recMsg" aria-live="polite"></div>
-<div class="note">Recordings stay on your device and are not uploaded. Play yours back after listening and compare.</div>
-</section>
 
 <p class="note">Verse text should be checked against a trusted printed edition or a pandit before you rely on it.</p>
 </main>
 
 <script>
-var L=[
-{t:"Lesson 1 (verses 1-2)",v:[
-{n:1,l:[["विश्वं विष्णुर्वषट्कारो भूतभव्यभवत्प्रभुः ।","Vishvam Vishnur Vashatkaro Bhoota-Bhavya-Bhavat-Prabhuh","విశ్వం విష్ణుర్వషట్కారో భూతభవ్యభవత్ప్రభుః |"],["भूतकृद्भूतभृद्भावो भूतात्मा भूतभावनः ॥१॥","Bhoota-krid Bhoota-bhrid Bhavo Bhootatma Bhoota-bhavanah","భూతకృద్భూతభృద్భావో భూతాత్మా భూతభావనః ||"]]},
-{n:2,l:[["पूतात्मा परमात्मा च मुक्तानां परमा गतिः ।","Pootatma Paramatma cha Muktanam Parama Gatih","పూతాత్మా పరమాత్మా చ ముక్తానాం పరమా గతిః |"],["अव्ययः पुरुषः साक्षी क्षेत्रज्ञोऽक्षर एव च ॥२॥","Avyayah Purushah Sakshi Kshetrajno Akshara eva cha","అవ్యయః పురుషః సాక్షీ క్షేత్రజ్ఞోఽక్షర ఏవ చ ||"]]}]},
-{t:"Lesson 2 (verses 3-5)",v:[
-{n:3,l:[["योगो योगविदां नेता प्रधानपुरुषेश्वरः ।","Yogo Yogavidam Neta Pradhana-Purusheshvarah","యోగో యోగవిదాం నేతా ప్రధానపురుషేశ్వరః |"],["नारसिंहवपुः श्रीमान् केशवः पुरुषोत्तमः ॥३॥","Narasimha-vapuh Shriman Keshavah Purushottamah","నారసింహవపుః శ్రీమాన్ కేశవః పురుషోత్తమః ||"]]},
-{n:4,l:[["सर्वः शर्वः शिवः स्थाणुर्भूतादिर्निधिरव्ययः ।","Sarvah Sharvah Shivah Sthanur Bhootadir Nidhir Avyayah","సర్వః శర్వః శివః స్థాణుర్భూతాదిర్నిధిరవ్యయః |"],["सम्भवो भावनो भर्ता प्रभवः प्रभुरीश्वरः ॥४॥","Sambhavo Bhavano Bharta Prabhavah Prabhur Ishvarah","సంభవో భావనో భర్తా ప్రభవః ప్రభురీశ్వరః ||"]]},
-{n:5,l:[["स्वयम्भूः शम्भुरादित्यः पुष्कराक्षो महास्वनः ।","Svayambhooh Shambhur Adityah Pushkaraksho Mahasvanah","స్వయంభూః శంభురాదిత్యః పుష్కరాక్షో మహాస్వనః |"],["अनादिनिधनो धाता विधाता धातुरुत्तमः ॥५॥","Anadi-nidhano Dhata Vidhata Dhaturuttamah","అనాదినిధనో ధాతా విధాతా ధాతురుత్తమః ||"]]}]}
+var V=[
+{sa:["विश्वं विष्णुर्वषट्कारो भूतभव्यभवत्प्रभुः ।","भूतकृद्भूतभृद्भावो भूतात्मा भूतभावनः ॥१॥"],pr:["Vish-vam Vish-nur Va-shat-kaa-ro Bhoo-ta-bhav-ya-bha-vat-pra-bhuh","Bhoo-ta-krid-bhoo-ta-bhrid-bhaa-vo Bhoo-taat-maa Bhoo-ta-bhaa-va-nah"],en:["Vishvam Vishnur Vashatkaro Bhoota-Bhavya-Bhavat-Prabhuh","Bhoota-krid Bhoota-bhrid Bhavo Bhootatma Bhoota-bhavanah"],te:["విశ్వం విష్ణుర్వషట్కారో భూతభవ్యభవత్ప్రభుః |","భూతకృద్భూతభృద్భావో భూతాత్మా భూతభావనః ||"],tip:"Va-shat-kaa-ro: say the sh softly, then a short t. Bhoo is a breathy b with a long oo."},
+{sa:["पूतात्मा परमात्मा च मुक्तानां परमा गतिः ।","अव्ययः पुरुषः साक्षी क्षेत्रज्ञोऽक्षर एव च ॥२॥"],pr:["Poo-taat-maa Pa-ra-maat-maa cha Muk-taa-naam Pa-ra-maa Ga-tih","A-vya-yah Pu-ru-shah Saa-kshee Kshe-tra-gyo Ak-sha-ra e-va cha"],en:["Pootatma Paramatma cha Muktanam Parama Gatih","Avyayah Purushah Sakshi Kshetrajno Akshara eva cha"],te:["పూతాత్మా పరమాత్మా చ ముక్తానాం పరమా గతిః |","అవ్యయః పురుషః సాక్షీ క్షేత్రజ్ఞోఽక్షర ఏవ చ ||"],tip:"Kshe-tra-gyo: ksh is k and sh said together. jn is usually said gya in chanting. cha is like the ch in chair."},
+{sa:["योगो योगविदां नेता प्रधानपुरुषेश्वरः ।","नारसिंहवपुः श्रीमान् केशवः पुरुषोत्तमः ॥३॥"],pr:["Yo-go Yo-ga-vi-daam Ne-taa Pra-dhaa-na-pu-ru-shesh-va-rah","Naa-ra-sim-ha-va-puh Shree-maan Ke-sha-vah Pu-ru-shot-ta-mah"],en:["Yogo Yogavidam Neta Pradhana-Purusheshvarah","Narasimha-vapuh Shriman Keshavah Purushottamah"],te:["యోగో యోగవిదాం నేతా ప్రధానపురుషేశ్వరః |","నారసింహవపుః శ్రీమాన్ కేశవః పురుషోత్తమః ||"],tip:"Sim-ha: keep the h soft. Shree-maan has a long ee and a long aa. Ke-sha-vah ends with a light echo of a."},
+{sa:["सर्वः शर्वः शिवः स्थाणुर्भूतादिर्निधिरव्ययः ।","सम्भवो भावनो भर्ता प्रभवः प्रभुरीश्वरः ॥४॥"],pr:["Sar-vah Shar-vah Shi-vah Sthaa-nur Bhoo-taa-dir Ni-dhir A-vya-yah","Sam-bha-vo Bhaa-va-no Bhar-taa Pra-bha-vah Pra-bhur Eesh-va-rah"],en:["Sarvah Sharvah Shivah Sthanur Bhootadir Nidhir Avyayah","Sambhavo Bhavano Bharta Prabhavah Prabhur Ishvarah"],te:["సర్వః శర్వః శివః స్థాణుర్భూతాదిర్నిధిరవ్యయః |","సంభవో భావనో భర్తా ప్రభవః ప్రభురీశ్వరః ||"],tip:"Sthaa-nur: s then a breathy t, then a long aa. Sar-vah and Shar-vah differ: s versus sh."},
+{sa:["स्वयम्भूः शम्भुरादित्यः पुष्कराक्षो महास्वनः ।","अनादिनिधनो धाता विधाता धातुरुत्तमः ॥५॥"],pr:["Sva-yam-bhooh Sham-bhur Aa-di-tyah Push-ka-raak-sho Ma-haa-sva-nah","A-naa-di-ni-dha-no Dhaa-taa Vi-dhaa-taa Dhaa-tu-rut-ta-mah"],en:["Svayambhooh Shambhur Adityah Pushkaraksho Mahasvanah","Anadi-nidhano Dhata Vidhata Dhaturuttamah"],te:["స్వయంభూః శంభురాదిత్యః పుష్కరాక్షో మహాస్వనః |","అనాదినిధనో ధాతా విధాతా ధాతురుత్తమః ||"],tip:"Push-ka-raak-sho: ksh again, then a long o. Dhaa is a breathy d. Aa-di-tyah: the ty is quick."},
+{n:61,sa:["सुधन्वा खंडपरशुर् दारुणो द्रविणप्रदः ।","दिवस्पृक् सर्वदृग् व्यासो वाचस्पतिरयोनिजः ॥६१॥"],pr:["Su-dhan-vaa Khan-da-pa-ra-shur Daa-ru-no Dra-vi-na-pra-dah","Di-vas-prik Sar-va-drig Vyaa-so Vaa-chas-pa-ti-ra-yo-ni-jah"],en:["Sudhanva Khandaparashur Daruno Dravinapradah","Divasprik Sarvadrig Vyaso Vachaspatir Ayonijah"],te:["సుధన్వా ఖండపరశుర్ దారుణో ద్రవిణప్రదః |","దివస్పృక్ సర్వదృగ్ వ్యాసో వాచస్పతిరయోనిజః ||"],tip:"Dra-vi-na: the r is a light tap. Vyaa-so: vy is said together, like vya. Vaa-chas-pa-ti: ch like the ch in chair."},
+{n:62,sa:["त्रिसामा सामगस् साम निर्वाणं भेषजं भिषक् ।","संन्यासकृच् छमश् शांतो निष्ठा शांतिः परायणम् ॥६२॥"],pr:["Tri-saa-maa Saa-ma-gas Saa-ma Nir-vaa-nam Bhe-sha-jam Bhi-shak","San-nyaa-sa-krich Chha-mash Shaan-to Nish-thaa Shaan-tih Pa-raa-ya-nam"],en:["Trisama Samagas Sama Nirvanam Bheshajam Bhishak","Sannyasakrich Chhamash Shanto Nishtha Shantih Parayanam"],te:["త్రిసామా సామగస్ సామ నిర్వాణం భేషజం భిషక్ |","సంన్యాసకృచ్ ఛమశ్ శాంతో నిష్ఠా శాంతిః పరాయణమ్ ||"],tip:"San-nyaa-sa: the n is said twice (san-nya). Chha is ch with a puff of air. Shaan-tih: sh like ship, with a long aa."},
+{n:63,sa:["शुभांगश् शांतिदस् स्रष्टा कुमुदः कुवलेशयः ।","गोहितो गोपतिर् गोप्ता वृषभाक्षो वृषप्रियः ॥६३॥"],pr:["Shu-bhaan-gash Shaan-ti-das Srash-taa Ku-mu-dah Ku-va-le-sha-yah","Go-hi-to Go-pa-tir Gop-taa Vri-sha-bhaak-sho Vri-sha-pri-yah"],en:["Shubhangash Shantidas Srashta Kumudah Kuvaleshayah","Gohito Gopatir Gopta Vrishabhaksho Vrishapriyah"],te:["శుభాంగశ్ శాంతిదస్ స్రష్టా కుముదః కువలేశయః |","గోహితో గోపతిర్ గోప్తా వృషభాక్షో వృషప్రియః ||"],tip:"Srash-taa: s and r run together, then sh. Vri-sha-bhaak-sho: bh is a breathy b, ksh is k and sh together. Shu-bhaan-gash ends with sh, not s."}
 ];
-var P={
-1:{l:["Vish-vam Vish-nur Va-shat-kaa-ro Bhoo-ta-bhav-ya-bha-vat-pra-bhuh","Bhoo-ta-krid-bhoo-ta-bhrid-bhaa-vo Bhoo-taat-maa Bhoo-ta-bhaa-va-nah"],tip:"Va-shat-kaa-ro: say the sh softly, then a short t. Bhoo is a breathy b with a long oo."},
-2:{l:["Poo-taat-maa Pa-ra-maat-maa cha Muk-taa-naam Pa-ra-maa Ga-tih","A-vya-yah Pu-ru-shah Saa-kshee Kshe-tra-gyo Ak-sha-ra e-va cha"],tip:"Kshe-tra-gyo: ksh is k and sh said together. jn is usually said gya in chanting. cha is like the ch in chair."},
-3:{l:["Yo-go Yo-ga-vi-daam Ne-taa Pra-dhaa-na-pu-ru-shesh-va-rah","Naa-ra-sim-ha-va-puh Shree-maan Ke-sha-vah Pu-ru-shot-ta-mah"],tip:"Sim-ha: keep the h soft. Shree-maan has a long ee and a long aa. Ke-sha-vah ends with a light echo of a."},
-4:{l:["Sar-vah Shar-vah Shi-vah Sthaa-nur Bhoo-taa-dir Ni-dhir A-vya-yah","Sam-bha-vo Bhaa-va-no Bhar-taa Pra-bha-vah Pra-bhur Eesh-va-rah"],tip:"Sthaa-nur: s then a breathy t (t with a puff of air), then a long aa. Shar-vah and Sar-vah differ: sh versus s."},
-5:{l:["Sva-yam-bhooh Sham-bhur Aa-di-tyah Push-ka-raak-sho Ma-haa-sva-nah","A-naa-di-ni-dha-no Dhaa-taa Vi-dhaa-taa Dhaa-tu-rut-ta-mah"],tip:"Push-ka-raak-sho: ksh again, then a long o. Dhaa is a breathy d. Aa-di-tyah: the ty is quick, like t then ya."}
-};
-var cur=0,scripts={sa:1,pr:1,en:1,te:1},hide=false;
-function ls(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
-function ss(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
-var done=ls('sp_done',{}),days=ls('sp_days',[]);
+V.forEach(function(v,i){if(!v.n)v.n=i+1});
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function sv(){try{localStorage.setItem('sp2',JSON.stringify(S))}catch(e){}}
+var S=ld('sp2',{pace:1,pos:0,days:ld('sp_days',[]),sc:{sa:1,pr:1,en:0,te:0},hide:0});
+var $=function(i){return document.getElementById(i)};
 function dstr(d){return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
-function streak(){var n=0,d=new Date();if(days.indexOf(dstr(d))<0)d.setDate(d.getDate()-1);while(days.indexOf(dstr(d))>=0){n++;d.setDate(d.getDate()-1)}return n}
-function drawStreak(){document.getElementById('streak').textContent=streak()+'-day streak'}
-function drawTabs(){var t=document.getElementById('tabs');t.innerHTML='';L.forEach(function(x,i){var b=document.createElement('button');b.className='tab'+(done[i]?' done':'');b.setAttribute('role','tab');b.setAttribute('aria-selected',i===cur);b.textContent=x.t;b.onclick=function(){cur=i;draw()};t.appendChild(b)})}
-function drawVerses(){
- var c=document.getElementById('verses');c.innerHTML='';c.className=hide?'hide':'';
- L[cur].v.forEach(function(v){
-  var d=document.createElement('div');d.className='verse';
-  d.innerHTML='<div class="vn">Verse '+v.n+'</div>';
-  v.l.forEach(function(l){
-   var r=document.createElement('div');r.className='ln';
-   var li=v.l.indexOf(l);[['sa',l[0]],['pr',P[v.n].l[li]],['en',l[1]],['te',l[2]]].forEach(function(x){if(scripts[x[0]]){var p=document.createElement('div');p.className=x[0];p.textContent=x[1];r.appendChild(p)}});
-   r.onclick=function(){if(hide)r.classList.toggle('show')};
-   d.appendChild(r)});if(scripts.pr){var tp=document.createElement('div');tp.className='tip';tp.textContent=P[v.n].tip;d.appendChild(tp)}
-  c.appendChild(d)});
+function streak(){var n=0,d=new Date();if(S.days.indexOf(dstr(d))<0)d.setDate(d.getDate()-1);while(S.days.indexOf(dstr(d))>=0){n++;d.setDate(d.getDate()-1)}return n}
+function aud(n){var w=document.createElement('div'),a=document.createElement('audio'),t=0,b='audio/v'+('00'+n).slice(-3);a.controls=true;a.preload='metadata';a.src=b+'.m4a';a.onerror=function(){if(!t){t=1;a.src=b+'.mp3'}else{w.innerHTML='<div class="note">Guide audio for this verse is coming soon.</div>'}};w.appendChild(a);return w}
+function card(i){
+ var v=V[i],d=document.createElement('div');d.className='verse';
+ d.innerHTML='<div class="vn">Verse '+v.n+'</div>';
+ for(var l=0;l<2;l++){var r=document.createElement('div');r.className='ln';
+  ['sa','pr','en','te'].forEach(function(k){if(S.sc[k]){var p=document.createElement('div');p.className=k;p.textContent=v[k][l];r.appendChild(p)}});
+  r.onclick=function(){if(S.hide)this.classList.toggle('show')};d.appendChild(r)}
+ d.appendChild(aud(v.n));
+ var t=document.createElement('details');t.innerHTML='<summary>Pronunciation tip</summary><div class="tip"></div>';t.querySelector('.tip').textContent=v.tip;d.appendChild(t);
+ return d}
+function list(el,a,b){el.innerHTML='';el.className=S.hide?'hide':'';for(var i=a;i<b;i++)el.appendChild(card(i))}
+function lab(a,b){var n=[];for(var i=a;i<b;i++)n.push(V[i].n);return(n.length>1?'Verses ':'Verse ')+n.join(', ')}
+function render(){
+ var e=Math.min(S.pos+S.pace,V.length),fin=S.pos>=V.length;
+ $('streak').textContent=streak()+'-day streak';
+ $('pace').value=S.pace;var sa=$('startAt');if(!sa.options.length)V.forEach(function(v,i){var o=document.createElement('option');o.value=i;o.textContent=v.n;sa.appendChild(o)});sa.value=Math.min(S.pos,V.length-1);
+ document.querySelectorAll('.chip[data-s]').forEach(function(b){b.setAttribute('aria-pressed',!!S.sc[b.dataset.s])});
+ $('hideBtn').setAttribute('aria-pressed',!!S.hide);
+ $('prog').textContent=fin?'All available verses finished':lab(S.pos,e)+' \u00b7 '+V.length+' verses ready';
+ var rv=$('rev');rv.innerHTML='';
+ if(S.pos>0&&(S.pos>=V.length||V[S.pos-1].n===V[S.pos].n-1)){var f=S.pos-1;while(f>0&&S.pos-f<S.pace&&V[f].n-V[f-1].n===1)f--;var dt=document.createElement('details');dt.innerHTML='<summary>Revise first: '+lab(f,S.pos)+'</summary>';var c=document.createElement('div');list(c,f,S.pos);dt.appendChild(c);rv.appendChild(dt)}
+ $('todayH').textContent=fin?'Well done':'Today: '+lab(S.pos,e);
+ if(fin){$('today').innerHTML='<div class="verse">You have finished every verse added so far. More are coming soon. Keep revising the earlier ones.</div>'}else list($('today'),S.pos,e);
+ $('recBtn').disabled=fin;
+ $('finBtn').disabled=fin||S.days.indexOf(dstr(new Date()))<0;
 }
-function draw(){drawTabs();drawVerses();loadAudio();document.querySelectorAll('.step input').forEach(function(i){i.checked=false});document.getElementById('doneMsg').textContent=done[cur]?'You finished this lesson. Repeat it any time.':''}
-document.querySelectorAll('.chip[data-s]').forEach(function(b){b.onclick=function(){var k=b.dataset.s,on=b.getAttribute('aria-pressed')==='true';if(on&&Object.keys(scripts).filter(function(x){return scripts[x]}).length===1)return;scripts[k]=on?0:1;b.setAttribute('aria-pressed',!on);drawVerses()}});
-document.getElementById('hideBtn').onclick=function(){hide=!hide;this.setAttribute('aria-pressed',hide);drawVerses()};
-document.getElementById('doneBtn').onclick=function(){done[cur]=1;ss('sp_done',done);var t=dstr(new Date());if(days.indexOf(t)<0){days.push(t);ss('sp_days',days)}drawStreak();draw()};
-/* listen (computer voice placeholder) */
-var q=[],playing=false;
-var voice=null;
-function speakNext(){if(!playing||!q.length){playing=false;return}var u=new SpeechSynthesisUtterance(q.shift());if(voice){u.voice=voice;u.lang=voice.lang}else{u.lang='en-IN'}u.rate=parseFloat(document.getElementById('rate').value);u.onend=function(){setTimeout(speakNext,400)};u.onerror=function(){document.getElementById('ttsMsg').textContent='The browser could not play the voice. Turn the volume up and make sure the silent switch is off.';playing=false};speechSynthesis.speak(u)}
-document.getElementById('playBtn').onclick=function(){
- var m=document.getElementById('ttsMsg');
- if(!('speechSynthesis' in window)){m.textContent='This browser cannot play the computer voice. Use a recording from your own source.';return}
- speechSynthesis.cancel();var vs=speechSynthesis.getVoices(),hi=vs.filter(function(x){return x.lang.toLowerCase().indexOf('hi')===0})[0],en=vs.filter(function(x){return x.lang.toLowerCase().indexOf('en-in')===0})[0]||vs.filter(function(x){return x.lang.toLowerCase().indexOf('en')===0})[0];voice=hi||en||null;q=[];L[cur].v.forEach(function(v){v.l.forEach(function(l,i){q.push(hi?l[0].replace(/[०-९।॥]/g,''):P[v.n].l[i].replace(/-/g,''))})});playing=true;m.textContent=hi?'':'No Hindi voice found on this device, so the easy sounds are read in an English voice. To add a Hindi voice: Settings, Accessibility, Spoken Content, Voices.';speakNext()};
-document.getElementById('stopBtn').onclick=function(){playing=false;if('speechSynthesis' in window)speechSynthesis.cancel()};
-/* record */
-var mr=null,chunks=[],stream=null;
-document.getElementById('recBtn').onclick=async function(){
- var b=this,m=document.getElementById('recMsg'),a=document.getElementById('playback');
- if(mr&&mr.state==='recording'){mr.stop();b.textContent='Start recording';return}
+document.querySelectorAll('.chip[data-s]').forEach(function(b){b.onclick=function(){var k=b.dataset.s;if(S.sc[k]&&Object.keys(S.sc).filter(function(x){return S.sc[x]}).length===1)return;S.sc[k]=S.sc[k]?0:1;sv();render()}});
+$('hideBtn').onclick=function(){S.hide=S.hide?0:1;sv();render()};
+$('pace').onchange=function(){S.pace=parseInt(this.value,10);sv();render()};
+$('startAt').onchange=function(){S.pos=parseInt(this.value,10);sv();render()};
+$('finBtn').onclick=function(){S.pos=Math.min(S.pos+S.pace,V.length);sv();$('finMsg').textContent='Done for today. Your next verses are ready.';render();window.scrollTo(0,0)};
+/* recordings */
+function dbo(){return new Promise(function(res,rej){var r=indexedDB.open('sp_rec',1);r.onupgradeneeded=function(){r.result.createObjectStore('r',{keyPath:'t'})};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
+function rp(r){return new Promise(function(res,rej){r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
+function saveRec(o){return dbo().then(function(d){var t=d.transaction('r','readwrite');t.objectStore('r').put(o);return new Promise(function(res,rej){t.oncomplete=res;t.onerror=function(){rej(t.error)}})})}
+function showMine(){
+ var el=$('mine');
+ try{dbo().then(function(d){return rp(d.transaction('r').objectStore('r').getAll())}).then(function(a){
+  a.sort(function(x,y){return y.t-x.t});
+  var old=a.slice(7);if(old.length)dbo().then(function(d){var s=d.transaction('r','readwrite').objectStore('r');old.forEach(function(o){s.delete(o.t)})});
+  el.innerHTML='';if(!a.length){el.textContent='No recordings yet.';return}
+  a.slice(0,7).forEach(function(o){var d=document.createElement('div');d.className='rec1';d.innerHTML='<div class="note"></div>';d.firstChild.textContent=new Date(o.t).toLocaleString(undefined,{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})+' · '+o.l;var u=document.createElement('audio');u.controls=true;u.src=URL.createObjectURL(o.b);d.appendChild(u);el.appendChild(d)})
+ }).catch(function(){el.textContent='Recordings cannot be shown on this browser.'})}catch(e){el.textContent='Recordings cannot be shown on this browser.'}}
+var mr=null,ch=[],st=null;
+$('recBtn').onclick=async function(){
+ var b=this,m=$('recMsg'),a=$('playback');
+ if(mr&&mr.state==='recording'){mr.stop();b.textContent="Record today's verses";return}
  try{
-  stream=await navigator.mediaDevices.getUserMedia({audio:true});
-  mr=new MediaRecorder(stream);chunks=[];
-  mr.ondataavailable=function(e){chunks.push(e.data)};
-  mr.onstop=function(){a.src=URL.createObjectURL(new Blob(chunks,{type:mr.mimeType}));a.hidden=false;stream.getTracks().forEach(function(t){t.stop()});m.textContent='Recording saved. Press play to listen.'};
+  st=await navigator.mediaDevices.getUserMedia({audio:true});
+  mr=new MediaRecorder(st);ch=[];
+  var label=lab(S.pos,Math.min(S.pos+S.pace,V.length));
+  mr.ondataavailable=function(e){ch.push(e.data)};
+  mr.onstop=function(){
+   var blob=new Blob(ch,{type:mr.mimeType});a.src=URL.createObjectURL(blob);a.hidden=false;st.getTracks().forEach(function(t){t.stop()});
+   var td=dstr(new Date());if(S.days.indexOf(td)<0){S.days.push(td);sv()}
+   m.textContent='Saved. Press play to hear yourself, then compare with the guide.';render();
+   saveRec({t:Date.now(),b:blob,l:label}).then(showMine).catch(function(){m.textContent='Recorded, but it could not be saved on this device. It plays until you leave the page.'})};
   mr.start();b.textContent='Stop recording';m.textContent='Recording...';
- }catch(e){m.textContent='Microphone not available. Allow microphone access for this page, or open it in your browser directly.'}
+ }catch(e){m.textContent='Microphone not available. Allow microphone access for this page in your browser settings.'}
 };
-function dbo(){return new Promise(function(res,rej){var r=indexedDB.open('sp_audio',1);r.onupgradeneeded=function(){r.result.createObjectStore('a')};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
-function dbget(k){return dbo().then(function(d){return new Promise(function(res,rej){var g=d.transaction('a').objectStore('a').get(k);g.onsuccess=function(){res(g.result)};g.onerror=function(){rej(g.error)}})})}
-function dbput(k,v){return dbo().then(function(d){return new Promise(function(res,rej){var t=d.transaction('a','readwrite');t.objectStore('a').put(v,k);t.oncomplete=res;t.onerror=function(){rej(t.error)}})})}
-function dbdel(k){return dbo().then(function(d){return new Promise(function(res,rej){var t=d.transaction('a','readwrite');t.objectStore('a').delete(k);t.oncomplete=res;t.onerror=function(){rej(t.error)}})})}
-var lp=document.getElementById('lessonPlayer'),am=document.getElementById('audioMsg'),aurl=null;
-function loadAudio(){
- am.textContent='';if(aurl){URL.revokeObjectURL(aurl);aurl=null}
- var fb=function(){tried=0;lp.src='audio/lesson'+(cur+1)+'.m4a'};
- try{dbget('lesson'+cur).then(function(b){if(b){aurl=URL.createObjectURL(b);lp.src=aurl;am.textContent='Playing your own audio for this lesson.'}else fb()}).catch(fb)}catch(e){fb()}
-}
-var tried=0;lp.onerror=function(){if(!aurl&&!tried&&/\.m4a$/.test(lp.src)){tried=1;lp.src=lp.src.replace(/\.m4a$/,'.mp3');return}if(!aurl)am.textContent='No audio added for this lesson yet. Choose your own file, or use the computer voice below.'};
-document.getElementById('audioFile').onchange=function(){var f=this.files[0];if(!f)return;dbput('lesson'+cur,f).then(loadAudio).catch(function(){aurl=URL.createObjectURL(f);lp.src=aurl;am.textContent='Could not save the file on this device. It plays only until you leave the page.'});this.value=''};
-document.getElementById('clearAudio').onclick=function(){dbdel('lesson'+cur).then(loadAudio).catch(loadAudio)};
-drawStreak();draw();
+render();showMine();
 </script>
 </body>
 </html>
