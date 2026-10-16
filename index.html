@@ -102,6 +102,9 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .imgb img{display:block;width:100%;aspect-ratio:5/4;object-fit:cover;object-position:50% 55%}
 .lb{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:12px;cursor:zoom-out}
 .lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px}
+.stage{display:inline-block;margin:8px 0 4px;padding:5px 12px;border-radius:999px;font-size:.8rem;font-weight:700}
+.stage.rev{background:var(--gold-bg);color:var(--sf)}
+.stage.new{background:var(--acc);color:var(--acc-ink)}
 </style>
 </head>
 <body>
@@ -189,10 +192,20 @@ function tdy(){return dstr(new Date())}
 function addDay(){if(S.days.indexOf(tdy())<0){S.days.push(tdy())}sv()}
 function setStep(k,on){var a=S.steps[tdy()]||[0,0,0,0,0];a[k]=on?1:0;S.steps[tdy()]=a;sv()}
 function streak(){var n=0,d=new Date();if(S.days.indexOf(dstr(d))<0)d.setDate(d.getDate()-1);while(S.days.indexOf(dstr(d))>=0){n++;d.setDate(d.getDate()-1)}return n}
-var view='home',vi=0,tab='say',selW=0,LST=[],notice='';
-function mkList(){var L=[],e=Math.min(S.pos+S.pace,V.length);
- if(S.pos>0&&S.pos<V.length&&V[S.pos-1].n===V[S.pos].n-1){var f=S.pos-1;while(f>0&&S.pos-f<S.pace&&V[f].n-V[f-1].n===1)f--;for(var i=f;i<S.pos;i++)L.push({i:i,r:1})}
- for(var j=S.pos;j<e;j++)L.push({i:j,r:0});return L}
+var view='home',vi=0,tab='say',selW=0,LST=[],notice='',transMsg='';
+S.rev=S.rev||{};
+function vIdx(n){for(var i=0;i<V.length;i++)if(V[i].n===n)return i;return -1}
+function dueVerses(){var td=tdy(),out=[];Object.keys(S.rev).forEach(function(k){if(S.rev[k].due<=td)out.push(+k)});out.sort(function(a,b){return a-b});return out}
+function mkList(){var L=[],e=Math.min(S.pos+S.pace,V.length),seen={};
+ dueVerses().forEach(function(n){var i=vIdx(n);if(i>=0){L.push({i:i,r:1,rt:'due'});seen[n]=1}});
+ for(var j=S.pos;j<e;j++)if(!seen[V[j].n])L.push({i:j,r:0});
+ return L}
+function recapList(){return S.learned.slice().sort(function(a,b){return a-b}).map(function(n){return {i:vIdx(n),r:1,rt:'recap'}}).filter(function(x){return x.i>=0})}
+function advanceRev(n){var r=S.rev[n];if(!r){S.rev[n]={stage:0,due:addDays(1)};return}
+ var step=[1,3,7],d=new Date();
+ if(r.stage>=step.length-1){delete S.rev[n]}
+ else{r.stage++;r.due=addDays(step[r.stage])}}
+function addDays(n){var d=new Date();d.setDate(d.getDate()+n);return dstr(d)}
 function lab(a,b){var n=[];for(var i=a;i<b;i++)n.push(V[i].n);return(n.length>1?'Verses ':'Verse ')+n.join(', ')}
 function weekDots(){var d=new Date(),dow=(d.getDay()+6)%7,s='';d.setDate(d.getDate()-dow);var nm='MTWTFSS';
  for(var k=0;k<7;k++){var x=new Date(d);x.setDate(d.getDate()+k);s+='<span class="'+(S.days.indexOf(dstr(x))>=0?'on':'')+'">'+nm[k]+'</span>'}return s}
@@ -240,14 +253,18 @@ function home(){
  h+='<div class="card"><h2>Today\'s practice</h2><div class="mute">'+(fin?'All added verses are finished':lab(S.pos,e)+' \u00b7 about 10 minutes, early morning is best')+'</div>';
  STEPS.forEach(function(s,k){h+='<button class="step" data-act="step" data-k="'+k+'" aria-pressed="'+!!st[k]+'"><span class="ck">'+(st[k]?'\u2713':k+1)+'</span><span><b>'+s[0]+'</b><br><span class="mute">'+s[1]+'</span></span></button>'});
  h+='</div><button class="btn sf" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today':'Start today\'s verses')+'</button>';
+ if(S.learned.length)h+='<button class="btn ghost" data-act="recap" style="margin-top:8px">\ud83e\udd4d Weekly recap: chant everything so far</button>';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
  return h}
+function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
+ if(transMsg){var h='<div class="card plain">'+transMsg+'</div><div class="dn"><button class="btn sf" data-act="contNew">Continue</button></div>';return h}
  var it=LST[vi],v=V[it.i],m=M[v.n],k=LI[S.lang],last=vi===LST.length-1;
- var h='<div class="vtop"><button class="back" data-act="home" aria-label="Back to home">\u2190</button><span>'+(it.r?'Revise':'Today')+', verse '+(vi+1)+' of '+LST.length+'</span></div><div class="pb"><i style="width:'+((vi+1)/LST.length*100)+'%"></i></div>';
+ var stg=stageLabel(it),stgCls=it.r?'stage rev':'stage new';
+ var h='<div class="vtop"><button class="back" data-act="home" aria-label="Back to home">\u2190</button><span>'+stg+', verse '+(vi+1)+' of '+LST.length+'</span></div><div class="pb"><i style="width:'+((vi+1)/LST.length*100)+'%"></i></div><div class="'+stgCls+'">'+(it.r?'\ud83d\udd01 Revising':'\u2728 New today')+'</div>';
  h+='<div class="card"><div class="vnum">Verse '+v.n+'</div>';
  var hc=S.hide?' hid" data-act="peek':'';
- var mn=S.main||'sa',big=v[mn],easy=mn==='en'?v.pr:[syl(v[mn][0],mn),syl(v[mn][1],mn)];
+ var mn=S.main||'sa',big=v[mn],easy=v.pr;
  h+='<div class="'+(mn==='te'?'te':mn==='en'?'enb':'sa')+' big'+hc+'">'+big[0]+'<br>'+big[1]+'</div><div class="prb'+hc+'">'+easy[0]+'<br>'+easy[1]+'</div></div>';
  h+='<div class="seg">'+[['say','Say it'],['meaning','Meaning'],['benefit','Benefit']].map(function(x){return '<button data-act="tab" data-v="'+x[0]+'" aria-pressed="'+(tab===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
  if(tab==='say'){
@@ -256,7 +273,9 @@ function verse(){
   ['sa','te','en'].forEach(function(k){if(k!==mn&&S.sc[k])h+='<div class="'+(k==='te'?'te':k==='sa'?'sa':'mute')+'">'+v[k][0]+'<br>'+v[k][1]+'</div>'});
   var b='audio/v'+('00'+v.n).slice(-3);
   h+='<div class="card"><b>Listen to the guide</b><audio controls preload="metadata" src="'+b+'.m4a" onerror="aerr(this)"></audio></div>';
-  h+='<button class="btn rec" data-act="rec">Record yourself</button><audio id="playback" controls hidden></audio><div class="msg" id="recMsg" aria-live="polite"></div>';
+  h+='<button class="btn rec" data-act="rec">'+(recActive?'Stop recording':'Record yourself')+'</button>';
+  if(lastRecURL&&lastRecVerse===vi)h+='<audio controls src="'+lastRecURL+'"></audio>';else h+='<audio id="playback" controls hidden></audio>';
+  h+='<div class="msg" id="recMsg" aria-live="polite">'+(recActive?'Recording...':(lastRecURL&&lastRecVerse===vi?'Saved. Press play to hear yourself, then compare with the guide.':''))+'</div>';
   h+='<details class="card"><summary>Pronunciation tip</summary><div class="tip">'+v.tip+'</div></details>';
  }else if(tab==='meaning'){
   h+=chipsLang();
@@ -295,24 +314,25 @@ function themeBtns(){return Object.keys(THEMES).map(function(k){var t=THEMES[k];
 applyTheme();
 try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applyTheme)}catch(e){}
 var mr=null,ch=[],st=null;
+var recActive=false,lastRecURL=null,lastRecVerse=null;
+function stopRecIfActive(){if(mr&&mr.state==='recording'){mr.stop()}}
 async function recToggle(btn){
- var m=$('recMsg'),a=$('playback');
- if(mr&&mr.state==='recording'){mr.stop();btn.textContent='Record yourself';return}
- try{st=await navigator.mediaDevices.getUserMedia({audio:true});mr=new MediaRecorder(st);ch=[];var label='Verse '+V[LST[vi].i].n;
+ if(mr&&mr.state==='recording'){mr.stop();return}
+ try{st=await navigator.mediaDevices.getUserMedia({audio:true});mr=new MediaRecorder(st);ch=[];var label='Verse '+V[LST[vi].i].n,forVerse=vi;
   mr.ondataavailable=function(e){ch.push(e.data)};
-  mr.onstop=function(){var blob=new Blob(ch,{type:mr.mimeType});a.src=URL.createObjectURL(blob);a.hidden=false;st.getTracks().forEach(function(t){t.stop()});addDay();setStep(3,1);m.textContent='Saved. Press play to hear yourself, then compare with the guide.';saveRec({t:Date.now(),b:blob,l:label}).catch(function(){m.textContent='Recorded, but it could not be saved on this device. It plays until you leave the page.'})};
-  mr.start();btn.textContent='Stop recording';m.textContent='Recording...';
- }catch(e){m.textContent='Microphone not available. Allow microphone access for this page in your browser settings.'}}
+  mr.onstop=function(){var blob=new Blob(ch,{type:mr.mimeType});st.getTracks().forEach(function(t){t.stop()});addDay();setStep(3,1);recActive=false;lastRecURL=URL.createObjectURL(blob);lastRecVerse=forVerse;sv();if(view==='verse')render();saveRec({t:Date.now(),b:blob,l:label}).then(showMine).catch(function(){})};
+  mr.start();recActive=true;if(view==='verse')render();
+ }catch(e){recActive=false;var m=$('recMsg');if(m)m.textContent='Microphone not available. Allow microphone access for this page in your browser settings.'}}
 var app=$('app');
 app.addEventListener('click',function(e){
  var t=e.target.closest('[data-act]');if(!t)return;var a=t.dataset.act,v=t.dataset.v;
  if(a==='step'){var k=+t.dataset.k,s=S.steps[tdy()]||[0,0,0,0,0];setStep(k,!s[k]);render()}
  else if(a==='start'){LST=mkList();vi=0;tab='say';selW=0;view='verse';render(1)}
- else if(a==='home'){nudge=false;view='home';render(1)}
+ else if(a==='home'){stopRecIfActive();nudge=false;view='home';render(1)}
  else if(a==='recnow'){nudge=false;tab='say';render()}
  else if(a==='skip'){skipN=true;nudge=false;document.querySelector('[data-act="next"]').click()}
  else if(a==='lang'){S.lang=v;sv();render()}
- else if(a==='tab'){tab=v;selW=0;render()}
+ else if(a==='tab'){if(tab==='say'&&v!=='say')stopRecIfActive();tab=v;selW=0;render()}
  else if(a==='word'){selW=+v;render()}
  else if(a==='sc'){S.sc[v]=S.sc[v]?0:1;sv();render()}
  else if(a==='main'){S.main=v;sv();render()}
@@ -325,9 +345,16 @@ app.addEventListener('click',function(e){
  else if(a==='rec'){recToggle(t)}
  else if(a==='next'){
   if(vi===LST.length-1&&!(S.steps[tdy()]||[])[3]&&!skipN){nudge=true;render();return}
-  var it=LST[vi];if(!it.r){var n=V[it.i].n;if(S.learned.indexOf(n)<0)S.learned.push(n)}
-  if(vi<LST.length-1){vi++;tab='say';selW=0;render(1)}
-  else{addDay();setStep(0,1);setStep(1,1);setStep(2,1);setStep(4,1);S.pos=Math.min(S.pos+S.pace,V.length);S.doneDay=tdy();skipN=false;nudge=false;sv();view='home';notice='Well done. Today\'s practice is complete. You can rest now, or learn the next verses today if you feel ready. Say today\'s verses once more before moving on.';render(1)}}
+  var it=LST[vi];
+  if(it.rt==='due')advanceRev(V[it.i].n);
+  if(!it.r){var n=V[it.i].n;if(S.learned.indexOf(n)<0){S.learned.push(n);S.rev[n]={stage:0,due:addDays(1)}}}
+  var nextIsNew=vi<LST.length-1&&it.r&&!LST[vi+1].r;
+  sv();
+  if(nextIsNew){transMsg='\ud83d\ude4f Wonderful! You have revised what you learned. Now, let us learn something new.';render(1);return}
+  stopRecIfActive();if(vi<LST.length-1){vi++;tab='say';selW=0;render(1)}
+  else{addDay();setStep(0,1);setStep(1,1);setStep(2,1);setStep(4,1);var wasRecap=LST.length&&LST[0].rt==='recap';if(!wasRecap)S.pos=Math.min(S.pos+S.pace,V.length);S.doneDay=tdy();skipN=false;nudge=false;sv();view='home';notice=wasRecap?'\ud83c\udf3a Wonderful! You chanted everything you have learned so far. Hari Om!':'\ud83c\udf3a Wonderful! Today\'s practice is complete. You can rest now, or learn the next verses today if you feel ready.';render(1)}}
+ else if(a==='contNew'){transMsg='';vi++;tab='say';selW=0;render(1)}
+ else if(a==='recap'){if(!S.learned.length){return}LST=recapList();vi=0;tab='say';selW=0;transMsg='';view='verse';render(1)}
 });
 app.addEventListener('change',function(e){var t=e.target;
  if(t.dataset.act==='pace'){S.pace=+t.value;sv();render()}
