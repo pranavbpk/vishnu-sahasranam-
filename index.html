@@ -187,10 +187,10 @@ function dbdel(k){return dbo().then(function(d){return new Promise(function(res,
 var lp=document.getElementById('lessonPlayer'),am=document.getElementById('audioMsg'),aurl=null;
 function loadAudio(){
  am.textContent='';if(aurl){URL.revokeObjectURL(aurl);aurl=null}
- var fb=function(){lp.src='audio/lesson'+(cur+1)+'.mp3'};
+ var fb=function(){tried=0;lp.src='audio/lesson'+(cur+1)+'.m4a'};
  try{dbget('lesson'+cur).then(function(b){if(b){aurl=URL.createObjectURL(b);lp.src=aurl;am.textContent='Playing your own audio for this lesson.'}else fb()}).catch(fb)}catch(e){fb()}
 }
-lp.onerror=function(){if(!aurl)am.textContent='No audio added for this lesson yet. Choose your own file, or use the computer voice below.'};
+var tried=0;lp.onerror=function(){if(!aurl&&!tried&&/\.m4a$/.test(lp.src)){tried=1;lp.src=lp.src.replace(/\.m4a$/,'.mp3');return}if(!aurl)am.textContent='No audio added for this lesson yet. Choose your own file, or use the computer voice below.'};
 document.getElementById('audioFile').onchange=function(){var f=this.files[0];if(!f)return;dbput('lesson'+cur,f).then(loadAudio).catch(function(){aurl=URL.createObjectURL(f);lp.src=aurl;am.textContent='Could not save the file on this device. It plays only until you leave the page.'});this.value=''};
 document.getElementById('clearAudio').onclick=function(){dbdel('lesson'+cur).then(loadAudio).catch(loadAudio)};
 drawStreak();draw();
