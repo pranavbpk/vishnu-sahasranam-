@@ -56,7 +56,6 @@ audio{width:100%}
 ul{margin:6px 0 0;padding-left:20px}
 li{margin:6px 0}
 details summary{cursor:pointer;font-weight:700}
-.tip{background:var(--gold-bg);border-radius:10px;padding:10px 12px;margin-top:8px;font-size:.95rem}
 .msg{color:var(--sf);min-height:1.2em;font-size:.92rem}
 .btn.rec{background:var(--rec);color:#fff}
 .dn{position:sticky;bottom:0;padding:10px 0;background:linear-gradient(transparent,var(--bg) 30%)}
@@ -105,6 +104,11 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .stage{display:inline-block;margin:8px 0 4px;padding:5px 12px;border-radius:999px;font-size:.8rem;font-weight:700}
 .stage.rev{background:var(--gold-bg);color:var(--sf)}
 .stage.new{background:var(--acc);color:var(--acc-ink)}
+.tip{background:var(--gold-bg);border-radius:12px;padding:12px 14px;margin:10px 0}
+.recok{background:var(--gold-bg);border:2px solid var(--sf);border-radius:14px;padding:14px;margin-top:10px}
+.recok b{color:var(--sf);font-size:1.1rem}
+.recok ul{margin:8px 0 0;padding-left:18px}
+.recok li{margin:4px 0;font-size:.9rem}
 </style>
 </head>
 <body>
@@ -186,6 +190,7 @@ function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catc
 function sv(){try{localStorage.setItem('sp2',JSON.stringify(S))}catch(e){}}
 var S=ld('sp2',{pace:1,pos:0,days:ld('sp_days',[]),sc:{sa:1,pr:1,en:0,te:0},hide:0});
 S.lang=S.lang||'en';S.main=S.main||'sa';S.learned=S.learned||[];S.steps=S.steps||{};S.sc=S.sc||{};
+var listenCount={};
 var $=function(i){return document.getElementById(i)};
 function dstr(d){return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
 function tdy(){return dstr(new Date())}
@@ -268,15 +273,14 @@ function verse(){
  h+='<div class="'+(mn==='te'?'te':mn==='en'?'enb':'sa')+' big'+hc+'">'+big[0]+'<br>'+big[1]+'</div><div class="prb'+hc+'">'+easy[0]+'<br>'+easy[1]+'</div></div>';
  h+='<div class="seg">'+[['say','Say it'],['meaning','Meaning'],['benefit','Benefit']].map(function(x){return '<button data-act="tab" data-v="'+x[0]+'" aria-pressed="'+(tab===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
  if(tab==='say'){
-  h+='<div class="chips"><span class="mute">Main</span>'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+(mn===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
-  h+='<div class="chips">'+['sa','te','en'].filter(function(k){return k!==mn}).map(function(k){return '<button class="chip" data-act="sc" data-v="'+k+'" aria-pressed="'+!!S.sc[k]+'">Also show '+{sa:'Sanskrit',te:'తెలుగు',en:'English'}[k]+'</button>'}).join('')+'<button class="chip" data-act="hide" aria-pressed="'+!!S.hide+'">Hide text to test myself</button></div>';
-  ['sa','te','en'].forEach(function(k){if(k!==mn&&S.sc[k])h+='<div class="'+(k==='te'?'te':k==='sa'?'sa':'mute')+'">'+v[k][0]+'<br>'+v[k][1]+'</div>'});
-  var b='audio/v'+('00'+v.n).slice(-3);
-  h+='<div class="card"><b>Listen to the guide</b><audio controls preload="metadata" src="'+b+'.m4a" onerror="aerr(this)"></audio></div>';
-  h+='<button class="btn rec" data-act="rec">'+(recActive?'Stop recording':'Record yourself')+'</button>';
-  if(lastRecURL&&lastRecVerse===vi)h+='<audio controls src="'+lastRecURL+'"></audio>';else h+='<audio id="playback" controls hidden></audio>';
-  h+='<div class="msg" id="recMsg" aria-live="polite">'+(recActive?'Recording...':(lastRecURL&&lastRecVerse===vi?'Saved. Press play to hear yourself, then compare with the guide.':''))+'</div>';
-  h+='<details class="card"><summary>Pronunciation tip</summary><div class="tip">'+v.tip+'</div></details>';
+  h+='<div class="tip"><b>How to say it</b><br>'+v.tip+'</div>';
+  h+='<div class="chips"><span class="mute">Script</span>'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+(mn===x[0])+'">'+x[1]+'</button>'}).join('')+'<button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show other scripts too</button><button class="chip" data-act="hide" aria-pressed="'+!!S.hide+'">Test myself (hide text)</button></div>';
+  if(S.scAll)['sa','te','en'].forEach(function(k){if(k!==mn)h+='<div class="'+(k==='te'?'te':k==='sa'?'sa':'mute')+'">'+v[k][0]+'<br>'+v[k][1]+'</div>'});
+  var b='audio/v'+('00'+v.n).slice(-3),lc=listenCount[v.n]||0;
+  h+='<div class="card"><b>Listen to the guide</b><div class="mute" style="margin:4px 0 8px">Guru parampara style: hear it '+(lc>=3?'3 times \u2713':'at least 3 times')+', then try chanting it yourself.</div><audio controls preload="metadata" src="'+b+'.m4a" onerror="aerr(this)" data-act="aplay"></audio>'+(lc?'<div class="mute" style="margin-top:6px">Listened '+Math.min(lc,3)+' of 3 times'+(lc>=3?'. Ready to chant!':'')+'</div>':'')+'</div>';
+  h+='<button class="btn rec" data-act="rec">'+(recActive?'Stop recording':"I'm ready, record me")+'</button>';
+  if(lastRecURL&&lastRecVerse===vi){h+='<div class="recok"><b>\u2705 Verse '+v.n+' recorded</b><div class="mute">'+new Date().toLocaleDateString(undefined,{day:'numeric',month:'short'})+'</div><audio controls src="'+lastRecURL+'"></audio><details style="margin-top:8px"><summary>Compare with the guide</summary><ul><li>Does your pace match the guide\'s?</li><li>Did you pause between the two lines?</li><li>Did you hold the long vowels (aa, ee, oo)?</li><li>Listen to both back to back once more.</li></ul></details></div>'}
+  else{h+='<audio id="playback" controls hidden></audio><div class="msg" id="recMsg" aria-live="polite">'+(recActive?'Recording...':'')+'</div>'}
  }else if(tab==='meaning'){
   h+=chipsLang();
   if(!m){h+='<div class="card">'+T.soon[S.lang]+'</div>'}
@@ -286,7 +290,7 @@ function verse(){
   h+=chipsLang()+'<div class="card">'+T.none[S.lang]+'</div><div class="card"><h2>'+T.h.ex[S.lang]+'</h2><ul>'+T.ex[S.lang].map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><p class="mute">'+T.gen[S.lang]+'</p></div><div class="card"><h2>'+T.h.ct[S.lang]+'</h2>'+T.cnt[S.lang]+'</div>';
  }
  if(nudge)h+='<div class="plain">Record one verse so you can hear yourself? It only takes a minute.<div class="chips" style="margin-top:10px"><button class="chip" data-act="recnow">Record now</button><button class="chip" data-act="skip">Skip</button></div></div>';
- h+='<div class="dn"><button class="btn" data-act="next">'+(last?'Finish today':'Done, next verse')+'</button></div>';
+ h+='<div class="dn"><button class="btn" data-act="next">'+(last?"I'm done for today":"I've practised this")+'</button></div>';
  return h}
 function aerr(a){if(!a.dataset.t){a.dataset.t=1;a.src=a.src.replace('.m4a','.mp3')}else{var d=document.createElement('div');d.className='mute';d.textContent='Guide audio for this verse is coming soon.';a.replaceWith(d)}}
 function render(top){$('app').innerHTML=(view==='home'?home():verse())+(bigImg?'<div class="lb" data-act="img"><img src="'+IMG+'" alt="Lord Vishnu"></div>':'');if(view==='home')showMine();if(top)window.scrollTo(0,0)}
@@ -324,6 +328,7 @@ async function recToggle(btn){
   mr.start();recActive=true;if(view==='verse')render();
  }catch(e){recActive=false;var m=$('recMsg');if(m)m.textContent='Microphone not available. Allow microphone access for this page in your browser settings.'}}
 var app=$('app');
+app.addEventListener('play',function(e){var t=e.target;if(t&&t.tagName==='AUDIO'&&t.dataset.act==='aplay'){var n=V[LST[vi].i].n;listenCount[n]=(listenCount[n]||0)+1;if(listenCount[n]<=3)render()}},true);
 app.addEventListener('click',function(e){
  var t=e.target.closest('[data-act]');if(!t)return;var a=t.dataset.act,v=t.dataset.v;
  if(a==='step'){var k=+t.dataset.k,s=S.steps[tdy()]||[0,0,0,0,0];setStep(k,!s[k]);render()}
@@ -335,6 +340,7 @@ app.addEventListener('click',function(e){
  else if(a==='tab'){if(tab==='say'&&v!=='say')stopRecIfActive();tab=v;selW=0;render()}
  else if(a==='word'){selW=+v;render()}
  else if(a==='sc'){S.sc[v]=S.sc[v]?0:1;sv();render()}
+ else if(a==='scall'){S.scAll=!S.scAll;sv();render()}
  else if(a==='main'){S.main=v;sv();render()}
  else if(a==='pace'){S.pace=+v;notice='Pace set to '+v+' a day. Today\'s list has been updated.';sv();render()}
  else if(a==='panel'){panel=panel===v?'':v;render()}
