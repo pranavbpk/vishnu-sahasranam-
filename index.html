@@ -359,6 +359,7 @@ function home(){
  h+='</div><button class="btn sf" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today':'Start today\'s verses')+'</button>';
  if(S.learned.length)h+='<button class="btn ghost" data-act="recap" style="margin-top:8px">\ud83e\udd4d Weekly recap: chant everything so far</button>';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
+ h+='<div class="mute" style="text-align:center">Version 24 \u00b7 18 Oct 2026</div>';
  return h}
 function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
@@ -408,7 +409,8 @@ function showMine(){
   if(a.length>10)el.insertAdjacentHTML('beforeend','<div class="mute" style="margin-top:6px">Showing the 10 most recent. Every take you record stays saved on this device.</div>')
  }).catch(function(){el.textContent='Recordings cannot be shown on this browser.'})}catch(e){el.textContent='Recordings cannot be shown on this browser.'}}
 var vRecsCache={};
-function loadVerseRecs(n){allRecs().then(function(a){var db=a.filter(function(o){return o.n===n}),have=vRecsCache[n]||[],seen={};db.forEach(function(o){seen[o.t]=1});have.forEach(function(o){if(!seen[o.t])db.push(o)});db.sort(function(x,y){return y.t-x.t});vRecsCache[n]=db;if(view==='verse'&&LST[vi]&&V[LST[vi].i].n===n)render()}).catch(function(){})}
+function softRender(){var busy=false;document.querySelectorAll('audio').forEach(function(x){if(!x.paused&&!x.ended)busy=true});if(busy)setTimeout(softRender,1500);else render()}
+function loadVerseRecs(n){allRecs().then(function(a){var db=a.filter(function(o){return o.n===n}),have=vRecsCache[n]||[],seen={};db.forEach(function(o){seen[o.t]=1});have.forEach(function(o){if(!seen[o.t])db.push(o)});db.sort(function(x,y){return y.t-x.t});vRecsCache[n]=db;if(view==='verse'&&LST[vi]&&V[LST[vi].i].n===n)softRender()}).catch(function(){})}
 function verseRecsHTML(n){
  var list=vRecsCache[n];
  if(list===undefined){loadVerseRecs(n);return '<div class="mute">Loading your takes...</div>'}
