@@ -144,6 +144,20 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .cheer .chip{color:#2b1d00;background:rgba(255,255,255,.75);border-color:transparent}
 .welcome{background:var(--gold-bg);border-radius:14px;padding:12px 14px}
 .welcome.keep{background:var(--soft)}
+.rpsheet{position:fixed;inset:0;z-index:45;background:var(--bg);overflow:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px;max-width:520px;margin:0 auto}
+.rpph{border-radius:16px;padding:14px;text-align:center;font-size:1.3rem;font-weight:700;color:#fff}
+.rpph.listen{background:linear-gradient(135deg,#1f9d8f,#26357a)}
+.rpph.turn{background:linear-gradient(135deg,#f6a93b,#d9531e)}
+.rpph.done{background:linear-gradient(135deg,#23834a,#1f9d8f)}
+.rpph.rec{background:linear-gradient(135deg,#d64545,#8e1f1f)}
+.reddot{display:inline-block;width:12px;height:12px;border-radius:50%;background:#fff;margin-right:6px;animation:pl 1s infinite}
+@keyframes pl{50%{opacity:.25}}
+.rpverse{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.rpverse .sa{font-size:1.9rem}
+.rpverse .big2{font-size:1.25rem;margin-top:8px}
+.rpbar{height:12px;background:var(--soft);border-radius:9px;overflow:hidden}
+.rpbar i{display:block;height:100%;width:0;background:var(--sf)}
+@media (prefers-reduced-motion:reduce){.reddot{animation:none}}
 </style>
 </head>
 <body>
@@ -358,15 +372,15 @@ function verse(){
  h+='<div class="'+(mn==='te'?'te':mn==='en'?'enb':'sa')+' big'+hc+'">'+big[0]+'<br>'+big[1]+'</div><div class="prb'+hc+'">'+easy[0]+'<br>'+easy[1]+'</div></div>';
  h+='<div class="seg">'+[['say',T.L.say[S.lang]],['meaning',T.L.meaning[S.lang]],['benefit',T.L.benefit[S.lang]]].map(function(x){return '<button data-act="tab" data-v="'+x[0]+'" aria-pressed="'+(tab===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
  if(tab==='say'){
+  h+='<button class="btn" style="margin-top:6px" data-act="rpstart">\ud83c\udfa7 Repeat after me (hands-free)</button><div class="mute" style="margin:6px 0 10px">Listen, then your turn, 3 rounds. The screen stays on.</div>';
   h+='<div class="tip"><b>'+T.L.pron[S.lang]+'</b><br>'+v.tip+'</div>';
   h+='<div class="chips"><span class="mute">Script</span>'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+(mn===x[0])+'">'+x[1]+'</button>'}).join('')+'<button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show other scripts too</button><button class="chip" data-act="hide" aria-pressed="'+!!S.hide+'">Test myself (hide text)</button></div>';
   if(S.scAll)['sa','te','en'].forEach(function(k){if(k!==mn)h+='<div class="'+(k==='te'?'te':k==='sa'?'sa':'mute')+'">'+v[k][0]+'<br>'+v[k][1]+'</div>'});
   var b='audio/v'+('00'+v.n).slice(-3),lc=listenCount[v.n]||0,dots3=[0,1,2].map(function(i){return '<span class="ld'+(lc>i?' on':'')+'"></span>'}).join('');
   h+='<div class="listen'+(lc>=3?' ready':lc>0?' part':'')+'"><div class="lrow"><span class="lico">\ud83d\udd14</span><b>'+T.L.listen[S.lang]+'</b><span class="ldots">'+dots3+'</span></div><div class="mute" style="margin:2px 0 8px">Guru parampara style: hear it at least 3 times, then try chanting it yourself.</div><audio controls preload="metadata" src="'+b+'.m4a" onerror="aerr(this)" data-act="aplay"></audio>'+'<div class="lready">'+(lc>=3?'\u2728 Ready to chant! Now say it yourself.':'Listened '+lc+' of 3. Hear it '+(3-lc)+' more time'+(3-lc>1?'s':'')+'.')+'</div></div>';
-  h+='<button class="btn rec" data-act="rec">'+(recActive?'Stop recording':(vRecsCache[v.n]&&vRecsCache[v.n].length?'Record another take':"I'm ready, record me"))+'</button>';
-  if(lastRecURL&&lastRecVerse===vi){h+='<div class="recok"><b>\u2705 Verse '+v.n+' saved</b><div class="mute">'+new Date().toLocaleDateString(undefined,{day:'numeric',month:'short'})+' \u00b7 every take is kept, nothing is overwritten</div><audio controls src="'+lastRecURL+'"></audio><details style="margin-top:8px"><summary>Compare with the guide</summary><ul><li>Does your pace match the guide\'s?</li><li>Did you pause between the two lines?</li><li>Did you hold the long vowels (aa, ee, oo)?</li><li>Listen to both back to back once more.</li></ul></details></div>'}
-  else{h+='<audio id="playback" controls hidden></audio><div class="msg" id="recMsg" aria-live="polite">'+(recActive?'Recording...':'')+'</div>'}
-  h+='<details class="card" '+(vRecsCache[v.n]&&vRecsCache[v.n].length?'open':'')+'><summary>Your takes for this verse'+(vRecsCache[v.n]?' ('+vRecsCache[v.n].length+')':'')+'</summary>'+verseRecsHTML(v.n)+'</details>';
+  var tk=vRecsCache[v.n];
+  h+='<button class="btn rec" data-act="rec">'+(recActive?'Stop recording':(tk&&tk.length?'Record another take ('+tk.length+' saved)':T.L.rec[S.lang]))+'</button><div class="msg" id="recMsg" aria-live="polite"></div>';
+  h+='<div class="card takes"><h2>'+T.L.takes[S.lang]+(tk&&tk.length?' ('+tk.length+')':'')+'</h2>'+verseRecsHTML(v.n)+(tk&&tk.length?'<div class="mute" style="margin-top:8px">Every take is kept. Compare your first and latest.</div><details style="margin-top:8px"><summary>Compare with the guide</summary><ul><li>Does your pace match the guide\'s?</li><li>Did you pause between the two lines?</li><li>Did you hold the long vowels (aa, ee, oo)?</li></ul></details>':'')+'</div>';
  }else if(tab==='meaning'){
   h+=chipsLang();
   if(!m){h+='<div class="card">'+T.soon[S.lang]+'</div>'}
@@ -379,7 +393,7 @@ function verse(){
  h+='<div class="dn"><button class="btn" data-act="next">'+(last?"I'm done for today":"I've practised this")+'</button></div>';
  return h}
 function aerr(a){if(!a.dataset.t){a.dataset.t=1;a.src=a.src.replace('.m4a','.mp3')}else{var d=document.createElement('div');d.className='mute';d.textContent='Guide audio for this verse is coming soon.';a.replaceWith(d)}}
-function render(top){$('app').innerHTML=(view==='home'?home():verse())+(bigImg?'<div class="lb" data-act="img"><img src="'+IMG+'" alt="Lord Vishnu"></div>':'');if(view==='home')showMine();if(top)window.scrollTo(0,0)}
+function render(top){$('app').innerHTML=(view==='home'?home():verse())+ovl()+(bigImg?'<div class="lb" data-act="img"><img src="'+IMG+'" alt="Lord Vishnu"></div>':'');if(view==='home')showMine();if(top)window.scrollTo(0,0)}
 function dbo(){return new Promise(function(res,rej){var r=indexedDB.open('sp_rec',1);r.onupgradeneeded=function(){r.result.createObjectStore('r',{keyPath:'t'})};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
 function rp(r){return new Promise(function(res,rej){r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
 function saveRec(o){return dbo().then(function(d){var t=d.transaction('r','readwrite');t.objectStore('r').put(o);return new Promise(function(res,rej){t.oncomplete=res;t.onerror=function(){rej(t.error)}})})}
@@ -394,12 +408,12 @@ function showMine(){
   if(a.length>10)el.insertAdjacentHTML('beforeend','<div class="mute" style="margin-top:6px">Showing the 10 most recent. Every take you record stays saved on this device.</div>')
  }).catch(function(){el.textContent='Recordings cannot be shown on this browser.'})}catch(e){el.textContent='Recordings cannot be shown on this browser.'}}
 var vRecsCache={};
-function loadVerseRecs(n){allRecs().then(function(a){vRecsCache[n]=a.filter(function(o){return o.n===n}).sort(function(x,y){return y.t-x.t});if(view==='verse'&&V[LST[vi].i].n===n)render()}).catch(function(){})}
+function loadVerseRecs(n){allRecs().then(function(a){var db=a.filter(function(o){return o.n===n}),have=vRecsCache[n]||[],seen={};db.forEach(function(o){seen[o.t]=1});have.forEach(function(o){if(!seen[o.t])db.push(o)});db.sort(function(x,y){return y.t-x.t});vRecsCache[n]=db;if(view==='verse'&&LST[vi]&&V[LST[vi].i].n===n)render()}).catch(function(){})}
 function verseRecsHTML(n){
  var list=vRecsCache[n];
  if(list===undefined){loadVerseRecs(n);return '<div class="mute">Loading your takes...</div>'}
- if(!list.length)return '<div class="mute">No takes yet for this verse. Record one below.</div>';
- return list.map(function(o,i){return '<div class="rec1"><div class="note">Take '+(list.length-i)+' \u00b7 '+new Date(o.t).toLocaleString(undefined,{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})+'</div><audio controls src="'+URL.createObjectURL(o.b)+'"></audio></div>'}).join('')}
+ if(!list.length)return '<div class="mute">No takes yet for this verse. Tap the red button to record one.</div>';
+ return list.map(function(o,i){if(!o.u)o.u=URL.createObjectURL(o.b);return '<div class="rec1"><div class="note">Take '+(list.length-i)+' \u00b7 '+new Date(o.t).toLocaleString(undefined,{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})+(i===0?' <span class="tag new">Latest</span>':'')+'</div><audio controls src="'+o.u+'"></audio></div>'}).join('')}
 
 var THEMES={
 indigo:{n:'Indigo and saffron',l:['#26357a','#fff','#e4e8f2','#fff3d1','#e8890c','#1b2340'],d:['#8fa3ff','#0d1030','#262a55','#3a2f10','#e8890c','#1b2340']},
@@ -412,15 +426,42 @@ function applyTheme(){var t=THEMES[S.theme]||THEMES.indigo,dk=window.matchMedia&
 function themeBtns(){return Object.keys(THEMES).map(function(k){var t=THEMES[k];return '<button class="chip" data-act="theme" data-v="'+k+'" aria-pressed="'+((S.theme||'indigo')===k)+'"><span class="sd" style="background:linear-gradient(135deg,'+t.l[0]+' 50%,'+t.l[4]+' 50%)"></span>'+t.n+'</button>'}).join('')}
 applyTheme();
 try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applyTheme)}catch(e){}
+function sheetVerse(){var it=LST[vi],v=V[it.i],mn=S.main||'sa';return '<div class="rpverse"><div class="'+(mn==='te'?'te':mn==='en'?'enb':'sa')+'">'+v[mn][0]+'<br>'+v[mn][1]+'</div><div class="prb big2">'+v.pr[0]+'<br>'+v.pr[1]+'</div></div>'}
+function recSheet(){return '<div class="rpsheet"><div class="rpph rec"><span class="reddot"></span> Recording <b id="rtime">0:00</b></div>'+sheetVerse()+'<button class="btn rec" data-act="rec">Stop recording</button></div>'}
+var rpA=new Audio(),RP={on:false};
+function rpSheet(){var ph=RP.phase;
+ if(RP.err)return '<div class="rpsheet"><div class="rpph turn">Guide audio for this verse is coming soon.</div><button class="btn ghost" data-act="rpclose">Close</button></div>';
+ var head=ph==='listen'?'\ud83c\udfa7 Listen':ph==='turn'?'\ud83c\udfa4 Your turn: chant it now':'\u2728 Well done!';
+ return '<div class="rpsheet"><div class="row"><span class="mute">Round '+Math.min(RP.round,3)+' of 3</span><button class="chip" data-act="rpclose">Close</button></div><div class="rpph '+(ph==='done'?'done':ph)+'">'+head+'</div>'+sheetVerse()+
+  (ph==='done'?'<div class="plain">Now say it once on your own, from memory if you can.</div><button class="btn rec" data-act="rpdone">Record my take</button><button class="btn ghost" data-act="rpclose">Finish</button>'
+   :'<div class="rpbar"><i id="rpbar"></i></div><div class="chips"><button class="chip" data-act="rppause">'+(RP.paused?'Resume':'Pause')+'</button><button class="chip" data-act="rpskip">Skip ahead</button></div>')+
+  (RP.blocked?'<button class="btn" data-act="rpplay">Tap to play</button>':'')+'</div>'}
+function ovl(){if(view!=='verse'||transMsg)return '';if(recActive)return recSheet();if(RP.on)return rpSheet();return ''}
+function rpUrl(n,ext){return 'audio/v'+('00'+n).slice(-3)+ext}
+function rpStart(){var n=V[LST[vi].i].n;RP={on:true,n:n,round:1,phase:'listen',paused:false,tried:0};
+ try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){RP.wl=l}).catch(function(){})}catch(e){}
+ rpListen()}
+function rpListen(){clearInterval(RP.tm);RP.phase='listen';RP.blocked=false;listenCount[RP.n]=(listenCount[RP.n]||0)+1;
+ rpA.onended=rpTurn;
+ rpA.onerror=function(){if(RP.tried===0){RP.tried=1;rpA.src=rpUrl(RP.n,'.mp3');var q=rpA.play();if(q&&q.catch)q.catch(function(){})}else{RP.err=true;render()}};
+ rpA.src=rpUrl(RP.n,RP.tried?'.mp3':'.m4a');
+ var pr=rpA.play();if(pr&&pr.catch)pr.catch(function(){RP.blocked=true;render()});
+ render()}
+function rpTurn(){if(!RP.on)return;RP.phase='turn';var d=isFinite(rpA.duration)&&rpA.duration>0?rpA.duration:10;RP.dur=(d*1.3+1.5)*1000;RP.end=Date.now()+RP.dur;render();clearInterval(RP.tm);RP.tm=setInterval(rpTick,100)}
+function rpTick(){if(!RP.on||RP.paused)return;var rem=RP.end-Date.now(),b=$('rpbar');if(b)b.style.width=Math.max(0,Math.min(100,(1-rem/RP.dur)*100))+'%';if(rem<=0)rpNext()}
+function rpNext(){clearInterval(RP.tm);if(RP.round<3){RP.round++;rpListen()}else{RP.phase='done';listenCount[RP.n]=Math.max(3,listenCount[RP.n]||0);setStep(2,1);sv();render()}}
+function rpPause(){RP.paused=!RP.paused;if(RP.phase==='listen'){if(RP.paused)rpA.pause();else{var q=rpA.play();if(q&&q.catch)q.catch(function(){})}}else if(RP.phase==='turn'){if(RP.paused)RP.rem=RP.end-Date.now();else RP.end=Date.now()+RP.rem}render()}
+function rpSkip(){if(RP.phase==='listen'){rpA.pause();rpTurn()}else if(RP.phase==='turn'){rpNext()}}
+function rpClose(){clearInterval(RP.tm);rpA.pause();try{if(RP.wl)RP.wl.release()}catch(e){}RP.on=false;render()}
 var mr=null,ch=[],st=null;
-var recActive=false,lastRecURL=null,lastRecVerse=null;
+var recActive=false,lastRecURL=null,lastRecVerse=null,recT0=0,recTick=null,lastT=0;
 function stopRecIfActive(){if(mr&&mr.state==='recording'){mr.stop()}}
 async function recToggle(btn){
  if(mr&&mr.state==='recording'){mr.stop();return}
  try{st=await navigator.mediaDevices.getUserMedia({audio:true});mr=new MediaRecorder(st);ch=[];var label='Verse '+V[LST[vi].i].n,forVerse=vi;
   mr.ondataavailable=function(e){ch.push(e.data)};
-  mr.onstop=function(){var blob=new Blob(ch,{type:mr.mimeType});st.getTracks().forEach(function(t){t.stop()});addDay();setStep(3,1);recActive=false;lastRecURL=URL.createObjectURL(blob);lastRecVerse=forVerse;var vn=V[LST[forVerse]?LST[forVerse].i:LST[vi].i].n;sv();if(view==='verse')render();saveRec({t:Date.now(),b:blob,l:label,n:vn}).then(function(){delete vRecsCache[vn];loadVerseRecs(vn);showMine()}).catch(function(){})};
-  mr.start();recActive=true;if(view==='verse')render();
+  mr.onstop=function(){clearInterval(recTick);var blob=new Blob(ch,{type:mr.mimeType});st.getTracks().forEach(function(t){t.stop()});addDay();setStep(3,1);recActive=false;lastRecURL=URL.createObjectURL(blob);lastRecVerse=forVerse;var vn=V[LST[forVerse]?LST[forVerse].i:LST[vi].i].n;sv();var had=vRecsCache[vn]!==undefined,rec={t:Math.max(Date.now(),lastT+1),b:blob,l:label,n:vn};lastT=rec.t;if(!had)vRecsCache[vn]=[];vRecsCache[vn].unshift(rec);if(!had)setTimeout(function(){loadVerseRecs(vn)},700);if(view==='verse')render();saveRec(rec).then(showMine).catch(function(){var m=$('recMsg');if(m)m.textContent='Recorded, but it could not be saved on this device. It stays until you close the page.'})};
+  mr.start();recActive=true;recT0=Date.now();clearInterval(recTick);recTick=setInterval(function(){var e=$('rtime');if(e){var s=Math.floor((Date.now()-recT0)/1000);e.textContent=Math.floor(s/60)+':'+('0'+s%60).slice(-2)}},500);if(view==='verse')render();
  }catch(e){recActive=false;var m=$('recMsg');if(m)m.textContent='Microphone not available. Allow microphone access for this page in your browser settings.'}}
 var app=$('app');
 app.addEventListener('play',function(e){var t=e.target;if(t&&t.tagName==='AUDIO'&&t.dataset.act==='aplay'){var n=V[LST[vi].i].n;listenCount[n]=(listenCount[n]||0)+1;if(listenCount[n]<=3)render()}},true);
@@ -442,6 +483,12 @@ app.addEventListener('click',function(e){
  else if(a==='rtadd'){var rl1=remList();rl1.push(rl1.length===1?'12:30':'19:30');S.rts=rl1;sv();render()}
  else if(a==='rtdel'){var rl2=remList();rl2.splice(+v,1);S.rts=rl2;S.rt=rl2[0];sv();render()}
  else if(a==='cheerx'){cheerDone();render()}
+ else if(a==='rpstart'){rpStart()}
+ else if(a==='rpclose'){rpClose()}
+ else if(a==='rppause'){rpPause()}
+ else if(a==='rpskip'){rpSkip()}
+ else if(a==='rpplay'){RP.blocked=false;var q2=rpA.play();if(q2&&q2.catch)q2.catch(function(){});render()}
+ else if(a==='rpdone'){clearInterval(RP.tm);try{if(RP.wl)RP.wl.release()}catch(e){}RP.on=false;tab='say';render();recToggle()}
  else if(a==='theme'){S.theme=v;sv();applyTheme();render()}
  else if(a==='img'){bigImg=!bigImg;render()}
  else if(a==='hide'&&t.tagName==='BUTTON'){S.hide=S.hide?0:1;sv();render()}
