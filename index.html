@@ -396,8 +396,8 @@ function aerr(a){if(!a.dataset.t){a.dataset.t=1;a.src=a.src.replace('.m4a','.mp3
 function render(top){$('app').innerHTML=(view==='home'?home():verse())+ovl()+(bigImg?'<div class="lb" data-act="img"><img src="'+IMG+'" alt="Lord Vishnu"></div>':'');if(view==='home')showMine();if(top)window.scrollTo(0,0)}
 function dbo(){return new Promise(function(res,rej){var r=indexedDB.open('sp_rec',1);r.onupgradeneeded=function(){r.result.createObjectStore('r',{keyPath:'t'})};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
 function rp(r){return new Promise(function(res,rej){r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
-function saveRec(o){return dbo().then(function(d){var t=d.transaction('r','readwrite');t.objectStore('r').put(o);return new Promise(function(res,rej){t.oncomplete=res;t.onerror=function(){rej(t.error)}})})}
-function allRecs(){return dbo().then(function(d){return rp(d.transaction('r').objectStore('r').getAll())})}
+function saveRec(o){return(o.b&&o.b.arrayBuffer?o.b.arrayBuffer():Promise.resolve(null)).then(function(buf){var rec={t:o.t,l:o.l,n:o.n};if(buf){rec.buf=buf;rec.type=o.b.type||'audio/mp4'}else rec.b=o.b;return dbo().then(function(d){var t=d.transaction('r','readwrite');t.objectStore('r').put(rec);return new Promise(function(res,rej){t.oncomplete=res;t.onerror=function(){rej(t.error)};t.onabort=function(){rej(t.error)}})})})}
+function allRecs(){return dbo().then(function(d){return rp(d.transaction('r').objectStore('r').getAll())}).then(function(a){a.forEach(function(o){if(!o.b&&o.buf)o.b=new Blob([o.buf],{type:o.type||'audio/mp4'})});return a})}
 function showMine(){
  var el=$('mine');if(!el)return;
  try{allRecs().then(function(a){
@@ -458,13 +458,13 @@ var recActive=false,lastRecURL=null,lastRecVerse=null,recT0=0,recTick=null,lastT
 function stopRecIfActive(){if(mr&&mr.state==='recording'){mr.stop()}}
 async function recToggle(btn){
  if(mr&&mr.state==='recording'){mr.stop();return}
- try{st=await navigator.mediaDevices.getUserMedia({audio:true});mr=new MediaRecorder(st);ch=[];var label='Verse '+V[LST[vi].i].n,forVerse=vi;
+ try{try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e0){}st=await navigator.mediaDevices.getUserMedia({audio:true});mr=new MediaRecorder(st);ch=[];var label='Verse '+V[LST[vi].i].n,forVerse=vi;
   mr.ondataavailable=function(e){ch.push(e.data)};
-  mr.onstop=function(){clearInterval(recTick);var blob=new Blob(ch,{type:mr.mimeType});st.getTracks().forEach(function(t){t.stop()});addDay();setStep(3,1);recActive=false;lastRecURL=URL.createObjectURL(blob);lastRecVerse=forVerse;var vn=V[LST[forVerse]?LST[forVerse].i:LST[vi].i].n;sv();var had=vRecsCache[vn]!==undefined,rec={t:Math.max(Date.now(),lastT+1),b:blob,l:label,n:vn};lastT=rec.t;if(!had)vRecsCache[vn]=[];vRecsCache[vn].unshift(rec);if(!had)setTimeout(function(){loadVerseRecs(vn)},700);if(view==='verse')render();saveRec(rec).then(showMine).catch(function(){var m=$('recMsg');if(m)m.textContent='Recorded, but it could not be saved on this device. It stays until you close the page.'})};
+  mr.onstop=function(){clearInterval(recTick);var blob=new Blob(ch,{type:mr.mimeType});st.getTracks().forEach(function(t){t.stop()});addDay();setStep(3,1);recActive=false;lastRecURL=URL.createObjectURL(blob);lastRecVerse=forVerse;var vn=V[LST[forVerse]?LST[forVerse].i:LST[vi].i].n;sv();var had=vRecsCache[vn]!==undefined,rec={t:Math.max(Date.now(),lastT+1),b:blob,l:label,n:vn};lastT=rec.t;if(!had)vRecsCache[vn]=[];vRecsCache[vn].unshift(rec);if(!had)setTimeout(function(){loadVerseRecs(vn)},700);if(view==='verse')render();saveRec(rec).then(showMine).catch(function(er){var m=$('recMsg');if(m)m.textContent='Recorded, but it could not be saved on this device ('+((er&&(er.name||er.message))||'unknown error')+'). It stays until you close the page.'})};
   mr.start();recActive=true;recT0=Date.now();clearInterval(recTick);recTick=setInterval(function(){var e=$('rtime');if(e){var s=Math.floor((Date.now()-recT0)/1000);e.textContent=Math.floor(s/60)+':'+('0'+s%60).slice(-2)}},500);if(view==='verse')render();
  }catch(e){recActive=false;var m=$('recMsg');if(m)m.textContent='Microphone not available. Allow microphone access for this page in your browser settings.'}}
 var app=$('app');
-app.addEventListener('play',function(e){var t=e.target;if(t&&t.tagName==='AUDIO'&&t.dataset.act==='aplay'){var n=V[LST[vi].i].n;listenCount[n]=(listenCount[n]||0)+1;if(listenCount[n]<=3)render()}},true);
+app.addEventListener('ended',function(e){var t=e.target;if(t&&t.tagName==='AUDIO'&&t.dataset.act==='aplay'){var n=V[LST[vi].i].n;listenCount[n]=(listenCount[n]||0)+1;if(listenCount[n]<=3)render()}},true);
 app.addEventListener('click',function(e){
  var t=e.target.closest('[data-act]');if(!t)return;var a=t.dataset.act,v=t.dataset.v;
  if(a==='step'){var k=+t.dataset.k,s=S.steps[tdy()]||[0,0,0,0,0];setStep(k,!s[k]);render()}
