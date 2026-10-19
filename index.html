@@ -58,7 +58,7 @@ li{margin:6px 0}
 details summary{cursor:pointer;font-weight:700}
 .msg{color:var(--sf);min-height:1.2em;font-size:.92rem}
 .btn.rec{background:var(--rec);color:#fff}
-.dn{position:sticky;bottom:0;padding:10px 0;background:linear-gradient(transparent,var(--bg) 30%)}
+.dn{margin-top:18px;padding:14px 0 8px;border-top:2px dashed var(--line)}
 :focus-visible{outline:3px solid var(--sf);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.bar i,.pb i{transition:none}}
 
@@ -362,7 +362,7 @@ function home(){
  h+='</div><button class="btn sf" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today':'Start today\'s verses')+'</button>';
  if(S.learned.length)h+='<button class="btn ghost" data-act="recap" style="margin-top:8px">\ud83e\udd4d Weekly recap: chant everything so far</button>';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
- h+='<div class="mute" style="text-align:center">Version 25 \u00b7 18 Oct 2026</div>';
+ h+='<div class="mute" style="text-align:center">Version 26 \u00b7 18 Oct 2026</div>';
  return h}
 function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
