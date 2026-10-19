@@ -158,6 +158,9 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .rpbar{height:12px;background:var(--soft);border-radius:9px;overflow:hidden}
 .rpbar i{display:block;height:100%;width:0;background:var(--sf)}
 @media (prefers-reduced-motion:reduce){.reddot{animation:none}}
+.gbtn{width:100%;min-height:56px;border:0;border-radius:14px;font-weight:700;font-size:1.1rem;background:rgba(255,255,255,.95);color:#1b2340;cursor:pointer}
+.gbar{height:8px;background:rgba(255,255,255,.3);border-radius:9px;margin-top:10px;overflow:hidden}
+.gbar i{display:block;height:100%;width:0;background:#ffd54a}
 </style>
 </head>
 <body>
@@ -359,7 +362,7 @@ function home(){
  h+='</div><button class="btn sf" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today':'Start today\'s verses')+'</button>';
  if(S.learned.length)h+='<button class="btn ghost" data-act="recap" style="margin-top:8px">\ud83e\udd4d Weekly recap: chant everything so far</button>';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
- h+='<div class="mute" style="text-align:center">Version 24 \u00b7 18 Oct 2026</div>';
+ h+='<div class="mute" style="text-align:center">Version 25 \u00b7 18 Oct 2026</div>';
  return h}
 function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
@@ -377,8 +380,8 @@ function verse(){
   h+='<div class="tip"><b>'+T.L.pron[S.lang]+'</b><br>'+v.tip+'</div>';
   h+='<div class="chips"><span class="mute">Script</span>'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+(mn===x[0])+'">'+x[1]+'</button>'}).join('')+'<button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show other scripts too</button><button class="chip" data-act="hide" aria-pressed="'+!!S.hide+'">Test myself (hide text)</button></div>';
   if(S.scAll)['sa','te','en'].forEach(function(k){if(k!==mn)h+='<div class="'+(k==='te'?'te':k==='sa'?'sa':'mute')+'">'+v[k][0]+'<br>'+v[k][1]+'</div>'});
-  var b='audio/v'+('00'+v.n).slice(-3),lc=listenCount[v.n]||0,dots3=[0,1,2].map(function(i){return '<span class="ld'+(lc>i?' on':'')+'"></span>'}).join('');
-  h+='<div class="listen'+(lc>=3?' ready':lc>0?' part':'')+'"><div class="lrow"><span class="lico">\ud83d\udd14</span><b>'+T.L.listen[S.lang]+'</b><span class="ldots">'+dots3+'</span></div><div class="mute" style="margin:2px 0 8px">Guru parampara style: hear it at least 3 times, then try chanting it yourself.</div><audio controls preload="metadata" src="'+b+'.m4a" onerror="aerr(this)" data-act="aplay"></audio>'+'<div class="lready">'+(lc>=3?'\u2728 Ready to chant! Now say it yourself.':'Listened '+lc+' of 3. Hear it '+(3-lc)+' more time'+(3-lc>1?'s':'')+'.')+'</div></div>';
+  gSync(v.n);var b='audio/v'+('00'+v.n).slice(-3),lc=listenCount[v.n]||0,dots3=[0,1,2].map(function(i){return '<span class="ld'+(lc>i?' on':'')+'"></span>'}).join('');
+  h+='<div class="listen'+(lc>=3?' ready':lc>0?' part':'')+'"><div class="lrow"><span class="lico">\ud83d\udd14</span><b>'+T.L.listen[S.lang]+'</b><span class="ldots">'+dots3+'</span></div><div class="mute" style="margin:2px 0 8px">Guru parampara style: hear it at least 3 times, then try chanting it yourself.</div><button class="gbtn" id="gBtn" data-act="gplay">'+gLabel()+'</button><div class="gbar"><i id="gBar" style="width:'+gPct()+'%"></i></div><div class="mute" id="gTime" style="margin-top:4px">'+gTime()+'</div>'+'<div class="lready">'+(lc>=3?'\u2728 Ready to chant! Now say it yourself.':'Listened '+lc+' of 3. Hear it '+(3-lc)+' more time'+(3-lc>1?'s':'')+'.')+'</div></div>';
   var tk=vRecsCache[v.n];
   h+='<button class="btn rec" data-act="rec">'+(recActive?'Stop recording':(tk&&tk.length?'Record another take ('+tk.length+' saved)':T.L.rec[S.lang]))+'</button><div class="msg" id="recMsg" aria-live="polite"></div>';
   h+='<div class="card takes"><h2>'+T.L.takes[S.lang]+(tk&&tk.length?' ('+tk.length+')':'')+'</h2>'+verseRecsHTML(v.n)+(tk&&tk.length?'<div class="mute" style="margin-top:8px">Every take is kept. Compare your first and latest.</div><details style="margin-top:8px"><summary>Compare with the guide</summary><ul><li>Does your pace match the guide\'s?</li><li>Did you pause between the two lines?</li><li>Did you hold the long vowels (aa, ee, oo)?</li></ul></details>':'')+'</div>';
@@ -393,8 +396,26 @@ function verse(){
  if(nudge)h+='<div class="plain">Record one verse so you can hear yourself? It only takes a minute.<div class="chips" style="margin-top:10px"><button class="chip" data-act="recnow">Record now</button><button class="chip" data-act="skip">Skip</button></div></div>';
  h+='<div class="dn"><button class="btn" data-act="next">'+(last?"I'm done for today":"I've practised this")+'</button></div>';
  return h}
+var gA=null,gN=0,gSt='idle',gTried=0;
+function gSrc(n){return 'audio/v'+('00'+n).slice(-3)}
+function gFmt(s){s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
+function gPct(){return gA&&isFinite(gA.duration)&&gA.duration>0?Math.min(100,gA.currentTime/gA.duration*100):0}
+function gTime(){return gFmt(gA?gA.currentTime:0)+' / '+gFmt(gA&&isFinite(gA.duration)?gA.duration:0)}
+function gLabel(){return {idle:'\u25b6 Play the guide',loading:'\u23f3 Loading the guide...',playing:'\u23f8 Pause',paused:'\u25b6 Resume',error:'Guide audio is coming soon'}[gSt]||'\u25b6 Play the guide'}
+function gUi(){var b=$('gBtn');if(b)b.textContent=gLabel();var i=$('gBar');if(i)i.style.width=gPct()+'%';var t=$('gTime');if(t)t.textContent=gTime()}
+function gWire(){
+ gA.addEventListener('timeupdate',gUi);
+ gA.addEventListener('playing',function(){gSt='playing';gUi()});
+ gA.addEventListener('pause',function(){if(!gA.ended&&gSt!=='error'&&gSt!=='idle'){gSt='paused';gUi()}});
+ gA.addEventListener('waiting',function(){if(gSt==='playing'){gSt='loading';gUi()}});
+ gA.addEventListener('ended',function(){gSt='idle';listenCount[gN]=(listenCount[gN]||0)+1;try{gA.currentTime=0}catch(e){}render()});
+ gA.addEventListener('error',function(){if(!gTried){gTried=1;gA.src=gSrc(gN)+'.mp3';gA.load()}else{gSt='error';gUi()}})}
+function gSync(n){if(!gA){gA=new Audio();gA.preload='auto';gWire()}
+ if(gN!==n){gA.pause();gN=n;gTried=0;gSt='idle';gA.src=gSrc(n)+'.m4a'}}
+function gToggle(){var it=LST[vi];if(!it)return;gSync(V[it.i].n);if(gSt==='error')return;
+ if(gA.paused){gSt='loading';gUi();var p=gA.play();if(p&&p.catch)p.catch(function(){gSt='idle';gUi()})}else{gA.pause()}}
 function aerr(a){if(!a.dataset.t){a.dataset.t=1;a.src=a.src.replace('.m4a','.mp3')}else{var d=document.createElement('div');d.className='mute';d.textContent='Guide audio for this verse is coming soon.';a.replaceWith(d)}}
-function render(top){$('app').innerHTML=(view==='home'?home():verse())+ovl()+(bigImg?'<div class="lb" data-act="img"><img src="'+IMG+'" alt="Lord Vishnu"></div>':'');if(view==='home')showMine();if(top)window.scrollTo(0,0)}
+function render(top){if(gA&&!(view==='verse'&&tab==='say'))gA.pause();$('app').innerHTML=(view==='home'?home():verse())+ovl()+(bigImg?'<div class="lb" data-act="img"><img src="'+IMG+'" alt="Lord Vishnu"></div>':'');if(view==='home')showMine();if(top)window.scrollTo(0,0)}
 function dbo(){return new Promise(function(res,rej){var r=indexedDB.open('sp_rec',1);r.onupgradeneeded=function(){r.result.createObjectStore('r',{keyPath:'t'})};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
 function rp(r){return new Promise(function(res,rej){r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
 function saveRec(o){return(o.b&&o.b.arrayBuffer?o.b.arrayBuffer():Promise.resolve(null)).then(function(buf){var rec={t:o.t,l:o.l,n:o.n};if(buf){rec.buf=buf;rec.type=o.b.type||'audio/mp4'}else rec.b=o.b;return dbo().then(function(d){var t=d.transaction('r','readwrite');t.objectStore('r').put(rec);return new Promise(function(res,rej){t.oncomplete=res;t.onerror=function(){rej(t.error)};t.onabort=function(){rej(t.error)}})})})}
@@ -440,7 +461,7 @@ function rpSheet(){var ph=RP.phase;
   (RP.blocked?'<button class="btn" data-act="rpplay">Tap to play</button>':'')+'</div>'}
 function ovl(){if(view!=='verse'||transMsg)return '';if(recActive)return recSheet();if(RP.on)return rpSheet();return ''}
 function rpUrl(n,ext){return 'audio/v'+('00'+n).slice(-3)+ext}
-function rpStart(){var n=V[LST[vi].i].n;RP={on:true,n:n,round:1,phase:'listen',paused:false,tried:0};
+function rpStart(){if(gA)gA.pause();var n=V[LST[vi].i].n;RP={on:true,n:n,round:1,phase:'listen',paused:false,tried:0};
  try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){RP.wl=l}).catch(function(){})}catch(e){}
  rpListen()}
 function rpListen(){clearInterval(RP.tm);RP.phase='listen';RP.blocked=false;listenCount[RP.n]=(listenCount[RP.n]||0)+1;
@@ -485,6 +506,7 @@ app.addEventListener('click',function(e){
  else if(a==='rtadd'){var rl1=remList();rl1.push(rl1.length===1?'12:30':'19:30');S.rts=rl1;sv();render()}
  else if(a==='rtdel'){var rl2=remList();rl2.splice(+v,1);S.rts=rl2;S.rt=rl2[0];sv();render()}
  else if(a==='cheerx'){cheerDone();render()}
+ else if(a==='gplay'){gToggle()}
  else if(a==='rpstart'){rpStart()}
  else if(a==='rpclose'){rpClose()}
  else if(a==='rppause'){rpPause()}
