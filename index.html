@@ -186,6 +186,20 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .lnk2{display:block;width:100%;margin-top:10px;background:none;border:0;color:inherit;text-decoration:underline;opacity:.85;padding:10px;min-height:44px;cursor:pointer;font:inherit}
 .hero::after{pointer-events:none}
 .hero .sk{white-space:nowrap}
+.hrow{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:12px}
+.setb{background:var(--sf);color:var(--sf-ink);border:0;border-radius:999px;padding:10px 16px;min-height:44px;font:inherit;font-weight:700;cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.setb[aria-expanded="true"]{background:#fff;color:#1b2559}
+.pvb{background:#7c3aed;color:#fff;text-align:center;padding:6px 10px;font-size:.85rem;border-radius:10px;margin-bottom:10px}
+.setb{background:#1f9d8f!important;color:#fff!important}
+.setb[aria-expanded="true"]{background:#fff!important;color:#1b2559!important}
+.gv{display:inline-flex;width:46px;height:46px;align-items:center;justify-content:center;border-radius:10px;margin:3px;font-weight:700;background:var(--card);border:1px solid var(--line);color:inherit;cursor:pointer;font:inherit}
+.gv.l{background:#1f9d8f;color:#fff;border-color:#1f9d8f}
+.gv.t{background:#e8890c;color:#fff;border-color:#e8890c}
+.gv:disabled{opacity:.35;cursor:default}
+.ends{text-align:center;padding:30px 18px}
+.ends .stars{font-size:2.6rem;letter-spacing:6px}
+.plink{display:block;width:100%;background:none;border:0;color:inherit;font:inherit;text-align:center;margin-top:8px;padding:10px 6px;min-height:44px;cursor:pointer;opacity:.95;text-decoration:underline;text-underline-offset:3px}
+.pacel{display:block;width:100%;text-align:left;background:var(--bg);border:1px dashed var(--line);border-radius:12px;padding:10px 12px;margin:0 0 12px;min-height:44px;font:inherit;color:inherit;cursor:pointer}
 </style>
 </head>
 <body>
@@ -369,12 +383,19 @@ function stats(){var left=Math.max(0,TOTAL-S.learned.length),d=Math.ceil(left/S.
 function paceChips(){var left=Math.max(0,TOTAL-S.learned.length);
  return '<div class="pace">'+[1,2,3,5].map(function(n){var d=Math.ceil(left/n),f=new Date();f.setDate(f.getDate()+d-1);
   return '<button class="pc" data-act="pace" data-v="'+n+'" aria-pressed="'+(S.pace===n)+'"><b>'+n+'</b> a day<br>'+d+' days<br>'+f.toLocaleDateString(undefined,{day:'numeric',month:'short'})+'</button>'}).join('')+'</div>'}
+function finLabel(){var left=Math.max(0,TOTAL-S.pos),d=Math.ceil(left/Math.max(1,S.pace));var f=new Date();f.setDate(f.getDate()+d);return f.toLocaleDateString(undefined,{day:'numeric',month:'short'})}
+var PR=false,END=null,advSess={},VOPEN=false,POPEN=false;
+function pranamHTML(){var rv=mkList().filter(function(x){return x.r}).map(function(x){return V[x.i].n}),nw=mkList().filter(function(x){return !x.r}).map(function(x){return V[x.i].n});return '<div class="hero" style="text-align:center;padding:36px 20px"><div style="font-size:3rem">\ud83d\ude4f</div><div class="sk" style="font-size:1.4rem;margin-top:10px">\u0950 \u0928\u092e\u094b \u0928\u093e\u0930\u093e\u092f\u0923\u093e\u092f</div><h1 style="font-size:1.5rem;margin:14px 0 6px">Pranam to your guru</h1><div class="mute" style="font-size:1.05rem;line-height:1.5">Take a breath. Fold your hands.<br>Today you will learn with your guru, one line at a time.</div></div><button class="btn sf" data-act="pranamgo" style="margin-top:16px">I am ready</button><div class="mute" style="text-align:center;margin-top:10px">Today: '+(rv.length?'revise verse '+rv.join(', ')+' \u00b7 ':'')+(nw.length?'learn verse '+nw.join(', '):'')+'</div><button class="btn ghost" data-act="pranamx" style="margin-top:12px">Not now</button>'}
+function endHTML(){var e=END;return '<div class="hero ends"><div class="stars">\u2b50\u2b50\u2b50</div><h1 style="font-size:1.5rem;margin:12px 0 6px">Well done! Hari Om \ud83d\ude4f</h1><div class="mute" style="font-size:1.05rem;line-height:1.5">'+e.msg+'<br>'+S.learned.length+' verses learned \u00b7 '+streak()+'-day streak</div>'+thought()+'</div><div class="mute" style="text-align:center;margin:14px 0 6px">Thank your guru: say Om Namo Narayanaya once more.</div><button class="btn sf" data-act="enddone">Done for today</button>'+(e.more?'<button class="btn ghost" data-act="endmore" style="margin-top:8px">Learn the next verses today too</button>':'')}
+function allVersesCard(){var nw={};mkList().forEach(function(x){if(!x.r)nw[V[x.i].n]=1});var c='';for(var n=1;n<=TOTAL;n++){var has=vIdx(n)>=0,l=S.learned.indexOf(n)>=0;c+='<button class="gv'+(l?' l':nw[n]?' t':'')+'" data-act="gov" data-v="'+n+'"'+(has?'':' disabled')+'>'+n+'</button>'}return '<div class="card"><h2>All verses</h2><div class="mute">Tap a number to practise that verse. Green = learned, orange = today. Faded = text not added yet.</div><div style="margin-top:8px">'+c+'</div></div>'}
 function home(){
+ if(PR)return pranamHTML();
+ if(END)return endHTML();
  var fin=S.pos>=V.length,e=Math.min(S.pos+S.pace,V.length),st=S.steps[tdy()]||[0,0,0,0,0];
- var h='<div class="hero"><div class="row"><button class="thumb" data-act="img" aria-label="View the picture larger"><img src="'+IMG+'" alt="Lord Vishnu"></button><div style="flex:1;min-width:0"><div class="sk">श्री विष्णु सहस्रनाम</div><h1>Vishnu Sahasranamam</h1></div><button class="gear" data-act="gear" aria-label="Settings" aria-expanded="'+!!panel+'">\u2699</button></div><div style="text-align:center;margin-top:12px"><b class="pill">'+streak()+'-day streak</b></div>'+'<div class="wk">'+weekDots()+'</div><div class="mute" style="text-align:center;margin-top:6px">Best streak '+bestStreak()+' \u00b7 '+monthDays()+' days this month</div>'+'<div class="bar" style="margin-top:10px"><i style="width:'+(S.learned.length/TOTAL*100)+'%"></i></div>'+stats()+'</div>';
- if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 32 \u00b7 21 Oct 2026</div>'}
- if(panel)h+='<div class="tools" style="margin-top:8px">'+[['set','Pace and script'],['rem','Reminder'],['why','Why chant'],['guru','Guru tools']].map(function(x){return '<button class="chip" data-act="panel" data-v="'+x[0]+'" aria-pressed="'+(panel===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
- if(panel==='set'){h+='<div class="card"><h2>Verses a day</h2>'+paceChips()+'<p class="mute">Each box shows the days left and the finish date at that pace, for all '+TOTAL+' verses. Rest days will add a few days. New learners: 1 or 2 a day for the first week works well.</p><h2>Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div><h2 style="margin-top:14px">Go to verse</h2><select data-act="goto">'+V.map(function(v,i){return '<option value="'+i+'"'+(Math.min(S.pos,V.length-1)===i?' selected':'')+'>'+v.n+'</option>'}).join('')+'</select></div>'}
+ var h='<div class="hero"><div class="row"><button class="thumb" data-act="img" aria-label="View the picture larger"><img src="'+IMG+'" alt="Lord Vishnu"></button><div style="flex:1;min-width:0"><div class="sk">श्री विष्णु सहस्रनाम</div><h1>Vishnu Sahasranamam</h1></div></div><div class="hrow"><b class="pill">'+streak()+'-day streak</b><button class="setb" data-act="gear" aria-expanded="'+!!panel+'">\u2699 '+(panel?'Close settings':'Settings')+'</button></div>'+'<div class="bar" style="margin-top:14px"><i style="width:'+(S.learned.length/TOTAL*100)+'%"></i></div><button class="plink" data-act="vopen" aria-expanded="'+VOPEN+'">'+S.learned.length+' of '+TOTAL+' learned \u00b7 finish '+finLabel()+' '+(VOPEN?'\u25b4':'\u203a')+'</button></div>';if(VOPEN)h+=allVersesCard();
+ if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 34 \u00b7 21 Oct 2026</div>'}
+ if(panel)h+='<div class="tools" style="margin-top:8px">'+[['set','Script and help'],['rem','Reminder'],['why','Why chant'],['guru','Guru tools']].map(function(x){return '<button class="chip" data-act="panel" data-v="'+x[0]+'" aria-pressed="'+(panel===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
+ if(panel==='set'){h+='<div class="card"><h2>Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div></div>'}
  if(panel==='rem'){var rl=remList();h+='<div class="card"><h2>Daily reminders</h2><div class="mute">Set up to 3 a day. One tap adds them all to your phone calendar. Tip: a morning one, and an evening one to keep your streak.</div>'+rl.map(function(t,i){return '<div class="row" style="margin-top:10px"><span class="mute" style="min-width:74px">'+['First','Second','Third'][i]+'</span><input type="time" data-act="rt" data-i="'+i+'" value="'+t+'" aria-label="Reminder '+(i+1)+'">'+(rl.length>1?'<button class="chip" data-act="rtdel" data-v="'+i+'" aria-label="Remove reminder">\u2715</button>':'')+'</div>'}).join('')+(rl.length<3?'<button class="chip" data-act="rtadd" style="margin-top:10px">+ Add another reminder</button>':'')+'<div class="row" style="margin-top:12px"><a class="btn lnk" download="sahasranama-reminders.ics" href="'+icsHref()+'">Add to my calendar</a></div></div>'}
  if(panel==='why'){h+='<div class="card"><h2>'+T.whyT[S.lang]+'</h2>'+chipsLang()+'<p>'+T.why[S.lang]+'</p></div>'}
  if(panel==='guru'){h+=guruPanel()}
@@ -385,11 +406,10 @@ function home(){
  if(fin)h+='<div class="mute">All added verses are finished</div>';
  else{if(rvL.length)h+='<div class="rv"><span class="tag rev">\ud83d\udd01 Revise</span><span>Verse '+rvL.map(function(x){return V[x.i].n}).join(', ')+'</span></div>';
   if(nwL.length)h+='<div class="rv"><span class="tag new">\u2728 New</span><span>Verse '+nwL.map(function(x){return V[x.i].n}).join(', ')+'</span></div>'}
- h+='<div class="mute" style="margin:10px 0 12px">'+(S.doneDay===tdy()?'Today\'s practice is done \u2713 You can learn the next verses if you feel ready.':'Listen, repeat after the guru, then record yourself. It plays, waits for you, then moves on.')+'</div><button class="btn sf" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today':'Start today\'s practice')+'</button><button class="lnk2" data-act="startm">Or choose a verse myself</button></div>';
- h+=thought();
+ h+='<div class="mute" style="margin:10px 0 12px">'+(S.doneDay===tdy()?'Today\'s practice is done \u2713 You can learn the next verses if you feel ready.':'Listen, repeat after the guru, then record yourself. It plays, waits for you, then moves on.')+'</div><button class="pacel" data-act="popen">\ud83d\udcc5 '+S.pace+' verse'+(S.pace>1?'s':'')+' a day \u00b7 '+(POPEN?'close':'change')+'</button>'+(POPEN?'<div style="margin:6px 0 12px">'+paceChips()+'<div class="mute" style="margin-top:6px">Each box shows the days left and the finish date. New learners: 1 or 2 a day for the first week works well.</div></div>':'')+'<button class="btn sf" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today':'Start today\'s practice')+'</button></div>';
  h+='<div class="chips" style="margin-top:4px">'+(S.learned.length?'<button class="chip g" data-act="recap">\ud83e\udd4d Weekly recap</button><button class="chip p" data-act="plstart">\ud83c\udfb6 Listen to all learned</button>':'')+'</div>';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
- h+='<div class="mute" style="text-align:center">Version 32 \u00b7 21 Oct 2026</div>';
+ h+='<div class="mute" style="text-align:center">Version 34 \u00b7 21 Oct 2026</div>';
  return h}
 function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
@@ -522,7 +542,7 @@ function rpSheet(){var ph=RP.phase;
  var head=ph==='listen'?'\ud83c\udfa7 Listen':ph==='turn'?'\ud83c\udfa4 Your turn: chant it now':'\u2728 Well done!';
  return '<div class="rpsheet"><div class="row"><span class="mute">'+rpLabel()+'</span><button class="chip" data-act="rpclose">Close</button></div><div class="rpph '+(ph==='done'?'done':ph)+'">'+head+'</div>'+sheetVerse()+
   (ph==='done'?'<div class="plain">Now say it once on your own, from memory if you can.</div><button class="btn rec" data-act="rpdone">Record my take</button>'+(GS.on?'<button class="btn" data-act="gnext">'+(vi>=LST.length-1?'Finish today':'Next verse')+'</button><button class="btn ghost" data-act="rpclose">Stop here</button>':'<button class="btn ghost" data-act="rpclose">Finish</button>')
-   :'<div class="rpbar"><i id="rpbar"></i></div><div class="chips"><button class="chip" data-act="rppause">'+(RP.paused?'Resume':'Pause')+'</button><button class="chip" data-act="rpskip">Skip ahead</button></div>')+
+   :'<div class="rpbar"><i id="rpbar"></i></div><div class="chips"><button class="chip" data-act="rppause">'+(RP.paused?'Resume':'Pause')+'</button><button class="chip" data-act="rpskip">Skip ahead</button></div><div class="chips" style="margin-top:8px"><button class="chip g" data-act="rpagain">\ud83d\udd01 Hear it again</button>'+(GS.on&&vi>0?'<button class="chip" data-act="rpback">\u23ee Back one verse</button>':'')+'</div>')+
   (RP.blocked?'<button class="btn" data-act="rpplay">Tap to play</button>':'')+'</div>'}
 function ovl(){if(view!=='verse'||transMsg)return '';if(recActive)return recSheet();if(RP.on)return rpSheet();if(GS.on&&GS.afterRec)return gcontSheet();return ''}
 function rpUrl(n,ext){return 'audio/v'+('00'+n).slice(-3)+ext}
@@ -560,21 +580,31 @@ async function recToggle(btn){
  }catch(e){recActive=false;var m=$('recMsg');if(m)m.textContent='Microphone not available. Allow microphone access for this page in your browser settings.'}}
 var app=$('app');
 app.addEventListener('ended',function(e){var t=e.target;if(t&&t.tagName==='AUDIO'&&t.dataset.act==='aplay'){var n=V[LST[vi].i].n;listenCount[n]=(listenCount[n]||0)+1;if(listenCount[n]<=3)render()}},true);
+function nwCount(){return LST.filter(function(x){return !x.r}).length}
 function goNext(){
   if(vi===LST.length-1&&!(S.steps[tdy()]||[])[3]&&!skipN&&!GS.on){nudge=true;render();return}
   var it=LST[vi];
-  if(it.rt==='due')advanceRev(V[it.i].n);
+  if(it.rt==='due'&&!advSess[V[it.i].n]){advSess[V[it.i].n]=1;advanceRev(V[it.i].n)}
   if(!it.r){var n=V[it.i].n;if(S.learned.indexOf(n)<0){S.learned.push(n);S.rev[n]={stage:0,due:addDays(1)}}}
   var nextIsNew=vi<LST.length-1&&it.r&&!LST[vi+1].r;
   sv();
   if(nextIsNew){transMsg='\ud83d\ude4f Wonderful! You have revised what you learned. Now, let us learn something new.';render(1);return}
   stopRecIfActive();if(vi<LST.length-1){vi++;tab='say';selW=0;render(1);if(GS.on)rpStart()}
-  else{GS.on=false;GS.afterRec=false;addDay();setStep(0,1);setStep(1,1);setStep(2,1);setStep(4,1);var wasRecap=LST.length&&LST[0].rt==='recap';if(!wasRecap)S.pos=Math.min(S.pos+S.pace,V.length);S.doneDay=tdy();skipN=false;nudge=false;sv();view='home';notice=wasRecap?'\ud83c\udf3a Wonderful! You chanted everything you have learned so far. Hari Om!':'\ud83c\udf3a Wonderful! Today\'s practice is complete. You can rest now, or learn the next verses today if you feel ready. You have learned '+S.learned.length+' verses so far.';render(1)}}
+  else{GS.on=false;GS.afterRec=false;addDay();setStep(0,1);setStep(1,1);setStep(2,1);setStep(4,1);var wasRecap=LST.length&&LST[0].rt==='recap',single=!!LST.single;if(!wasRecap&&!single)S.pos=Math.min(S.pos+S.pace,V.length);if(!single)S.doneDay=tdy();skipN=false;nudge=false;sv();view='home';notice='';END={more:!single&&!wasRecap&&S.pos<V.length,msg:single?'You practised verse '+V[LST[0].i].n+' again.':wasRecap?'You chanted everything you have learned so far.':'Today\'s practice is complete. You learned '+(nwCount())+' new verse'+(nwCount()===1?'':'s')+' today.'};render(1)}}
 app.addEventListener('toggle',function(e){var t=e.target;if(t&&t.classList&&t.classList.contains('opts'))optsOpen=t.open},true);
 app.addEventListener('click',function(e){
  var t=e.target.closest('[data-act]');if(!t)return;var a=t.dataset.act,v=t.dataset.v;
  if(a==='step'){var k=+t.dataset.k,s=S.steps[tdy()]||[0,0,0,0,0];setStep(k,!s[k]);render()}
- else if(a==='start'){LST=mkList();vi=0;tab='say';selW=0;view='verse';GS={on:true};skipN=true;render(1);rpStart()}
+ else if(a==='vopen'){VOPEN=!VOPEN;render()}
+ else if(a==='popen'){POPEN=!POPEN;render()}
+ else if(a==='start'){PR=true;panel='';render(1)}
+ else if(a==='pranamx'){PR=false;render(1)}
+ else if(a==='pranamgo'){PR=false;advSess={};LST=mkList();vi=0;tab='say';selW=0;view='verse';GS={on:true};skipN=true;render(1);rpStart()}
+ else if(a==='enddone'){END=null;render(1)}
+ else if(a==='endmore'){END=null;PR=true;render(1)}
+ else if(a==='gov'){var gn=+v,gi=vIdx(gn);if(gi>=0){panel='';VOPEN=false;advSess={};LST=[{i:gi,r:S.learned.indexOf(gn)>=0?1:0}];LST.single=true;vi=0;tab='say';selW=0;view='verse';GS={on:true};skipN=true;render(1);rpStart()}}
+ else if(a==='rpagain'){clearInterval(RP.tm);rpA.pause();rpListen()}
+ else if(a==='rpback'){if(vi>0){clearInterval(RP.tm);rpA.pause();vi--;tab='say';selW=0;render(1);rpStart()}}
  else if(a==='startm'){LST=mkList();vi=0;tab='say';selW=0;view='verse';GS={on:false};render(1)}
  else if(a==='mkplay'){mkLoad();if(MK.a.paused){var q9=MK.a.play();if(q9&&q9.catch)q9.catch(function(){})}else MK.a.pause()}
  else if(a==='mkback'){mkLoad();MK.a.currentTime=Math.max(0,MK.a.currentTime-3)}
