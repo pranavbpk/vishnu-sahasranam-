@@ -1,0 +1,52 @@
+Sahasranama Guru: project brief
+
+What this is
+
+A free, single-file web app that helps people learn Vishnu Sahasranamam without a teacher, in the guru-parampara way: listen, repeat after the guide line by line, say the whole verse, record. It tracks daily practice, streaks and revision. The owner is Pranav. He wants it extremely simple, uncluttered, beautiful and child-friendly.
+
+Live site: https://pranavbpk.github.io/vishnu-sahasranam-/
+GitHub repo: https://github.com/pranavbpk/vishnu-sahasranam-
+Main artifact: https://claude.ai/artifact/HgPposxayVLydWiwrdNzqy
+Preview artifact: https://claude.ai/artifact/AxBhX151cVeseTDyekrS2H (the mic is blocked inside artifacts, so use the GitHub copy to test recording)
+Current version: 58 (live). GitHub release "V4-Benchmark" matches Version 58.
+How it is built
+One HTML file (index.html), vanilla JS and CSS, no framework and no backend.
+Progress is stored in the browser (localStorage key sp2). Recordings are stored in IndexedDB (sp_rec). On iPhone, the Home Screen icon has separate storage from Safari.
+Guide audio: the owner records each verse as audio/vNNN.m4a in the repo. Optional audio/cuts.json holds the pause between line 1 and line 2 per verse.
+Home Screen files: icon-180.png, icon-192.png, icon-512.png, manifest.webmanifest.
+Languages: Sanskrit, Telugu, English, with dash-split pronunciation. Meanings and benefits in English, Telugu and Hindi.
+Working agreements
+Suggest first when the change is a design or flow change, then build it in index-preview.html so the owner can review it live. Make it the live index.html only when he says go ahead.
+Small, clear fixes can go straight to live.
+Always syntax-check the script, test in a phone-sized browser, and publish to the artifact. Then send the file.
+Back up the previous version as index-vNN.html before replacing index.html. Keep benchmark copies (index-v39, v41, v46, v55, v58) in the project's backups/ folder.
+The assistant has push access to the GitHub repo (Claude GitHub App installed 22 Oct 2026). It uploads index.html after the owner says go ahead; the owner opens the site with ?v=NN to refresh.
+Design decisions
+Look: ivory background, maroon and gold, sage for "done". Default colour theme is Mayur peacock. Other themes: Maroon and gold, Lotus pink, Tulasi green, Vishnu blue, Kumkum red, Haldi turmeric, Chandan sandalwood, Sunrise orange. The theme colour carries through tabs, headers and buttons.
+Home banner: slim by default, with "About this app" opening the full banner and the "How to use" guide (English, Telugu, Hindi). Tapping the Vishnu image opens it large.
+Settings is a 3x2 grid of tiles: Script, Reminder, Why chant, Reading, Start again, Guru.
+Start again lets the owner pick the starting verse (he starts from verse 61).
+Words highlight and dash words underline while the guide plays in practice, revising, Weekly recap, Listen to all learned, and the Say it tab. Text is hidden on the user's turn when revising.
+Recordings can be deleted one by one or all at once, with a tap-again confirm.
+Reminders: the "Add to my calendar" button in Settings makes a repeating calendar event. It may not work from an iPhone Home Screen app, so Clock alarms are the reliable route.
+Content status
+Verse text exists for verses 1 to 5 and 61 to 84 only. Word meanings only for 61 to 63.
+Special-benefit notes (from the Visvas Institute booklet, reference version June 2025) exist for about 19 verse groups. Verses 64, 65, 67, 73 and 75 have text in the app. The rest are stored for when those verses are added.
+Reading basics (marks, anusvara, visarga and so on) are in plain wording, 3 languages, marked draft for guru review. The Telugu and Hindi translations are the assistant's and need checking.
+Known gaps and ideas
+Not confirmed on the owner's phone: recording persistence on every device, chime audibility, word-highlight sync with his real recordings, screen-lock behaviour.
+Future: guru review of recordings, satsang sessions, login with cloud sync, real push reminders, meaning in audio, a shared "start verse" for groups, verse text for 6 to 60 and 85 to 108.
+Everything needs a guru's review before wider sharing. The owner is first learning from it himself for a while before letting anyone else try.
+Updates (22 Oct 2026)
+- Project holds: index.html (Version 58, identical to GitHub main), backups/index-v39, v41, v46, v55 (from repo history) and index-benchmark2-early, manifest, icons, both PDFs, audio/cuts.json.
+- Guide audio exists for verses 61-84 plus lesson1.m4a (19s, not used by the app yet). Audio files live only in the GitHub repo; clone it to get them.
+- audio/cuts.json made for verses 61-84 by pause detection and uploaded to GitHub. Verses 75 and 73 need checking in the Guru panel.
+- Fixed: audio/V080.m4a renamed to v080.m4a on GitHub, so verse 80 audio now loads.
+- GitHub release "2-benchmark" points to an early build, not Version 41.
+
+Background from the first chat
+- Original idea: a free web app viewers open from the YouTube channel's video descriptions, to learn Vishnu Sahasranamam with today's practice.
+- Planned build order: 1) daily lesson with text, audio, record (done) 2) word-level feedback and streak 3) chat tutor for meanings and questions 4) better pronunciation checking once reference recordings exist. Browser speech recognition is weak for Sanskrit, so feedback is a "practice helper", not a guru's ear.
+- Audio must be the owner's voice or a guru's with permission. Commercial recordings (e.g. M.S. Subbulakshmi) are copyrighted and must not be embedded. The verse text is public domain.
+- Verses 1-5 text was written from memory in the first build and still needs checking against a printed edition.
+- Working rhythm: one topic per chat inside this project; after each go-ahead, the project's index.html is replaced with the new version and the version line updated.
