@@ -336,6 +336,10 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .rpl.c2{background:linear-gradient(135deg,#f0a92a,#b07a12);color:#2b1d00}
 .cheer2{display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 0 0;padding:9px 14px;border-radius:14px;background:#fff6dd;border:1px solid #ecd29a;color:#5a3a00;font-size:.92rem;font-weight:600;text-align:center;animation:cheerfade 9s ease forwards}
 @keyframes cheerfade{0%{opacity:0;transform:translateY(-4px)}8%{opacity:1;transform:none}85%{opacity:1;max-height:80px}100%{opacity:0;max-height:0;padding:0 14px;margin:0;border-width:0}}
+.hv-sk{font-family:'Tiro Devanagari Sanskrit','Noto Serif Devanagari',serif;font-weight:400;font-size:1.7rem;line-height:1.2;margin-top:12px;color:#a8741a}
+.hv.cmp .hv-sk{font-size:1.4rem;margin-top:0}
+.hv h1{font-size:1.55rem}
+.hv.cmp h1{font-size:1.25rem}
 </style>
 </head>
 <body>
@@ -453,7 +457,7 @@ function addDay(){if(S.days.indexOf(tdy())<0){S.days.push(tdy())}sv()}
 function setStep(k,on){var a=S.steps[tdy()]||[0,0,0,0,0];a[k]=on?1:0;S.steps[tdy()]=a;sv()}
 function streak(){var n=0,d=new Date();if(S.days.indexOf(dstr(d))<0)d.setDate(d.getDate()-1);while(S.days.indexOf(dstr(d))>=0){n++;d.setDate(d.getDate()-1)}return n}
 var view='home',vi=0,tab='say',selW=0,LST=[],notice='',transMsg='';
-S.rev=S.rev||{};
+S.rev=S.rev||{};if((S.learned.length||(S.days&&S.days.length))&&!S.setupDone)S.setupDone=true;
 function vIdx(n){for(var i=0;i<V.length;i++)if(V[i].n===n)return i;return -1}
 function dueVerses(){var td=tdy(),out=[];Object.keys(S.rev).forEach(function(k){if(S.rev[k].due<=td)out.push(+k)});out.sort(function(a,b){return a-b});return out}
 function mkList(){var L=[],e=Math.min(S.pos+S.pace,V.length),seen={};
@@ -534,7 +538,7 @@ function pranamHTML(){var rv=mkList().filter(function(x){return x.r}).map(functi
 function endHTML(){var e=END;return '<div class="hero ends"><div class="stars">\u2b50\u2b50\u2b50</div><h1 style="font-size:1.5rem;margin:12px 0 6px">Well done! Jai Sriman Narayana \ud83d\ude4f</h1><div class="mute" style="font-size:1.05rem;line-height:1.5">'+e.msg+'<br>'+S.learned.length+' verse'+(S.learned.length===1?'':'s')+' learned \u00b7 '+streak()+'-day streak</div>'+thought()+'</div><div class="mute" style="text-align:center;margin:14px 0 6px">Thank your guru: say Om Namo Narayanaya once more.</div><button class="btn sf" data-act="enddone">Done for today</button>'+(e.more?'<button class="btn ghost" data-act="endmore" style="margin-top:8px">Learn the next verses today too</button>':'')}
 function allVersesCard(){var nw={};mkList().forEach(function(x){if(!x.r)nw[V[x.i].n]=1});var c='';for(var n=1;n<=TOTAL;n++){var has=vIdx(n)>=0,l=S.learned.indexOf(n)>=0;c+='<button class="gv'+(l?' l':nw[n]?' t':'')+'" data-act="gov" data-v="'+n+'"'+(has?'':' disabled')+'>'+n+'</button>'}return '<div class="card"><h2>All verses</h2><div class="mute">Tap a number to practise that verse. Green = learned, orange = today. Faded = text not added yet.</div><div style="margin-top:8px">'+c+'</div></div>'}
 var RSASK=false;
-function heroFull(){return HERO===null?(!S.setupDone||!S.learned.length):HERO}
+function heroFull(){return HERO===null?false:HERO}
 var HERO=null;
 function home(){
  if(PR)return pranamHTML();
@@ -546,7 +550,7 @@ function home(){
  +(full?'<p class="hv-tag">Learn the sacred thousand names the traditional way, guru to student: listen, repeat, chant. Understand the meaning and benefit of every verse, and watch your progress grow, one verse a day.</p><div class="hv-steps"><div><span>🎧</span><b>Listen</b><small>Hear the guru</small></div><div><span>🗣</span><b>Repeat</b><small>Line by line</small></div><div><span>📖</span><b>Meaning</b><small>Understand it</small></div><div><span>🌿</span><b>Benefit</b><small>Know why</small></div></div>':'')
  +'<button class="hv-tog" data-act="herotog"><i>i</i>'+(full?'Close about ▴':'About this app ▾')+'</button>'
  +'<button class="hv-prog" data-act="vopen" aria-expanded="'+VOPEN+'"><span class="hv-n">'+L+'<small>/'+TOTAL+'</small></span><span class="hv-pt"><b>verse'+(L===1?'':'s')+' learned</b><i class="hv-bar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></i><small>Finish by '+finLabel()+'</small></span><span class="hv-all">'+(VOPEN?'Hide':'See all')+' '+(VOPEN?'▴':'›')+'</span></button></div>';if(VOPEN)h+=allVersesCard();
- if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 52 \u00b7 22 Oct 2026</div>'}
+ if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 54 \u00b7 22 Oct 2026</div>'}
  if(panel)h+='<div class="tools tgrid" style="margin-top:8px">'+[['set','\ud83d\udd24','Script'],['rem','\u23f0','Reminder'],['why','\ud83d\udd49','Why chant'],['read','\ud83d\udcd6','Reading'],['again','\ud83d\udd04','Start again'],['guru','\ud83c\udf93','Guru']].map(function(x){return '<button class="chip tb tb-'+x[0]+'" data-act="panel" data-v="'+x[0]+'" aria-pressed="'+(panel===x[0])+'"><span class="ti">'+x[1]+'</span><span>'+x[2]+'</span></button>'}).join('')+'</div>';
  if(panel){var PT={set:['\ud83d\udd24','Script and help'],rem:['\u23f0','Daily reminders'],why:['\ud83d\udd49','Why we chant'],read:['\ud83d\udcd6','Reading basics'],again:['\ud83d\udd04','Start again'],guru:['\ud83c\udf93','Guru tools']}[panel];h+='<div class="pnl pnl-'+panel+'"><div class="pnh"><span>'+PT[0]+'</span><span>'+PT[1]+'</span></div>'}
  if(panel==='set'){h+='<div class="card"><h2>Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Repeat after me</h2><div class="chips"><button class="chip" data-act="lm" data-v="auto" aria-pressed="'+((S.lm||'auto')==='auto')+'">Automatic</button><button class="chip" data-act="lm" data-v="whole" aria-pressed="'+(S.lm==='whole')+'">Whole verse</button><button class="chip" data-act="lm" data-v="line" aria-pressed="'+(S.lm==='line')+'">Line by line</button></div><h2 style="margin-top:14px">Other scripts</h2><div class="chips"><button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show all three scripts under the verse</button></div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div></div>'}
@@ -566,7 +570,7 @@ if(panel==='again'){h+='<div class="card"><h2>Start from which verse?</h2><div c
  h+='<div class="mute" style="margin:10px 0 12px">'+(S.doneDay===tdy()?'Well done! Your streak is safe for today. Come back tomorrow, or keep going now with the next verses.':'Listen, repeat after the guru, then record yourself. It plays, waits for you, then moves on.')+'</div><button class="pacel" data-act="popen"><span>\ud83d\udcc5 '+S.pace+' verse'+(S.pace>1?'s':'')+' a day</span><span class="pgo">'+(POPEN?'Close \u2715':'Change')+'</span></button>'+(POPEN?'<div class="pacebox"><h3>How many verses a day?</h3>'+paceChips()+'<div class="mute" style="margin-top:8px">Each box shows the days left and the finish date. New learners: 1 or 2 a day for the first week works well.</div><button class="btn" data-act="popen">Done \u2713</button></div>':'')+'<button class="btn sf" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today too':'Start today\'s practice')+'</button></div>';
  h+='<div class="chips" style="margin-top:4px">'+(S.learned.length?'<button class="chip g" data-act="recap">\ud83e\udd4d Weekly recap</button><button class="chip p" data-act="plstart">\ud83c\udfb6 Listen to all learned</button>':'')+'</div>';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
- h+='<div class="mute" style="text-align:center">Version 52 \u00b7 22 Oct 2026</div>';
+ h+='<div class="mute" style="text-align:center">Version 54 \u00b7 22 Oct 2026</div>';
  return h}
 function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
@@ -657,9 +661,9 @@ haldi:{n:'Haldi turmeric',l:['#9a6200','#fff','#f7ecd0','#fff3d1','#b3261e','#ff
 chandan:{n:'Chandan sandalwood',l:['#6b4a2e','#fff','#efe4d6','#fff3d1','#c06a1a','#fff'],d:['#d9b48f','#24160a','#3a2c20','#3a2f10','#f0a24a','#1b2340']},
 mayur:{n:'Mayur peacock',l:['#0f6b6b','#fff','#dcefee','#fff3d1','#c77a00','#fff'],d:['#7fd6d3','#03211f','#19403f','#3a2f10','#f2b53a','#1b2340']},
 sunrise:{n:'Sunrise orange',l:['#b5400f','#fff','#f6e6dd','#fff0c9','#1f6fa8','#fff'],d:['#ffa370','#2c1004','#3d2619','#3a2f10','#6fb4ea','#06192a']}};
-function applyTheme(){var t=THEMES[S.theme]||THEMES.indigo,dk=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches,c=dk?t.d:t.l,st=document.documentElement.style;
+function applyTheme(){var t=THEMES[S.theme]||THEMES.mayur,dk=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches,c=dk?t.d:t.l,st=document.documentElement.style;
  ['--acc','--acc-ink','--soft','--gold-bg','--sf','--sf-ink'].forEach(function(k,i){st.setProperty(k,c[i])})}
-function themeBtns(){return Object.keys(THEMES).map(function(k){var t=THEMES[k];return '<button class="chip" data-act="theme" data-v="'+k+'" aria-pressed="'+((S.theme||'indigo')===k)+'"><span class="sd" style="background:linear-gradient(135deg,'+t.l[0]+' 50%,'+t.l[4]+' 50%)"></span>'+t.n+'</button>'}).join('')}
+function themeBtns(){return Object.keys(THEMES).map(function(k){var t=THEMES[k];return '<button class="chip" data-act="theme" data-v="'+k+'" aria-pressed="'+((S.theme||'mayur')===k)+'"><span class="sd" style="background:linear-gradient(135deg,'+t.l[0]+' 50%,'+t.l[4]+' 50%)"></span>'+t.n+'</button>'}).join('')}
 applyTheme();
 try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applyTheme)}catch(e){}
 var GS={on:false},PL={on:false},plA=new Audio();
