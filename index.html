@@ -205,6 +205,17 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .plink .pt small{font-weight:500;opacity:.85}
 .plink .pg{background:#ffd166;color:#2b1d00;border-radius:999px;padding:8px 12px;font-weight:700;font-size:.9rem;white-space:nowrap}
 .pacel{display:block;width:100%;text-align:left;background:var(--bg);border:1px dashed var(--line);border-radius:12px;padding:10px 12px;margin:0 0 12px;min-height:44px;font:inherit;color:inherit;cursor:pointer}
+.pvb{background:#7c3aed;color:#fff;text-align:center;padding:6px 10px;font-size:.85rem;border-radius:10px;margin-bottom:10px}
+.scr{display:flex;gap:8px;align-items:center;margin:2px 0 10px}
+.scr .chip{min-height:40px;padding:6px 12px}
+.scr .eye{margin-left:auto}
+.stp.mini{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;margin-top:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;color:inherit;font:inherit;cursor:pointer;min-height:52px}
+.stp.mini .sn{flex:0 0 auto}
+.stp.mini.ok .sn{background:#1f9d8f;color:#fff}
+.stp.mini .mute{margin-left:auto;font-size:.85rem}
+.tipf{margin-top:10px;background:#fff3d1;border-radius:12px;padding:8px 12px;color:#4a3300}
+.tipf summary{cursor:pointer;font-weight:600}
+.note0{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--bg);border:1px dashed var(--line)}
 </style>
 </head>
 <body>
@@ -398,9 +409,9 @@ function home(){
  if(END)return endHTML();
  var fin=S.pos>=V.length,e=Math.min(S.pos+S.pace,V.length),st=S.steps[tdy()]||[0,0,0,0,0];
  var h='<div class="hero"><div class="row"><button class="thumb" data-act="img" aria-label="View the picture larger"><img src="'+IMG+'" alt="Lord Vishnu"></button><div style="flex:1;min-width:0"><div class="sk">श्री विष्णु सहस्रनाम</div><h1>Vishnu Sahasranamam</h1></div></div><div class="hrow"><b class="pill">'+streak()+'-day streak</b><button class="setb" data-act="gear" aria-expanded="'+!!panel+'">\u2699 '+(panel?'Close settings':'Settings')+'</button></div>'+'<div class="bar" style="margin-top:14px"><i style="width:'+(S.learned.length/TOTAL*100)+'%"></i></div><button class="plink" data-act="vopen" aria-expanded="'+VOPEN+'"><span class="pn">'+S.learned.length+'<small>/'+TOTAL+'</small></span><span class="pt">verse'+(S.learned.length===1?'':'s')+' learned<br><small>Finish '+finLabel()+'</small></span><span class="pg">'+(VOPEN?'Hide':'See all')+' '+(VOPEN?'\u25b4':'\u203a')+'</span></button></div>';if(VOPEN)h+=allVersesCard();
- if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 35 \u00b7 21 Oct 2026</div>'}
+ if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 36 \u00b7 21 Oct 2026</div>'}
  if(panel)h+='<div class="tools" style="margin-top:8px">'+[['set','Script and help'],['rem','Reminder'],['why','Why chant'],['guru','Guru tools']].map(function(x){return '<button class="chip" data-act="panel" data-v="'+x[0]+'" aria-pressed="'+(panel===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
- if(panel==='set'){h+='<div class="card"><h2>Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div></div>'}
+ if(panel==='set'){h+='<div class="card"><h2>Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Repeat after me</h2><div class="chips"><button class="chip" data-act="lm" data-v="auto" aria-pressed="'+((S.lm||'auto')==='auto')+'">Automatic</button><button class="chip" data-act="lm" data-v="whole" aria-pressed="'+(S.lm==='whole')+'">Whole verse</button><button class="chip" data-act="lm" data-v="line" aria-pressed="'+(S.lm==='line')+'">Line by line</button></div><h2 style="margin-top:14px">Other scripts</h2><div class="chips"><button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show all three scripts under the verse</button></div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div></div>'}
  if(panel==='rem'){var rl=remList();h+='<div class="card"><h2>Daily reminders</h2><div class="mute">Set up to 3 a day. One tap adds them all to your phone calendar. Tip: a morning one, and an evening one to keep your streak.</div>'+rl.map(function(t,i){return '<div class="row" style="margin-top:10px"><span class="mute" style="min-width:74px">'+['First','Second','Third'][i]+'</span><input type="time" data-act="rt" data-i="'+i+'" value="'+t+'" aria-label="Reminder '+(i+1)+'">'+(rl.length>1?'<button class="chip" data-act="rtdel" data-v="'+i+'" aria-label="Remove reminder">\u2715</button>':'')+'</div>'}).join('')+(rl.length<3?'<button class="chip" data-act="rtadd" style="margin-top:10px">+ Add another reminder</button>':'')+'<div class="row" style="margin-top:12px"><a class="btn lnk" download="sahasranama-reminders.ics" href="'+icsHref()+'">Add to my calendar</a></div></div>'}
  if(panel==='why'){h+='<div class="card"><h2>'+T.whyT[S.lang]+'</h2>'+chipsLang()+'<p>'+T.why[S.lang]+'</p></div>'}
  if(panel==='guru'){h+=guruPanel()}
@@ -414,7 +425,7 @@ function home(){
  h+='<div class="mute" style="margin:10px 0 12px">'+(S.doneDay===tdy()?'Today\'s practice is done \u2713 You can learn the next verses if you feel ready.':'Listen, repeat after the guru, then record yourself. It plays, waits for you, then moves on.')+'</div><button class="pacel" data-act="popen">\ud83d\udcc5 '+S.pace+' verse'+(S.pace>1?'s':'')+' a day \u00b7 '+(POPEN?'close':'change')+'</button>'+(POPEN?'<div style="margin:6px 0 12px">'+paceChips()+'<div class="mute" style="margin-top:6px">Each box shows the days left and the finish date. New learners: 1 or 2 a day for the first week works well.</div></div>':'')+'<button class="btn sf" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today':'Start today\'s practice')+'</button></div>';
  h+='<div class="chips" style="margin-top:4px">'+(S.learned.length?'<button class="chip g" data-act="recap">\ud83e\udd4d Weekly recap</button><button class="chip p" data-act="plstart">\ud83c\udfb6 Listen to all learned</button>':'')+'</div>';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
- h+='<div class="mute" style="text-align:center">Version 35 \u00b7 21 Oct 2026</div>';
+ h+='<div class="mute" style="text-align:center">Version 36 \u00b7 21 Oct 2026</div>';
  return h}
 function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
@@ -423,20 +434,25 @@ function verse(){
  var stg=stageLabel(it),stgCls=it.r?'stage rev':'stage new';
  var h='<div class="vtop"><button class="back" data-act="home" aria-label="Back to home">\u2190</button><span>'+stg+', verse '+(vi+1)+' of '+LST.length+'</span></div><div class="pb"><i style="width:'+((vi+1)/LST.length*100)+'%"></i></div><div class="'+stgCls+'">'+(it.r?'\ud83d\udd01 Revising: say this one again':'\u2728 New today: learn this one')+'</div>';
  h+=(hideNow(it)&&!S.hide?'<div class="mute" style="text-align:center">Text is hidden to test your memory. Tap it to peek.</div>':'');
- h+='<div class="card"><div class="vnum">Verse '+v.n+'</div>';
+ h+='<div class="card"><div class="vnum">Verse '+v.n+'</div><div class="scr">'+[['sa','Sanskrit'],['te','\u0c24\u0c46\u0c32\u0c41\u0c17\u0c41'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'<button class="chip eye" data-act="hide" aria-pressed="'+!!S.hide+'" aria-label="Hide the text to test myself" title="Hide the text to test myself">'+(S.hide?'\ud83d\ude48':'\ud83d\udc41')+'</button></div>';
  var hc=hideNow(it)?' hid" data-act="peek':'';
  var mn=S.main||'sa',big=v[mn],easy=v.pr;
- h+='<div class="'+(mn==='te'?'te':mn==='en'?'enb':'sa')+' big'+hc+'">'+big[0]+'<br>'+big[1]+'</div><div class="prb'+hc+'">'+easy[0]+'<br>'+easy[1]+'</div>'+(tab==='say'?'<div class="tip2">\ud83d\udca1 '+v.tip+'</div>':'')+'</div>';
+ h+='<div class="'+(mn==='te'?'te':mn==='en'?'enb':'sa')+' big'+hc+'">'+big[0]+'<br>'+big[1]+'</div><div class="prb'+hc+'">'+easy[0]+'<br>'+easy[1]+'</div>'+(tab==='say'?'<details class="tipf"><summary>\ud83d\udca1 Pronunciation tip</summary><div style="margin-top:6px">'+v.tip+'</div></details>':'')+'</div>';
  h+='<div class="seg">'+[['say',T.L.say[S.lang]],['meaning',T.L.meaning[S.lang]],['benefit',T.L.benefit[S.lang]]].map(function(x){return '<button data-act="tab" data-v="'+x[0]+'" aria-pressed="'+(tab===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
  if(tab==='say'){
   gSync(v.n);
   var lc=listenCount[v.n]||0,tk=vRecsCache[v.n]||[],rd=!!rpDone[v.n],tkh=verseRecsHTML(v.n);
   var dots3=[0,1,2].map(function(i){return '<span class="ld'+(lc>i?' on':'')+'"></span>'}).join('');
-  h+='<details class="opts"'+(optsOpen?' open':'')+'><summary>\u2699 Script and display options</summary><div class="chips" style="margin-top:10px"><span class="mute">Script</span>'+[['sa','Sanskrit'],['te','\u0c24\u0c46\u0c32\u0c41\u0c17\u0c41'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+(mn===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><div class="chips" style="margin-top:8px"><button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show other scripts too</button><button class="chip" data-act="hide" aria-pressed="'+!!S.hide+'">Test myself (hide text)</button></div><div class="chips" style="margin-top:8px"><span class="mute">Repeat after me</span><button class="chip" data-act="lm" data-v="auto" aria-pressed="'+((S.lm||'auto')==='auto')+'">Automatic</button><button class="chip" data-act="lm" data-v="whole" aria-pressed="'+(S.lm==='whole')+'">Whole verse</button><button class="chip" data-act="lm" data-v="line" aria-pressed="'+(S.lm==='line')+'">Line by line</button></div></details>';
+  var noAud=(gSt==='error'&&gN===v.n);
   if(S.scAll)['sa','te','en'].forEach(function(k){if(k!==mn)h+='<div class="'+(k==='te'?'te':k==='sa'?'sa':'mute')+'">'+v[k][0]+'<br>'+v[k][1]+'</div>'});
-  h+='<div class="stp listen'+(lc>=3?' ready':lc>0?' part':'')+'"><div class="sh"><span class="sn">'+(lc>=3?'\u2713':'1')+'</span><b>Listen</b><span class="ldots">'+dots3+'</span></div><button class="gbtn" id="gBtn" data-act="gplay">'+gLabel()+'</button><div class="gbar"><i id="gBar" style="width:'+gPct()+'%"></i></div><div class="mute" id="gTime" style="margin-top:6px">'+gTime()+'</div></div>';
-  h+='<div class="stp'+(rd?' done':'')+'"><div class="sh"><span class="sn">'+(rd?'\u2713':'2')+'</span><b>Repeat after me</b></div><div class="mute" style="margin:0 0 10px">Hands-free: listen, then your turn, 3 rounds. The screen stays on.</div><button class="btn" data-act="rpstart">\ud83c\udfa7 Start</button></div>';
-  h+='<div class="stp'+(tk.length?' done':'')+'"><div class="sh"><span class="sn">'+(tk.length?'\u2713':'3')+'</span><b>Record yourself</b></div><button class="btn rec" data-act="rec">'+(recActive?'Stop recording':(tk.length?'Record another take':T.L.rec[S.lang]))+'</button><div class="msg" id="recMsg" aria-live="polite"></div>'+(tk.length?'<details open style="margin-top:8px"><summary>Your takes ('+tk.length+')</summary>'+tkh+'<details style="margin-top:8px"><summary>Compare with the guide</summary><ul><li>Does your pace match the guide\'s?</li><li>Did you pause between the two lines?</li><li>Did you hold the long vowels (aa, ee, oo)?</li></ul></details></details>':'<div class="mute" style="margin-top:8px">Your takes will appear here.</div>')+'</div>';
+  var dn=[lc>=3||noAud,rd||noAud,!!tk.length],auto=2;for(var q=0;q<3;q++){if(!dn[q]){auto=q;break}}
+  var cur=(OS&&OS.n===v.n)?OS.k:auto,lab=['Listen','Repeat after me','Record yourself'];
+  function mini(k){return '<button class="stp mini'+(dn[k]?' ok':'')+'" data-act="ostep" data-v="'+k+'"><span class="sn">'+(dn[k]?'\u2713':(k+1))+'</span><b>'+lab[k]+'</b><span class="mute">'+(dn[k]?'done':'tap to open')+'</span></button>'}
+  if(noAud)h+='<div class="note0 mute">Guide audio for this verse is coming soon. You can still record yourself.</div>';
+  if(!noAud){
+   if(cur===0)h+='<div class="stp listen'+(lc>=3?' ready':lc>0?' part':'')+'"><div class="sh"><span class="sn">'+(lc>=3?'\u2713':'1')+'</span><b>Listen</b><span class="ldots">'+dots3+'</span></div><button class="gbtn" id="gBtn" data-act="gplay">'+gLabel()+'</button><div class="gbar"><i id="gBar" style="width:'+gPct()+'%"></i></div><div class="mute" id="gTime" style="margin-top:6px">'+gTime()+'</div></div>';else h+=mini(0);
+   if(cur===1)h+='<div class="stp'+(rd?' done':'')+'"><div class="sh"><span class="sn">'+(rd?'\u2713':'2')+'</span><b>Repeat after me</b></div><div class="mute" style="margin:0 0 10px">Hands-free: listen, then your turn. The screen stays on.</div><button class="btn" data-act="rpstart">\ud83c\udfa7 Start</button></div>';else h+=mini(1)}
+  if(cur===2||noAud)h+='<div class="stp'+(tk.length?' done':'')+'"><div class="sh"><span class="sn">'+(tk.length?'\u2713':'3')+'</span><b>Record yourself</b></div><button class="btn rec" data-act="rec">'+(recActive?'Stop recording':(tk.length?'Record another take':T.L.rec[S.lang]))+'</button><div class="msg" id="recMsg" aria-live="polite"></div>'+(tk.length?'<details open style="margin-top:8px"><summary>Your takes ('+tk.length+')</summary>'+tkh+'<details style="margin-top:8px"><summary>Compare with the guide</summary><ul><li>Does your pace match the guide\'s?</li><li>Did you pause between the two lines?</li><li>Did you hold the long vowels (aa, ee, oo)?</li></ul></details></details>':'<div class="mute" style="margin-top:8px">Your takes will appear here.</div>')+'</div>';else h+=mini(2);
  }else if(tab==='meaning'){
   h+=chipsLang();
   if(!m){h+='<div class="card">'+T.soon[S.lang]+'</div>'}
@@ -448,7 +464,7 @@ function verse(){
  if(nudge)h+='<div class="plain">Record one verse so you can hear yourself? It only takes a minute.<div class="chips" style="margin-top:10px"><button class="chip" data-act="recnow">Record now</button><button class="chip" data-act="skip">Skip</button></div></div>';
  h+='<div class="dn"><button class="btn" data-act="next">'+(last?"I'm done for today":"I've practised this")+'</button></div>';
  return h}
-var gA=null,gN=0,gSt='idle',gTried=0,rpDone={},optsOpen=false;
+var gA=null,gN=0,gSt='idle',gTried=0,rpDone={},optsOpen=false,OS=null;
 function gSrc(n){return 'audio/v'+('00'+n).slice(-3)}
 function gFmt(s){s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
 function gPct(){return gA&&isFinite(gA.duration)&&gA.duration>0?Math.min(100,gA.currentTime/gA.duration*100):0}
@@ -461,7 +477,7 @@ function gWire(){
  gA.addEventListener('pause',function(){if(!gA.ended&&gSt!=='error'&&gSt!=='idle'){gSt='paused';gUi()}});
  gA.addEventListener('waiting',function(){if(gSt==='playing'){gSt='loading';gUi()}});
  gA.addEventListener('ended',function(){gSt='idle';listenCount[gN]=(listenCount[gN]||0)+1;try{gA.currentTime=0}catch(e){}render()});
- gA.addEventListener('error',function(){if(!gTried){gTried=1;gA.src=gSrc(gN)+'.mp3';gA.load()}else{gSt='error';gUi()}})}
+ gA.addEventListener('error',function(){if(!gTried){gTried=1;gA.src=gSrc(gN)+'.mp3';gA.load()}else{gSt='error';gUi();if(view==='verse'&&tab==='say')render()}})}
 function gSync(n){if(!gA){gA=new Audio();gA.preload='auto';gWire()}
  if(gN!==n){gA.pause();gN=n;gTried=0;gSt='idle';gA.src=gSrc(n)+'.m4a'}}
 function gToggle(){var it=LST[vi];if(!it)return;gSync(V[it.i].n);if(gSt==='error')return;
@@ -618,6 +634,7 @@ app.addEventListener('click',function(e){
  else if(a==='mkcopy'){var ta=$('mkJ');ta.select();try{navigator.clipboard.writeText(ta.value)}catch(e){document.execCommand('copy')}t.textContent='Copied \u2713'}
  else if(a==='mkclear'){delete S.cuts[MK.n];delete CUTS[MK.n];sv();render()}
  else if(a==='gear'){panel=panel?'':'set';render()}
+ else if(a==='ostep'){var os=LST[vi];if(os)OS={n:V[os.i].n,k:+v};render()}
  else if(a==='lm'){S.lm=v;sv();render()}
  else if(a==='level'){S.level=v;sv();render()}
  else if(a==='setupdone'){S.setupDone=true;notice='';sv();render(1)}
@@ -656,7 +673,7 @@ app.addEventListener('click',function(e){
  else if(a==='rec'){recToggle(t)}
  else if(a==='next'){goNext()}
  else if(a==='contNew'){transMsg='';vi++;tab='say';selW=0;render(1);if(GS.on)rpStart()}
- else if(a==='recap'){if(!S.learned.length){return}LST=recapList();vi=0;tab='say';selW=0;transMsg='';view='verse';render(1)}
+ else if(a==='recap'){if(!S.learned.length){return}advSess={};LST=recapList();vi=0;tab='say';selW=0;transMsg='';view='verse';GS={on:true};skipN=true;render(1);rpStart()}
 });
 app.addEventListener('change',function(e){var t=e.target;
  if(t.dataset.act==='mksel'){MK.a.pause();MK.n=+t.value;MK.a.removeAttribute('src');render()}
