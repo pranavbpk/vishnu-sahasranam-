@@ -6,7 +6,7 @@
 <title>Vishnu Sahasranamam Practice</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Tiro+Devanagari+Sanskrit&family=Noto+Serif+Telugu:wght@400;700&display=swap">
 <style>
-:root{--bg:#f3f5f9;--card:#fff;--ink:#1b2340;--mute:#4a5378;--line:#d9deea;--acc:#26357a;--acc-ink:#fff;--sf:#e8890c;--sf-ink:#1b2340;--soft:#e4e8f2;--gold-bg:#fff3d1;--rec:#c0392b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+:root{--bg:#f3f5f9;--card:#fff;--ink:#1b2340;--mute:#4a5378;--line:#d9deea;--acc:#7a1f2b;--acc-ink:#fff;--sf:#e8890c;--sf-ink:#1b2340;--soft:#e4e8f2;--gold-bg:#fff3d1;--rec:#c0392b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12142b;--card:#1b1e3f;--ink:#eef0fb;--mute:#a7acd0;--line:#33376a;--acc:#8fa3ff;--acc-ink:#0d1030;--soft:#262a55;--gold-bg:#3a2f10;--rec:#ff7b6b;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#12142b;--card:#1b1e3f;--ink:#eef0fb;--mute:#a7acd0;--line:#33376a;--acc:#8fa3ff;--acc-ink:#0d1030;--soft:#262a55;--gold-bg:#3a2f10;--rec:#ff7b6b;color-scheme:dark}
 *{box-sizing:border-box}
@@ -123,9 +123,9 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .rec1 audio{width:100%}
 .stage{display:block;margin:10px 0 6px;padding:10px 14px;border-radius:14px;font-size:1rem;font-weight:700;text-align:center}
 .stage.rev{background:linear-gradient(135deg,#f6c453,#e8890c);color:#2b1d00}
-.stage.new{background:linear-gradient(135deg,#1f9d8f,#26357a);color:#fff}
-.listen.part{background:linear-gradient(135deg,#e8890c 0%,#26357a 160%)}
-.listen.ready{background:linear-gradient(135deg,#23834a 0%,#1f9d8f 160%)}
+.stage.new{background:linear-gradient(135deg,#7a1f2b,#a8505a);color:#fff}
+.listen.part{background:linear-gradient(135deg,#e8890c 0%,#7a1f2b 160%)}
+.listen.ready{background:linear-gradient(135deg,#23834a 0%,#5b7f6b 160%)}
 .lready{background:rgba(0,0,0,.18);border-radius:10px;padding:6px 10px;margin-top:10px;font-size:.95rem}
 .ld{width:16px;height:16px}
 .ld.on{background:#ffd54a;box-shadow:0 0 0 3px rgba(255,213,74,.35)}
@@ -137,8 +137,8 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .rv{display:flex;align-items:center;gap:10px;margin:10px 0 0;font-weight:700}
 .tag{border-radius:99px;padding:4px 11px;font-size:.8rem;white-space:nowrap}
 .tag.rev{background:#f6c453;color:#2b1d00}
-.tag.new{background:#1f9d8f;color:#fff}
-.cheer{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:linear-gradient(135deg,#f6c453,#e8890c);color:#2b1d00;border-radius:16px;padding:14px 16px;font-weight:700}
+.tag.new{background:#5b7f6b;color:#fff}
+.cheer{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:linear-gradient(135deg,#fff1cf,#f6dc94);border:1.5px solid #d4a23c;color:#2b1d00;border-radius:16px;padding:14px 16px;font-weight:700}
 .cheer .ce{font-size:2.2rem}
 .cheer .ct{flex:1;min-width:160px}
 .cheer .chip{color:#2b1d00;background:rgba(255,255,255,.75);border-color:transparent}
@@ -146,9 +146,9 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .welcome.keep{background:var(--soft)}
 .rpsheet{position:fixed;inset:0;z-index:45;background:var(--bg);overflow:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px;max-width:520px;margin:0 auto}
 .rpph{border-radius:16px;padding:14px;text-align:center;font-size:1.3rem;font-weight:700;color:#fff}
-.rpph.listen{background:linear-gradient(135deg,#1f9d8f,#26357a)}
+.rpph.listen{background:linear-gradient(135deg,#5b7f6b,#7a1f2b)}
 .rpph.turn{background:linear-gradient(135deg,#f6a93b,#d9531e)}
-.rpph.done{background:linear-gradient(135deg,#23834a,#1f9d8f)}
+.rpph.done{background:linear-gradient(135deg,#23834a,#5b7f6b)}
 .rpph.rec{background:linear-gradient(135deg,#d64545,#8e1f1f)}
 .reddot{display:inline-block;width:12px;height:12px;border-radius:50%;background:#fff;margin-right:6px;animation:pl 1s infinite}
 @keyframes pl{50%{opacity:.25}}
@@ -167,8 +167,8 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .sn{width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;background:var(--acc);color:var(--acc-ink);flex:none}
 .stp.done .sn{background:#23834a;color:#fff}
 .stp.listen{border:0;background:linear-gradient(135deg,var(--acc) 0%,var(--soft) 160%);color:var(--acc-ink)}
-.stp.listen.part{background:linear-gradient(135deg,#e8890c 0%,#26357a 160%)}
-.stp.listen.ready{background:linear-gradient(135deg,#23834a 0%,#1f9d8f 160%)}
+.stp.listen.part{background:linear-gradient(135deg,#e8890c 0%,#7a1f2b 160%)}
+.stp.listen.ready{background:linear-gradient(135deg,#23834a 0%,#5b7f6b 160%)}
 .stp.listen .sn{background:rgba(255,255,255,.92);color:#1b2340}
 .stp.listen .mute{color:inherit;opacity:.9}
 .ldots{margin-left:auto;display:flex;gap:6px}
@@ -181,8 +181,8 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .mkbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px}
 .mkbox textarea{width:100%;min-height:70px;font:13px monospace;border:1px solid var(--line);border-radius:10px;padding:8px;background:var(--bg);color:inherit}
 .gear{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.14);color:inherit;font-size:1.35rem;cursor:pointer;line-height:1}
-.chip.g{background:rgba(31,157,115,.16);border-color:rgba(31,157,115,.5)}
-.chip.p{background:rgba(110,86,210,.16);border-color:rgba(110,86,210,.5)}
+.chip.g{background:rgba(91,127,107,.16);border-color:rgba(91,127,107,.55)}
+.chip.p{background:rgba(201,150,47,.18);border-color:rgba(201,150,47,.6)}
 .lnk2{display:block;width:100%;margin-top:10px;background:none;border:0;color:inherit;text-decoration:underline;opacity:.85;padding:10px;min-height:44px;cursor:pointer;font:inherit}
 .hero::after{pointer-events:none}
 .hero .sk{white-space:nowrap}
@@ -190,10 +190,10 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .setb{background:var(--sf);color:var(--sf-ink);border:0;border-radius:999px;padding:10px 16px;min-height:44px;font:inherit;font-weight:700;cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.25)}
 .setb[aria-expanded="true"]{background:#fff;color:#1b2559}
 .pvb{background:#7c3aed;color:#fff;text-align:center;padding:6px 10px;font-size:.85rem;border-radius:10px;margin-bottom:10px}
-.setb{background:#1f9d8f!important;color:#fff!important}
+.setb{background:#5b7f6b!important;color:#fff!important}
 .setb[aria-expanded="true"]{background:#fff!important;color:#1b2559!important}
 .gv{display:inline-flex;width:46px;height:46px;align-items:center;justify-content:center;border-radius:10px;margin:3px;font-weight:700;background:var(--card);border:1px solid var(--line);color:inherit;cursor:pointer;font:inherit}
-.gv.l{background:#1f9d8f;color:#fff;border-color:#1f9d8f}
+.gv.l{background:#5b7f6b;color:#fff;border-color:#5b7f6b}
 .gv.t{background:#e8890c;color:#fff;border-color:#e8890c}
 .gv:disabled{opacity:.35;cursor:default}
 .ends{text-align:center;padding:30px 18px}
@@ -211,7 +211,7 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .scr .eye{margin-left:auto}
 .stp.mini{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;margin-top:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;color:inherit;font:inherit;cursor:pointer;min-height:52px}
 .stp.mini .sn{flex:0 0 auto}
-.stp.mini.ok .sn{background:#1f9d8f;color:#fff}
+.stp.mini.ok .sn{background:#5b7f6b;color:#fff}
 .stp.mini .mute{margin-left:auto;font-size:.85rem}
 .tipf{margin-top:10px;background:#fff3d1;border-radius:12px;padding:8px 12px;color:#4a3300}
 .tipf summary{cursor:pointer;font-weight:600}
@@ -228,55 +228,55 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .hsteps span{display:block;font-size:1.35rem;margin-bottom:2px}
 .hstog{background:none;border:0;color:#ffd88a;font-weight:700;font-size:.8rem;margin-top:8px;padding:4px 0;text-decoration:underline;cursor:pointer}
 .heroimg .row{align-items:flex-end}
-.wd{display:inline-block;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;text-decoration-color:rgba(31,157,143,.8);padding:1px 4px;margin:1px 0;border-radius:6px;transition:background .15s,color .15s}
-.wd.heard{background:rgba(31,157,143,.22)}
+.wd{display:inline-block;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;text-decoration-color:rgba(91,127,107,.8);padding:1px 4px;margin:1px 0;border-radius:6px;transition:background .15s,color .15s}
+.wd.heard{background:rgba(91,127,107,.22)}
 .wd.now{background:#ffd166;color:#2b1d00;text-decoration-color:#2b1d00}
 .rpverse .ln{border-left:5px solid transparent;padding-left:10px;margin:6px 0;transition:opacity .2s}
-.rpverse .l1{border-left-color:#1f9d8f}
-.rpverse .l2{border-left-color:#7c5cd6}
+.rpverse .l1{border-left-color:#5b7f6b}
+.rpverse .l2{border-left-color:#7a1f2b}
 .rpverse.s0 .l2,.rpverse.s1 .l1{opacity:.35}
 .rpverse.s2 .ln{border-left-color:#e8a317}
-.rpph.c0{background:linear-gradient(135deg,#1f9d8f,#157a7a)!important}
+.rpph.c0{background:linear-gradient(135deg,#5b7f6b,#476a58)!important}
 .rpph.c1{background:linear-gradient(135deg,#8b6be0,#5b3fb5)!important}
-.rpph.c2{background:linear-gradient(135deg,#f0a92a,#d9731a)!important}
-.rpbar.c0 i{background:#1f9d8f}.rpbar.c1 i{background:#7c5cd6}.rpbar.c2 i{background:#e8a317}
-.pacel{background:linear-gradient(135deg,rgba(31,157,143,.14),rgba(31,157,143,.04));border:1.5px solid rgba(31,157,143,.55);font-weight:600;display:flex;align-items:center;gap:8px}
-.pacel .pgo{margin-left:auto;background:#1f9d8f;color:#fff;border-radius:999px;padding:4px 12px;font-size:.85rem;font-weight:700}
-.pacebox{background:linear-gradient(180deg,rgba(31,157,143,.12),rgba(31,157,143,.03));border:1.5px solid rgba(31,157,143,.5);border-radius:16px;padding:12px;margin:0 0 12px}
-.pacebox h3{margin:0 0 8px;font-size:1rem;color:#157a7a}
-.pacebox .btn{margin-top:10px;background:#1f9d8f;color:#fff}
+.rpph.c2{background:linear-gradient(135deg,#f0a92a,#b07a12)!important}
+.rpbar.c0 i{background:#5b7f6b}.rpbar.c1 i{background:#7a1f2b}.rpbar.c2 i{background:#e8a317}
+.pacel{background:linear-gradient(135deg,rgba(91,127,107,.14),rgba(91,127,107,.04));border:1.5px solid rgba(91,127,107,.55);font-weight:600;display:flex;align-items:center;gap:8px}
+.pacel .pgo{margin-left:auto;background:#5b7f6b;color:#fff;border-radius:999px;padding:4px 12px;font-size:.85rem;font-weight:700}
+.pacebox{background:linear-gradient(180deg,rgba(91,127,107,.12),rgba(91,127,107,.03));border:1.5px solid rgba(91,127,107,.5);border-radius:16px;padding:12px;margin:0 0 12px}
+.pacebox h3{margin:0 0 8px;font-size:1rem;color:#476a58}
+.pacebox .btn{margin-top:10px;background:#5b7f6b;color:#fff}
 .tb{font-weight:700;border-width:1.5px;min-height:46px}
-.tb-set{--pc:#c2417a}.tb-rem{--pc:#d98a0b}.tb-why{--pc:#7c5cd6}.tb-guru{--pc:#1f9d8f}
+.tb-set{--pc:#7a1f2b}.tb-rem{--pc:#b07a12}.tb-why{--pc:#7a1f2b}.tb-guru{--pc:#5b7f6b}
 .tb{border-color:var(--pc);color:var(--pc);background:color-mix(in srgb,var(--pc) 10%,var(--card))}
 .tb[aria-pressed="true"]{background:var(--pc);color:#fff}
-.pnl{margin-top:10px;--pc:#c2417a}
-.pnl-rem{--pc:#d98a0b}.pnl-why{--pc:#7c5cd6}.pnl-guru{--pc:#1f9d8f}
+.pnl{margin-top:10px;--pc:#7a1f2b}
+.pnl-rem{--pc:#b07a12}.pnl-why{--pc:#7a1f2b}.pnl-guru{--pc:#5b7f6b}
 .pnh{display:flex;align-items:center;gap:10px;background:var(--pc);color:#fff;border-radius:16px 16px 0 0;padding:12px 16px;font-weight:800;font-size:1.05rem}
 .pnl>.card{border:2px solid var(--pc);border-top:0;border-radius:0 0 16px 16px;margin-top:0;background:color-mix(in srgb,var(--pc) 5%,var(--card))}
 .pnl>.card h2{color:var(--pc)}
 .pnl-rem>.card>h2:first-child,.pnl-why>.card>h2:first-child{display:none}
 .pnl .chip[aria-pressed="true"]{background:var(--pc);border-color:var(--pc);color:#fff}
-.tcard.tdone{border-top-color:#1f9d8f}
-.tcard.tdone .tk{color:#157a7a;font-weight:800}
-.tcard.tdone h2{color:#157a7a}
+.tcard.tdone{border-top-color:#5b7f6b}
+.tcard.tdone .tk{color:#476a58;font-weight:800}
+.tcard.tdone h2{color:#476a58}
 .vnum{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .vnum .chip{min-height:34px;padding:4px 10px;font-size:.85rem}
 .vnum .spp{background:#fff3d1;border-color:#e8a317;color:#5a3a00;font-weight:700}
 .rbsheet{position:fixed;inset:0;z-index:60;background:var(--bg);overflow:auto;padding:16px}
 .exv{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:12px 0;font-weight:700;color:#1b2559;line-height:1.7}
-.mk{color:#c2417a;font-weight:800;font-size:1.15em}
-.rbc{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--rc,#b83232);border-radius:14px;padding:12px;margin-top:10px}
-.rbc0{--rc:#b83232}.rbc1{--rc:#d98a0b}.rbc2{--rc:#1f9d8f}.rbc3{--rc:#7c5cd6}.rbc4{--rc:#c2417a}
-.rbi{flex:0 0 52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:800;color:#fff;background:var(--rc,#b83232);text-align:center;line-height:1.1}
+.mk{color:#7a1f2b;font-weight:800;font-size:1.15em}
+.rbc{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--rc,#7a1f2b);border-radius:14px;padding:12px;margin-top:10px}
+.rbc0{--rc:#7a1f2b}.rbc1{--rc:#b07a12}.rbc2{--rc:#5b7f6b}.rbc3{--rc:#7a1f2b}.rbc4{--rc:#7a1f2b}
+.rbi{flex:0 0 52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:800;color:#fff;background:var(--rc,#7a1f2b);text-align:center;line-height:1.1}
 .rbd{margin-top:4px;line-height:1.5}
 .spb{display:flex;gap:12px;align-items:center;background:linear-gradient(135deg,#fff3d1,#ffe3a3);border:1.5px solid #e8a317;color:#4a3300}
 .spi{font-size:2.2rem}.spt{font-weight:700;line-height:1.4;margin-top:2px}
-.ph{font-weight:800;font-size:1.1rem;color:#157a7a;margin-bottom:4px}
+.ph{font-weight:800;font-size:1.1rem;color:#476a58;margin-bottom:4px}
 .pur{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
 .pri{flex:0 0 44px;font-size:1.8rem;text-align:center}
-.chip.vb{min-height:38px;padding:4px 10px;font-weight:700;border-color:#1f9d8f;color:#157a7a}
+.chip.vb{min-height:38px;padding:4px 10px;font-weight:700;border-color:#5b7f6b;color:#476a58}
 .chip.vb.dis{opacity:.4}
-.tb-read{--pc:#b83232}.pnl-read{--pc:#b83232}
+.tb-again{--pc:#b07a12}.pnl-again{--pc:#b07a12}.tb-read{--pc:#7a1f2b}.pnl-read{--pc:#7a1f2b}
 
 .hv{background:linear-gradient(180deg,#fffaf0,#fff0d4);border:2px solid #d4a23c;border-radius:22px;padding:14px;box-shadow:0 6px 20px rgba(140,90,20,.18);color:#4a2a1a}
 .hv-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -311,6 +311,25 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .hv.cmp h1{font-size:1.35rem}
 .hv.cmp .hv-sub{font-size:.85rem}
 .hv.cmp .hv-tog{margin-top:12px}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tgrid .tb{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:5px;min-height:42px;padding:6px 4px;font-size:.84rem;border-radius:14px;text-align:center;line-height:1.1;white-space:nowrap}
+.tgrid .ti{font-size:1.05rem;line-height:1}
+
+/* calm palette: ivory, maroon, gold, sage */
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fbf6ec;--card:#fffdf8;--line:#ecdcb8;--acc:#7a1f2b;--acc-ink:#fff;--soft:#f4ead3;--ink:#2e2220;--mute:#6b5a52}}
+:root[data-theme="light"]{--bg:#fbf6ec;--card:#fffdf8;--line:#ecdcb8;--acc:#7a1f2b;--acc-ink:#fff;--soft:#f4ead3;--ink:#2e2220;--mute:#6b5a52}
+.tb,.tb-set,.tb-rem,.tb-why,.tb-read,.tb-again,.tb-guru{--pc:#7a1f2b}
+.tb{border-color:#d4a23c;color:#7a1f2b;background:#fffaf0}
+.tb[aria-pressed="true"]{background:#7a1f2b;color:#fff;border-color:#7a1f2b}
+.pnl,.pnl-set,.pnl-rem,.pnl-why,.pnl-read,.pnl-again,.pnl-guru{--pc:#7a1f2b}
+.pnl>.card{border-color:#d4a23c;background:#fffaf0}
+.pnl>.card h2{color:#7a1f2b}
+.rbc0{--rc:#7a1f2b}.rbc1{--rc:#c9962f}.rbc2{--rc:#5b7f6b}.rbc3{--rc:#8b5a2b}.rbc4{--rc:#a8505a}
+.wd{text-decoration-color:rgba(176,122,18,.9)}
+.wd.heard{background:rgba(201,150,47,.28)}
+.tag.new{background:#5b7f6b}
+.chip.vb{border-color:#d4a23c;color:#7a1f2b}
+.ph{color:#7a1f2b}
 </style>
 </head>
 <body>
@@ -516,18 +535,19 @@ function home(){
  if(END)return endHTML();
  var fin=S.pos>=V.length,e=Math.min(S.pos+S.pace,V.length),st=S.steps[tdy()]||[0,0,0,0,0];
  var full=heroFull(),L=S.learned.length;
- var h='<div class="hv'+(full?'':' cmp')+'"><div class="hv-top"><b class="hv-streak">🔥 '+streak()+'-day streak</b><button class="hv-set" data-act="gear" aria-expanded="'+!!panel+'">⚙ '+(panel?'Close':'Settings')+'</button></div>'
+ var h='<div class="hv'+(full?'':' cmp')+'"><div class="hv-top"><b class="hv-streak">🔥 '+streak()+'-day streak</b><button class="hv-set" data-act="gear" aria-expanded="'+!!panel+'">'+(panel?'✕ Close settings':'⚙ Settings')+'</button></div>'
  +'<div class="hv-main"><div class="hv-art" style="background-image:url(\''+IMG+'\')"></div><div class="hv-tx"><div class="hv-sk">श्री विष्णु सहस्रनाम</div><h1>Sahasranama Guru</h1><div class="hv-sub">Your virtual guru for Vishnu Sahasranamam</div></div></div>'
  +(full?'<p class="hv-tag">Learn the sacred thousand names the traditional way, guru to student: listen, repeat, chant. Understand the meaning and benefit of every verse, and watch your progress grow, one verse a day.</p><div class="hv-steps"><div><span>🎧</span><b>Listen</b><small>Hear the guru</small></div><div><span>🗣</span><b>Repeat</b><small>Line by line</small></div><div><span>📖</span><b>Meaning</b><small>Understand it</small></div><div><span>🌿</span><b>Benefit</b><small>Know why</small></div></div>':'')
- +'<button class="hv-tog" data-act="herotog"><i>i</i>'+(full?'Hide this ▴':'About this app ▾')+'</button>'
+ +'<button class="hv-tog" data-act="herotog"><i>i</i>'+(full?'Close about ▴':'About this app ▾')+'</button>'
  +'<button class="hv-prog" data-act="vopen" aria-expanded="'+VOPEN+'"><span class="hv-n">'+L+'<small>/'+TOTAL+'</small></span><span class="hv-pt"><b>verse'+(L===1?'':'s')+' learned</b><i class="hv-bar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></i><small>Finish '+finLabel()+'</small></span><span class="hv-all">'+(VOPEN?'Hide':'See all')+' '+(VOPEN?'▴':'›')+'</span></button></div>';if(VOPEN)h+=allVersesCard();
- if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 44 \u00b7 22 Oct 2026</div>'}
- if(panel)h+='<div class="tools" style="margin-top:8px">'+[['set','\ud83d\udd24 Script and help'],['rem','\u23f0 Reminder'],['why','\ud83d\udd49 Why chant'],['read','\ud83d\udcd6 Reading basics'],['guru','\ud83c\udf93 Guru tools']].map(function(x){return '<button class="chip tb tb-'+x[0]+'" data-act="panel" data-v="'+x[0]+'" aria-pressed="'+(panel===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
- if(panel){var PT={set:['\ud83d\udd24','Script and help'],rem:['\u23f0','Daily reminders'],why:['\ud83d\udd49','Why we chant'],read:['\ud83d\udcd6','Reading basics'],guru:['\ud83c\udf93','Guru tools']}[panel];h+='<div class="pnl pnl-'+panel+'"><div class="pnh"><span>'+PT[0]+'</span><span>'+PT[1]+'</span></div>'}
- if(panel==='set'){h+='<div class="card"><h2>Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Repeat after me</h2><div class="chips"><button class="chip" data-act="lm" data-v="auto" aria-pressed="'+((S.lm||'auto')==='auto')+'">Automatic</button><button class="chip" data-act="lm" data-v="whole" aria-pressed="'+(S.lm==='whole')+'">Whole verse</button><button class="chip" data-act="lm" data-v="line" aria-pressed="'+(S.lm==='line')+'">Line by line</button></div><h2 style="margin-top:14px">Other scripts</h2><div class="chips"><button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show all three scripts under the verse</button></div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div><h2 style="margin-top:14px">Start again</h2>'+(RSASK?'<div class="plain">This clears your learned verses, streak and daily progress on this phone. Your recordings and settings stay. Are you sure?</div><div class="chips" style="margin-top:8px"><button class="chip" data-act="resetgo" style="background:#c0392b;color:#fff;border-color:#c0392b">Yes, start again</button><button class="chip" data-act="resetno">Cancel</button></div>':'<div class="mute">Begin again from verse 1 with a fresh streak.</div><div class="chips" style="margin-top:8px"><button class="chip" data-act="resetask">\u21ba Start again from the beginning</button></div>')+'</div>'}
+ if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 46 \u00b7 22 Oct 2026</div>'}
+ if(panel)h+='<div class="tools tgrid" style="margin-top:8px">'+[['set','\ud83d\udd24','Script'],['rem','\u23f0','Reminder'],['why','\ud83d\udd49','Why chant'],['read','\ud83d\udcd6','Reading'],['again','\ud83d\udd04','Start again'],['guru','\ud83c\udf93','Guru']].map(function(x){return '<button class="chip tb tb-'+x[0]+'" data-act="panel" data-v="'+x[0]+'" aria-pressed="'+(panel===x[0])+'"><span class="ti">'+x[1]+'</span><span>'+x[2]+'</span></button>'}).join('')+'</div>';
+ if(panel){var PT={set:['\ud83d\udd24','Script and help'],rem:['\u23f0','Daily reminders'],why:['\ud83d\udd49','Why we chant'],read:['\ud83d\udcd6','Reading basics'],again:['\ud83d\udd04','Start again'],guru:['\ud83c\udf93','Guru tools']}[panel];h+='<div class="pnl pnl-'+panel+'"><div class="pnh"><span>'+PT[0]+'</span><span>'+PT[1]+'</span></div>'}
+ if(panel==='set'){h+='<div class="card"><h2>Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Repeat after me</h2><div class="chips"><button class="chip" data-act="lm" data-v="auto" aria-pressed="'+((S.lm||'auto')==='auto')+'">Automatic</button><button class="chip" data-act="lm" data-v="whole" aria-pressed="'+(S.lm==='whole')+'">Whole verse</button><button class="chip" data-act="lm" data-v="line" aria-pressed="'+(S.lm==='line')+'">Line by line</button></div><h2 style="margin-top:14px">Other scripts</h2><div class="chips"><button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show all three scripts under the verse</button></div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div></div>'}
  if(panel==='rem'){var rl=remList();h+='<div class="card"><h2>Daily reminders</h2><div class="mute">Set up to 3 a day. One tap adds them all to your phone calendar. Tip: a morning one, and an evening one to keep your streak.</div>'+rl.map(function(t,i){return '<div class="row" style="margin-top:10px"><span class="mute" style="min-width:74px">'+['First','Second','Third'][i]+'</span><input type="time" data-act="rt" data-i="'+i+'" value="'+t+'" aria-label="Reminder '+(i+1)+'">'+(rl.length>1?'<button class="chip" data-act="rtdel" data-v="'+i+'" aria-label="Remove reminder">\u2715</button>':'')+'</div>'}).join('')+(rl.length<3?'<button class="chip" data-act="rtadd" style="margin-top:10px">+ Add another reminder</button>':'')+'<div class="row" style="margin-top:12px"><a class="btn lnk" download="sahasranama-reminders.ics" href="'+icsHref()+'">Add to my calendar</a></div></div>'}
  if(panel==='why'){h+='<div class="card"><h2>'+T.whyT[S.lang]+'</h2>'+chipsLang()+'<p>'+T.why[S.lang]+'</p></div>'+purposeCard()}
  if(panel==='read'){h+=rbCard()}
+if(panel==='again'){h+='<div class="card"><h2>Start from which verse?</h2><div class="mute">Pick the verse you want to begin with. Your streak starts the day you finish it.</div>'+startSel()+'<h2 style="margin-top:16px">Start again</h2>'+(RSASK?'<div class="plain">This clears your learned verses, streak and daily progress on this phone. Your recordings and settings stay. Are you sure?</div><div class="chips" style="margin-top:8px"><button class="chip" data-act="resetgo" style="background:#c0392b;color:#fff;border-color:#c0392b">Yes, start again</button><button class="chip" data-act="resetno">Cancel</button></div>':'<div class="mute">Clears your learned verses, streak and daily progress, and begins again at the verse above.</div><div class="chips" style="margin-top:8px"><button class="chip" data-act="resetask">\u21ba Start again from this verse</button></div>')+'</div>'}
  if(panel==='guru'){h+=guruPanel()}
  if(panel)h+='</div>';
  if(notice){h+='<div class="plain">'+notice+'</div>';notice=''}
@@ -540,7 +560,7 @@ function home(){
  h+='<div class="mute" style="margin:10px 0 12px">'+(S.doneDay===tdy()?'Well done! Your streak is safe for today. Come back tomorrow, or keep going now with the next verses.':'Listen, repeat after the guru, then record yourself. It plays, waits for you, then moves on.')+'</div><button class="pacel" data-act="popen"><span>\ud83d\udcc5 '+S.pace+' verse'+(S.pace>1?'s':'')+' a day</span><span class="pgo">'+(POPEN?'Close \u2715':'Change')+'</span></button>'+(POPEN?'<div class="pacebox"><h3>How many verses a day?</h3>'+paceChips()+'<div class="mute" style="margin-top:8px">Each box shows the days left and the finish date. New learners: 1 or 2 a day for the first week works well.</div><button class="btn" data-act="popen">Done \u2713</button></div>':'')+'<button class="btn sf" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today too':'Start today\'s practice')+'</button></div>';
  h+='<div class="chips" style="margin-top:4px">'+(S.learned.length?'<button class="chip g" data-act="recap">\ud83e\udd4d Weekly recap</button><button class="chip p" data-act="plstart">\ud83c\udfb6 Listen to all learned</button>':'')+'</div>';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
- h+='<div class="mute" style="text-align:center">Version 44 \u00b7 22 Oct 2026</div>';
+ h+='<div class="mute" style="text-align:center">Version 46 \u00b7 22 Oct 2026</div>';
  return h}
 function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
@@ -622,7 +642,7 @@ function verseRecsHTML(n){
  return list.map(function(o,i){if(!o.u)o.u=URL.createObjectURL(o.b);return '<div class="rec1"><div class="note">Take '+(list.length-i)+' \u00b7 '+new Date(o.t).toLocaleString(undefined,{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})+(i===0?' <span class="tag new">Latest</span>':'')+'</div><audio controls src="'+o.u+'"></audio></div>'}).join('')}
 
 var THEMES={
-indigo:{n:'Indigo and saffron',l:['#26357a','#fff','#e4e8f2','#fff3d1','#e8890c','#1b2340'],d:['#8fa3ff','#0d1030','#262a55','#3a2f10','#e8890c','#1b2340']},
+indigo:{n:'Maroon and gold',l:['#7a1f2b','#fff','#f4ead3','#fff3d1','#e8890c','#1b2340'],d:['#8fa3ff','#0d1030','#262a55','#3a2f10','#e8890c','#1b2340']},
 lotus:{n:'Lotus pink',l:['#8e2a6b','#fff','#f3e4ee','#ffe9f3','#e8890c','#1b2340'],d:['#f08fc9','#2a0a1f','#3a2033','#3d2230','#f2a900','#1b2340']},
 tulasi:{n:'Tulasi green',l:['#1f6b4a','#fff','#e0efe7','#fff3d1','#e8890c','#1b2340'],d:['#7bd6a8','#06251a','#1f3a2e','#3a2f10','#f2a900','#1b2340']},
 blue:{n:'Vishnu blue',l:['#0b5c8a','#fff','#dcecf6','#fff3d1','#f0a000','#1b2340'],d:['#7cc4f0','#04202f','#17364a','#3a2f10','#f2b53a','#1b2340']},
@@ -636,7 +656,8 @@ var GS={on:false},PL={on:false},plA=new Audio();
 function lvl(){return S.level||'n'}
 function hideNow(it){var l=lvl();if(RP.on&&RP.phase==='listen')return false;return !!S.hide||l==='a'||(l==='n'&&!!it.r)}
 function levelChips(){return [['b','Beginner'],['n','Normal'],['a','Advanced']].map(function(x){return '<button class="chip" data-act="level" data-v="'+x[0]+'" aria-pressed="'+(lvl()===x[0])+'">'+x[1]+'</button>'}).join('')}
-function setupCard(){return '<div class="card"><h2>Set up in 10 seconds</h2><div class="mute">How many verses a day?</div>'+paceChips()+'<div class="mute" style="margin-top:12px">Which script do you read best?</div><div class="chips" style="margin:6px 0 10px">'+[['sa','Sanskrit'],['te','\u0c24\u0c46\u0c32\u0c41\u0c17\u0c41'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><div class="mute">How much help do you want?</div><div class="chips" style="margin:6px 0 8px">'+levelChips()+'</div><div class="mute" style="margin-bottom:10px">Beginner: text always shown. Normal: text hidden when you revise, tap to peek. Advanced: text hidden, tap to peek.</div><button class="btn sf" data-act="setupdone">Done, let\'s begin</button><div class="mute" style="margin-top:8px">You can change all of this later under Settings.</div></div>'}
+function startSel(){var cur=S.startV||V[Math.min(S.pos,V.length-1)].n;return '<select data-act="startsel" aria-label="Start from verse" style="margin-top:6px">'+V.map(function(v){return '<option value="'+v.n+'"'+(v.n===cur?' selected':'')+'>Verse '+v.n+'</option>'}).join('')+'</select>'}
+function setupCard(){return '<div class="card"><h2>Set up in 10 seconds</h2><div class="mute">How many verses a day?</div>'+paceChips()+'<div class="mute" style="margin-top:12px">Which script do you read best?</div><div class="chips" style="margin:6px 0 10px">'+[['sa','Sanskrit'],['te','\u0c24\u0c46\u0c32\u0c41\u0c17\u0c41'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><div class="mute">Which verse do you want to start from?</div>'+startSel()+'<div class="mute" style="margin-top:12px">How much help do you want?</div><div class="chips" style="margin:6px 0 8px">'+levelChips()+'</div><div class="mute" style="margin-bottom:10px">Beginner: text always shown. Normal: text hidden when you revise, tap to peek. Advanced: text hidden, tap to peek.</div><button class="btn sf" data-act="setupdone">Done, let\'s begin</button><div class="mute" style="margin-top:8px">You can change all of this later under Settings.</div></div>'}
 function gcontSheet(){var last=vi>=LST.length-1;return '<div class="rpsheet"><div class="rpph done">\u2705 Take saved</div>'+sheetVerse()+'<button class="btn" data-act="gnext">'+(last?'Finish today':'Next verse')+'</button><button class="btn rec" data-act="rec">Record another take</button><button class="btn ghost" data-act="gstop">Stop here</button></div>'}
 function plSheet(){var n=PL.list[PL.idx],v=V[vIdx(n)],mn=S.main||'sa';
  return '<div class="rpsheet"><div class="row"><span class="mute">Verse '+n+' \u00b7 '+(PL.idx+1)+' of '+PL.list.length+'</span><button class="chip" data-act="plclose">Close</button></div><div class="rpph listen">\ud83c\udfb6 '+(PL.done?'Finished':'Listening')+'</div><div class="rpverse"><div class="'+(mn==='te'?'te':mn==='en'?'enb':'sa')+'">'+v[mn][0]+'<br>'+v[mn][1]+'</div><div class="prb big2"><div class="ln l1">'+wordsHTML(v.pr[0],0,1)+'</div><div class="ln l2">'+wordsHTML(v.pr[1],1,1)+'</div></div></div><div class="rpbar"><i id="plbar"></i></div><div class="chips"><button class="chip" data-act="plprev">\u23ee Back</button><button class="chip" data-act="plpause">'+(PL.paused?'\u25b6 Play':'\u23f8 Pause')+'</button><button class="chip" data-act="plnext">Next \u23ed</button></div>'+(PL.err?'<div class="plain">'+PL.err+'</div>':'')+'</div>'}
@@ -781,12 +802,12 @@ app.addEventListener('click',function(e){
  else if(a==='mktest'){mkLoad();var c0=S.cuts[MK.n]||0;if(c0>0){MK.a.currentTime=Math.max(0,c0-2);MK.stop=c0+2;var q8=MK.a.play();if(q8&&q8.catch)q8.catch(function(){})}}
  else if(a==='mkcopy'){var ta=$('mkJ');ta.select();try{navigator.clipboard.writeText(ta.value)}catch(e){document.execCommand('copy')}t.textContent='Copied \u2713'}
  else if(a==='mkclear'){delete S.cuts[MK.n];delete CUTS[MK.n];sv();render()}
- else if(a==='gear'){panel=panel?'':'set';render()}
+ else if(a==='gear'){panel=panel?'':'set';if(panel)HERO=false;render()}
  else if(a==='ostep'){var os=LST[vi];if(os)OS={n:V[os.i].n,k:+v};render()}
- else if(a==='herotog'){HERO=!heroFull();render()}
+ else if(a==='herotog'){HERO=!heroFull();if(HERO)panel='';render()}
  else if(a==='resetask'){RSASK=true;render()}
  else if(a==='resetno'){RSASK=false;render()}
- else if(a==='resetgo'){RSASK=false;S.learned=[];S.pos=0;S.days=[];S.steps={};S.rev={};S.doneDay='';S.cheered=null;try{localStorage.removeItem('sp_days')}catch(e){}listenCount={};HERO=null;panel='';sv();notice='Fresh start. Today you begin with verse 1. Jai Sriman Narayana!';render(1)}
+ else if(a==='resetgo'){RSASK=false;S.learned=[];S.pos=Math.max(0,vIdx(S.startV||V[0].n));S.days=[];S.steps={};S.rev={};S.doneDay='';S.cheered=null;try{localStorage.removeItem('sp_days')}catch(e){}listenCount={};HERO=null;panel='';sv();notice='Fresh start. Today you begin with verse '+V[S.pos].n+'. Jai Sriman Narayana!';render(1)}
  else if(a==='rbopen'){RBOPEN=true;render()}
  else if(a==='rbclose'){RBOPEN=false;render()}
  else if(a==='lm'){S.lm=v;sv();render()}
@@ -831,6 +852,7 @@ app.addEventListener('click',function(e){
 });
 app.addEventListener('change',function(e){var t=e.target;
  if(t.dataset.act==='mksel'){MK.a.pause();MK.n=+t.value;MK.a.removeAttribute('src');render()}
+ else if(t.dataset.act==='startsel'){S.startV=+t.value;if(!S.learned.length){S.pos=Math.max(0,vIdx(S.startV))}sv();render()}
  else if(t.dataset.act==='pace'){S.pace=+t.value;sv();render()}
  else if(t.dataset.act==='goto'){S.pos=+t.value;sv();render()}
  else if(t.dataset.act==='main'){S.main=t.value;sv();render()}
