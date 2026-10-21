@@ -237,7 +237,7 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .rpverse.s0 .l2,.rpverse.s1 .l1{opacity:.35}
 .rpverse.s2 .ln{border-left-color:#e8a317}
 .rpph.c0{background:linear-gradient(135deg,#5b7f6b,#476a58)!important}
-.rpph.c1{background:linear-gradient(135deg,#8b6be0,#5b3fb5)!important}
+.rpph.c1{background:linear-gradient(135deg,#c0707a,#8f3a46)!important}
 .rpph.c2{background:linear-gradient(135deg,#f0a92a,#b07a12)!important}
 .rpbar.c0 i{background:#5b7f6b}.rpbar.c1 i{background:var(--acc)}.rpbar.c2 i{background:#e8a317}
 .pacel{background:linear-gradient(135deg,rgba(91,127,107,.14),rgba(91,127,107,.04));border:1.5px solid rgba(91,127,107,.55);font-weight:600;display:flex;align-items:center;gap:8px}
@@ -301,7 +301,7 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .hv-n small{font-size:1rem;color:#9a6b2a;font-weight:700}
 .hv-pt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
 .hv-pt b{color:#4a2a1a}
-.hv-pt small{color:#6b4a3a}
+.hv-pt small{color:#6b4a3a;white-space:nowrap;font-size:.8rem}
 .hv-bar{display:block;height:8px;border-radius:99px;background:#f2e2bd;overflow:hidden}
 .hv-bar u{display:block;height:100%;background:linear-gradient(90deg,#e8890c,#c9962f);border-radius:99px;text-decoration:none}
 .hv-all{background:var(--acc);color:#fff;border-radius:99px;padding:8px 12px;font-weight:700;font-size:.85rem;white-space:nowrap}
@@ -330,6 +330,12 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .tag.new{background:#5b7f6b}
 .chip.vb{border-color:#d4a23c;color:var(--acc)}
 .ph{color:var(--acc)}
+.rpl{display:inline-block;font-weight:800;font-size:1rem;color:#fff;padding:7px 14px;border-radius:99px;box-shadow:0 2px 0 rgba(0,0,0,.18)}
+.rpl.c0{background:linear-gradient(135deg,#5b7f6b,#476a58)}
+.rpl.c1{background:linear-gradient(135deg,#c0707a,#8f3a46)}
+.rpl.c2{background:linear-gradient(135deg,#f0a92a,#b07a12);color:#2b1d00}
+.cheer2{display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 0 0;padding:9px 14px;border-radius:14px;background:#fff6dd;border:1px solid #ecd29a;color:#5a3a00;font-size:.92rem;font-weight:600;text-align:center;animation:cheerfade 9s ease forwards}
+@keyframes cheerfade{0%{opacity:0;transform:translateY(-4px)}8%{opacity:1;transform:none}85%{opacity:1;max-height:80px}100%{opacity:0;max-height:0;padding:0 14px;margin:0;border-width:0}}
 </style>
 </head>
 <body>
@@ -540,7 +546,7 @@ function home(){
  +(full?'<p class="hv-tag">Learn the sacred thousand names the traditional way, guru to student: listen, repeat, chant. Understand the meaning and benefit of every verse, and watch your progress grow, one verse a day.</p><div class="hv-steps"><div><span>🎧</span><b>Listen</b><small>Hear the guru</small></div><div><span>🗣</span><b>Repeat</b><small>Line by line</small></div><div><span>📖</span><b>Meaning</b><small>Understand it</small></div><div><span>🌿</span><b>Benefit</b><small>Know why</small></div></div>':'')
  +'<button class="hv-tog" data-act="herotog"><i>i</i>'+(full?'Close about ▴':'About this app ▾')+'</button>'
  +'<button class="hv-prog" data-act="vopen" aria-expanded="'+VOPEN+'"><span class="hv-n">'+L+'<small>/'+TOTAL+'</small></span><span class="hv-pt"><b>verse'+(L===1?'':'s')+' learned</b><i class="hv-bar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></i><small>Finish by '+finLabel()+'</small></span><span class="hv-all">'+(VOPEN?'Hide':'See all')+' '+(VOPEN?'▴':'›')+'</span></button></div>';if(VOPEN)h+=allVersesCard();
- if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 50 \u00b7 22 Oct 2026</div>'}
+ if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 52 \u00b7 22 Oct 2026</div>'}
  if(panel)h+='<div class="tools tgrid" style="margin-top:8px">'+[['set','\ud83d\udd24','Script'],['rem','\u23f0','Reminder'],['why','\ud83d\udd49','Why chant'],['read','\ud83d\udcd6','Reading'],['again','\ud83d\udd04','Start again'],['guru','\ud83c\udf93','Guru']].map(function(x){return '<button class="chip tb tb-'+x[0]+'" data-act="panel" data-v="'+x[0]+'" aria-pressed="'+(panel===x[0])+'"><span class="ti">'+x[1]+'</span><span>'+x[2]+'</span></button>'}).join('')+'</div>';
  if(panel){var PT={set:['\ud83d\udd24','Script and help'],rem:['\u23f0','Daily reminders'],why:['\ud83d\udd49','Why we chant'],read:['\ud83d\udcd6','Reading basics'],again:['\ud83d\udd04','Start again'],guru:['\ud83c\udf93','Guru tools']}[panel];h+='<div class="pnl pnl-'+panel+'"><div class="pnh"><span>'+PT[0]+'</span><span>'+PT[1]+'</span></div>'}
  if(panel==='set'){h+='<div class="card"><h2>Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Repeat after me</h2><div class="chips"><button class="chip" data-act="lm" data-v="auto" aria-pressed="'+((S.lm||'auto')==='auto')+'">Automatic</button><button class="chip" data-act="lm" data-v="whole" aria-pressed="'+(S.lm==='whole')+'">Whole verse</button><button class="chip" data-act="lm" data-v="line" aria-pressed="'+(S.lm==='line')+'">Line by line</button></div><h2 style="margin-top:14px">Other scripts</h2><div class="chips"><button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show all three scripts under the verse</button></div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div></div>'}
@@ -551,7 +557,7 @@ if(panel==='again'){h+='<div class="card"><h2>Start from which verse?</h2><div c
  if(panel==='guru'){h+=guruPanel()}
  if(panel)h+='</div>';
  if(notice){h+='<div class="plain">'+notice+'</div>';notice=''}
- h+=nudgeCard();var chr=cheer();if(chr)h+='<div class="cheer"><div class="ce">'+chr.i+'</div><div class="ct">'+chr.t+'</div><button class="chip" data-act="cheerx">Thank you \ud83d\ude4f</button></div>';
+ h+=nudgeCard();var chr=cheer();if(chr){h+='<div class="cheer2"><span>'+chr.i+'</span><span>'+chr.t+'</span></div>';setTimeout(cheerDone,50)}
  var rvL=mkList().filter(function(x){return x.r}),nwL=mkList().filter(function(x){return !x.r});
  h+='<div class="tcard'+(S.doneDay===tdy()?' tdone':'')+'"><div class="thead"><div><div class="tk">'+(S.doneDay===tdy()?'\u2705 DONE FOR TODAY':'TODAY')+'</div><h2>'+(S.doneDay===tdy()?'Today\'s practice is complete':'Today\'s practice')+'</h2></div>'+(S.doneDay===tdy()?'':'<span class="mins">about 10 min</span>')+'</div>';
  if(fin)h+='<div class="mute">All added verses are finished</div>';
@@ -560,7 +566,7 @@ if(panel==='again'){h+='<div class="card"><h2>Start from which verse?</h2><div c
  h+='<div class="mute" style="margin:10px 0 12px">'+(S.doneDay===tdy()?'Well done! Your streak is safe for today. Come back tomorrow, or keep going now with the next verses.':'Listen, repeat after the guru, then record yourself. It plays, waits for you, then moves on.')+'</div><button class="pacel" data-act="popen"><span>\ud83d\udcc5 '+S.pace+' verse'+(S.pace>1?'s':'')+' a day</span><span class="pgo">'+(POPEN?'Close \u2715':'Change')+'</span></button>'+(POPEN?'<div class="pacebox"><h3>How many verses a day?</h3>'+paceChips()+'<div class="mute" style="margin-top:8px">Each box shows the days left and the finish date. New learners: 1 or 2 a day for the first week works well.</div><button class="btn" data-act="popen">Done \u2713</button></div>':'')+'<button class="btn sf" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today too':'Start today\'s practice')+'</button></div>';
  h+='<div class="chips" style="margin-top:4px">'+(S.learned.length?'<button class="chip g" data-act="recap">\ud83e\udd4d Weekly recap</button><button class="chip p" data-act="plstart">\ud83c\udfb6 Listen to all learned</button>':'')+'</div>';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
- h+='<div class="mute" style="text-align:center">Version 50 \u00b7 22 Oct 2026</div>';
+ h+='<div class="mute" style="text-align:center">Version 52 \u00b7 22 Oct 2026</div>';
  return h}
 function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
@@ -733,7 +739,7 @@ function rpSheet(){var ph=RP.phase;
  if(RP.wait)return '<div class="rpsheet"><div class="rpph listen">Getting ready\u2026</div></div>';
  if(RP.err)return '<div class="rpsheet"><div class="rpph turn">Guide audio for this verse is coming soon.</div><button class="btn ghost" data-act="rpclose">Close</button></div>';
  var head=ph==='listen'?'\ud83c\udfa7 Listen':ph==='turn'?'\ud83c\udfa4 Your turn: chant it now':'\u2728 Well done!';
- return '<div class="rpsheet"><div class="row"><span class="mute">'+rpLabel()+'</span><button class="chip" data-act="rpclose">Close</button></div><div class="rpph '+(ph==='done'?'done':ph)+(ph!=='done'&&RP.steps&&RP.steps[0]===0?' c'+RP.seg:'')+'">'+head+'</div>'+sheetVerse()+
+ return '<div class="rpsheet"><div class="row"><span class="rpl '+(RP.steps&&RP.steps[0]===0?'c'+RP.seg:'c2')+'">'+rpLabel()+'</span><button class="chip" data-act="rpclose">Close</button></div><div class="rpph '+(ph==='done'?'done':ph)+(ph!=='done'&&RP.steps&&RP.steps[0]===0?' c'+RP.seg:'')+'">'+head+'</div>'+sheetVerse()+
   (ph==='done'?'<div class="plain">Now say it once on your own, from memory if you can.</div><button class="btn rec" data-act="rpdone">Record my take</button>'+(GS.on?'<button class="btn" data-act="gnext">'+(vi>=LST.length-1?'Finish today':'Next verse')+'</button><button class="btn ghost" data-act="rpclose">Stop here</button>':'<button class="btn ghost" data-act="rpclose">Finish</button>')
    :'<div class="rpbar'+(RP.steps&&RP.steps[0]===0?' c'+RP.seg:'')+'"><i id="rpbar"></i></div><div class="chips"><button class="chip" data-act="rppause">'+(RP.paused?'Resume':'Pause')+'</button><button class="chip" data-act="rpskip">'+(ph==='turn'?'\u2713 I\'m done':'Skip ahead')+'</button></div><div class="chips" style="margin-top:8px"><button class="chip g" data-act="rpagain">\ud83d\udd01 Hear it again</button>'+(GS.on&&vi>0?'<button class="chip" data-act="rpback">\u23ee Back one verse</button>':'')+'</div>')+
   (RP.blocked?'<button class="btn" data-act="rpplay">Tap to play</button>':'')+'</div>'}
