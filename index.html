@@ -460,7 +460,7 @@ function addDay(){if(S.days.indexOf(tdy())<0){S.days.push(tdy())}sv()}
 function setStep(k,on){var a=S.steps[tdy()]||[0,0,0,0,0];a[k]=on?1:0;S.steps[tdy()]=a;sv()}
 function streak(){var n=0,d=new Date();if(S.days.indexOf(dstr(d))<0)d.setDate(d.getDate()-1);while(S.days.indexOf(dstr(d))>=0){n++;d.setDate(d.getDate()-1)}return n}
 var view='home',vi=0,tab='say',selW=0,LST=[],notice='',transMsg='';
-S.rev=S.rev||{};if((S.learned.length||(S.days&&S.days.length))&&!S.setupDone)S.setupDone=true;
+S.rev=S.rev||{};if(S.themeV!==2){S.theme='mayur';S.themeV=2}if((S.learned.length||(S.days&&S.days.length))&&!S.setupDone)S.setupDone=true;
 function vIdx(n){for(var i=0;i<V.length;i++)if(V[i].n===n)return i;return -1}
 function dueVerses(){var td=tdy(),out=[];Object.keys(S.rev).forEach(function(k){if(S.rev[k].due<=td)out.push(+k)});out.sort(function(a,b){return a-b});return out}
 function mkList(){var L=[],e=Math.min(S.pos+S.pace,V.length),seen={};
@@ -553,7 +553,7 @@ function home(){
  +(full?'<p class="hv-tag">Learn the sacred thousand names the traditional way, guru to student: listen, repeat, chant. Understand the meaning and benefit of every verse, and watch your progress grow, one verse a day.</p><div class="hv-steps"><div><span>🎧</span><b>Listen</b><small>Hear the guru</small></div><div><span>🗣</span><b>Repeat</b><small>Line by line</small></div><div><span>📖</span><b>Meaning</b><small>Understand it</small></div><div><span>🌿</span><b>Benefit</b><small>Know why</small></div></div>':'')
  +'<button class="hv-tog" data-act="herotog"><i>i</i>'+(full?'Close about ▴':'About this app ▾')+'</button>'
  +'<button class="hv-prog" data-act="vopen" aria-expanded="'+VOPEN+'"><span class="hv-n">'+L+'<small>/'+TOTAL+'</small></span><span class="hv-pt"><b>verse'+(L===1?'':'s')+' learned</b><i class="hv-bar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></i><small>Finish by '+finLabel()+'</small></span><span class="hv-all">'+(VOPEN?'Hide':'See all')+' '+(VOPEN?'▴':'›')+'</span></button></div>';if(VOPEN)h+=allVersesCard();
- if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 55 \u00b7 22 Oct 2026</div>'}
+ if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 56 \u00b7 22 Oct 2026</div>'}
  if(panel)h+='<div class="tools tgrid" style="margin-top:8px">'+[['set','\ud83d\udd24','Script'],['rem','\u23f0','Reminder'],['why','\ud83d\udd49','Why chant'],['read','\ud83d\udcd6','Reading'],['again','\ud83d\udd04','Start again'],['guru','\ud83c\udf93','Guru']].map(function(x){return '<button class="chip tb tb-'+x[0]+'" data-act="panel" data-v="'+x[0]+'" aria-pressed="'+(panel===x[0])+'"><span class="ti">'+x[1]+'</span><span>'+x[2]+'</span></button>'}).join('')+'</div>';
  if(panel){var PT={set:['\ud83d\udd24','Script and help'],rem:['\u23f0','Daily reminders'],why:['\ud83d\udd49','Why we chant'],read:['\ud83d\udcd6','Reading basics'],again:['\ud83d\udd04','Start again'],guru:['\ud83c\udf93','Guru tools']}[panel];h+='<div class="pnl pnl-'+panel+'"><div class="pnh"><span>'+PT[0]+'</span><span>'+PT[1]+'</span></div>'}
  if(panel==='set'){h+='<div class="card"><h2>Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Repeat after me</h2><div class="chips"><button class="chip" data-act="lm" data-v="auto" aria-pressed="'+((S.lm||'auto')==='auto')+'">Automatic</button><button class="chip" data-act="lm" data-v="whole" aria-pressed="'+(S.lm==='whole')+'">Whole verse</button><button class="chip" data-act="lm" data-v="line" aria-pressed="'+(S.lm==='line')+'">Line by line</button></div><h2 style="margin-top:14px">Other scripts</h2><div class="chips"><button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show all three scripts under the verse</button></div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div></div>'}
@@ -573,7 +573,7 @@ if(panel==='again'){h+='<div class="card"><h2>Start from which verse?</h2><div c
  h+='<div class="mute" style="margin:10px 0 12px">'+(S.doneDay===tdy()?'Well done! Your streak is safe for today. Come back tomorrow, or keep going now with the next verses.':'Listen, repeat after the guru, then record yourself. It plays, waits for you, then moves on.')+'</div><button class="pacel" data-act="popen"><span>\ud83d\udcc5 '+S.pace+' verse'+(S.pace>1?'s':'')+' a day</span><span class="pgo">'+(POPEN?'Close \u2715':'Change')+'</span></button>'+(POPEN?'<div class="pacebox"><h3>How many verses a day?</h3>'+paceChips()+'<div class="mute" style="margin-top:8px">Each box shows the days left and the finish date. New learners: 1 or 2 a day for the first week works well.</div><button class="btn" data-act="popen">Done \u2713</button></div>':'')+'<button class="btn sf" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today too':'Start today\'s practice')+'</button></div>';
  h+='<div class="chips" style="margin-top:4px">'+(S.learned.length?'<button class="chip g" data-act="recap">\ud83e\udd4d Weekly recap</button><button class="chip p" data-act="plstart">\ud83c\udfb6 Listen to all learned</button>':'')+'</div>';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
- h+='<div class="mute" style="text-align:center">Version 55 \u00b7 22 Oct 2026</div>';
+ h+='<div class="mute" style="text-align:center">Version 56 \u00b7 22 Oct 2026</div>';
  return h}
 function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
@@ -636,13 +636,18 @@ function dbo(){return new Promise(function(res,rej){var r=indexedDB.open('sp_rec
 function rp(r){return new Promise(function(res,rej){r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
 function saveRec(o){return(o.b&&o.b.arrayBuffer?o.b.arrayBuffer():Promise.resolve(null)).then(function(buf){var rec={t:o.t,l:o.l,n:o.n};if(buf){rec.buf=buf;rec.type=o.b.type||'audio/mp4'}else rec.b=o.b;return dbo().then(function(d){var t=d.transaction('r','readwrite');t.objectStore('r').put(rec);return new Promise(function(res,rej){t.oncomplete=res;t.onerror=function(){rej(t.error)};t.onabort=function(){rej(t.error)}})})})}
 function allRecs(){return dbo().then(function(d){return rp(d.transaction('r').objectStore('r').getAll())}).then(function(a){a.forEach(function(o){if(!o.b&&o.buf)o.b=new Blob([o.buf],{type:o.type||'audio/mp4'})});return a})}
+var RDEL=0;
+function recDel(ts){return dbo().then(function(d){var t=d.transaction('r','readwrite');t.objectStore('r').delete(ts);return new Promise(function(res){t.oncomplete=res;t.onerror=res;t.onabort=res})}).then(function(){Object.keys(vRecsCache).forEach(function(k){if(vRecsCache[k])vRecsCache[k]=vRecsCache[k].filter(function(o){return o.t!==ts})});RDEL=0;showMine();if(view==='verse')softRender()})}
+function recDelAll(){return dbo().then(function(d){var t=d.transaction('r','readwrite');t.objectStore('r').clear();return new Promise(function(res){t.oncomplete=res;t.onerror=res;t.onabort=res})}).then(function(){Object.keys(vRecsCache).forEach(function(k){vRecsCache[k]=[]});RDEL=0;showMine();if(view==='verse')softRender()})}
+function delBtn(label,cb){var b=document.createElement('button');b.className='chip';b.textContent=label;b.style.marginTop='6px';var armed=false,t0;b.onclick=function(){if(!armed){armed=true;b.textContent='Tap again to delete';b.style.background='#c0392b';b.style.color='#fff';b.style.borderColor='#c0392b';t0=setTimeout(function(){armed=false;b.textContent=label;b.style.background='';b.style.color='';b.style.borderColor=''},4000)}else{clearTimeout(t0);cb()}};return b}
 function showMine(){
  var el=$('mine');if(!el)return;
  try{allRecs().then(function(a){
   a.sort(function(x,y){return y.t-x.t});
   var CAP=60,old=[];if(old.length)dbo().then(function(d){var s=d.transaction('r','readwrite').objectStore('r');old.forEach(function(o){s.delete(o.t)})});
   el.innerHTML='';if(!a.length){el.textContent='No recordings yet.';return}
-  a.slice(0,10).forEach(function(o){var d=document.createElement('div');d.className='rec1';d.innerHTML='<div class="note"></div>';d.firstChild.textContent=new Date(o.t).toLocaleString(undefined,{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})+' \u00b7 '+o.l;var u=document.createElement('audio');u.controls=true;u.src=URL.createObjectURL(o.b);d.appendChild(u);el.appendChild(d)});
+  a.slice(0,10).forEach(function(o){var d=document.createElement('div');d.className='rec1';d.innerHTML='<div class="note"></div>';d.firstChild.textContent=new Date(o.t).toLocaleString(undefined,{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})+' \u00b7 '+o.l;var u=document.createElement('audio');u.controls=true;u.src=URL.createObjectURL(o.b);d.appendChild(u);d.appendChild(delBtn('\ud83d\uddd1 Delete',function(){recDel(o.t)}));el.appendChild(d)});
+  var da=delBtn('\ud83d\uddd1 Delete all recordings',recDelAll);da.style.marginTop='12px';el.appendChild(da);
   if(a.length>10)el.insertAdjacentHTML('beforeend','<div class="mute" style="margin-top:6px">Showing the 10 most recent. Every take you record stays saved on this device.</div>')
  }).catch(function(){el.textContent='Recordings cannot be shown on this browser.'})}catch(e){el.textContent='Recordings cannot be shown on this browser.'}}
 var vRecsCache={};
@@ -652,7 +657,7 @@ function verseRecsHTML(n){
  var list=vRecsCache[n];
  if(list===undefined){loadVerseRecs(n);return '<div class="mute">Loading your takes...</div>'}
  if(!list.length)return '<div class="mute">No takes yet for this verse. Tap the red button to record one.</div>';
- return list.map(function(o,i){if(!o.u)o.u=URL.createObjectURL(o.b);return '<div class="rec1"><div class="note">Take '+(list.length-i)+' \u00b7 '+new Date(o.t).toLocaleString(undefined,{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})+(i===0?' <span class="tag new">Latest</span>':'')+'</div><audio controls src="'+o.u+'"></audio></div>'}).join('')}
+ return list.map(function(o,i){if(!o.u)o.u=URL.createObjectURL(o.b);return '<div class="rec1"><div class="note">Take '+(list.length-i)+' \u00b7 '+new Date(o.t).toLocaleString(undefined,{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})+(i===0?' <span class="tag new">Latest</span>':'')+'</div><audio controls src="'+o.u+'"></audio><button class="chip" data-act="recdel" data-v="'+o.t+'" style="margin-top:6px'+(RDEL===o.t?';background:#c0392b;color:#fff;border-color:#c0392b':'')+'">'+(RDEL===o.t?'Tap again to delete':'\ud83d\uddd1 Delete')+'</button></div>'}).join('')}
 
 var THEMES={
 indigo:{n:'Maroon and gold',l:['#7a1f2b','#fff','#f4ead3','#fff3d1','#e8890c','#1b2340'],d:['#8fa3ff','#0d1030','#262a55','#3a2f10','#e8890c','#1b2340']},
@@ -821,6 +826,7 @@ app.addEventListener('click',function(e){
  else if(a==='mkclear'){delete S.cuts[MK.n];delete CUTS[MK.n];sv();render()}
  else if(a==='gear'){panel=panel?'':'set';if(panel)HERO=false;render()}
  else if(a==='ostep'){var os=LST[vi];if(os)OS={n:V[os.i].n,k:+v};render()}
+ else if(a==='recdel'){var ts=+v;if(RDEL===ts){recDel(ts)}else{RDEL=ts;softRender();setTimeout(function(){if(RDEL===ts){RDEL=0;if(view==='verse')softRender()}},4000)}}
  else if(a==='herotog'){HERO=!heroFull();if(HERO)panel='';render()}
  else if(a==='resetask'){RSASK=true;render()}
  else if(a==='resetno'){RSASK=false;render()}
