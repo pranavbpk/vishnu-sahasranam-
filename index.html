@@ -6,7 +6,7 @@
 <title>Vishnu Sahasranamam Practice</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Tiro+Devanagari+Sanskrit&family=Noto+Serif+Telugu:wght@400;700&display=swap">
 <style>
-:root{--bg:#f3f5f9;--card:#fff;--ink:#1b2340;--mute:#4a5378;--line:#d9deea;--acc:#7a1f2b;--acc-ink:#fff;--sf:#e8890c;--sf-ink:#1b2340;--soft:#e4e8f2;--gold-bg:#fff3d1;--rec:#c0392b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+:root{--bg:#f3f5f9;--card:#fff;--ink:#1b2340;--mute:#4a5378;--line:#d9deea;--acc-ink:#fff;--sf:#e8890c;--sf-ink:#1b2340;--soft:#e4e8f2;--gold-bg:#fff3d1;--rec:#c0392b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12142b;--card:#1b1e3f;--ink:#eef0fb;--mute:#a7acd0;--line:#33376a;--acc:#8fa3ff;--acc-ink:#0d1030;--soft:#262a55;--gold-bg:#3a2f10;--rec:#ff7b6b;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#12142b;--card:#1b1e3f;--ink:#eef0fb;--mute:#a7acd0;--line:#33376a;--acc:#8fa3ff;--acc-ink:#0d1030;--soft:#262a55;--gold-bg:#3a2f10;--rec:#ff7b6b;color-scheme:dark}
 *{box-sizing:border-box}
@@ -123,8 +123,8 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .rec1 audio{width:100%}
 .stage{display:block;margin:10px 0 6px;padding:10px 14px;border-radius:14px;font-size:1rem;font-weight:700;text-align:center}
 .stage.rev{background:linear-gradient(135deg,#f6c453,#e8890c);color:#2b1d00}
-.stage.new{background:linear-gradient(135deg,#7a1f2b,#a8505a);color:#fff}
-.listen.part{background:linear-gradient(135deg,#e8890c 0%,#7a1f2b 160%)}
+.stage.new{background:linear-gradient(135deg,var(--acc),#a8505a);color:#fff}
+.listen.part{background:linear-gradient(135deg,#e8890c 0%,var(--acc) 160%)}
 .listen.ready{background:linear-gradient(135deg,#23834a 0%,#5b7f6b 160%)}
 .lready{background:rgba(0,0,0,.18);border-radius:10px;padding:6px 10px;margin-top:10px;font-size:.95rem}
 .ld{width:16px;height:16px}
@@ -146,7 +146,7 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .welcome.keep{background:var(--soft)}
 .rpsheet{position:fixed;inset:0;z-index:45;background:var(--bg);overflow:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px;max-width:520px;margin:0 auto}
 .rpph{border-radius:16px;padding:14px;text-align:center;font-size:1.3rem;font-weight:700;color:#fff}
-.rpph.listen{background:linear-gradient(135deg,#5b7f6b,#7a1f2b)}
+.rpph.listen{background:linear-gradient(135deg,#5b7f6b,var(--acc))}
 .rpph.turn{background:linear-gradient(135deg,#f6a93b,#d9531e)}
 .rpph.done{background:linear-gradient(135deg,#23834a,#5b7f6b)}
 .rpph.rec{background:linear-gradient(135deg,#d64545,#8e1f1f)}
@@ -167,7 +167,7 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .sn{width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;background:var(--acc);color:var(--acc-ink);flex:none}
 .stp.done .sn{background:#23834a;color:#fff}
 .stp.listen{border:0;background:linear-gradient(135deg,var(--acc) 0%,var(--soft) 160%);color:var(--acc-ink)}
-.stp.listen.part{background:linear-gradient(135deg,#e8890c 0%,#7a1f2b 160%)}
+.stp.listen.part{background:linear-gradient(135deg,#e8890c 0%,var(--acc) 160%)}
 .stp.listen.ready{background:linear-gradient(135deg,#23834a 0%,#5b7f6b 160%)}
 .stp.listen .sn{background:rgba(255,255,255,.92);color:#1b2340}
 .stp.listen .mute{color:inherit;opacity:.9}
@@ -233,24 +233,24 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .wd.now{background:#ffd166;color:#2b1d00;text-decoration-color:#2b1d00}
 .rpverse .ln{border-left:5px solid transparent;padding-left:10px;margin:6px 0;transition:opacity .2s}
 .rpverse .l1{border-left-color:#5b7f6b}
-.rpverse .l2{border-left-color:#7a1f2b}
+.rpverse .l2{border-left-color:var(--acc)}
 .rpverse.s0 .l2,.rpverse.s1 .l1{opacity:.35}
 .rpverse.s2 .ln{border-left-color:#e8a317}
 .rpph.c0{background:linear-gradient(135deg,#5b7f6b,#476a58)!important}
 .rpph.c1{background:linear-gradient(135deg,#8b6be0,#5b3fb5)!important}
 .rpph.c2{background:linear-gradient(135deg,#f0a92a,#b07a12)!important}
-.rpbar.c0 i{background:#5b7f6b}.rpbar.c1 i{background:#7a1f2b}.rpbar.c2 i{background:#e8a317}
+.rpbar.c0 i{background:#5b7f6b}.rpbar.c1 i{background:var(--acc)}.rpbar.c2 i{background:#e8a317}
 .pacel{background:linear-gradient(135deg,rgba(91,127,107,.14),rgba(91,127,107,.04));border:1.5px solid rgba(91,127,107,.55);font-weight:600;display:flex;align-items:center;gap:8px}
 .pacel .pgo{margin-left:auto;background:#5b7f6b;color:#fff;border-radius:999px;padding:4px 12px;font-size:.85rem;font-weight:700}
 .pacebox{background:linear-gradient(180deg,rgba(91,127,107,.12),rgba(91,127,107,.03));border:1.5px solid rgba(91,127,107,.5);border-radius:16px;padding:12px;margin:0 0 12px}
 .pacebox h3{margin:0 0 8px;font-size:1rem;color:#476a58}
 .pacebox .btn{margin-top:10px;background:#5b7f6b;color:#fff}
 .tb{font-weight:700;border-width:1.5px;min-height:46px}
-.tb-set{--pc:#7a1f2b}.tb-rem{--pc:#b07a12}.tb-why{--pc:#7a1f2b}.tb-guru{--pc:#5b7f6b}
+.tb-set{--pc:var(--acc)}.tb-rem{--pc:#b07a12}.tb-why{--pc:var(--acc)}.tb-guru{--pc:#5b7f6b}
 .tb{border-color:var(--pc);color:var(--pc);background:color-mix(in srgb,var(--pc) 10%,var(--card))}
 .tb[aria-pressed="true"]{background:var(--pc);color:#fff}
-.pnl{margin-top:10px;--pc:#7a1f2b}
-.pnl-rem{--pc:#b07a12}.pnl-why{--pc:#7a1f2b}.pnl-guru{--pc:#5b7f6b}
+.pnl{margin-top:10px;--pc:var(--acc)}
+.pnl-rem{--pc:#b07a12}.pnl-why{--pc:var(--acc)}.pnl-guru{--pc:#5b7f6b}
 .pnh{display:flex;align-items:center;gap:10px;background:var(--pc);color:#fff;border-radius:16px 16px 0 0;padding:12px 16px;font-weight:800;font-size:1.05rem}
 .pnl>.card{border:2px solid var(--pc);border-top:0;border-radius:0 0 16px 16px;margin-top:0;background:color-mix(in srgb,var(--pc) 5%,var(--card))}
 .pnl>.card h2{color:var(--pc)}
@@ -264,10 +264,10 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .vnum .spp{background:#fff3d1;border-color:#e8a317;color:#5a3a00;font-weight:700}
 .rbsheet{position:fixed;inset:0;z-index:60;background:var(--bg);overflow:auto;padding:16px}
 .exv{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:12px 0;font-weight:700;color:#1b2559;line-height:1.7}
-.mk{color:#7a1f2b;font-weight:800;font-size:1.15em}
-.rbc{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--rc,#7a1f2b);border-radius:14px;padding:12px;margin-top:10px}
-.rbc0{--rc:#7a1f2b}.rbc1{--rc:#b07a12}.rbc2{--rc:#5b7f6b}.rbc3{--rc:#7a1f2b}.rbc4{--rc:#7a1f2b}
-.rbi{flex:0 0 52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:800;color:#fff;background:var(--rc,#7a1f2b);text-align:center;line-height:1.1}
+.mk{color:var(--acc);font-weight:800;font-size:1.15em}
+.rbc{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--rc,var(--acc));border-radius:14px;padding:12px;margin-top:10px}
+.rbc0{--rc:var(--acc)}.rbc1{--rc:#b07a12}.rbc2{--rc:#5b7f6b}.rbc3{--rc:var(--acc)}.rbc4{--rc:var(--acc)}
+.rbi{flex:0 0 52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:800;color:#fff;background:var(--rc,var(--acc));text-align:center;line-height:1.1}
 .rbd{margin-top:4px;line-height:1.5}
 .spb{display:flex;gap:12px;align-items:center;background:linear-gradient(135deg,#fff3d1,#ffe3a3);border:1.5px solid #e8a317;color:#4a3300}
 .spi{font-size:2.2rem}.spt{font-weight:700;line-height:1.4;margin-top:2px}
@@ -276,35 +276,35 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .pri{flex:0 0 44px;font-size:1.8rem;text-align:center}
 .chip.vb{min-height:38px;padding:4px 10px;font-weight:700;border-color:#5b7f6b;color:#476a58}
 .chip.vb.dis{opacity:.4}
-.tb-again{--pc:#b07a12}.pnl-again{--pc:#b07a12}.tb-read{--pc:#7a1f2b}.pnl-read{--pc:#7a1f2b}
+.tb-again{--pc:#b07a12}.pnl-again{--pc:#b07a12}.tb-read{--pc:var(--acc)}.pnl-read{--pc:var(--acc)}
 
 .hv{background:linear-gradient(180deg,#fffaf0,#fff0d4);border:2px solid #d4a23c;border-radius:22px;padding:14px;box-shadow:0 6px 20px rgba(140,90,20,.18);color:#4a2a1a}
 .hv-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .hv-streak{background:#fff;border:1.5px solid #e8a94a;color:#9a4b00;border-radius:99px;padding:6px 12px;font-size:.9rem}
-.hv-set{background:#fff;border:1.5px solid #d4a23c;color:#7a1f2b;border-radius:99px;padding:8px 14px;min-height:40px;font:inherit;font-weight:700;cursor:pointer}
-.hv-set[aria-expanded="true"]{background:#7a1f2b;color:#fff;border-color:#7a1f2b}
+.hv-set{background:#fff;border:1.5px solid #d4a23c;color:var(--acc);border-radius:99px;padding:8px 14px;min-height:40px;font:inherit;font-weight:700;cursor:pointer}
+.hv-set[aria-expanded="true"]{background:var(--acc);color:#fff;border-color:var(--acc)}
 .hv-main{margin-top:12px;text-align:center}
 .hv-art{width:min(240px,70%);aspect-ratio:1/1.08;margin:0 auto;border-radius:120px 120px 18px 18px;border:3px solid #d4a23c;box-shadow:0 0 0 5px #fff0d4,0 0 0 7px #e9c777,0 8px 18px rgba(120,80,20,.25);background-size:150%;background-position:50% 54%;background-color:#fff6e3}
 .hv-sk{margin-top:14px;color:#b07a12;font-weight:700;font-size:1.05rem}
-.hv h1{margin:2px 0 0;font-size:1.7rem;line-height:1.15;color:#7a1f2b;letter-spacing:.01em}
+.hv h1{margin:2px 0 0;font-size:1.7rem;line-height:1.15;color:var(--acc);letter-spacing:.01em}
 .hv-sub{margin-top:4px;color:#6b4a3a;font-size:.95rem}
 .hv-tag{margin:14px 4px 0;text-align:center;line-height:1.55;color:#4a2a1a}
 .hv-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
 .hv-steps div{background:#fff;border:1.5px solid #ecd29a;border-radius:14px;padding:10px 2px 8px;text-align:center;display:flex;flex-direction:column;gap:1px}
 .hv-steps span{font-size:1.4rem}
-.hv-steps b{font-size:.85rem;color:#7a1f2b}
+.hv-steps b{font-size:.85rem;color:var(--acc)}
 .hv-steps small{font-size:.7rem;color:#6b4a3a;line-height:1.2}
 .hv-tog{display:flex;align-items:center;justify-content:center;gap:6px;margin:12px auto 2px;background:linear-gradient(135deg,#ffe3a3,#ffd070);border:1.5px solid #d4a23c;color:#5a2a00;font:inherit;font-weight:700;font-size:.9rem;border-radius:99px;padding:8px 18px;min-height:40px;cursor:pointer;box-shadow:0 2px 0 rgba(150,100,20,.25)}
-.hv-tog i{font-style:normal;display:inline-flex;width:20px;height:20px;border-radius:50%;background:#7a1f2b;color:#fff;font-size:.75rem;align-items:center;justify-content:center;font-weight:800}
+.hv-tog i{font-style:normal;display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--acc);color:#fff;font-size:.75rem;align-items:center;justify-content:center;font-weight:800}
 .hv-prog{display:flex;align-items:center;gap:14px;width:100%;margin-top:8px;padding:12px 14px;min-height:60px;background:#fff;border:1.5px solid #e2bd6a;border-radius:16px;color:inherit;font:inherit;cursor:pointer;text-align:left}
-.hv-n{font-size:2rem;font-weight:800;color:#7a1f2b;line-height:1}
+.hv-n{font-size:2rem;font-weight:800;color:var(--acc);line-height:1}
 .hv-n small{font-size:1rem;color:#9a6b2a;font-weight:700}
 .hv-pt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
 .hv-pt b{color:#4a2a1a}
 .hv-pt small{color:#6b4a3a}
 .hv-bar{display:block;height:8px;border-radius:99px;background:#f2e2bd;overflow:hidden}
 .hv-bar u{display:block;height:100%;background:linear-gradient(90deg,#e8890c,#c9962f);border-radius:99px;text-decoration:none}
-.hv-all{background:#7a1f2b;color:#fff;border-radius:99px;padding:8px 12px;font-weight:700;font-size:.85rem;white-space:nowrap}
+.hv-all{background:var(--acc);color:#fff;border-radius:99px;padding:8px 12px;font-weight:700;font-size:.85rem;white-space:nowrap}
 .hv.cmp .hv-main{display:flex;align-items:center;gap:12px;text-align:left}
 .hv.cmp .hv-art{width:76px;margin:0;flex:0 0 76px;border-radius:38px 38px 10px 10px;border-width:2px;box-shadow:0 0 0 3px #fff0d4,0 0 0 4px #e9c777}
 .hv.cmp .hv-sk{margin-top:0;font-size:.9rem}
@@ -316,20 +316,20 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .tgrid .ti{font-size:1.05rem;line-height:1}
 
 /* calm palette: ivory, maroon, gold, sage */
-@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fbf6ec;--card:#fffdf8;--line:#ecdcb8;--acc:#7a1f2b;--acc-ink:#fff;--soft:#f4ead3;--ink:#2e2220;--mute:#6b5a52}}
-:root[data-theme="light"]{--bg:#fbf6ec;--card:#fffdf8;--line:#ecdcb8;--acc:#7a1f2b;--acc-ink:#fff;--soft:#f4ead3;--ink:#2e2220;--mute:#6b5a52}
-.tb,.tb-set,.tb-rem,.tb-why,.tb-read,.tb-again,.tb-guru{--pc:#7a1f2b}
-.tb{border-color:#d4a23c;color:#7a1f2b;background:#fffaf0}
-.tb[aria-pressed="true"]{background:#7a1f2b;color:#fff;border-color:#7a1f2b}
-.pnl,.pnl-set,.pnl-rem,.pnl-why,.pnl-read,.pnl-again,.pnl-guru{--pc:#7a1f2b}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fbf6ec;--card:#fffdf8;--line:#ecdcb8;--acc-ink:#fff;--soft:#f4ead3;--ink:#2e2220;--mute:#6b5a52}}
+:root[data-theme="light"]{--bg:#fbf6ec;--card:#fffdf8;--line:#ecdcb8;--acc-ink:#fff;--soft:#f4ead3;--ink:#2e2220;--mute:#6b5a52}
+.tb,.tb-set,.tb-rem,.tb-why,.tb-read,.tb-again,.tb-guru{--pc:var(--acc)}
+.tb{border-color:#d4a23c;color:var(--acc);background:#fffaf0}
+.tb[aria-pressed="true"]{background:var(--acc);color:#fff;border-color:var(--acc)}
+.pnl,.pnl-set,.pnl-rem,.pnl-why,.pnl-read,.pnl-again,.pnl-guru{--pc:var(--acc)}
 .pnl>.card{border-color:#d4a23c;background:#fffaf0}
-.pnl>.card h2{color:#7a1f2b}
-.rbc0{--rc:#7a1f2b}.rbc1{--rc:#c9962f}.rbc2{--rc:#5b7f6b}.rbc3{--rc:#8b5a2b}.rbc4{--rc:#a8505a}
+.pnl>.card h2{color:var(--acc)}
+.rbc0{--rc:var(--acc)}.rbc1{--rc:#c9962f}.rbc2{--rc:#5b7f6b}.rbc3{--rc:#8b5a2b}.rbc4{--rc:#a8505a}
 .wd{text-decoration-color:rgba(176,122,18,.9)}
 .wd.heard{background:rgba(201,150,47,.28)}
 .tag.new{background:#5b7f6b}
-.chip.vb{border-color:#d4a23c;color:#7a1f2b}
-.ph{color:#7a1f2b}
+.chip.vb{border-color:#d4a23c;color:var(--acc)}
+.ph{color:var(--acc)}
 </style>
 </head>
 <body>
@@ -522,7 +522,7 @@ function rbCard(){return '<div class="card">'+rbBody()+'</div>'}
 function rbSheet(){var l=S.lang||'en';return '<div class="rbsheet"><div class="row" style="margin-bottom:10px"><b style="font-size:1.15rem">\ud83d\udcd6 '+BT.rbh[l]+'</b><button class="chip" data-act="rbclose">'+BT.cl[l]+' \u2715</button></div>'+rbBody()+'<button class="btn" data-act="rbclose" style="margin-top:14px">'+BT.cl[l]+'</button></div>'}
 function purposeCard(){var l=S.lang||'en';return '<div class="card"><div class="ph">\ud83c\udf3f '+BT.bp[l]+'</div><div class="mute" style="margin-bottom:8px">'+BT.bpd[l]+'</div>'+BENG.map(function(g){return '<div class="pur"><div class="pri">'+g.ic+'</div><div class="prt"><b>'+g.s[l]+'</b><div class="mute">'+g.t[l]+'</div><div class="chips" style="margin-top:6px">'+g.v.map(function(n){var has=vIdx(n)>=0;return '<button class="chip vb'+(has?'':' dis')+'" data-act="gov" data-v="'+n+'"'+(has?'':' aria-disabled="true"')+'>Verse '+n+'</button>'}).join('')+'</div></div></div>'}).join('')+'</div>'}
 function spCard(n){var g=BEN[n];if(!g)return '';var l=S.lang||'en';return '<div class="card spb"><div class="spi">'+g.ic+'</div><div><div class="mute">'+BT.spl[l]+'</div><div class="spt">'+g.t[l]+'</div></div></div><div class="mute" style="margin:6px 2px 10px;font-size:.85rem">'+BT.src[l]+'</div>'}
-function finLabel(){var left=Math.max(0,TOTAL-S.pos),d=Math.ceil(left/Math.max(1,S.pace));var f=new Date();f.setDate(f.getDate()+d);return f.toLocaleDateString(undefined,{day:'numeric',month:'short'})}
+function finLabel(){var left=Math.max(0,TOTAL-S.pos),d=Math.ceil(left/Math.max(1,S.pace));var f=new Date();f.setDate(f.getDate()+d);return f.toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})}
 var PR=false,END=null,advSess={},VOPEN=false,POPEN=false;
 function pranamHTML(){var rv=mkList().filter(function(x){return x.r}).map(function(x){return V[x.i].n}),nw=mkList().filter(function(x){return !x.r}).map(function(x){return V[x.i].n});return '<div class="hero" style="text-align:center;padding:36px 20px"><div style="font-size:3rem">\ud83d\ude4f</div><div class="sk" style="font-size:1.4rem;margin-top:10px">\u0950 \u0928\u092e\u094b \u0928\u093e\u0930\u093e\u092f\u0923\u093e\u092f</div><h1 style="font-size:1.5rem;margin:14px 0 6px">Pranam to your guru</h1><div class="mute" style="font-size:1.05rem;line-height:1.5">Take a breath. Fold your hands.<br>Today you will learn with your guru, one line at a time.</div></div><button class="btn sf" data-act="pranamgo" style="margin-top:16px">I am ready</button><div class="mute" style="text-align:center;margin-top:10px">Today: '+(rv.length?'revise verse '+rv.join(', ')+' \u00b7 ':'')+(nw.length?'learn verse '+nw.join(', '):'')+'</div><button class="btn ghost" data-act="pranamx" style="margin-top:12px">Back</button>'}
 function endHTML(){var e=END;return '<div class="hero ends"><div class="stars">\u2b50\u2b50\u2b50</div><h1 style="font-size:1.5rem;margin:12px 0 6px">Well done! Jai Sriman Narayana \ud83d\ude4f</h1><div class="mute" style="font-size:1.05rem;line-height:1.5">'+e.msg+'<br>'+S.learned.length+' verse'+(S.learned.length===1?'':'s')+' learned \u00b7 '+streak()+'-day streak</div>'+thought()+'</div><div class="mute" style="text-align:center;margin:14px 0 6px">Thank your guru: say Om Namo Narayanaya once more.</div><button class="btn sf" data-act="enddone">Done for today</button>'+(e.more?'<button class="btn ghost" data-act="endmore" style="margin-top:8px">Learn the next verses today too</button>':'')}
@@ -539,8 +539,8 @@ function home(){
  +'<div class="hv-main"><div class="hv-art" style="background-image:url(\''+IMG+'\')"></div><div class="hv-tx"><div class="hv-sk">श्री विष्णु सहस्रनाम</div><h1>Sahasranama Guru</h1><div class="hv-sub">Your virtual guru for Vishnu Sahasranamam</div></div></div>'
  +(full?'<p class="hv-tag">Learn the sacred thousand names the traditional way, guru to student: listen, repeat, chant. Understand the meaning and benefit of every verse, and watch your progress grow, one verse a day.</p><div class="hv-steps"><div><span>🎧</span><b>Listen</b><small>Hear the guru</small></div><div><span>🗣</span><b>Repeat</b><small>Line by line</small></div><div><span>📖</span><b>Meaning</b><small>Understand it</small></div><div><span>🌿</span><b>Benefit</b><small>Know why</small></div></div>':'')
  +'<button class="hv-tog" data-act="herotog"><i>i</i>'+(full?'Close about ▴':'About this app ▾')+'</button>'
- +'<button class="hv-prog" data-act="vopen" aria-expanded="'+VOPEN+'"><span class="hv-n">'+L+'<small>/'+TOTAL+'</small></span><span class="hv-pt"><b>verse'+(L===1?'':'s')+' learned</b><i class="hv-bar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></i><small>Finish '+finLabel()+'</small></span><span class="hv-all">'+(VOPEN?'Hide':'See all')+' '+(VOPEN?'▴':'›')+'</span></button></div>';if(VOPEN)h+=allVersesCard();
- if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 46 \u00b7 22 Oct 2026</div>'}
+ +'<button class="hv-prog" data-act="vopen" aria-expanded="'+VOPEN+'"><span class="hv-n">'+L+'<small>/'+TOTAL+'</small></span><span class="hv-pt"><b>verse'+(L===1?'':'s')+' learned</b><i class="hv-bar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></i><small>Finish by '+finLabel()+'</small></span><span class="hv-all">'+(VOPEN?'Hide':'See all')+' '+(VOPEN?'▴':'›')+'</span></button></div>';if(VOPEN)h+=allVersesCard();
+ if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 50 \u00b7 22 Oct 2026</div>'}
  if(panel)h+='<div class="tools tgrid" style="margin-top:8px">'+[['set','\ud83d\udd24','Script'],['rem','\u23f0','Reminder'],['why','\ud83d\udd49','Why chant'],['read','\ud83d\udcd6','Reading'],['again','\ud83d\udd04','Start again'],['guru','\ud83c\udf93','Guru']].map(function(x){return '<button class="chip tb tb-'+x[0]+'" data-act="panel" data-v="'+x[0]+'" aria-pressed="'+(panel===x[0])+'"><span class="ti">'+x[1]+'</span><span>'+x[2]+'</span></button>'}).join('')+'</div>';
  if(panel){var PT={set:['\ud83d\udd24','Script and help'],rem:['\u23f0','Daily reminders'],why:['\ud83d\udd49','Why we chant'],read:['\ud83d\udcd6','Reading basics'],again:['\ud83d\udd04','Start again'],guru:['\ud83c\udf93','Guru tools']}[panel];h+='<div class="pnl pnl-'+panel+'"><div class="pnh"><span>'+PT[0]+'</span><span>'+PT[1]+'</span></div>'}
  if(panel==='set'){h+='<div class="card"><h2>Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Repeat after me</h2><div class="chips"><button class="chip" data-act="lm" data-v="auto" aria-pressed="'+((S.lm||'auto')==='auto')+'">Automatic</button><button class="chip" data-act="lm" data-v="whole" aria-pressed="'+(S.lm==='whole')+'">Whole verse</button><button class="chip" data-act="lm" data-v="line" aria-pressed="'+(S.lm==='line')+'">Line by line</button></div><h2 style="margin-top:14px">Other scripts</h2><div class="chips"><button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show all three scripts under the verse</button></div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div></div>'}
@@ -560,7 +560,7 @@ if(panel==='again'){h+='<div class="card"><h2>Start from which verse?</h2><div c
  h+='<div class="mute" style="margin:10px 0 12px">'+(S.doneDay===tdy()?'Well done! Your streak is safe for today. Come back tomorrow, or keep going now with the next verses.':'Listen, repeat after the guru, then record yourself. It plays, waits for you, then moves on.')+'</div><button class="pacel" data-act="popen"><span>\ud83d\udcc5 '+S.pace+' verse'+(S.pace>1?'s':'')+' a day</span><span class="pgo">'+(POPEN?'Close \u2715':'Change')+'</span></button>'+(POPEN?'<div class="pacebox"><h3>How many verses a day?</h3>'+paceChips()+'<div class="mute" style="margin-top:8px">Each box shows the days left and the finish date. New learners: 1 or 2 a day for the first week works well.</div><button class="btn" data-act="popen">Done \u2713</button></div>':'')+'<button class="btn sf" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today too':'Start today\'s practice')+'</button></div>';
  h+='<div class="chips" style="margin-top:4px">'+(S.learned.length?'<button class="chip g" data-act="recap">\ud83e\udd4d Weekly recap</button><button class="chip p" data-act="plstart">\ud83c\udfb6 Listen to all learned</button>':'')+'</div>';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
- h+='<div class="mute" style="text-align:center">Version 46 \u00b7 22 Oct 2026</div>';
+ h+='<div class="mute" style="text-align:center">Version 50 \u00b7 22 Oct 2026</div>';
  return h}
 function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
@@ -646,6 +646,10 @@ indigo:{n:'Maroon and gold',l:['#7a1f2b','#fff','#f4ead3','#fff3d1','#e8890c','#
 lotus:{n:'Lotus pink',l:['#8e2a6b','#fff','#f3e4ee','#ffe9f3','#e8890c','#1b2340'],d:['#f08fc9','#2a0a1f','#3a2033','#3d2230','#f2a900','#1b2340']},
 tulasi:{n:'Tulasi green',l:['#1f6b4a','#fff','#e0efe7','#fff3d1','#e8890c','#1b2340'],d:['#7bd6a8','#06251a','#1f3a2e','#3a2f10','#f2a900','#1b2340']},
 blue:{n:'Vishnu blue',l:['#0b5c8a','#fff','#dcecf6','#fff3d1','#f0a000','#1b2340'],d:['#7cc4f0','#04202f','#17364a','#3a2f10','#f2b53a','#1b2340']},
+kumkum:{n:'Kumkum red',l:['#a8221c','#fff','#f7e3df','#fff3d1','#e8890c','#1b2340'],d:['#ff9a8f','#2e0805','#41201c','#3a2f10','#f2a900','#1b2340']},
+haldi:{n:'Haldi turmeric',l:['#9a6200','#fff','#f7ecd0','#fff3d1','#b3261e','#fff'],d:['#f0c14b','#2b1d00','#3c3014','#3a2f10','#ff8a7a','#1b2340']},
+chandan:{n:'Chandan sandalwood',l:['#6b4a2e','#fff','#efe4d6','#fff3d1','#c06a1a','#fff'],d:['#d9b48f','#24160a','#3a2c20','#3a2f10','#f0a24a','#1b2340']},
+mayur:{n:'Mayur peacock',l:['#0f6b6b','#fff','#dcefee','#fff3d1','#c77a00','#fff'],d:['#7fd6d3','#03211f','#19403f','#3a2f10','#f2b53a','#1b2340']},
 sunrise:{n:'Sunrise orange',l:['#b5400f','#fff','#f6e6dd','#fff0c9','#1f6fa8','#fff'],d:['#ffa370','#2c1004','#3d2619','#3a2f10','#6fb4ea','#06192a']}};
 function applyTheme(){var t=THEMES[S.theme]||THEMES.indigo,dk=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches,c=dk?t.d:t.l,st=document.documentElement.style;
  ['--acc','--acc-ink','--soft','--gold-bg','--sf','--sf-ink'].forEach(function(k,i){st.setProperty(k,c[i])})}
