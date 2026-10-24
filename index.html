@@ -576,7 +576,7 @@ function home(){
  +(full?'<p class="hv-tag">Learn the sacred thousand names the traditional way, guru to student: listen, repeat, chant. Understand the meaning and benefit of every verse, and watch your progress grow, one verse a day.</p><div class="hv-steps"><div><span>🎧</span><b>Listen</b><small>Hear the guru</small></div><div><span>🗣</span><b>Repeat</b><small>Line by line</small></div><div><span>📖</span><b>Meaning</b><small>Understand it</small></div><div><span>🌿</span><b>Benefit</b><small>Know why</small></div></div>'+howHTML():'')
  +'<button class="hv-tog" data-act="herotog"><i>i</i>'+(full?'Close about ▴':'About this app ▾')+'</button>'
  +'<button class="hv-prog" data-act="vopen" aria-expanded="'+VOPEN+'"><span class="hv-n">'+L+'<small>/'+TOTAL+'</small></span><span class="hv-pt"><b>verse'+(L===1?'':'s')+' learned</b><i class="hv-bar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></i><small>Finish by '+finLabel()+'</small></span><span class="hv-all">'+(VOPEN?'Hide':'See all')+' '+(VOPEN?'▴':'›')+'</span></button></div>';if(VOPEN)h+=allVersesCard();
- if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 64 \u00b7 25 Oct 2026</div>'}
+ if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 65 \u00b7 25 Oct 2026</div>'}
  if(panel)h+='<div class="tools tgrid" style="margin-top:8px">'+[['set','\ud83d\udd24','Script'],['rem','\u23f0','Reminder'],['why','\ud83d\udd49','Why chant'],['read','\ud83d\udcd6','Reading'],['again','\ud83d\udd04','Start again'],['guru','\ud83c\udf93','Guru']].map(function(x){return '<button class="chip tb tb-'+x[0]+'" data-act="panel" data-v="'+x[0]+'" aria-pressed="'+(panel===x[0])+'"><span class="ti">'+x[1]+'</span><span>'+x[2]+'</span></button>'}).join('')+'</div>';
  if(panel){var PT={set:['\ud83d\udd24','Script and help'],rem:['\u23f0','Daily reminders'],why:['\ud83d\udd49','Why we chant'],read:['\ud83d\udcd6','Reading basics'],again:['\ud83d\udd04','Start again'],guru:['\ud83c\udf93','Guru tools']}[panel];h+='<div class="pnl pnl-'+panel+'"><div class="pnh"><span>'+PT[0]+'</span><span>'+PT[1]+'</span></div>'}
  if(panel==='set'){h+='<div class="card"><h2>Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Repeat after me</h2><div class="chips"><button class="chip" data-act="lm" data-v="auto" aria-pressed="'+((S.lm||'auto')==='auto')+'">Automatic</button><button class="chip" data-act="lm" data-v="whole" aria-pressed="'+(S.lm==='whole')+'">Whole verse</button><button class="chip" data-act="lm" data-v="line" aria-pressed="'+(S.lm==='line')+'">Line by line</button></div><h2 style="margin-top:14px">Other scripts</h2><div class="chips"><button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show all three scripts under the verse</button></div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div></div>'}
@@ -597,7 +597,7 @@ if(panel==='again'){h+='<div class="card"><h2>Start from which verse?</h2><div c
  h+='<div class="chips" style="margin-top:4px">'+(S.learned.length?'<button class="chip g" data-act="recap">\ud83e\udd4d Weekly recap</button><button class="chip p" data-act="plstart">\ud83c\udfb6 Listen to all learned</button>':'')+'</div>';
  h+='<div class="jump"><b>\ud83d\udd22 Play a verse</b><input id="jv" type="number" inputmode="numeric" min="1" max="108" placeholder="No." aria-label="Verse number"><button class="chip p" data-act="jplay">\u25b6 Play</button></div>'+(JMSG?'<div class="mute jmsg">'+JMSG+'</div>':'');JMSG='';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
- h+='<div class="mute" style="text-align:center">Version 64 \u00b7 25 Oct 2026</div>';
+ h+='<div class="mute" style="text-align:center">Version 65 \u00b7 25 Oct 2026</div>';
  return h}
 function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
@@ -741,6 +741,7 @@ function wordsHTML(s,l,idx){return s.split(' ').filter(Boolean).map(function(w,j
 function sheetVerse(){var it=LST[vi],v=V[it.i],mn=S.main||'sa',hc=hideNow(it)?' hid" data-act="peek':'',sg=(RP.on&&RP.seg!==undefined&&RP.steps&&RP.steps[0]===0)?' s'+RP.seg:(RP.on&&RP.steps&&RP.steps[0]!==0?' s2':'');return '<div class="rpverse'+sg+'"><div class="'+(mn==='te'?'te':mn==='en'?'enb':'sa')+hc+'"><div class="ln l1">'+v[mn][0]+'</div><div class="ln l2">'+v[mn][1]+'</div></div><div class="prb big2'+hc+'"><div class="ln l1">'+wordsHTML(v.pr[0],0,1)+'</div><div class="ln l2">'+wordsHTML(v.pr[1],1,1)+'</div></div></div>'}
 function recSheet(){return '<div class="rpsheet">'+gvHead()+'<div class="rpph rec"><span class="reddot"></span> Recording <b id="rtime">0:00</b></div>'+sheetVerse()+'<button class="btn rec" data-act="rec">Stop recording</button></div>'}
 var rpA=new Audio(),RP={on:false};
+rpA.addEventListener('playing',function(){if(RP.on&&RP.blocked){RP.blocked=false;render()}});
 var CUTS={},CUTJ=null;S.cuts=S.cuts||{};
 function getCut(n){return new Promise(function(res){if(CUTS[n]!==undefined){res(CUTS[n]);return}
  var done=function(c){CUTS[n]=c;res(c)};
@@ -779,7 +780,8 @@ function sheetVerseDone(){var it=LST[vi];if(hideNow(it))return '<details class="
 function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[S.lang],l=S.lang||'en',o='';if(m&&m.v)o+='<details><summary>\ud83d\udcd6 Meaning of this verse</summary><div class="plain" style="margin-top:8px">'+m.v[k]+'</div></details>';if(BEN[n])o+='<details><summary>'+BEN[n].ic+' Benefit of this verse</summary>'+spCard(n)+'</details>';return o?'<div class="gmb">'+o+'</div>':''}
 var GPAUSED=false;
 var AUL={recapagain:1,start:1,pranamgo:1,recap:1,gnext:1,gresume:1,omw:1,oml:1,rpstart:1,rpagain:1,contNew:1,gov:1,rpback:1,rpskip:1};
-function audUnlock(){try{if(!rpA.paused)return;if(!rpA.src){var it=(typeof LST!=='undefined'&&LST&&LST[vi])||null,n=it&&V[it.i]?V[it.i].n:V[Math.min(S.pos,V.length-1)].n;rpA.src=rpUrl(n,'.m4a')}var tok=Math.random();rpA._ul=tok;rpA.muted=true;var p=rpA.play(),end=function(){if(rpA._ul===tok){rpA._ul=0;rpA.pause();rpA.muted=false}};if(p&&p.then)p.then(end,function(){if(rpA._ul===tok){rpA._ul=0;rpA.muted=false}});else end()}catch(e){}}
+var SILW='data:audio/wav;base64,UklGRrQBAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YZABAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA';
+function audUnlock(){try{if(!rpA.paused)return;var tok=Math.random();rpA._ul=tok;rpA.muted=false;rpA.onloadedmetadata=null;rpA.onended=null;rpA.src=SILW;var p=rpA.play(),end=function(){if(rpA._ul===tok){rpA._ul=0;rpA.pause()}};if(p&&p.then)p.then(end,function(){if(rpA._ul===tok)rpA._ul=0});else end()}catch(e){}}
 function preCuts(){try{(LST||[]).forEach(function(x){if(V[x.i])getCut(V[x.i].n)})}catch(e){}}
 function rpSheet(){var ph=RP.phase;
  if(RP.wait)return '<div class="rpsheet"><div class="rpph listen">Getting ready\u2026</div></div>';
@@ -801,13 +803,13 @@ function rpStart(){if(gA)gA.pause();try{var AC0=window.AudioContext||window.webk
  rpListen()}
 function rpListen(){clearInterval(RP.tm);RP.phase='listen';RP.blocked=false;rpA._ul=0;rpA.muted=false;listenCount[RP.n]=(listenCount[RP.n]||0)+1;
  rpA.onended=rpTurn;
- rpA.onerror=function(){if(RP.tried===0){RP.tried=1;rpA.src=rpUrl(RP.n,'.mp3');var q=rpA.play();if(q&&q.catch)q.catch(function(){})}else{RP.err=true;render()}};
+ rpA.onerror=function(){if(rpA._ul)return;if(RP.tried===0){RP.tried=1;rpA.src=rpUrl(RP.n,'.mp3');var q=rpA.play();if(q&&q.catch)q.catch(function(){})}else{RP.err=true;render()}};
  var sg=RP.steps[RP.round-1];RP.seg=sg;clearInterval(RP.sm);RP.T=null;clearInterval(RP.hl);RP.hl=setInterval(hlTick,80);
- var go=function(){if(sg===1&&RP.cut>0){try{rpA.currentTime=RP.cut}catch(e){}}var pr=rpA.play();if(pr&&pr.catch)pr.catch(function(){RP.blocked=true;render()});
+ var go=function(){if(sg===1&&RP.cut>0){try{rpA.currentTime=RP.cut}catch(e){}}var pr=rpA.play();if(pr&&pr.catch)pr.catch(function(e){if(e&&e.name==='NotAllowedError'&&RP.on&&RP.phase==='listen'){RP.blocked=true;render()}});
   if(sg===0&&RP.cut>0){RP.sm=setInterval(function(){if(rpA.currentTime>=RP.cut-0.03){clearInterval(RP.sm);rpA.pause();rpTurn()}},40)}};
- var want=rpUrl(RP.n,RP.tried?'.mp3':'.m4a');
- if(rpA.src&&rpA.src.slice(-want.length)===want&&rpA.readyState>=1){try{rpA.currentTime=sg===1?RP.cut:0}catch(e){}go()}
- else{rpA.onloadedmetadata=function(){rpA.onloadedmetadata=null;go()};rpA.src=want;rpA.load()}
+ var want=rpUrl(RP.n,RP.tried?'.mp3':'.m4a'),cur=(rpA.src||'').split('#')[0];
+ if(cur.slice(-want.length)===want&&rpA.readyState>=1){try{rpA.currentTime=sg===1?RP.cut:0}catch(e){}go()}
+ else{rpA.onloadedmetadata=null;rpA.src=want+(sg===1&&RP.cut>0?'#t='+RP.cut:'');var pr=rpA.play();if(pr&&pr.catch)pr.catch(function(e){if(e&&e.name==='NotAllowedError'&&RP.on&&RP.phase==='listen'){RP.blocked=true;render()}});if(sg===0&&RP.cut>0){RP.sm=setInterval(function(){if(rpA.currentTime>=RP.cut-0.03){clearInterval(RP.sm);rpA.pause();rpTurn()}},40)}}
  render()}
 function rpTurn(){if(!RP.on)return;clearInterval(RP.sm);clearInterval(RP.hl);RP.phase='turn';chime();var d=isFinite(rpA.duration)&&rpA.duration>0?rpA.duration:10;if(RP.seg===0&&RP.cut>0)d=RP.cut;else if(RP.seg===1&&RP.cut>0)d=Math.max(2,d-RP.cut);RP.dur=rpTurnMs(d);RP.end=Date.now()+RP.dur;render();clearInterval(RP.tm);RP.tm=setInterval(rpTick,100)}
 function rpTick(){if(!RP.on||RP.paused)return;var rem=RP.end-Date.now(),b=$('rpbar');if(b)b.style.width=Math.max(0,Math.min(100,(1-rem/RP.dur)*100))+'%';if(rem<=0)rpNext()}
