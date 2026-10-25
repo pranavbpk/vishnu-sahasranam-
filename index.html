@@ -598,7 +598,7 @@ function home(){
  +(full?'<p class="hv-tag">Learn the sacred thousand names the traditional way, guru to student: listen, repeat, chant. Understand the meaning and benefit of every verse, and watch your progress grow, one verse a day.</p><div class="hv-steps"><div><span>🎧</span><b>Listen</b><small>Hear the guru</small></div><div><span>🗣</span><b>Repeat</b><small>Line by line</small></div><div><span>📖</span><b>Meaning</b><small>Understand it</small></div><div><span>🌿</span><b>Benefit</b><small>Know why</small></div></div>'+howHTML():'')
  +'<button class="hv-tog" data-act="herotog"><i>i</i>'+(full?'Close about ▴':'About this app ▾')+'</button>'
  +'<button class="hv-prog" data-act="vopen" aria-expanded="'+VOPEN+'"><span class="hv-n">'+L+'<small>/'+TOTAL+'</small></span><span class="hv-pt"><b>verse'+(L===1?'':'s')+' learned</b><i class="hv-bar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></i><small>Finish by '+finLabel()+'</small></span><span class="hv-all">'+(VOPEN?'Hide':'See all')+' '+(VOPEN?'▴':'›')+'</span></button></div>';if(VOPEN)h+=allVersesCard();
- if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 70 \u00b7 25 Oct 2026</div>'}
+ if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 71 \u00b7 25 Oct 2026</div>'}
  if(panel)h+='<div class="tools tgrid" style="margin-top:8px">'+[['set','\ud83d\udd24','Script'],['rem','\u23f0','Reminder'],['why','\ud83d\udd49','Why chant'],['read','\ud83d\udcd6','Reading'],['again','\ud83d\udd04','Start again'],['guru','\ud83c\udf93','Guru']].map(function(x){return '<button class="chip tb tb-'+x[0]+'" data-act="panel" data-v="'+x[0]+'" aria-pressed="'+(panel===x[0])+'"><span class="ti">'+x[1]+'</span><span>'+x[2]+'</span></button>'}).join('')+'</div>';
  if(panel){var PT={set:['\ud83d\udd24','Script and help'],rem:['\u23f0','Daily reminders'],why:['\ud83d\udd49','Why we chant'],read:['\ud83d\udcd6','Reading basics'],again:['\ud83d\udd04','Start again'],guru:['\ud83c\udf93','Guru tools']}[panel];h+='<div class="pnl pnl-'+panel+'"><div class="pnh"><span>'+PT[0]+'</span><span>'+PT[1]+'</span></div>'}
  if(panel==='set'){h+='<div class="card"><h2>Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Repeat after me</h2><div class="chips"><button class="chip" data-act="lm" data-v="auto" aria-pressed="'+((S.lm||'auto')==='auto')+'">Automatic</button><button class="chip" data-act="lm" data-v="whole" aria-pressed="'+(S.lm==='whole')+'">Whole verse</button><button class="chip" data-act="lm" data-v="line" aria-pressed="'+(S.lm==='line')+'">Line by line</button></div><h2 style="margin-top:14px">Other scripts</h2><div class="chips"><button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show all three scripts under the verse</button></div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div></div>'}
@@ -619,7 +619,7 @@ if(panel==='again'){h+='<div class="card"><h2>Start from which verse?</h2><div c
  h+='<div class="chips" style="margin-top:4px">'+(S.learned.length?'<button class="chip g" data-act="recap">\ud83e\udd4d Weekly recap</button><button class="chip p" data-act="plstart">\ud83c\udfb6 Listen to all learned</button>':'')+'</div>';
  h+='<div class="jump"><b>\ud83d\udd22 Play a verse</b><input id="jv" type="number" inputmode="numeric" min="1" max="108" placeholder="No." aria-label="Verse number"><button class="chip p" data-act="jplay">\u25b6 Play</button></div>'+(JMSG?'<div class="mute jmsg">'+JMSG+'</div>':'');JMSG='';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
- h+='<div class="mute" style="text-align:center">Version 70 \u00b7 25 Oct 2026</div>';
+ h+='<div class="mute" style="text-align:center">Version 71 \u00b7 25 Oct 2026</div>';
  return h}
 function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
@@ -780,7 +780,7 @@ function getCut(n){return new Promise(function(res){if(CUTS[n]!==undefined){res(
  if(CUTJ===null){fetch('audio/cuts.json').then(function(r){return r.ok?r.json():{}}).catch(function(){return {}}).then(function(j){CUTJ=j||{};if(CUTJ[n]>0)done(+CUTJ[n]);else auto()})}
  else if(CUTJ[n]>0)done(+CUTJ[n]);else auto()})}
 function rpSeg(){var st=RP.steps[RP.round-1];return st}
-function hlBuild(dur){var v=V[vIdx(RP.n)],cut=RP.cut||0,sg=RP.seg,L=[v.pr[0].split(' ').filter(Boolean),v.pr[1].split(' ').filter(Boolean)],T=[];
+function hlBuild(dur){var v=V[vIdx(RP.n)],cut=RP.cut||(CUTS[RP.n]>0?CUTS[RP.n]:0),sg=RP.seg,L=[v.pr[0].split(' ').filter(Boolean),v.pr[1].split(' ').filter(Boolean)],T=[];
  function put(l,t0,t1){var ws=L[l],tot=0;ws.forEach(function(w){tot+=w.replace(/-/g,'').length});var t=t0;ws.forEach(function(w,j){var d=(t1-t0)*w.replace(/-/g,'').length/tot;T.push({l:l,j:j,a:t,b:t+d});t+=d})}
  if(sg===0)put(0,0,cut);else if(sg===1)put(1,cut,dur);
  else if(cut>0){put(0,0,cut);put(1,cut,dur)}
@@ -789,7 +789,7 @@ function hlBuild(dur){var v=V[vIdx(RP.n)],cut=RP.cut||0,sg=RP.seg,L=[v.pr[0].spl
 function hlTick(){if(!RP.on||RP.phase!=='listen'||!isFinite(rpA.duration)||rpA.duration<=0)return;if(!RP.T)hlBuild(rpA.duration);var t=rpA.currentTime;
  RP.T.forEach(function(x){var e=document.querySelector('.rpsheet .wd[data-l="'+x.l+'"][data-w="'+x.j+'"]');if(!e)return;var c=t>=x.b?'heard':(t>=x.a?'now':'');e.className='wd'+(c?' '+c:'')})}
 function rpIdx(){var s=RP.steps,r=RP.round,sg=s[r-1];return {idx:s.slice(0,r).filter(function(x){return x===sg}).length,tot:s.filter(function(x){return x===sg}).length}}
-function rpTurnMs(d){var l=(typeof lvl==='function'?lvl():'n'),k=l==='b'?[1.3,1.0]:l==='a'?[1.0,0.4]:[1.1,0.8],i=rpIdx().idx,f=i<=1?1:i===2?0.9:0.85;return Math.max(1500,(d*k[0]+k[1])*f*1000)}
+function rpTurnMs(d){var l=(typeof lvl==='function'?lvl():'n'),k=l==='b'?[1.4,1.2]:l==='a'?[1.05,0.6]:[1.2,1.0],f=1;return Math.max(1500,(d*k[0]+k[1])*f*1000)}
 function chime(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback';var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;var c=window._ac||(window._ac=new AC());if(c.state==='suspended')c.resume();var o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=660;g.gain.setValueAtTime(0.0001,c.currentTime);g.gain.exponentialRampToValueAtTime(0.18,c.currentTime+0.02);g.gain.exponentialRampToValueAtTime(0.0001,c.currentTime+0.35);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+0.4)}catch(e){}}
 function rpLabel(){var s=RP.steps,r=RP.round;if(!s||s.length<4)return 'Round '+Math.min(r,s?s.length:3)+' of '+(s?s.length:3);var sg=s[r-1],tot=s.filter(function(x){return x===sg}).length,idx=s.slice(0,r).filter(function(x){return x===sg}).length;return (sg===0?'Line 1':sg===1?'Line 2':'Whole verse')+' \u00b7 say it '+idx+' of '+tot}
 var MK={n:0,a:new Audio(),on:false};
@@ -805,7 +805,7 @@ function gvHead(){var it=LST[vi];if(!it||!V[it.i])return '';var n=V[it.i].n,rt=i
 function sheetVerseDone(){var it=LST[vi];if(hideNow(it))return '<details class="peek"><summary>\ud83d\udc41 Peek at the verse</summary>'+sheetVerse().split(' hid" data-act="peek').join('')+'</details>';return '<div class="vcomp">'+sheetVerse()+'</div>'}
 function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[S.lang],l=S.lang||'en',o='';if(m&&m.v)o+='<details><summary>\ud83d\udcd6 Meaning of this verse</summary><div class="plain" style="margin-top:8px">'+m.v[k]+'</div></details>';if(BEN[n])o+='<details><summary>'+BEN[n].ic+' Benefit of this verse</summary>'+spCard(n)+'</details>';return o?'<div class="gmb">'+o+'</div>':''}
 var GPAUSED=false;
-var APPV=70,NEWV=0,VCHK=0;
+var APPV=71,NEWV=0,VCHK=0;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 var AUL={recapagain:1,start:1,pranamgo:1,recap:1,gnext:1,gresume:1,omw:1,oml:1,rpstart:1,rpagain:1,contNew:1,gov:1,rpback:1,rpskip:1};
@@ -831,7 +831,7 @@ function rpStart(){if(gA)gA.pause();try{var AC0=window.AudioContext||window.webk
  try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){RP.wl=l}).catch(function(){})}catch(e){}
  rpListen()}
 function rpListen(){clearInterval(RP.tm);RP.phase='listen';RP.blocked=false;rpCheck();rpA._ul=0;rpA.muted=false;listenCount[RP.n]=(listenCount[RP.n]||0)+1;
- rpA.onended=rpTurn;
+ RP.lt=Date.now();rpA.onended=function(){if(!RP.on||RP.phase!=='listen')return;var d=rpA.duration,st0=(RP.seg===1&&RP.cut>0)?RP.cut:0,atEnd=!isFinite(d)||rpA.currentTime>=d-0.6;if(atEnd&&Date.now()-RP.lt>1200){rpTurn();return}try{if(atEnd)rpA.currentTime=st0}catch(e){}var q=rpA.play();if(q&&q.catch)q.catch(function(){})};
  rpA.onerror=function(){if(rpA._ul)return;if(RP.tried===0){RP.tried=1;rpA.src=rpUrl(RP.n,'.mp3');var q=rpA.play();if(q&&q.catch)q.catch(function(){})}else{RP.err=true;render()}};
  var sg=RP.steps[RP.round-1];RP.seg=sg;clearInterval(RP.sm);RP.T=null;clearInterval(RP.hl);RP.hl=setInterval(hlTick,80);
  var go=function(){if(sg===1&&RP.cut>0){try{rpA.currentTime=RP.cut}catch(e){}}var pr=rpA.play();if(pr&&pr.catch)pr.catch(function(e){if(e&&e.name==='NotAllowedError'&&RP.on&&RP.phase==='listen'){RP.blocked=true;render()}});
@@ -840,7 +840,7 @@ function rpListen(){clearInterval(RP.tm);RP.phase='listen';RP.blocked=false;rpCh
  if(cur.slice(-want.length)===want&&rpA.readyState>=1){try{rpA.currentTime=sg===1?RP.cut:0}catch(e){}go()}
  else{rpA.onloadedmetadata=null;rpA.src=want+(sg===1&&RP.cut>0?'#t='+RP.cut:'');var pr=rpA.play();if(pr&&pr.catch)pr.catch(function(e){if(e&&e.name==='NotAllowedError'&&RP.on&&RP.phase==='listen'){RP.blocked=true;render()}});if(sg===0&&RP.cut>0){RP.sm=setInterval(function(){if(rpA.currentTime>=RP.cut-0.03){clearInterval(RP.sm);rpA.pause();rpTurn()}},40)}}
  render()}
-function rpTurn(){if(!RP.on)return;clearInterval(RP.sm);clearInterval(RP.hl);RP.phase='turn';chime();var d=isFinite(rpA.duration)&&rpA.duration>0?rpA.duration:10;if(RP.seg===0&&RP.cut>0)d=RP.cut;else if(RP.seg===1&&RP.cut>0)d=Math.max(2,d-RP.cut);RP.dur=rpTurnMs(d);RP.end=Date.now()+RP.dur;render();clearInterval(RP.tm);RP.tm=setInterval(rpTick,100)}
+function rpTurn(){if(!RP.on||RP.phase!=='listen')return;clearInterval(RP.sm);clearInterval(RP.hl);RP.phase='turn';chime();var d=isFinite(rpA.duration)&&rpA.duration>0?rpA.duration:10;if(RP.seg===0&&RP.cut>0)d=RP.cut;else if(RP.seg===1&&RP.cut>0)d=Math.max(2,d-RP.cut);RP.dur=rpTurnMs(d);RP.end=Date.now()+RP.dur;render();clearInterval(RP.tm);RP.tm=setInterval(rpTick,100)}
 function rpTick(){if(!RP.on||RP.paused)return;var rem=RP.end-Date.now(),b=$('rpbar');if(b)b.style.width=Math.max(0,Math.min(100,(1-rem/RP.dur)*100))+'%';if(rem<=0)rpNext()}
 function rpNext(){clearInterval(RP.tm);if(RP.round<RP.steps.length){RP.round++;rpListen()}else if(RP.recap){rpDone[RP.n]=true;listenCount[RP.n]=Math.max(3,listenCount[RP.n]||0);if(vi<LST.length-1){vi++;tab='say';selW=0;render(1);rpStart()}else{RP.phase='recapdone';RP.blocked=false;try{if(RP.wl)RP.wl.release()}catch(e){}render()}}else{RP.phase='done';RP.blocked=false;rpDone[RP.n]=true;if(CUTS[RP.n]===undefined){(function(n){getCut(n).then(function(){if(RP.on&&RP.n===n&&RP.phase==='done')render()})})(RP.n)}listenCount[RP.n]=Math.max(3,listenCount[RP.n]||0);setStep(2,1);sv();render()}}
 function rpPause(){RP.paused=!RP.paused;if(RP.phase==='listen'){if(RP.paused)rpA.pause();else{var q=rpA.play();if(q&&q.catch)q.catch(function(){})}}else if(RP.phase==='turn'){if(RP.paused)RP.rem=RP.end-Date.now();else RP.end=Date.now()+RP.rem}render()}
