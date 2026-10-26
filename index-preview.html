@@ -374,6 +374,8 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .morec{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 14px 12px;margin-top:12px}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hv-all{background:var(--acc);color:var(--acc-ink)}}
 :root[data-theme="dark"] .hv-all{background:var(--acc);color:var(--acc-ink)}
+.hv-xr{display:flex;justify-content:flex-end;margin-top:10px}
+.hv-x{background:#fff;border:1.5px solid #d4a23c;color:#5a2a00;border-radius:99px;padding:6px 14px;min-height:40px;font:inherit;font-weight:700;font-size:.9rem;cursor:pointer}
 .morec h3{margin:0 0 10px;font-size:1rem}
 .mtiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .mtile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:76px;padding:10px 8px;border:1px solid var(--line);background:var(--bg);border-radius:14px;font:inherit;font-weight:700;font-size:.92rem;color:inherit;cursor:pointer;text-align:center}
@@ -614,7 +616,7 @@ function home(){
  var full=heroFull(),L=S.learned.length;
  var h=nvb+'<div class="hv'+(full?'':' cmp')+'"><div class="hv-top"><b class="hv-streak">🔥 '+streak()+'-day streak</b><button class="hv-set" data-act="gear" aria-expanded="'+!!panel+'">'+(panel?'✕ Close settings':'⚙ Settings')+'</button></div>'
  +'<div class="hv-main"><div class="hv-art" role="button" tabindex="0" aria-label="View the picture of Lord Vishnu" data-act="img" style="background-image:url(\''+IMG+'\')"></div><div class="hv-tx"><div class="hv-sk">श्री विष्णु सहस्रनाम</div><h1>Sahasranama Guru</h1><div class="hv-sub">Your virtual guru for Vishnu Sahasranamam</div></div></div>'
- +(full?'<p class="hv-tag">Learn the sacred thousand names the traditional way, guru to student: listen, repeat, chant. Understand the meaning and benefit of every verse, and watch your progress grow, one verse a day.</p><div class="hv-steps"><div><span>🎧</span><b>Listen</b><small>Hear the guru</small></div><div><span>🗣</span><b>Repeat</b><small>Line by line</small></div><div><span>📖</span><b>Meaning</b><small>Understand it</small></div><div><span>🌿</span><b>Benefit</b><small>Know why</small></div></div>'+howHTML():'')
+ +(full?'<div class="hv-xr"><button class="hv-x" data-act="herotog" aria-label="Close about">\u2715 Close</button></div><p class="hv-tag">Learn the sacred thousand names the traditional way, guru to student: listen, repeat, chant. Understand the meaning and benefit of every verse, and watch your progress grow, one verse a day.</p><div class="hv-steps"><div><span>🎧</span><b>Listen</b><small>Hear the guru</small></div><div><span>🗣</span><b>Repeat</b><small>Line by line</small></div><div><span>📖</span><b>Meaning</b><small>Understand it</small></div><div><span>🌿</span><b>Benefit</b><small>Know why</small></div></div>'+howHTML():'')
  +'<button class="hv-tog" data-act="herotog"><i>i</i>'+(full?'Close about ▴':'About this app ▾')+'</button>'
  +'<button class="hv-prog" data-act="vopen" aria-expanded="'+VOPEN+'"><span class="hv-n">'+L+'<small>/'+TOTAL+'</small></span><span class="hv-pt"><b>verse'+(L===1?'':'s')+' learned</b><i class="hv-bar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></i><small>Finish by '+finLabel()+'</small></span><span class="hv-all">'+(VOPEN?'Hide':'See all')+' '+(VOPEN?'▴':'›')+'</span></button></div>';if(VOPEN)h+=allVersesCard();
  if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Preview \u00b7 Version 77 draft</div>'}
@@ -921,7 +923,7 @@ app.addEventListener('click',function(e){
  else if(a==='gear'){panel=panel?'':'set';if(panel)HERO=false;render()}
  else if(a==='ostep'){var os=LST[vi];if(os)OS={n:V[os.i].n,k:+v};render()}
  else if(a==='recdel'){var ts=+v;if(RDEL===ts){recDel(ts)}else{RDEL=ts;softRender();setTimeout(function(){if(RDEL===ts){RDEL=0;if(view==='verse')softRender()}},4000)}}
- else if(a==='herotog'){HERO=!heroFull();if(HERO)panel='';render()}
+ else if(a==='herotog'){HERO=!heroFull();if(HERO)panel='';render(!HERO)}
  else if(a==='resetask'){RSASK=true;render()}
  else if(a==='resetno'){RSASK=false;render()}
  else if(a==='resetgo'){RSASK=false;S.learned=[];S.pos=Math.max(0,vIdx(S.startV||V[0].n));S.days=[];S.steps={};S.rev={};S.doneDay='';S.cheered=null;try{localStorage.removeItem('sp_days')}catch(e){}listenCount={};HERO=null;panel='';sv();notice='Fresh start. Today you begin with verse '+V[S.pos].n+'. Jai Sriman Narayana!';render(1)}
