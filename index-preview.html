@@ -427,6 +427,24 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .mcw{margin-top:8px}.mcw>summary{color:var(--acc);font-weight:700;cursor:pointer;min-height:32px}
 .mcw .wr{display:flex;gap:10px;padding:5px 0;border-top:1px solid rgba(0,0,0,.07);font-size:.9rem;line-height:1.35}
 .mcw .wr .sk{flex:0 0 42%;font-size:1rem;overflow-wrap:anywhere}
+
+/* v82b meaning sheet */
+.mprow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.mprow.top{justify-content:flex-end;margin:-6px 0 -8px}
+.mpill{position:relative;border:1.5px solid #d4a23c;background:#fff8e6;color:#5a3a00;border-radius:99px;padding:6px 16px;min-height:42px;font:inherit;font-weight:700;font-size:.95rem;cursor:pointer}
+.mpill.sm{min-height:34px;padding:3px 12px;font-size:.85rem;font-weight:600}
+.mdot{position:absolute;top:3px;right:5px;width:9px;height:9px;border-radius:50%;background:#e8890c;box-shadow:0 0 0 2px #fff8e6}
+.msheetbg{position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:70}
+.msheet{position:fixed;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;max-height:72vh;overflow:auto;z-index:71;background:var(--card);color:var(--ink);border-radius:22px 22px 0 0;padding:8px 16px calc(18px + env(safe-area-inset-bottom,0px));box-shadow:0 -10px 28px rgba(0,0,0,.22);animation:msup .25s ease-out}
+@keyframes msup{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.msheet{animation:none}}
+.mgrab{width:44px;height:5px;border-radius:9px;background:var(--line);margin:2px auto 8px}
+.mhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.mhead b{font-size:1.1rem;color:var(--acc)}
+.msheet .chips{margin:4px 0}.msheet .chip{min-height:36px;padding:4px 10px;font-size:.85rem}
+.msheet .mct{margin-top:10px;line-height:1.6;font-size:1.02rem}
+.msheet .mcb{margin-top:12px;padding:10px 12px;border:1px solid #ecd29a;border-top:1px solid #ecd29a;border-radius:12px;background:var(--gold-bg)}
+.msheet .mcw .wr{border-top:1px solid var(--line)}
 .morec h3{margin:0 0 10px;font-size:1rem}
 .mtiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .mtile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:76px;padding:10px 8px;border:1px solid var(--line);background:var(--bg);border-radius:14px;font:inherit;font-weight:700;font-size:.92rem;color:inherit;cursor:pointer;text-align:center}
@@ -965,6 +983,9 @@ var GS={on:false},PL={on:false},plA=new Audio();
 function lvl(){return S.level||'n'}
 function vFirst(n){var m=M[n];if(!m||!m.v)return '';var t=m.v[LI[S.lang]||0],q=t.match(/^(.+?[.\u0964])(\s|$)/);return q?q[1]:t}
 function gMB2(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[S.lang]||0,l=S.lang||'en';if(!m||!m.v)return '';var w=(m.w||[]).map(function(x){return '<div class="wr"><span class="sk">'+x[0]+'</span><span>'+x[2+k]+'</span></div>'}).join('');return '<details class="mcard"'+(it.r?'':' open')+'><summary>\ud83d\udcd6 What this verse means</summary>'+chipsLang()+'<div class="mct">'+m.v[k]+'</div>'+(BEN[n]?'<div class="mcb">'+BEN[n].ic+' <b>Special benefit:</b> '+BEN[n].t[l]+'</div>':'')+(w?'<details class="mcw"><summary>See each name \u203a</summary>'+w+'</details>':'')+'</details>'}
+var MSH=null,MSEEN={};
+function mPills(){var it=LST[vi];if(!it)return '';var n=V[it.i].n;if(!M[n])return '';return '<div class="mprow"><button class="mpill" data-act="mopen" data-v="m">\ud83d\udcd6 Meaning'+(!it.r&&!MSEEN[n]?'<i class="mdot"></i>':'')+'</button>'+(BEN[n]?'<button class="mpill" data-act="mopen" data-v="b">'+BEN[n].ic+' Benefit</button>':'')+'</div>'}
+function mSheet(){if(!MSH)return '';var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[S.lang]||0,l=S.lang||'en';if(!m)return '';var ben=BEN[n]?'<div class="mcb">'+BEN[n].ic+' <b>Special benefit:</b> '+BEN[n].t[l]+'</div>':'';var w=(m.w||[]).map(function(x){return '<div class="wr"><span class="sk">'+x[0]+'</span><span>'+x[2+k]+'</span></div>'}).join('');return '<div class="msheetbg" data-act="mclose"></div><div class="msheet" role="dialog" aria-label="Meaning of verse '+n+'"><div class="mgrab"></div><div class="mhead"><b>\ud83d\udcd6 Verse '+n+'</b><button class="chip" data-act="mclose">Close \u2715</button></div>'+chipsLang()+(MSH.m==='b'?ben:'')+'<div class="mct">'+(m.v?m.v[k]:'')+'</div>'+(MSH.m==='b'?'':ben)+(w?'<details class="mcw"><summary>See each name \u203a</summary>'+w+'</details>':'')+'</div>'}
 function hideNow(it){var l=lvl();if(RP.on&&RP.phase==='listen')return false;return !!S.hide||l==='a'||(l==='n'&&!!it.r)}
 function levelChips(){return [['b','Beginner'],['n','Normal'],['a','Advanced']].map(function(x){return '<button class="chip" data-act="level" data-v="'+x[0]+'" aria-pressed="'+(lvl()===x[0])+'">'+x[1]+'</button>'}).join('')}
 function startSel(){var cur=S.startV||V[Math.min(S.pos,V.length-1)].n;return '<select data-act="startsel" aria-label="Start from verse" style="margin-top:6px">'+V.map(function(v){return '<option value="'+v.n+'"'+(v.n===cur?' selected':'')+'>Verse '+v.n+'</option>'}).join('')+'</select>'}
@@ -1058,10 +1079,10 @@ function rpSheet(){var ph=RP.phase;
  if(RP.err)return '<div class="rpsheet"><div class="rpph turn">Guide audio for this verse is coming soon.</div><button class="btn ghost" data-act="rpclose">Close</button></div>';
  if(ph==='recapdone')return '<div class="rpsheet"><div class="gtop"><div class="gvt"><b>Weekly recap</b></div><button class="chip" data-act="rpclose">Close</button></div><div class="rpph done">\ud83d\ude4f Recap done<div class="rpsub">You chanted '+LST.length+' verse'+(LST.length===1?'':'s')+' with the guru.</div></div><button class="btn" data-act="recapfin">Finish</button><button class="lnkb" data-act="recapagain">\ud83d\udd01 Go through again</button></div>';
  var sub=ph!=='done'?'<span class="rph2">'+(RP.recap?(ph==='listen'?'Then you say it once':'Say it once, on your own'):rpLabel())+'</span>':'';var head=ph==='listen'?'\ud83c\udfa7 Listen'+sub:ph==='turn'?'\ud83c\udfa4 Your turn: chant it now'+sub+'<span class="rcd" id="rpcd">'+Math.max(0,Math.ceil(((RP.end||0)-Date.now())/1000))+'s left</span><div class="rpbar turnbar inb" id="rpbarw"><i id="rpbar" style="width:'+Math.max(0,Math.min(100,((RP.end||0)-Date.now())/(RP.dur||1)*100))+'%"></i></div>':'\u2728 Well done! Now say it on your own.';
- return '<div class="rpsheet"><div class="gtop">'+gvHead()+'<button class="chip" data-act="rpclose">Close</button></div><div class="rpph '+(ph==='done'?'done slim':ph)+(ph!=='done'&&RP.steps&&RP.steps[0]===0?' c'+RP.seg:'')+'"'+(RP.blocked&&ph==='listen'?' data-act="rpplay" role="button" style="cursor:pointer"':'')+'>'+(RP.blocked&&ph==='listen'?'\u25b6 Tap to continue<span class="rph2">No sound? Check Silent mode, volume and Bluetooth</span>':head)+'</div>'+(ph!=='done'&&!RP.recap&&LST[vi]&&!LST[vi].r&&vFirst(RP.n)?'<div class="vabout"><b>This verse:</b> '+vFirst(RP.n)+'</div>':'')+(ph==='turn'&&LST[vi]&&hideNow(LST[vi])?'<div class="hidnote">\ud83d\ude48 Hidden so you chant from memory \u00b7 Tap to peek</div>':'')+(ph==='done'?gMB2():sheetVerse())+
+ return '<div class="rpsheet"><div class="gtop">'+gvHead()+'<button class="chip" data-act="rpclose">Close</button></div><div class="rpph '+(ph==='done'?'done slim':ph)+(ph!=='done'&&RP.steps&&RP.steps[0]===0?' c'+RP.seg:'')+'"'+(RP.blocked&&ph==='listen'?' data-act="rpplay" role="button" style="cursor:pointer"':'')+'>'+(RP.blocked&&ph==='listen'?'\u25b6 Tap to continue<span class="rph2">No sound? Check Silent mode, volume and Bluetooth</span>':head)+'</div>'+(ph!=='done'&&M[RP.n]?'<div class="mprow top"><button class="mpill sm" data-act="mopen" data-v="m">\ud83d\udcd6 Meaning</button></div>':'')+(ph==='turn'&&LST[vi]&&hideNow(LST[vi])?'<div class="hidnote">\ud83d\ude48 Hidden so you chant from memory \u00b7 Tap to peek</div>':'')+(ph==='done'?mPills():sheetVerse())+
   (ph==='done'?'<button class="btn rec" data-act="rpdone">Record my take</button><div class="om2"'+(CUTS[RP.n]>0?'':' style="grid-template-columns:1fr"')+'><button class="chip" data-act="omw">\ud83d\udd01 Whole verse again</button>'+(CUTS[RP.n]>0?'<button class="chip" data-act="oml">\ud83e\ude9c Line by line again</button>':'')+'</div>'+(GS.on?'<button class="btn" data-act="gnext">'+(vi>=LST.length-1?'Finish today':'Next verse')+'</button>':'')+sheetVerseDone()+'<button class="lnkb" data-act="rpclose">'+(GS.on?'Stop here':'Finish')+'</button>'
    :(ph==='turn'?'':'<div class="rpbar'+(RP.steps&&RP.steps[0]===0?' c'+RP.seg:'')+'"><i id="rpbar"></i></div>')+'<div class="chips"><button class="chip" data-act="rppause">'+(RP.paused?'Resume':'Pause')+'</button><button class="chip" data-act="rpskip">'+(ph==='turn'?'\u2713 I\'m done':'Skip ahead')+'</button></div><div class="chips" style="margin-top:8px"><button class="chip g" data-act="rpagain">\ud83d\udd01 Hear it again</button></div>'+(GS.on&&LST[vi]&&LST[vi].r&&!RP.recap?'<button class="lnkb" data-act="rpnextv">Skip to next verse \u203a</button>':'')+(GS.on&&vi>0?'<button class="lnkb" data-act="rpback">\u23ee Back one verse</button>':''))+
-  ''+'</div>'}
+  mSheet()+'</div>'}
 function ovl(){if(view!=='verse'||transMsg)return '';if(RBOPEN)return rbSheet();if(recActive)return recSheet();if(RP.on)return rpSheet();if(GS.on&&GS.afterRec)return gcontSheet();return ''}
 function rpUrl(n,ext){return 'audio/v'+('00'+n).slice(-3)+ext}
 function rpStart(){if(gA)gA.pause();try{var AC0=window.AudioContext||window.webkitAudioContext;if(AC0){window._ac=window._ac||new AC0();if(window._ac.state==='suspended')window._ac.resume()}}catch(e){}var n=V[LST[vi].i].n;
@@ -1086,7 +1107,7 @@ function rpTick(){if(!RP.on||RP.paused)return;var rem=RP.end-Date.now(),b=$('rpb
 function rpNext(){clearInterval(RP.tm);if(RP.round<RP.steps.length){RP.round++;rpListen()}else if(RP.recap){rpDone[RP.n]=true;listenCount[RP.n]=Math.max(3,listenCount[RP.n]||0);if(vi<LST.length-1){vi++;tab='say';selW=0;render(1);rpStart()}else{RP.phase='recapdone';RP.blocked=false;try{if(RP.wl)RP.wl.release()}catch(e){}render()}}else{RP.phase='done';RP.blocked=false;rpDone[RP.n]=true;if(CUTS[RP.n]===undefined){(function(n){getCut(n).then(function(){if(RP.on&&RP.n===n&&RP.phase==='done')render()})})(RP.n)}listenCount[RP.n]=Math.max(3,listenCount[RP.n]||0);setStep(2,1);sv();render()}}
 function rpPause(){RP.paused=!RP.paused;if(RP.phase==='listen'){if(RP.paused)rpA.pause();else{var q=rpA.play();if(q&&q.catch)q.catch(function(){})}}else if(RP.phase==='turn'){if(RP.paused)RP.rem=RP.end-Date.now();else RP.end=Date.now()+RP.rem}render()}
 function rpSkip(){if(RP.phase==='listen'){rpA.pause();rpTurn()}else if(RP.phase==='turn'){rpNext()}}
-function rpClose(){if(GS.on&&RP.on&&RP.phase!=='done'&&RP.phase!=='recapdone'&&view==='verse')GPAUSED=true;GS.on=false;GS.afterRec=false;clearInterval(RP.tm);clearInterval(RP.sm);clearInterval(RP.hl);rpA.pause();try{if(RP.wl)RP.wl.release()}catch(e){}RP.on=false;render()}
+function rpClose(){MSH=null;if(GS.on&&RP.on&&RP.phase!=='done'&&RP.phase!=='recapdone'&&view==='verse')GPAUSED=true;GS.on=false;GS.afterRec=false;clearInterval(RP.tm);clearInterval(RP.sm);clearInterval(RP.hl);rpA.pause();try{if(RP.wl)RP.wl.release()}catch(e){}RP.on=false;render()}
 var mr=null,ch=[],st=null;
 var recActive=false,lastRecURL=null,lastRecVerse=null,recT0=0,recTick=null,lastT=0;
 function stopRecIfActive(){if(mr&&mr.state==='recording'){mr.stop()}}
@@ -1149,7 +1170,7 @@ app.addEventListener('click',function(e){
  else if(a==='lm'){S.lm=v;sv();render()}
  else if(a==='level'){S.level=v;sv();render()}
  else if(a==='setupdone'){S.setupDone=true;notice='';sv();render(1)}
- else if(a==='gnext'){clearInterval(RP.tm);try{if(RP.wl)RP.wl.release()}catch(e){}RP.on=false;GS.afterRec=false;skipN=true;goNext()}
+ else if(a==='gnext'){MSH=null;clearInterval(RP.tm);try{if(RP.wl)RP.wl.release()}catch(e){}RP.on=false;GS.afterRec=false;skipN=true;goNext()}
  else if(a==='gstop'){GS.on=false;GS.afterRec=false;render()}
  else if(a==='plstart'){plStart()}
  else if(a==='plclose'){plClose()}
@@ -1175,6 +1196,8 @@ app.addEventListener('click',function(e){
  else if(a==='rpclose'){rpClose()}
  else if(a==='rppause'){rpPause()}
  else if(a==='rpskip'){rpSkip()}
+ else if(a==='mopen'){var pz=RP.on&&(RP.phase==='listen'||RP.phase==='turn')&&!RP.paused;MSH={m:v||'m',pz:pz};var it0=LST[vi];if(it0)MSEEN[V[it0.i].n]=1;if(pz)rpPause();else render()}
+ else if(a==='mclose'){var rz=MSH&&MSH.pz;MSH=null;if(rz&&RP.on&&RP.paused)rpPause();else render()}
  else if(a==='rpnextv'){clearInterval(RP.tm);clearInterval(RP.sm);clearInterval(RP.hl);rpA.pause();try{if(RP.wl)RP.wl.release()}catch(e){}RP.on=false;GS.afterRec=false;skipN=true;goNext()}
  else if(a==='rpplay'){RP.blocked=false;rpCheck();var q2=rpA.play();if(q2&&q2.catch)q2.catch(function(){});render()}
  else if(a==='rpdone'){clearInterval(RP.tm);try{if(RP.wl)RP.wl.release()}catch(e){}RP.on=false;tab='say';if(GS.on)GS.afterRec=true;render();recToggle()}
