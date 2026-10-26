@@ -361,6 +361,25 @@ main>.mute{background:var(--card);border-radius:10px;padding:6px 10px}
 .hv-hi{flex:0 0 22px;text-align:center;font-size:1.1rem}
 .hv-ht{margin-top:14px;font-weight:800;color:var(--acc)}
 .hv-tp{margin-top:4px;color:#3b2a20}
+
+/* v76 calmer home: theme colour = main actions, gold = highlights, sage = done */
+.tcard{border-top-color:var(--acc)}
+.btn.hgo{background:var(--acc);color:var(--acc-ink)}
+.btn.hgo.ghost{background:transparent;color:var(--acc);border:2px solid var(--acc)}
+.hv-all{background:transparent;color:var(--acc);border:1.5px solid var(--acc)}
+.pacel .pgo{background:transparent;color:var(--acc);border:1.5px solid var(--acc)}
+.hv-tog{background:transparent;border:1.5px solid #d4a23c;color:inherit}
+.tag.new{background:#f6c453;color:#2b1d00}
+.tag.rev{background:transparent;color:var(--acc);border:1.5px solid var(--acc);padding:3px 10px}
+.morec{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 14px 12px;margin-top:12px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hv-all{background:var(--acc);color:var(--acc-ink)}}
+:root[data-theme="dark"] .hv-all{background:var(--acc);color:var(--acc-ink)}
+.morec h3{margin:0 0 10px;font-size:1rem}
+.mtiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mtile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:76px;padding:10px 8px;border:1px solid var(--line);background:var(--bg);border-radius:14px;font:inherit;font-weight:700;font-size:.92rem;color:inherit;cursor:pointer;text-align:center}
+.mtile span{font-size:1.4rem;line-height:1}
+.morec .jump{margin-top:10px;background:var(--bg)}
+.morec .jump .chip{background:transparent;border:1.5px solid var(--acc);color:var(--acc);font-weight:700}
 </style>
 </head>
 <body>
@@ -598,7 +617,7 @@ function home(){
  +(full?'<p class="hv-tag">Learn the sacred thousand names the traditional way, guru to student: listen, repeat, chant. Understand the meaning and benefit of every verse, and watch your progress grow, one verse a day.</p><div class="hv-steps"><div><span>🎧</span><b>Listen</b><small>Hear the guru</small></div><div><span>🗣</span><b>Repeat</b><small>Line by line</small></div><div><span>📖</span><b>Meaning</b><small>Understand it</small></div><div><span>🌿</span><b>Benefit</b><small>Know why</small></div></div>'+howHTML():'')
  +'<button class="hv-tog" data-act="herotog"><i>i</i>'+(full?'Close about ▴':'About this app ▾')+'</button>'
  +'<button class="hv-prog" data-act="vopen" aria-expanded="'+VOPEN+'"><span class="hv-n">'+L+'<small>/'+TOTAL+'</small></span><span class="hv-pt"><b>verse'+(L===1?'':'s')+' learned</b><i class="hv-bar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></i><small>Finish by '+finLabel()+'</small></span><span class="hv-all">'+(VOPEN?'Hide':'See all')+' '+(VOPEN?'▴':'›')+'</span></button></div>';if(VOPEN)h+=allVersesCard();
- if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Preview \u00b7 Version 75 draft</div>'}
+ if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Preview \u00b7 Version 76 draft</div>'}
  if(panel)h+='<div class="tools tgrid" style="margin-top:8px">'+[['set','\ud83d\udd24','Script'],['rem','\u23f0','Reminder'],['why','\ud83d\udd49','Why chant'],['read','\ud83d\udcd6','Reading'],['again','\ud83d\udd04','Start again'],['guru','\ud83c\udf93','Guru']].map(function(x){return '<button class="chip tb tb-'+x[0]+'" data-act="panel" data-v="'+x[0]+'" aria-pressed="'+(panel===x[0])+'"><span class="ti">'+x[1]+'</span><span>'+x[2]+'</span></button>'}).join('')+'</div>';
  if(panel){var PT={set:['\ud83d\udd24','Script and help'],rem:['\u23f0','Daily reminders'],why:['\ud83d\udd49','Why we chant'],read:['\ud83d\udcd6','Reading basics'],again:['\ud83d\udd04','Start again'],guru:['\ud83c\udf93','Guru tools']}[panel];h+='<div class="pnl pnl-'+panel+'"><div class="pnh"><span>'+PT[0]+'</span><span>'+PT[1]+'</span></div>'}
  if(panel==='set'){h+='<div class="card"><h2>Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Repeat after me</h2><div class="chips"><button class="chip" data-act="lm" data-v="auto" aria-pressed="'+((S.lm||'auto')==='auto')+'">Automatic</button><button class="chip" data-act="lm" data-v="whole" aria-pressed="'+(S.lm==='whole')+'">Whole verse</button><button class="chip" data-act="lm" data-v="line" aria-pressed="'+(S.lm==='line')+'">Line by line</button></div><h2 style="margin-top:14px">Other scripts</h2><div class="chips"><button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show all three scripts under the verse</button></div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div></div>'}
@@ -614,12 +633,12 @@ if(panel==='again'){h+='<div class="card"><h2>Start from which verse?</h2><div c
  h+='<div class="tcard'+(S.doneDay===tdy()?' tdone':'')+'"><div class="thead"><div><div class="tk">'+(S.doneDay===tdy()?'\u2705 DONE FOR TODAY':'TODAY')+'</div><h2>'+(S.doneDay===tdy()?'Today\'s practice is complete':'Today\'s practice')+'</h2></div>'+(S.doneDay===tdy()?'':'<span class="mins">about 10 min</span>')+'</div>';
  if(fin)h+='<div class="mute">All added verses are finished</div>';
  else{if(rvL.length)h+='<div class="rv"><span class="tag rev">\ud83d\udd01 Revise</span><span>Verse '+rvL.map(function(x){return V[x.i].n}).join(', ')+'</span></div>';
-  if(nwL.length)h+='<div class="rv"><span class="tag new">'+(S.doneDay===tdy()?'\u27a1 Next up':'\u2728 New')+'</span><span>Verse '+nwL.map(function(x){return V[x.i].n}).join(', ')+'</span></div>'}
- h+='<div class="mute" style="margin:10px 0 12px">'+(S.doneDay===tdy()?'Well done! Your streak is safe for today. Come back tomorrow, or keep going now with the next verses.':'Listen, repeat after the guru, then record yourself. It plays, waits for you, then moves on.')+'</div><button class="pacel" data-act="popen"><span>\ud83d\udcc5 '+S.pace+' verse'+(S.pace>1?'s':'')+' a day</span><span class="pgo">'+(POPEN?'Close \u2715':'Change')+'</span></button>'+(POPEN?'<div class="pacebox"><h3>How many verses a day?</h3>'+paceChips()+'<div class="mute" style="margin-top:8px">Each box shows the days left and the finish date. New learners: 1 or 2 a day for the first week works well.</div><button class="btn" data-act="popen">Done \u2713</button></div>':'')+'<button class="btn sf" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today too':'Start today\'s practice')+'</button></div>';
- h+='<div class="chips" style="margin-top:4px">'+(S.learned.length?'<button class="chip g" data-act="recap">\ud83e\udd4d Weekly recap</button><button class="chip p" data-act="plstart">\ud83c\udfb6 Listen to all learned</button>':'')+'</div>';
- h+='<div class="jump"><b>\ud83d\udd22 Play a verse</b><input id="jv" type="number" inputmode="numeric" min="1" max="108" placeholder="No." aria-label="Verse number"><button class="chip p" data-act="jplay">\u25b6 Play</button></div>'+(JMSG?'<div class="mute jmsg">'+JMSG+'</div>':'');JMSG='';
+  if(nwL.length)h+='<div class="rv"><span class="tag new">'+(S.doneDay===tdy()?'\u27a1 Next up':'New')+'</span><span>Verse '+nwL.map(function(x){return V[x.i].n}).join(', ')+'</span></div>'}
+ h+='<div class="mute" style="margin:10px 0 12px">'+(S.doneDay===tdy()?'Well done! Your streak is safe for today. Come back tomorrow, or keep going now with the next verses.':'Listen, repeat after the guru, then record yourself. It plays, waits for you, then moves on.')+'</div><button class="pacel" data-act="popen"><span>\ud83d\udcc5 '+S.pace+' verse'+(S.pace>1?'s':'')+' a day</span><span class="pgo">'+(POPEN?'Close \u2715':'Change')+'</span></button>'+(POPEN?'<div class="pacebox"><h3>How many verses a day?</h3>'+paceChips()+'<div class="mute" style="margin-top:8px">Each box shows the days left and the finish date. New learners: 1 or 2 a day for the first week works well.</div><button class="btn" data-act="popen">Done \u2713</button></div>':'')+'<button class="btn hgo'+(S.doneDay===tdy()?' ghost':'')+'" data-act="start"'+(fin?' disabled':'')+'>'+(S.doneDay===tdy()?'Learn the next verses today too':'Start today\'s practice')+'</button></div>';
+ h+='<div class="morec"><h3>More practice</h3>'+(S.learned.length?'<div class="mtiles"><button class="mtile" data-act="recap"><span>\ud83d\udd01</span>Weekly recap</button><button class="mtile" data-act="plstart"><span>\ud83c\udfa7</span>Listen to all learned</button></div>':'');
+ h+='<div class="jump"><b>Play a verse</b><input id="jv" type="number" inputmode="numeric" min="1" max="108" placeholder="No." aria-label="Verse number"><button class="chip" data-act="jplay">\u25b6 Play</button></div>'+(JMSG?'<div class="mute jmsg">'+JMSG+'</div>':'')+'</div>';JMSG='';
  h+='<details class="card"><summary>My recordings</summary><div id="mine" class="mute">Loading...</div></details>';
- h+='<div class="mute" style="text-align:center">Preview \u00b7 Version 75 draft</div>';
+ h+='<div class="mute" style="text-align:center">Preview \u00b7 Version 76 draft</div>';
  return h}
 function stageLabel(it){if(!it)return'';if(it.rt==='recap')return 'Weekly recap';return it.r?'Revising':"Today's new verse"}
 function verse(){
@@ -804,7 +823,7 @@ function gvHead(){var it=LST[vi];if(!it||!V[it.i])return '';var n=V[it.i].n,rt=i
 function sheetVerseDone(){var it=LST[vi];if(hideNow(it))return '<details class="peek"><summary>\ud83d\udc41 Peek at the verse</summary>'+sheetVerse().split(' hid" data-act="peek').join('')+'</details>';return '<div class="vcomp">'+sheetVerse()+'</div>'}
 function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[S.lang],l=S.lang||'en',o='';if(m&&m.v)o+='<details><summary>\ud83d\udcd6 Meaning of this verse</summary><div class="plain" style="margin-top:8px">'+m.v[k]+'</div></details>';if(BEN[n])o+='<details><summary>'+BEN[n].ic+' Benefit of this verse</summary>'+spCard(n)+'</details>';return o?'<div class="gmb">'+o+'</div>':''}
 var GPAUSED=false;
-var APPV=75,NEWV=0,VCHK=0;
+var APPV=76,NEWV=0,VCHK=0;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 var AUL={recapagain:1,start:1,pranamgo:1,recap:1,gnext:1,gresume:1,omw:1,oml:1,rpstart:1,rpagain:1,contNew:1,gov:1,rpback:1,rpskip:1};
