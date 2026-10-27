@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Home Styles Preview</title>
+<style>
+:root{--iv:#fbf6ec;--card:#fff;--acc:#0e5a8a;--acc2:#167a9a;--gold:#d4a23c;--line:#ead9b0;--mar:#7a1f2b;--sage:#5b7f6b;--ink:#2b1d00;--soft:#6b5a3a;--sun:#ffd56b}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--iv);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+#app{max-width:440px;margin:0 auto;min-height:100vh;padding:0 16px calc(96px + env(safe-area-inset-bottom));position:relative}
+/* style switcher */
+.sw{position:sticky;top:0;z-index:20;background:#2b1d00;color:#fff;margin:0 -16px;padding:8px 12px;display:flex;align-items:center;gap:6px;font-size:13px}
+.sw b{margin-right:auto;font-weight:700;opacity:.9}
+.sw button{background:#4a3a1a;color:#fff;border-radius:99px;padding:6px 12px;font-weight:800;min-width:38px}
+.sw button.on{background:var(--sun);color:#3a2600}
+.swn{background:#fff3d1;color:#5a4410;font-size:12.5px;margin:0 -16px;padding:7px 14px;border-bottom:1px solid var(--line)}
+/* common */
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:14px}
+.pill{border:1.5px solid var(--gold);border-radius:99px;padding:7px 12px;background:#fff;font-weight:700;color:var(--acc);font-size:14px;white-space:nowrap;min-height:38px}
+.st{color:#9a4b00;border-color:#e8a94a}
+.ics{display:flex;gap:6px}.ics .pill{padding:7px 10px}
+.hd{display:flex;gap:12px;align-items:center;margin:14px 0}
+.img{width:58px;height:70px;border-radius:30px 30px 10px 10px;border:2px solid var(--gold);object-fit:cover;object-position:top;background:#fff3d1;flex:none}
+.t1{font-weight:800;color:var(--acc);font-size:21px;line-height:1.15}.t0{color:#a8641a;font-size:15px}.t2{font-size:13px;color:var(--soft);margin-top:2px}
+.prog{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:11px 13px;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:left}
+.bar{height:7px;background:#f3e3bf;border-radius:9px;margin-top:6px;width:170px;max-width:100%}.bar i{display:block;height:7px;background:#e8890c;border-radius:9px}
+.link{color:var(--acc);font-weight:800;white-space:nowrap}
+.today{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border-radius:20px;padding:16px;margin:12px 0}
+.today .k{font-size:11px;letter-spacing:.12em;opacity:.85;font-weight:800}
+.today b{font-size:19px;display:block;margin-top:2px}.today small{opacity:.92;font-size:13.5px}
+.go{display:block;width:100%;background:var(--sun);color:#3a2600;border-radius:99px;text-align:center;font-weight:800;padding:12px;margin-top:12px;font-size:16px}
+.note{text-align:center;font-size:13.5px;color:var(--soft);margin:10px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.tile{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:14px 8px;text-align:center;font-weight:700;font-size:15px;position:relative}
+.tile .e{display:block;font-size:30px;margin-bottom:4px}.tile small{display:block;font-weight:400;color:#7a6a4a;font-size:12px;margin-top:2px}
+.soon{position:absolute;top:7px;right:7px;background:#f3e3bf;color:#7a5a10;font-size:10px;font-weight:800;border-radius:99px;padding:2px 7px}
+.h{font-size:11.5px;letter-spacing:.1em;color:#9a7a3a;font-weight:800;margin:18px 2px 6px}
+.sec{background:#fff;border:1.5px solid var(--line);border-radius:16px;margin-top:8px;overflow:hidden}
+.sech{display:flex;justify-content:space-between;align-items:center;width:100%;padding:13px 14px;text-align:left;font-weight:700;font-size:15.5px}
+.sech small{display:block;font-weight:400;color:#7a6a4a;font-size:12.5px;margin-top:1px}
+.secb{padding:0 14px 13px;display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--gold);border-radius:99px;padding:8px 12px;font-size:14px;font-weight:600;background:#fffaf0}
+.arr{color:var(--acc);font-size:20px;font-weight:700}
+/* tabs */
+.tabs{position:fixed;bottom:0;left:0;right:0;z-index:15;background:#fff;border-top:1.5px solid var(--line);padding:6px 0 calc(8px + env(safe-area-inset-bottom))}
+.tabs .in{max-width:440px;margin:0 auto;display:flex}
+.tabs button{flex:1;text-align:center;font-size:11.5px;color:#8a7a5a;font-weight:700;padding:4px 0}
+.tabs button span{display:block;font-size:22px;filter:grayscale(.7);opacity:.75}
+.tabs button.on{color:var(--acc)}.tabs button.on span{filter:none;opacity:1}
+/* pages */
+.ph{display:flex;align-items:center;gap:10px;margin:14px 0 6px}
+.back{border:1.5px solid var(--gold);background:#fff;border-radius:99px;padding:8px 14px;font-weight:700;color:var(--acc);min-height:40px}
+.ph b{font-size:20px}
+.row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:13px 14px;margin-top:9px}
+.row .e{font-size:26px;width:34px;text-align:center}.row .tx{flex:1}.row b{display:block;font-size:15.5px}.row small{color:#7a6a4a;font-size:12.5px}
+.row.off{opacity:.62}
+.box{background:#fff3d1;border:1.5px dashed var(--gold);border-radius:14px;padding:12px 14px;font-size:14px;color:#5a4410;margin-top:12px;line-height:1.45}
+/* path */
+.slk{display:inline-flex;gap:6px;align-items:center;margin:12px auto 0;border:1.5px solid var(--gold);border-radius:99px;padding:7px 14px;background:#fff;font-weight:700;color:var(--mar);font-size:14px}
+.ctr{text-align:center}
+.path{position:relative;margin:8px auto 0;width:280px}
+.nd{position:absolute;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;border:3px solid #fff;box-shadow:0 3px 0 #c9b384}
+.dn{background:var(--sage);color:#fff}.lk{background:#e9dfc9;color:#a89870}
+.nw{background:var(--sun);color:#3a2600;width:72px;height:72px;font-size:18px;box-shadow:0 0 0 7px rgba(255,213,107,.45),0 3px 0 #c9a040;animation:pu 2s infinite}
+@keyframes pu{50%{box-shadow:0 0 0 12px rgba(255,213,107,.25),0 3px 0 #c9a040}}
+.tag{position:absolute;background:var(--acc);color:#fff;font-size:13px;font-weight:800;border-radius:10px;padding:7px 11px;white-space:nowrap}
+.dock{position:fixed;bottom:0;left:0;right:0;z-index:15;padding:10px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--iv) 30%)}
+.dock .in{max-width:408px;margin:0 auto;display:flex;gap:8px}
+.dock button{flex:1;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:9px 4px;font-weight:700;font-size:12.5px}
+.dock button span{display:block;font-size:20px}
+.ver{text-align:center;color:#a89870;font-size:12px;margin-top:22px}
+</style></head><body><div id="app"></div>
+<script>
+var STY='A',PG='',SEC='more',TAB='today';
+try{STY=localStorage.getItem('hs_sty')||'A'}catch(e){}
+var S={};try{S=JSON.parse(localStorage.getItem('sp2')||'{}')||{}}catch(e){}
+var learned=(S.learned||[]).length, next=Math.min(108,(S.pos||0)+1), days=S.days||[];
+function dstr(d){return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
+function streak(){var n=0,d=new Date();if(days.indexOf(dstr(d))<0)d.setDate(d.getDate()-1);while(days.indexOf(dstr(d))>=0){n++;d.setDate(d.getDate()-1)}return n}
+var SK=streak(), real=!!S.learned;
+var NOTES={A:'Tiles: today on top, big picture tiles below. Each tile opens its own page.',B:'Bottom tabs: home shows only today. Everything else is in the bar at the bottom.',C:'Tidy sections: one page with clear headings. Tap a heading to open it.',D:"Guru's path: your verses as a path. Today's verse glows. Other things in the bottom bar."};
+function $(h){document.getElementById('app').innerHTML=h}
+function sw(){return '<div class="sw"><b>Home style</b>'+['A','B','C','D'].map(function(x){return '<button class="'+(x===STY?'on':'')+'" data-sty="'+x+'">'+x+'</button>'}).join('')+'</div><div class="swn">'+NOTES[STY]+'</div>'}
+function sk(){return '<span class="pill st">🔥 '+SK+(SK===1?' day':' days')+'</span>'}
+function prog(){return '<button class="prog" data-go="verses"><span>'+learned+' / 108 learned<div class="bar"><i style="width:'+Math.max(3,learned/108*100)+'%"></i></div></span><span class="link">See all ›</span></button>'}
+function today(){return '<div class="today"><div class="k">TODAY</div><b>Today\'s practice</b><small>Verse '+next+' · about 10 min</small><button class="go" data-go="practice">▶ Start</button></div>'}
+function head(sub){return '<div class="hd"><img class="img" src="vishnu.jpg" alt=""><div><div class="t0">श्री विष्णु सहस्रनाम</div><div class="t1">Sahasranama Guru</div><div class="t2">'+sub+'</div></div></div>'}
+function tile(go,e,t,s,soon){return '<button class="tile" data-go="'+go+'">'+(soon?'<span class="soon">SOON</span>':'')+'<span class="e">'+e+'</span>'+t+'<small>'+s+'</small></button>'}
+
+/* ---------- pages (shared) ---------- */
+var PAGES={
+ practice:['Today\'s practice',function(){return '<div class="box">In the real app, your guided practice for verse '+next+' starts here (listen, repeat after the guru, record). This preview only shows the home screen layout.</div><a class="row" href="../" style="text-decoration:none;color:inherit"><span class="e">🪷</span><span class="tx"><b>Open the real app</b><small>Your live app, Version 87</small></span><span class="arr">›</span></a>'}],
+ revise:['Revise',function(){return row('','🔁','Weekly recap','Chant along with this week\'s verses')+row('','🎧','Listen to all learned','Play every verse you know')+row('','🔢','Play a verse','By number · 1× 3× 5×')}],
+ listen:['Listen',function(){return row('','🎧','Listen to all learned','Play every verse you know')+row('','🔢','Play a verse','By number · 1× 3× 5×')+row('','📿','Full Sahasranamam with the guru','One complete chant, every day',1)}],
+ read:['Read & learn',function(){return row('','📄','Full text of all 108 verses','Read, or save and share the PDF')+row('','🔤','How to read the dash lines','Simple chanting rules')+row('','🕉','Why we chant','Purpose and benefits')+row('','📘','How to use the app','Day by day, about 10 minutes')}],
+ recs:['My recordings',function(){return row('','🎙','Verse 66','3 takes · yesterday')+row('','🎙','Verse 65','2 takes · 2 days ago')+row('','🗑','Delete recordings','One by one or all')}],
+ satsang:['Satsang',function(){return '<div class="box">Coming later. Ideas so far:</div>'+row('','📿','Chant along with the guru','Full Sahasranamam, at a set time',1)+row('','👥','Join today\'s satsang','Live video link',1)+row('','🪔','48-day vow','Chant daily with your group',1)+row('','🎓','Send a recording to the guru','Get it reviewed',1)}],
+ slokas:['Slokas',function(){return row('','🪷','Vishnu Sahasranamam',learned+' / 108 learned')+row('','🌺','Next sloka','Your choice, added later',1)+row('','🌼','Another sloka','Added later',1)+'<div class="box">Each sloka gets its own daily practice, path and progress.</div>'}],
+ settings:['Settings',function(){return '<div class="grid">'+tile('','🔤','Script','Telugu, Sanskrit…')+tile('','⏰','Reminder','Daily alarm')+tile('','🔄','Start again','Pick a verse')+tile('','🎓','Guru','Guide audio')+tile('','🎨','Colours','Themes')+tile('','ℹ️','About','This app')+'</div>'}],
+ verses:['Your verses',function(){var h='';for(var i=1;i<=108;i++){var d=(S.learned||[]).indexOf(i)>=0;h+='<span style="display:inline-flex;width:40px;height:40px;margin:3px;border-radius:50%;align-items:center;justify-content:center;font-weight:700;font-size:13px;background:'+(d?'var(--sage)':i===next?'var(--sun)':'#efe5cf')+';color:'+(d?'#fff':'#6b5a3a')+'">'+i+'</span>'}return '<div style="text-align:center;margin-top:8px">'+h+'</div>'}],
+ me:['Me',function(){return prog()+PAGES.recs[1]()+'<div class="h">SETTINGS</div>'+PAGES.settings[1]()}]
+};
+function row(go,e,t,s,soon){return '<button class="row'+(soon?' off':'')+'"'+(go?' data-go="'+go+'"':'')+'><span class="e">'+e+'</span><span class="tx"><b>'+t+(soon?' <span class="soon" style="position:static">SOON</span>':'')+'</b><small>'+s+'</small></span><span class="arr">›</span></button>'}
+function page(){var p=PAGES[PG];return '<div class="ph"><button class="back" data-back="1">‹ Back</button><b>'+p[0]+'</b></div>'+p[1]()}
+
+/* ---------- styles ---------- */
+function A(){if(PG)return sw()+page();return sw()+'<div class="top">'+sk()+'<button class="pill" data-go="settings">⚙ Settings</button></div>'+head('Your virtual guru')+prog()+today()+'<div class="grid">'+tile('revise','🔁','Revise','Weekly recap')+tile('listen','🎧','Listen','Play any verse')+tile('read','📚','Read & learn','Text, how to read')+tile('recs','🎙','My recordings','Hear yourself')+tile('satsang','👥','Satsang','Chant together',1)+tile('slokas','🪷','More slokas','Other stotras',1)+'</div>'+ver()}
+var TABS=[['today','🏠','Today'],['practice2','🔁','Practice'],['satsang','👥','Satsang'],['library','📚','Library'],['me','🙂','Me']];
+PAGES.practice2=['Practice',function(){return PAGES.revise[1]()}];
+PAGES.library=['Library',function(){return '<div class="h">READ &amp; LEARN</div>'+PAGES.read[1]()+'<div class="h">SLOKAS</div>'+PAGES.slokas[1]()}];
+function B(){var b;if(PG)b=page();else if(TAB==='today')b='<div class="top">'+sk()+'<button class="pill" data-tab="me">⚙</button></div>'+head('Your virtual guru: listen, chant, understand')+prog()+today()+'<div class="note">🌸 Small steps every day. Jai Sriman Narayana!</div>'+ver();else b='<div class="ph"><b>'+PAGES[TAB][0]+'</b></div>'+PAGES[TAB][1]();
+ return sw()+b+'<nav class="tabs"><div class="in">'+TABS.map(function(t){return '<button class="'+(t[0]===TAB&&!PG?'on':'')+'" data-tab="'+t[0]+'"><span>'+t[1]+'</span>'+t[2]+'</button>'}).join('')+'</div></nav>'}
+function sec(id,e,t,s,body){var o=SEC===id;return '<div class="sec"><button class="sech" data-sec="'+id+'"><span>'+e+' '+t+'<small>'+s+'</small></span><span class="arr">'+(o?'⌃':'⌄')+'</span></button>'+(o?'<div class="secb">'+body+'</div>':'')+'</div>'}
+function ch(go,t){return '<button class="chip" data-go="'+go+'">'+t+'</button>'}
+function C(){if(PG)return sw()+page();return sw()+'<div class="top">'+sk()+'<button class="pill" data-go="settings">⚙ Settings</button></div>'+head(learned+' / 108 learned · <span class="link" data-go="verses">See all ›</span>')+today()
+ +'<div class="h">PRACTICE MORE</div>'+sec('more','🔁','Revise and listen','Recap, listen, play a verse',ch('revise','Weekly recap')+ch('listen','All learned')+ch('listen','Verse no. ▶'))
+ +'<div class="h">SATSANG</div>'+sec('sat','👥','Chant together','Coming later',ch('satsang','See ideas'))
+ +'<div class="h">READ &amp; LEARN</div>'+sec('read','📚','Text and guides','Full text, how to read, why chant',ch('read','Full text')+ch('read','How to read')+ch('read','Why chant')+ch('read','How to use'))
+ +'<div class="h">SLOKAS</div>'+sec('slk','🪷','Vishnu Sahasranamam','More slokas later',ch('slokas','Choose sloka'))
+ +'<div class="h">YOURS</div>'+sec('rec','🎙','My recordings','Hear yourself',ch('recs','Open recordings'))+ver()}
+function D(){if(PG)return sw()+page()+'<div style="height:10px"></div>';
+ var lo=Math.max(1,next-3),hi=Math.min(108,next+4),n=[],xs=[110,40,110,180];
+ for(var i=hi;i>=lo;i--)n.push(i);
+ var h='',y=0;n.forEach(function(v,k){var x=xs[v%4],big=v===next,cls=big?'nw':((S.learned||[]).indexOf(v)>=0||v<next?'dn':'lk');if(big)x-=8;
+  h+='<div class="nd '+cls+'" style="left:'+x+'px;top:'+y+'px"'+(big?' data-go="practice"':'')+'>'+v+(cls==='dn'?' ✓':'')+'</div>';
+  if(big)h+='<button class="tag" data-go="practice" style="left:'+(x<120?x+88:x-108)+'px;top:'+(y+20)+'px">▶ Today</button>';y+=big?86:66});
+ return sw()+'<div class="top">'+sk()+'<span class="ics"><button class="pill" data-go="settings">⚙</button></span></div>'
+ +'<div class="ctr"><div class="t1" style="margin-top:8px">Sahasranama Guru</div><button class="slk" data-go="slokas">🪷 Vishnu Sahasranamam ▾</button><div class="t2" style="margin-top:6px">'+learned+' / 108 learned · <span class="link" data-go="verses">See all ›</span></div></div>'
+ +'<div class="path" style="height:'+(y+10)+'px">'+h+'</div><div class="note">Tap the glowing verse to start today</div>'+ver()
+ +'<nav class="dock"><div class="in"><button data-go="revise"><span>🔁</span>Revise</button><button data-go="read"><span>📚</span>Read</button><button data-go="satsang"><span>👥</span>Satsang</button><button data-go="recs"><span>🎙</span>Mine</button></div></nav>'}
+function ver(){return '<div class="ver">Layout preview only · '+(real?'showing your real progress':'sample numbers')+'</div>'}
+function render(top){$({A:A,B:B,C:C,D:D}[STY]());if(top)window.scrollTo(0,0)}
+document.addEventListener('click',function(e){var t=e.target.closest('[data-sty],[data-go],[data-back],[data-tab],[data-sec]');if(!t)return;
+ if(t.dataset.sty){STY=t.dataset.sty;PG='';TAB='today';try{localStorage.setItem('hs_sty',STY)}catch(x){}}
+ else if(t.dataset.back){PG=''}
+ else if(t.dataset.tab){TAB=t.dataset.tab;PG=''}
+ else if(t.dataset.sec){SEC=SEC===t.dataset.sec?'':t.dataset.sec;render();return}
+ else if(t.dataset.go){PG=t.dataset.go}
+ render(1)});
+if(!real){learned=66;next=67;SK=12}
+render();
+</script></body></html>
