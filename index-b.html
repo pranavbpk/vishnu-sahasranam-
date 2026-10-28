@@ -556,6 +556,15 @@ main:has(.htabs),main:has(.hdock){padding-bottom:110px}
 .mwr{display:grid;grid-template-columns:1fr;padding:8px 0;border-top:1px solid var(--line)}.mwr:first-of-type{border-top:0}
 .mwr .sk{font-weight:700;font-size:1.05rem}.mwr small{color:var(--mute)}
 .mvnav{display:flex;justify-content:space-between;gap:8px}
+
+.satc h2{margin:2px 0 2px;font-size:1.15rem}.satw{font-weight:800;color:var(--acc)}
+.satsm{display:inline-block;background:#f3e3bf;color:#7a5a10;font-size:.7rem;font-weight:800;border-radius:99px;padding:1px 8px;margin-bottom:4px}
+.satc.live{border:2px solid #c0392b}.satlive{color:#c0392b;font-weight:800;font-size:.8rem;letter-spacing:.06em}
+.satb{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.satb a.chip{text-decoration:none;color:inherit}
+.satgo,.satdone{width:100%;text-align:center;text-decoration:none}.satok{color:#2f5a40;font-weight:700}
+.card a.btn,.satb a.btn{display:block;text-align:center;text-decoration:none;color:var(--acc-ink);background:var(--acc)}
+.satban{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#fff3d1;border:1.5px solid #e8c25a;border-radius:16px;padding:11px 13px;font:inherit;color:inherit;cursor:pointer}
+.satban>span:first-child{font-size:1.5rem}.satban b{display:block}.satban small{color:var(--mute)}.satban span:nth-child(2){flex:1}
 .morec h3{margin:0 0 10px;font-size:1rem}
 .mtiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .mtile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:76px;padding:10px 8px;border:1px solid var(--line);background:var(--bg);border-radius:14px;font:inherit;font-weight:700;font-size:.92rem;color:inherit;cursor:pointer;text-align:center}
@@ -959,7 +968,6 @@ var HSN={A:'Tiles: today on top, picture tiles below',B:'Bottom tabs, like most 
 function hsBar(){return '';return '<div class="hsbar"><b>Home style</b>'+['A','B','C','D'].map(function(x){return '<button data-act="hs" data-v="'+x+'" aria-pressed="'+(HS===x)+'">'+x+'</button>'}).join('')+'</div><div class="hsnote">'+HSN[HS]+' · preview, live app unchanged</div>'}
 function hsSoon(){return '<span class="hsoon">SOON</span>'}
 function hsRow(act,v,e,t,sub,soon){return '<button class="rli'+(soon?' hoff':'')+'"'+(act?' data-act="'+act+'" data-v="'+v+'"':'')+'><span class="rlic">'+e+'</span><span class="rlt"><b>'+t+(soon?' '+hsSoon():'')+'</b><small>'+sub+'</small></span><span class="rla">›</span></button>'}
-function hsSat(){return '<div class="mute">Coming later. Ideas so far:</div><div class="rlist">'+hsRow('','','📿','Chant along with the guru','Full Sahasranamam at a set time',1)+hsRow('','','👥','Join today’s satsang','Live video link',1)+hsRow('','','🪔','48-day vow','Chant daily with your group',1)+hsRow('','','🎓','Send a recording to the guru','Get it reviewed',1)+'</div>'}
 function hsSlk(){return '<div class="rlist">'+hsRow('hp','','🪷','Vishnu Sahasranamam',S.learned.length+' / '+TOTAL+' learned · now learning')+hsRow('','','🌺','Next sloka','Added later',1)+'</div><div class="mute" style="margin-top:8px">Each sloka will get its own daily practice and progress.</div>'}
 function hsRecs(){return '<div class="card"><h2 style="margin-top:0">🎙 My recordings</h2><div id="mine" class="mute">Loading...</div></div>'}
 function hsPage(P){var T={more:'🔁 Practice more',recs:'🎙 My recordings',satsang:'👥 Satsang',slokas:'🪷 Slokas'}[HP],b='';
@@ -976,7 +984,7 @@ function home(){var P=hsParts();if(!P)return homeOld();var bar=hsBar(),L=S.learn
   +'<div class="hh">SLOKAS</div>'+sec('slk','🪷','Vishnu Sahasranamam','More slokas later',hsSlk())+'<div class="hh">YOURS</div>'+sec('rec','🎙','My recordings','Hear yourself','<div id="mine" class="mute">Loading...</div>')+P.END}
  if(HS==='B'){var TB=[['today','🏠','Today'],['prac','🔁','Practice'],['sat','👥','Satsang'],['lib','📚','Library'],['me','🙂','Me']],b;
   var hero=hsNoRead(P.HERO).replace(/<button class="hv-set" data-act="gear"[^>]*>[^<]*<\/button>/,'<button class="hv-set" data-act="ht" data-v="me">⚙ Settings</button>');
-  if(HT==='today')b=hero+P.NOTE+P.TODAY;
+  if(HT==='today')b=hero+P.NOTE+satBanner()+P.TODAY;
   else if(HT==='prac')b='<div class="fth"><b>🔁 Practice</b></div>'+P.MORE.replace('<h3>More practice</h3>','');
   else if(HT==='sat')b='<div class="fth"><b>👥 Satsang</b></div>'+hsSat();
   else if(HT==='lib')b='<div class="fth"><b>📚 Library</b></div><div class="hh">MEANINGS</div><div class="rlist">'+hsRow('lpopen','mean','\ud83d\udcd6','Verse meanings','All 108 verses \u00b7 search a name')+'</div><div class="hh">READ &amp; LEARN</div><div class="rlist">'+rlRows()+'</div><div class="hh">SLOKAS</div>'+hsSlk();
@@ -1015,6 +1023,25 @@ function bkSave(){var d=new Date(),ds=d.getFullYear()+'-'+('0'+(d.getMonth()+1))
  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'application/json'}));a.download=nm;document.body.appendChild(a);a.click();a.remove();BKMSG='Saved as '+nm+' in your downloads.';render()}
 document.addEventListener('change',function(e){if(!e.target||e.target.id!=='bkf')return;var f=e.target.files&&e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var d=JSON.parse(r.result);if(d&&d.S&&Array.isArray(d.S.learned)){BKP=d;BKMSG=''}else BKMSG='This file is not a Sahasranama Guru progress copy.'}catch(x){BKMSG='Could not read this file.'}render()};r.readAsText(f)});
 document.addEventListener('input',function(e){if(!e.target||e.target.id!=='nq')return;MQ=e.target.value;var r=document.getElementById('mres');if(r)r.innerHTML=meanRes()});
+
+var SAT={whatsapp:'',events:[{id:'2026-11-01',title:'Weekly Sahasranama parayanam',start:'2026-11-01T19:00:00+11:00',minutes:45,kind:'Full 108 verses, together',where:'Online',join:'',book:'',sample:true}]};
+try{fetch('satsang.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(d){if(d&&d.events){SAT=d;if(view==='home')render()}}).catch(function(){})}catch(e){}
+function satEv(){var now=Date.now();return (SAT.events||[]).map(function(e){var st=new Date(e.start).getTime(),en=st+(e.minutes||60)*60000;return {e:e,st:st,en:en,live:now>=st-15*60000&&now<=en,past:now>en}}).filter(function(x){return !isNaN(x.st)}).sort(function(a,b){return a.st-b.st})}
+function satWhen(x){var d=new Date(x.st),t=new Date(),tm=new Date();tm.setDate(t.getDate()+1);var day=d.toDateString()===t.toDateString()?'Today':d.toDateString()===tm.toDateString()?'Tomorrow':d.toLocaleDateString([],{weekday:'long',day:'numeric',month:'short'});return day+' · '+d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}
+function satIcs(x){var f=function(ms){return new Date(ms).toISOString().replace(/[-:]/g,'').split('.')[0]+'Z'},e=x.e;
+ var L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Sahasranama Guru//EN','BEGIN:VEVENT','UID:par-'+e.id+'@sahasranama-guru','DTSTAMP:'+f(Date.now()),'DTSTART:'+f(x.st),'DTEND:'+f(x.en),'SUMMARY:📿 '+e.title,'DESCRIPTION:'+(e.kind||'')+(e.join?'\\nJoin: '+e.join:'')+'\\nOpen Sahasranama Guru: '+location.href.split('#')[0].split('?')[0],'LOCATION:'+(e.join||e.where||''),
+  'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:Parayanam tomorrow','END:VALARM','BEGIN:VALARM','TRIGGER:-PT1H','ACTION:DISPLAY','DESCRIPTION:Parayanam in 1 hour','END:VALARM','END:VEVENT','END:VCALENDAR'];
+ return 'data:text/calendar;charset=utf-8,'+encodeURIComponent(L.join('\r\n'))}
+function satCard(x){var e=x.e,done=(S.sat||{})[e.id];
+ return '<div class="card satc'+(x.live?' live':'')+'">'+(x.live?'<div class="satlive">● LIVE NOW</div>':'')+(e.sample?'<div class="satsm">Sample date</div>':'')+'<div class="satw">'+satWhen(x)+'</div><h2>'+e.title+'</h2><div class="mute">'+(e.kind||'')+' · '+(e.where||'')+' · about '+(e.minutes||60)+' min</div>'
+ +'<div class="satb">'+(x.live?(e.join?'<a class="btn satgo" href="'+e.join+'" target="_blank" rel="noopener">▶ Join now</a>':'<div class="mute">Join link will appear here.</div>')+(done?'<div class="satok">🙏 You chanted today. Jai Sriman Narayana!</div>':'<button class="btn satdone" data-act="satdone" data-v="'+e.id+'">🙏 I chanted today</button>')
+  :'<a class="chip" download="parayanam-'+e.id+'.ics" href="'+satIcs(x)+'">🔔 Remind me</a>'+(e.book?'<a class="chip" href="'+e.book+'" target="_blank" rel="noopener">📝 Book my place</a>':'<span class="chip hoff">📝 Booking opens soon</span>')+(e.join?'<a class="chip" href="'+e.join+'" target="_blank" rel="noopener">🔗 Join link</a>':''))+'</div></div>'}
+function hsSat(){var L=satEv(),up=L.filter(function(x){return !x.past}),n=Object.keys(S.sat||{}).length,h='<div class="mute">Chant the Sahasranamam together, weekly or monthly. Times show in your own time zone.</div>';
+ h+=up.length?up.slice(0,4).map(satCard).join(''):'<div class="card"><b>No parayanam planned yet</b><div class="mute">New dates will show here.</div></div>';
+ h+='<div class="card"><h2 style="margin-top:0">💬 Group updates</h2><div class="mute">News and reminders for each parayanam.</div>'+(SAT.whatsapp?'<a class="btn" href="'+SAT.whatsapp+'" target="_blank" rel="noopener" style="margin-top:10px">Join the WhatsApp group</a>':'<div class="chips" style="margin-top:8px"><span class="chip hoff">WhatsApp group link coming soon</span></div>')+'</div>';
+ if(n)h+='<div class="mute" style="text-align:center">🌸 You have joined '+n+' parayanam'+(n>1?'s':'')+'.</div>';
+ h+='<div class="hh">COMING LATER</div><div class="rlist">'+hsRow('','','📿','Chant along with the guru','Full Sahasranamam with words',1)+hsRow('','','🧩','Share the 108 verses','Each person books a portion',1)+'</div>';return h}
+function satBanner(){var x=satEv().filter(function(x){return !x.past&&x.st-Date.now()<7*864e5})[0];if(!x)return '';return '<button class="satban" data-act="ht" data-v="sat"><span>📿</span><span><b>'+(x.live?'Parayanam is live now':'Parayanam '+satWhen(x).replace(' · ',', '))+'</b><small>'+x.e.title+(x.live?' · tap to join':' · tap for details')+'</small></span><span class="rla">›</span></button>'}
 function homeOld(){
  if(FT)return ftPage();
  if(LP)return lpPage();
@@ -1335,6 +1362,7 @@ app.addEventListener('click',function(e){
  else if(a==='gov'){var gn=+v,gi=vIdx(gn);if(gi>=0){panel='';VOPEN=false;advSess={};LST=[{i:gi,r:S.learned.indexOf(gn)>=0?1:0}];LST.single=true;vi=0;tab='say';selW=0;view='verse';GS={on:true};skipN=true;render(1);rpStart()}}
  else if(a==='jplay'){jumpPlay()}
  else if(a==='lpopen'){LPBACK=(LP==='menu'&&v!=='menu')?'menu':'';if(LP!=='menu'&&v!=='menu')RLOPEN=true;panel='';if(v==='ft'){LP='';FT=true;FTMSG='';ftLoad()}else LP=v;render(1)}
+ else if(a==='satdone'){S.sat=S.sat||{};S.sat[v]=tdy();addDay();render()}
  else if(a==='mvopen'){MV=+v;LP='mv';render(1)}
  else if(a==='bksave'){bkSave()}
  else if(a==='bkload'){var bf=document.getElementById('bkf');if(bf)bf.click()}
