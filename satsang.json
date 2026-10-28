@@ -1,17 +1,17 @@
 {
   "note": "Edit this file to add parayanam dates. Times use your own time zone offset (+11:00 is Melbourne summer time). Leave a link empty if you do not have it yet.",
-  "whatsapp": "",
+  "whatsapp": "https://chat.whatsapp.com/LT4IWLSy4M15vYb7hbFAFV",
   "events": [
     {
-      "id": "2026-11-29",
-      "title": "Monthly parayanam",
-      "start": "2026-11-29T18:30:00+11:00",
+      "id": "2026-11-15",
+      "title": "Monthly Sahasranama parayanam",
+      "start": "2026-11-15T18:30:00+11:00",
       "minutes": 60,
       "kind": "Full 108 verses with dhyanam",
       "where": "Online · WhatsApp video call",
       "join": "",
       "book": "",
-      "sample": true
+      "sample": false
     }
   ]
 }

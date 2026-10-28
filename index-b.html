@@ -562,6 +562,10 @@ main:has(.htabs),main:has(.hdock){padding-bottom:110px}
 .satc.live{border:2px solid #c0392b}.satlive{color:#c0392b;font-weight:800;font-size:.8rem;letter-spacing:.06em}
 .satb{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.satb a.chip{text-decoration:none;color:inherit}
 .satgo,.satdone{width:100%;text-align:center;text-decoration:none}.satok{color:#2f5a40;font-weight:700}
+.satf{margin-top:12px;padding:12px;border:1.5px dashed var(--line);border-radius:14px;display:flex;flex-direction:column;gap:8px}
+.satf label{display:flex;flex-direction:column;font-size:.85rem;font-weight:700;gap:3px}
+.satf input,.satf select{font:inherit;font-weight:400;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:inherit}
+.satbkd{background:#e8f1ea;border-color:#5b7f6b;color:#2f5a40}.satwarn{color:#c0392b;font-size:.85rem;font-weight:700}
 .card a.btn,.satb a.btn{display:block;text-align:center;text-decoration:none;color:var(--acc-ink);background:var(--acc)}
 .satban{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#fff3d1;border:1.5px solid #e8c25a;border-radius:16px;padding:11px 13px;font:inherit;color:inherit;cursor:pointer}
 .satban>span:first-child{font-size:1.5rem}.satban b{display:block}.satban small{color:var(--mute)}.satban span:nth-child(2){flex:1}
@@ -1024,7 +1028,7 @@ function bkSave(){var d=new Date(),ds=d.getFullYear()+'-'+('0'+(d.getMonth()+1))
 document.addEventListener('change',function(e){if(!e.target||e.target.id!=='bkf')return;var f=e.target.files&&e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var d=JSON.parse(r.result);if(d&&d.S&&Array.isArray(d.S.learned)){BKP=d;BKMSG=''}else BKMSG='This file is not a Sahasranama Guru progress copy.'}catch(x){BKMSG='Could not read this file.'}render()};r.readAsText(f)});
 document.addEventListener('input',function(e){if(!e.target||e.target.id!=='nq')return;MQ=e.target.value;var r=document.getElementById('mres');if(r)r.innerHTML=meanRes()});
 
-var SAT={whatsapp:'',events:[{id:'2026-11-01',title:'Weekly Sahasranama parayanam',start:'2026-11-01T19:00:00+11:00',minutes:45,kind:'Full 108 verses, together',where:'Online',join:'',book:'',sample:true}]};
+var SAT={whatsapp:'https://chat.whatsapp.com/LT4IWLSy4M15vYb7hbFAFV',events:[{id:'2026-11-15',title:'Monthly Sahasranama parayanam',start:'2026-11-15T18:30:00+11:00',minutes:60,kind:'Full 108 verses with dhyanam',where:'Online \u00b7 WhatsApp video call',join:'',book:''}]},SBK='',SBKMSG='';
 try{fetch('satsang.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(d){if(d&&d.events){SAT=d;if(view==='home')render()}}).catch(function(){})}catch(e){}
 function satEv(){var now=Date.now();return (SAT.events||[]).map(function(e){var st=new Date(e.start).getTime(),en=st+(e.minutes||60)*60000;return {e:e,st:st,en:en,live:now>=st-15*60000&&now<=en,past:now>en}}).filter(function(x){return !isNaN(x.st)}).sort(function(a,b){return a.st-b.st})}
 function satWhen(x){var d=new Date(x.st),t=new Date(),tm=new Date();tm.setDate(t.getDate()+1);var day=d.toDateString()===t.toDateString()?'Today':d.toDateString()===tm.toDateString()?'Tomorrow':d.toLocaleDateString([],{weekday:'long',day:'numeric',month:'short'});return day+' · '+d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}
@@ -1035,8 +1039,9 @@ function satIcs(x){var f=function(ms){return new Date(ms).toISOString().replace(
 function satCard(x){var e=x.e,done=(S.sat||{})[e.id];
  return '<div class="card satc'+(x.live?' live':'')+'">'+(x.live?'<div class="satlive">● LIVE NOW</div>':'')+(e.sample?'<div class="satsm">Sample date</div>':'')+'<div class="satw">'+satWhen(x)+'</div><h2>'+e.title+'</h2><div class="mute">'+(e.kind||'')+' · '+(e.where||'')+' · about '+(e.minutes||60)+' min</div>'
  +'<div class="satb">'+(x.live?(e.join?'<a class="btn satgo" href="'+e.join+'" target="_blank" rel="noopener">▶ Join now</a>':'<div class="mute">Join link will appear here.</div>')+(done?'<div class="satok">🙏 You chanted today. Jai Sriman Narayana!</div>':'<button class="btn satdone" data-act="satdone" data-v="'+e.id+'">🙏 I chanted today</button>')
-  :'<a class="chip" download="parayanam-'+e.id+'.ics" href="'+satIcs(x)+'">🔔 Remind me</a>'+(e.book?'<a class="chip" href="'+e.book+'" target="_blank" rel="noopener">📝 Book my place</a>':'<span class="chip hoff">📝 Booking opens soon</span>')+(e.join?'<a class="chip" href="'+e.join+'" target="_blank" rel="noopener">🔗 Join link</a>':''))+'</div></div>'}
-function hsSat(){var L=satEv(),up=L.filter(function(x){return !x.past}),n=Object.keys(S.sat||{}).length,h='<div class="mute">Chant the Sahasranamam together, weekly or monthly. Times show in your own time zone.</div>';
+  :'<a class="chip" download="parayanam-'+e.id+'.ics" href="'+satIcs(x)+'">🔔 Remind me</a>'+(e.book?'<a class="chip" href="'+e.book+'" target="_blank" rel="noopener">\ud83d\udcdd Book my place</a>':((S.bk||{})[e.id]&&SBK!==e.id?'<button class="chip satbkd" data-act="satbook" data-v="'+e.id+'">\u2705 Booked \u00b7 '+S.bk[e.id].p+' \u00b7 Change</button>':(SBK===e.id?'':'<button class="chip" data-act="satbook" data-v="'+e.id+'">\ud83d\udcdd Book my place</button>')))+(e.join?'<a class="chip" href="'+e.join+'" target="_blank" rel="noopener">\ud83d\udd17 Join link</a>':'<div class="mute" style="width:100%">The join link will be shared in the WhatsApp group on the day.</div>'))+'</div>'+(SBK===e.id&&!e.book?satForm(e):'')+'</div>'}
+function satForm(e){var o=(S.bk||{})[e.id]||S.bkLast||{};return '<div class="satf"><div class="satsm">Sample booking form</div><label>Your name<input id="bkn" value="'+(o.n||'').replace(/"/g,'&quot;')+'" autocomplete="name"></label><label>City / country<input id="bkc" value="'+(o.c||'').replace(/"/g,'&quot;')+'"></label><label>How many will chant with you?<select id="bkp">'+['Just me','2 people','3 people','4 people','5 or more'].map(function(x){return '<option'+(o.p===x?' selected':'')+'>'+x+'</option>'}).join('')+'</select></label>'+(SBKMSG?'<div class="satwarn">'+SBKMSG+'</div>':'')+'<div class="chips"><button class="btn" data-act="satbooksub" data-v="'+e.id+'">Book my place</button><button class="chip" data-act="satbookx">Cancel</button>'+((S.bk||{})[e.id]?'<button class="chip" data-act="satbookdel" data-v="'+e.id+'">Cancel my booking</button>':'')+'</div><div class="mute" style="font-size:.8rem;margin-top:6px">Sample only: this is saved on your phone and not sent to anyone yet. The real form will come soon.</div></div>'}
+function hsSat(){var L=satEv(),up=L.filter(function(x){return !x.past}),n=Object.keys(S.sat||{}).length,h='<div class="mute">Chant the Sahasranamam together, once a month. Times show in your own time zone.</div>';
  h+=up.length?up.slice(0,4).map(satCard).join(''):'<div class="card"><b>No parayanam planned yet</b><div class="mute">New dates will show here.</div></div>';
  h+='<div class="card"><h2 style="margin-top:0">💬 Group updates</h2><div class="mute">News and reminders for each parayanam.</div>'+(SAT.whatsapp?'<a class="btn" href="'+SAT.whatsapp+'" target="_blank" rel="noopener" style="margin-top:10px">Join the WhatsApp group</a>':'<div class="chips" style="margin-top:8px"><span class="chip hoff">WhatsApp group link coming soon</span></div>')+'</div>';
  if(n)h+='<div class="mute" style="text-align:center">🌸 You have joined '+n+' parayanam'+(n>1?'s':'')+'.</div>';
@@ -1362,6 +1367,10 @@ app.addEventListener('click',function(e){
  else if(a==='gov'){var gn=+v,gi=vIdx(gn);if(gi>=0){panel='';VOPEN=false;advSess={};LST=[{i:gi,r:S.learned.indexOf(gn)>=0?1:0}];LST.single=true;vi=0;tab='say';selW=0;view='verse';GS={on:true};skipN=true;render(1);rpStart()}}
  else if(a==='jplay'){jumpPlay()}
  else if(a==='lpopen'){LPBACK=(LP==='menu'&&v!=='menu')?'menu':'';if(LP!=='menu'&&v!=='menu')RLOPEN=true;panel='';if(v==='ft'){LP='';FT=true;FTMSG='';ftLoad()}else LP=v;render(1)}
+ else if(a==='satbook'){SBK=v;SBKMSG='';render()}
+ else if(a==='satbookx'){SBK='';SBKMSG='';render()}
+ else if(a==='satbookdel'){if(S.bk)delete S.bk[v];sv();SBK='';render()}
+ else if(a==='satbooksub'){var bn=($('bkn')||{}).value||'',bc=($('bkc')||{}).value||'',bp=($('bkp')||{}).value||'Just me';if(!bn.trim()){SBKMSG='Please write your name.';render();return}S.bk=S.bk||{};S.bk[v]={n:bn.trim(),c:bc.trim(),p:bp};S.bkLast=S.bk[v];sv();SBK='';SBKMSG='';render()}
  else if(a==='satdone'){S.sat=S.sat||{};S.sat[v]=tdy();addDay();render()}
  else if(a==='mvopen'){MV=+v;LP='mv';render(1)}
  else if(a==='bksave'){bkSave()}
