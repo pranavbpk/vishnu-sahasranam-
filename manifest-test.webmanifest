@@ -1,0 +1,25 @@
+{
+  "name": "Guru Test",
+  "short_name": "Guru Test",
+  "description": "Test copy of Sahasranama Guru (prototypes)",
+  "start_url": "index-proto.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fbf6ec",
+  "theme_color": "#0f6b6b",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "id": "index-proto.html"
+}
