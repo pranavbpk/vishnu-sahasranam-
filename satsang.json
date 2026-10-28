@@ -3,23 +3,12 @@
   "whatsapp": "",
   "events": [
     {
-      "id": "2026-11-01",
-      "title": "Weekly Sahasranama parayanam",
-      "start": "2026-11-01T19:00:00+11:00",
-      "minutes": 45,
-      "kind": "Full 108 verses, together",
-      "where": "Online",
-      "join": "",
-      "book": "",
-      "sample": true
-    },
-    {
       "id": "2026-11-29",
       "title": "Monthly parayanam",
       "start": "2026-11-29T18:30:00+11:00",
       "minutes": 60,
       "kind": "Full 108 verses with dhyanam",
-      "where": "Online",
+      "where": "Online · WhatsApp video call",
       "join": "",
       "book": "",
       "sample": true
