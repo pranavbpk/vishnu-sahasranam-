@@ -741,6 +741,14 @@ main:has(.htabs),main:has(.hdock){padding-bottom:110px}
 .rdsh .rdc{border:0;padding:4px 0 0;margin:0;background:none}
 .rdpz{display:inline-block;margin:0 40px 6px 0;background:#fff1cf;color:#7a5410;border-radius:12px;padding:4px 10px;font-size:.78rem;font-weight:700}
 @media (max-width:350px){.rdv{font-size:.75rem;padding:4px 8px}}
+
+.prb.big2::before,:is(.sa,.te,.enb)+.prb::before,.dfirst>.prb::before{content:"\1F5E3  Read this aloud";display:block;font:700 .72rem/1.2 "Atkinson Hyperlegible",system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);margin:0 0 4px}
+html[data-ul="te"] :is(.prb.big2,:is(.sa,.te,.enb)+.prb,.dfirst>.prb)::before{content:"\1F5E3  ఇలా పలకండి";text-transform:none}
+html[data-ul="hi"] :is(.prb.big2,:is(.sa,.te,.enb)+.prb,.dfirst>.prb)::before{content:"\1F5E3  ऐसे बोलें";text-transform:none}
+:is(.sa,.te,.enb):has(+.prb)::before,.dfirst .prb+:is(.sa,.te,.enb)::before{content:"\1F4DC  Verse";display:block;font:700 .7rem/1.2 "Atkinson Hyperlegible",system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#9a8a70;margin:0 0 2px}
+html[data-ul="te"] :is(.sa,.te,.enb):has(+.prb)::before,html[data-ul="te"] .dfirst .prb+:is(.sa,.te,.enb)::before{content:"\1F4DC  శ్లోకం";text-transform:none}
+html[data-ul="hi"] :is(.sa,.te,.enb):has(+.prb)::before,html[data-ul="hi"] .dfirst .prb+:is(.sa,.te,.enb)::before{content:"\1F4DC  श्लोक";text-transform:none}
+:is(.sa,.te,.enb):has(+.prb),.dfirst .prb+:is(.sa,.te,.enb){color:#6b5a44;font-size:.88em;opacity:.95}
 </style>
 </head>
 <body>
@@ -1461,7 +1469,7 @@ function morph(a,b){if(a.nodeType!==b.nodeType||a.nodeName!==b.nodeName||(a.node
 function appSet(h,top){var el=$('app');if(top||!el.firstChild){el.innerHTML=h;return}try{var c=el.cloneNode(false);c.innerHTML=h;morph(el,c)}catch(e){el.innerHTML=h}}
 function rdPills(x){var pl='<button class="chip rdpill" data-act="rdopen" aria-label="How to read">\ud83d\udcd6</button>';return x.replace('<button class="chip" data-act="rpclose">',pl+'<button class="chip" data-act="rpclose">').replace('<button class="chip" data-act="plclose">',pl+'<button class="chip" data-act="plclose">')}
 var RDOPEN=false,RDP=0;function rdSheet(){var l=S.lang||'en',d=RD[l]||RD.en;return '<div class="rdbg" data-act="rdclose"></div><div class="rdsh" role="dialog" aria-label="How to read"><div class="rdgrab"></div><div class="rdshh"><span></span><button class="chip" data-act="rdclose" aria-label="Close">\u2715</button></div>'+(RDP?'<div class="rdpz">\u23f8 '+({en:'Paused. Close, then tap Play to carry on.',te:'ఆపబడింది. మూసి, ప్లే నొక్కి కొనసాగించండి.',hi:'रुका हुआ। बंद करें, फिर प्ले दबाकर जारी रखें।'}[l]||'')+'</div>':'')+rdTable(0)+'</div>'}
-function render(top){if(gA&&!(view==='verse'&&tab==='say'))gA.pause();appSet(rdPills((view==='home'?home():verse())+ovl()+(PL.on?plSheet():''))+(RDOPEN?rdSheet():'')+(bigImg?'<div class="lb" data-act="img"><img src="'+IMG+'" alt="Lord Vishnu"></div>':''),top);document.documentElement.classList.toggle('fs1',S.fs===1);document.documentElement.classList.toggle('fs2',S.fs===2);if(!S.uiSet)$('app').insertAdjacentHTML('beforeend',langPick());if(view==='home')showMine();trRun($('app'));jStripPos();if(top)window.scrollTo(0,0)}
+function render(top){try{document.documentElement.dataset.ul=S.lang||'en'}catch(e){}if(gA&&!(view==='verse'&&tab==='say'))gA.pause();appSet(rdPills((view==='home'?home():verse())+ovl()+(PL.on?plSheet():''))+(RDOPEN?rdSheet():'')+(bigImg?'<div class="lb" data-act="img"><img src="'+IMG+'" alt="Lord Vishnu"></div>':''),top);document.documentElement.classList.toggle('fs1',S.fs===1);document.documentElement.classList.toggle('fs2',S.fs===2);if(!S.uiSet)$('app').insertAdjacentHTML('beforeend',langPick());if(view==='home')showMine();trRun($('app'));jStripPos();if(top)window.scrollTo(0,0)}
 function dbo(){return new Promise(function(res,rej){var r=indexedDB.open('sp_rec',1);r.onupgradeneeded=function(){r.result.createObjectStore('r',{keyPath:'t'})};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
 function rp(r){return new Promise(function(res,rej){r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
 function saveRec(o){return(o.b&&o.b.arrayBuffer?o.b.arrayBuffer():Promise.resolve(null)).then(function(buf){var rec={t:o.t,l:o.l,n:o.n};if(buf){rec.buf=buf;rec.type=o.b.type||'audio/mp4'}else rec.b=o.b;return dbo().then(function(d){var t=d.transaction('r','readwrite');t.objectStore('r').put(rec);return new Promise(function(res,rej){t.oncomplete=res;t.onerror=function(){rej(t.error)};t.onabort=function(){rej(t.error)}})})})}
@@ -1627,7 +1635,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[S.lan
 var GPAUSED=false,LOCKP=false;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=170,NEWV=0,VCHK=0;
+var APPV=171,NEWV=0,VCHK=0;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
