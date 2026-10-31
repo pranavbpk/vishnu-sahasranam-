@@ -1246,7 +1246,7 @@ var GXO=false;document.addEventListener('toggle',function(e){var t=e.target;if(t
 function gxBlock(n,open){open=open||GXO;var g=GX[n];if(!g)return '';var l=S.lang||'en';return '<details class="card gx"'+(open?' open':'')+'><summary>\ud83e\ude94 Guru explains</summary>'+gxBtn('gx:'+n)+'<div class="gxt">'+mdh(g[l]||g.en)+'</div>'+(stFor(n)?stBtn(stFor(n)):'')+'<div class="mute" style="font-size:.8rem">Draft, waiting for the guru\u2019s review.</div></details>'}
 var HMS='';
 function meView(P){var tabs=HS==='B'||HS==='E',sk=streak(),L=S.learned.length,wk=0,d=new Date();for(var i=0;i<7;i++){if(S.days.indexOf(dstr(d))>=0)wk++;d.setDate(d.getDate()-1)}
- var back=tabs?'':'<button class="chip" data-act="hpback">\u2039 Home</button>';
+ var back=tabs?(MEFROM&&!HMS?'<button class="chip" data-act="meclose">\u2715 Close</button>':''):'<button class="chip" data-act="hpback">\u2039 Home</button>';
  if(HMS){var T={jr:'\ud83d\udcc5 My journey',recs:'\ud83c\udf99 My recordings',bk:'\ud83d\udcbe Save my progress',set:'\ud83d\udd24 Script & display',rem:'\u23f0 Daily reminder',again:'\ud83d\udd04 Start again',guru:'\ud83c\udf93 Guru tools'}[HMS]||'',b='';
   if(HMS==='jr')b='<div class="seg"><button data-act="jrv" data-v="d" aria-pressed="'+(JRV==='d')+'">\ud83d\udcc5 By day</button><button data-act="jrv" data-v="v" aria-pressed="'+(JRV==='v')+'">\ud83d\udd22 By verse</button></div>'+(JRV==='d'?calCard():'<div class="card">'+yvGrid()+'</div>');else if(HMS==='recs')b=hsRecs();else if(HMS==='bk')b=bkCard();else{var x=P.PANEL,k=x.indexOf('<div class="pnl');b=k>=0?x.slice(k).replace(/<div class="pnh">.*?<\/div>/,''):x}
   return '<div class="fth"><b>'+T+'</b><button class="chip" data-act="mesub" data-v="">\u2039 Back</button></div>'+b+'<button class="btn ghost" data-act="mesub" data-v="" style="margin-top:6px">\u2039 Back</button>'}
@@ -1367,7 +1367,7 @@ function homeOld(){
  +(full?'<div class="hv-xr"><button class="hv-x" data-act="herotog" aria-label="Close about">\u2715 Close</button></div><div class="hv-motto"><span class="sk">\u0936\u094d\u0930\u0935\u0923\u0902 \u0915\u0940\u0930\u094d\u0924\u0928\u0902 \u0935\u093f\u0937\u094d\u0923\u094b\u0903</span><small>Hearing and chanting the names of Vishnu (Bhagavatam 7.5.23)</small></div><p class="hv-tag">Learn the sacred thousand names the traditional way, guru to student: listen, repeat, chant. Understand the meaning and benefit of every verse, and watch your progress grow, one verse a day.</p><div class="hv-steps"><div><span>🎧</span><b>Listen</b><small>Hear the guru</small></div><div><span>🗣</span><b>Repeat</b><small>Line by line</small></div><div><span>📖</span><b>Meaning</b><small>Understand it</small></div><div><span>🌿</span><b>Benefit</b><small>Know why</small></div></div><div class="hv-more">\ud83d\udcda How to use the app, the full text and more are in <b>Read &amp; learn</b> on the home screen.</div>':'')
  +'<button class="hv-tog" data-act="herotog"><i>i</i>'+(full?'Close about ▴':'About this app ▾')+'</button>'
  +'<button class="hv-prog" data-act="vopen" aria-expanded="'+VOPEN+'"><span class="hv-n">'+L+'<small>/'+TOTAL+'</small></span><span class="hv-pt"><b>verse'+(L===1?'':'s')+' learned</b><i class="hv-bar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></i><small>Finish by '+finLabel()+'</small></span><span class="hv-all">'+(VOPEN?'Hide':'See all')+' '+(VOPEN?'▴':'›')+'</span></button></div>';if(VOPEN)h+=allVersesCard();
- if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 91</div>'}
+ if(!S.setupDone){h+=setupCard();notice='';return h+'<div class="mute" style="text-align:center">Version 92</div>'}
  h+='<!--#PANEL-->';if(panel)h+='<div class="tools tgrid" style="margin-top:8px">'+[['set','\ud83d\udd24','Script'],['rem','\u23f0','Reminder'],['again','\ud83d\udd04','Start again'],['guru','\ud83c\udf93','Guru']].map(function(x){return '<button class="chip tb tb-'+x[0]+'" data-act="panel" data-v="'+x[0]+'" aria-pressed="'+(panel===x[0])+'"><span class="ti">'+x[1]+'</span><span>'+x[2]+'</span></button>'}).join('')+'</div>';
  if(panel){var PT={set:['\ud83d\udd24','Script and help'],rem:['\u23f0','Daily reminders'],why:['\ud83d\udd49','Why we chant'],read:['\ud83d\udcd6','Reading basics'],again:['\ud83d\udd04','Start again'],guru:['\ud83c\udf93','Guru tools']}[panel];h+='<div class="pnl pnl-'+panel+'"><div class="pnh"><span>'+PT[0]+'</span><span>'+PT[1]+'</span></div>'}
  if(panel==='set'){h+='<div class="card"><h2>App language</h2>'+chipsLang()+'<h2 style="margin-top:14px">Text size</h2><div class="chips">'+fsChips()+'</div><h2 style="margin-top:14px">Main script</h2><div class="chips">'+[['sa','Sanskrit'],['te','తెలుగు'],['en','English']].map(function(x){return '<button class="chip" data-act="main" data-v="'+x[0]+'" aria-pressed="'+((S.main||'sa')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><h2 style="margin-top:14px">Repeat after me</h2><div class="chips"><button class="chip" data-act="lm" data-v="auto" aria-pressed="'+((S.lm||'auto')==='auto')+'">Automatic</button><button class="chip" data-act="lm" data-v="whole" aria-pressed="'+(S.lm==='whole')+'">Whole verse</button><button class="chip" data-act="lm" data-v="line" aria-pressed="'+(S.lm==='line')+'">Line by line</button></div><h2 style="margin-top:14px">Other scripts</h2><div class="chips"><button class="chip" data-act="scall" aria-pressed="'+!!S.scAll+'">Show all three scripts under the verse</button></div><h2 style="margin-top:14px">Help level</h2><div class="chips">'+levelChips()+'</div><h2 style="margin-top:14px">Colours</h2><div class="chips">'+themeBtns()+'</div></div>'}
@@ -1561,7 +1561,7 @@ function smPlay(i){S.plOpen=Date.now();setTimeout(plCheck,0);i=Math.max(0,Math.m
 function plRate(){var r=PL.all?(S.plsp||1):1;try{plA.muted=!!(PL.all&&S.plmute);plA.preservesPitch=true;plA.webkitPreservesPitch=true;plA.defaultPlaybackRate=r;plA.playbackRate=r}catch(e){}}
 function plPlay(i){if(PL.all&&M108&&!PL.nosm)return smPlay(i);setTimeout(plCheck,0);if(PL.all){S.pl108=Math.max(0,Math.min(PL.list.length-1,i));if(S.pl108>=PL.list.length-1)S.pl108=0;sv()}clearTimeout(PL.gap);PL.k=1;PL.st=Date.now();PL.idx=Math.max(0,Math.min(PL.list.length-1,i));PL.tried=0;PL.err='';PL.paused=false;PL.done=false;PL.T=null;PL.cut=0;PL.adv=0;plA.src=rpUrl(PL.list[PL.idx],'.m4a');plRate();(function(n){getCut(n).then(function(c){if(PL.list&&PL.list[PL.idx]===n){PL.cut=c||0;PL.T=null}})})(PL.list[PL.idx]);var p=plA.play();if(p&&p.catch)p.catch(function(){PL.paused=true;render()});plMeta();render()}
 var JMSG='',JVV='',JSR=false;function jDef(){if(!JVV&&!JSR&&S.learned.length)JVV=String(S.learned[S.learned.length-1]);return JVV}
-var HS='B';var HP='',HT='today',HSEC='more',MQ='',MV=0,BKP=null,BKMSG='';
+var MEFROM='';var HS='B';var HP='',HT='today',HSEC='more',MQ='',MV=0,BKP=null,BKMSG='';
 var LP='',LPBACK='',RLOPEN=false,FT=false,FTBLOB=null,FTMSG='',FTURL='vishnu-sahasranamam-108-verses.pdf';
 function ftLoad(){if(FTBLOB)return;try{fetch(FTURL).then(function(r){return r.ok?r.blob():null}).then(function(b){if(b)FTBLOB=b}).catch(function(){})}catch(e){}}
 function ftShare(){var f=null;try{if(FTBLOB)f=new File([FTBLOB],'Vishnu-Sahasranamam-108-verses.pdf',{type:'application/pdf'})}catch(e){}if(f&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:'Vishnu Sahasranamam'}).catch(function(){});return}var w=null;try{w=window.open(FTURL,'_blank')}catch(e){}if(!w){FTMSG='Could not open the share menu here. Open the app in Safari and try again.';render()}}
@@ -1651,7 +1651,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[S.lan
 var GPAUSED=false,LOCKP=false;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=174,NEWV=0,VCHK=0;
+var APPV=175,NEWV=0,VCHK=0;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -1777,14 +1777,15 @@ app.addEventListener('click',function(e){
  else if(a==='hs'){HS=v;HP='';HT='today';panel='';HMS='';try{localStorage.setItem('sp_hs2',v)}catch(x){}render(1)}
  else if(a==='hp'){if(v){HP=v;panel='';render(1)}}
  else if(a==='hpback'){HP='';HMS='';panel='';render(1)}
- else if(a==='meopen'){offCount();histFill();HMS='';panel='';if(HS==='B'||HS==='E')HT='me';else HP='me';render(1)}
+ else if(a==='meopen'){offCount();histFill();HMS='';panel='';if(HS==='B'||HS==='E'){MEFROM=HT!=='me'?HT:'';HT='me'}else HP='me';render(1)}
  else if(a==='libq'){MQ='';LP='mean';render(1);var q=document.getElementById('nq');if(q)q.focus()}
  else if(a==='jrv'){JRV=v;render()}
  else if(a==='yvsel'){YVS=YVS===+v?0:+v;render();if(YVS)setTimeout(function(){var y=document.querySelector('.yvi');if(y)y.scrollIntoView({block:'center',behavior:'smooth'})},30)}
  else if(a==='calday'){CALD=CALD===v?'':v;render()}
  else if(a==='calm'){CALM=Math.min(0,CALM+(+v));CALD='';render()}
  else if(a==='mesub'){if(v==='jr')histFill();HMS=v;panel=(['set','rem','again','guru'].indexOf(v)>=0)?v:'';render(1)}
- else if(a==='ht'){if(v==='me')histFill();HT=v;HMS='';panel='';render(1)}
+ else if(a==='meclose'){HT=MEFROM||'today';MEFROM='';HMS='';render(1)}
+ else if(a==='ht'){if(v==='me')histFill();MEFROM='';HT=v;HMS='';panel='';render(1)}
  else if(a==='hsec'){HSEC=HSEC===v?'':v;render()}
  else if(a==='gear'){panel=panel?'':'set';if(panel)HERO=false;render()}
  else if(a==='ostep'){var os=LST[vi];if(os)OS={n:V[os.i].n,k:+v};render()}
