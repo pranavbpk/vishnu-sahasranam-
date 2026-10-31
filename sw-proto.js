@@ -1,7 +1,7 @@
-/* Offline support for Guru Test (index-proto.html) only.
-   Requests from the live app (index.html) are never touched. */
-var CORE='gt-core-v2', AUD='gt-audio-v2';
-var CORE_FILES=['index-proto.html','manifest-test.webmanifest','icon-180.png','icon-192.png','icon-512.png','audio/cuts.json','satsang.json','vishnu-sahasranamam-108-verses.pdf'];
+/* Offline support for the live app (index.html) and Guru Test (index-proto.html).
+   Old benchmark pages (index-vNN.html) are never touched. */
+var CORE='gt-core-v3', AUD='gt-audio-v2';
+var CORE_FILES=['index.html','manifest.webmanifest','index-proto.html','manifest-test.webmanifest','icon-180.png','icon-192.png','icon-512.png','audio/cuts.json','satsang.json','vishnu-sahasranamam-108-verses.pdf'];
 
 self.addEventListener('install',function(e){
   e.waitUntil(caches.open(CORE).then(function(c){
@@ -14,11 +14,12 @@ self.addEventListener('activate',function(e){
   }).then(function(){return self.clients.claim()}));
 });
 
+function page(u){var p=u.pathname;if(/index-proto\.html$/.test(p))return 'index-proto.html';if(/\/index\.html$/.test(p)||/\/$/.test(p))return 'index.html';return null}
 function isProto(req){
   var u=new URL(req.url);
   if(u.origin!==self.location.origin)return false;
-  if(/index-proto\.html$/.test(u.pathname))return true;
-  return /index-proto\.html/.test(req.referrer||'');
+  if(page(u))return true;
+  try{return !!(req.referrer&&page(new URL(req.referrer)))}catch(e){return false}
 }
 function rel(u){return new URL(u).pathname.replace(/^.*\/vishnu-sahasranam-\//,'').replace(/^\//,'')}
 
@@ -44,9 +45,10 @@ self.addEventListener('fetch',function(e){
   /* the version check (?vc=) always goes to the network */
   if(u.searchParams.has('vc'))return;
   /* the app page: network first, fall back to the saved copy */
-  if(req.mode==='navigate'||/index-proto\.html$/.test(u.pathname)){
-    e.respondWith(fetch(req).then(function(r){if(r.ok){var cp=r.clone();caches.open(CORE).then(function(c){c.put('index-proto.html',cp)})}return r})
-      .catch(function(){return caches.match('index-proto.html',{ignoreSearch:true})}));
+  if(req.mode==='navigate'||page(u)){
+    var key=page(u)||'index.html';
+    e.respondWith(fetch(req).then(function(r){if(r.ok){var cp=r.clone();caches.open(CORE).then(function(c){c.put(key,cp)})}return r})
+      .catch(function(){return caches.match(key,{ignoreSearch:true})}));
     return;
   }
   /* audio: saved copy first, then network (and save it) */
