@@ -1,6 +1,6 @@
 /* Offline support for Guru Test (index-proto.html) only.
    Requests from the live app (index.html) are never touched. */
-var CORE='gt-core-v1', AUD='gt-audio-v1';
+var CORE='gt-core-v2', AUD='gt-audio-v2';
 var CORE_FILES=['index-proto.html','manifest-test.webmanifest','icon-180.png','icon-192.png','icon-512.png','audio/cuts.json','satsang.json','vishnu-sahasranamam-108-verses.pdf'];
 
 self.addEventListener('install',function(e){
@@ -50,13 +50,17 @@ self.addEventListener('fetch',function(e){
     return;
   }
   /* audio: saved copy first, then network (and save it) */
+  /* the big 108 file streams straight from the internet (never stored here) */
+  if(/^audio\/all108\./.test(p))return;
   if(/^audio\/.*\.(m4a|mp3)$/.test(p)){
     e.respondWith(caches.open(AUD).then(function(c){
       return c.match(p).then(function(hit){
         if(hit)return ranged(req,hit);
-        return fetch(p).then(function(r){if(r.ok){c.put(p,r.clone());return ranged(req,r)}return fetch(req)}).catch(function(){return fetch(req)});
+        /* not saved yet: play from the internet right away, save a copy quietly */
+        e.waitUntil(fetch(p).then(function(r){if(r.ok)return c.put(p,r)}).catch(function(){}));
+        return fetch(req);
       });
-    }));
+    }).catch(function(){return fetch(req)}));
     return;
   }
   /* small data files: network first, saved copy when offline */
