@@ -739,6 +739,7 @@ main:has(.htabs),main:has(.hdock){padding-bottom:110px}
 .rdsh{position:fixed;left:0;right:0;bottom:0;z-index:81;max-width:520px;margin:0 auto;max-height:82vh;overflow:auto;background:var(--card);border-radius:22px 22px 0 0;padding:8px 14px calc(14px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 20px rgba(0,0,0,.15)}
 .rdgrab{width:44px;height:5px;border-radius:5px;background:#d9cdb1;margin:0 auto 4px}.rdshh{display:flex;justify-content:flex-end;margin-bottom:-34px;position:relative;z-index:1}.rdshh .chip{min-height:34px;min-width:34px;padding:2px 8px}
 .rdsh .rdc{border:0;padding:4px 0 0;margin:0;background:none}
+.rdtoast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:90;background:var(--acc);color:#fff;border-radius:99px;padding:8px 16px;font-weight:700;font-size:.9rem;box-shadow:0 4px 14px rgba(0,0,0,.2);pointer-events:none}
 .rdpz{display:inline-block;margin:0 40px 6px 0;background:#fff1cf;color:#7a5410;border-radius:12px;padding:4px 10px;font-size:.78rem;font-weight:700}
 @media (max-width:350px){.rdv{font-size:.75rem;padding:4px 8px}}
 
@@ -1468,8 +1469,14 @@ function morph(a,b){if(a.nodeType!==b.nodeType||a.nodeName!==b.nodeName||(a.node
  for(i=bc.length;i<ac.length;i++)a.removeChild(ac[i])}
 function appSet(h,top){var el=$('app');if(top||!el.firstChild){el.innerHTML=h;return}try{var c=el.cloneNode(false);c.innerHTML=h;morph(el,c)}catch(e){el.innerHTML=h}}
 function rdPills(x){var pl='<button class="chip rdpill" data-act="rdopen" aria-label="How to read">\ud83d\udcd6</button>';return x.replace('<button class="chip" data-act="rpclose">',pl+'<button class="chip" data-act="rpclose">').replace('<button class="chip" data-act="plclose">',pl+'<button class="chip" data-act="plclose">')}
-var RDOPEN=false,RDP=0;function rdSheet(){var l=S.lang||'en',d=RD[l]||RD.en;return '<div class="rdbg" data-act="rdclose"></div><div class="rdsh" role="dialog" aria-label="How to read"><div class="rdgrab"></div><div class="rdshh"><span></span><button class="chip" data-act="rdclose" aria-label="Close">\u2715</button></div>'+(RDP?'<div class="rdpz">\u23f8 '+({en:'Paused. Close, then tap Play to carry on.',te:'ఆపబడింది. మూసి, ప్లే నొక్కి కొనసాగించండి.',hi:'रुका हुआ। बंद करें, फिर प्ले दबाकर जारी रखें।'}[l]||'')+'</div>':'')+rdTable(0)+'</div>'}
-function render(top){try{document.documentElement.dataset.ul=S.lang||'en'}catch(e){}if(gA&&!(view==='verse'&&tab==='say'))gA.pause();appSet(rdPills((view==='home'?home():verse())+ovl()+(PL.on?plSheet():''))+(RDOPEN?rdSheet():'')+(bigImg?'<div class="lb" data-act="img"><img src="'+IMG+'" alt="Lord Vishnu"></div>':''),top);document.documentElement.classList.toggle('fs1',S.fs===1);document.documentElement.classList.toggle('fs2',S.fs===2);if(!S.uiSet)$('app').insertAdjacentHTML('beforeend',langPick());if(view==='home')showMine();trRun($('app'));jStripPos();if(top)window.scrollTo(0,0)}
+var RDOPEN=false,RDP=0,RDW={},RDT=0;
+function rdClose(){RDOPEN=false;try{if(window.RDA)RDA.pause()}catch(e){}var w=RDW||{},go=false;RDW={};RDP=0;
+ try{if(w.rp&&RP.on&&RP.paused){if(w.rp==='listen'){try{rpA.currentTime=Math.max(0,rpA.currentTime-2)}catch(e){}}rpPause();go=true}
+ if(w.pl&&PL.on){try{plA.currentTime=Math.max(0,plA.currentTime-2)}catch(e){}PL.paused=false;var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()});go=true}
+ if(w.g&&gA){try{gA.currentTime=Math.max(0,gA.currentTime-2)}catch(e){}var q2=gA.play();if(q2&&q2.catch)q2.catch(function(){});go=true}}catch(e){}
+ if(go){RDT=Date.now();setTimeout(function(){RDT=0;render()},1300)}render()}
+function rdSheet(){var l=S.lang||'en',d=RD[l]||RD.en;return '<div class="rdbg" data-act="rdclose"></div><div class="rdsh" role="dialog" aria-label="How to read"><div class="rdgrab"></div><div class="rdshh"><span></span><button class="chip" data-act="rdclose" aria-label="Close">\u2715</button></div>'+(RDP?'<div class="rdpz">\u23f8 '+({en:'Paused · it carries on when you close this',te:'ఆపబడింది · ఇది మూసినప్పుడు కొనసాగుతుంది',hi:'रुका हुआ · इसे बंद करते ही जारी रहेगा'}[l]||'')+'</div>':'')+rdTable(0)+'</div>'}
+function render(top){try{document.documentElement.dataset.ul=S.lang||'en'}catch(e){}if(gA&&!(view==='verse'&&tab==='say'))gA.pause();appSet(rdPills((view==='home'?home():verse())+ovl()+(PL.on?plSheet():''))+(RDOPEN?rdSheet():'')+(RDT?'<div class="rdtoast">\u25b6 '+({en:'Carrying on\u2026',te:'కొనసాగుతోంది\u2026',hi:'जारी है\u2026'}[S.lang||'en']||'Carrying on\u2026')+'</div>':'')+(bigImg?'<div class="lb" data-act="img"><img src="'+IMG+'" alt="Lord Vishnu"></div>':''),top);document.documentElement.classList.toggle('fs1',S.fs===1);document.documentElement.classList.toggle('fs2',S.fs===2);if(!S.uiSet)$('app').insertAdjacentHTML('beforeend',langPick());if(view==='home')showMine();trRun($('app'));jStripPos();if(top)window.scrollTo(0,0)}
 function dbo(){return new Promise(function(res,rej){var r=indexedDB.open('sp_rec',1);r.onupgradeneeded=function(){r.result.createObjectStore('r',{keyPath:'t'})};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
 function rp(r){return new Promise(function(res,rej){r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
 function saveRec(o){return(o.b&&o.b.arrayBuffer?o.b.arrayBuffer():Promise.resolve(null)).then(function(buf){var rec={t:o.t,l:o.l,n:o.n};if(buf){rec.buf=buf;rec.type=o.b.type||'audio/mp4'}else rec.b=o.b;return dbo().then(function(d){var t=d.transaction('r','readwrite');t.objectStore('r').put(rec);return new Promise(function(res,rej){t.oncomplete=res;t.onerror=function(){rej(t.error)};t.onabort=function(){rej(t.error)}})})})}
@@ -1635,7 +1642,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[S.lan
 var GPAUSED=false,LOCKP=false;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=171,NEWV=0,VCHK=0;
+var APPV=172,NEWV=0,VCHK=0;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -1719,8 +1726,8 @@ app.addEventListener('click',function(e){
  else if(a==='jplay'){jumpPlay()}
  else if(a==='jpick'){JVV=v;JSR=false;render()}
  else if(a==='rdplay'){try{if(!window.RDA)RDA=new Audio();if(gA&&!gA.paused)gA.pause();if(!plA.paused){plA.pause();if(PL.on)PL.paused=true}RDA.src='audio/ex/'+v+'.m4a';var q=RDA.play();if(q&&q.catch)q.catch(function(){})}catch(e){}}
- else if(a==='rdopen'){RDP=0;if(RP.on&&!RP.paused&&(RP.phase==='listen'||RP.phase==='turn')){rpPause();RDP=1}if(PL.on&&!plA.paused){plA.pause();PL.paused=true;RDP=1}if(gA&&!gA.paused){gA.pause();RDP=1}RDOPEN=true;render()}
- else if(a==='rdclose'){RDOPEN=false;RDP=0;render()}
+ else if(a==='rdopen'){RDP=0;RDW={};if(RP.on&&!RP.paused&&(RP.phase==='listen'||RP.phase==='turn')){RDW.rp=RP.phase;rpPause();RDP=1}if(PL.on&&!plA.paused){plA.pause();PL.paused=true;RDW.pl=1;RDP=1}if(gA&&!gA.paused){gA.pause();RDW.g=1;RDP=1}RDOPEN=true;render()}
+ else if(a==='rdclose'){rdClose()}
  else if(a==='rdok'){S.rdSeen=1;sv();render()}
  else if(a==='jsr'){JSR=true;JVV='';render();setTimeout(function(){var e=$('jv');if(e)e.focus()},50)}
  else if(a==='revgo'){HT='today';HMS='';panel='';render(1);setTimeout(function(){var g=document.querySelector('.hgo')||document.querySelector('[data-act=start]');if(g){g.scrollIntoView({block:'center',behavior:'smooth'});if(!document.querySelector('.tapb'))g.insertAdjacentHTML('beforebegin','<div class="tapb">\ud83d\udc47 Tap to begin</div>');setTimeout(function(){g.classList.add('glow');setTimeout(function(){g.classList.remove('glow')},9000)},600)}},60)}
