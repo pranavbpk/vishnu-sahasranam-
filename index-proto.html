@@ -785,6 +785,11 @@ html[data-ul="hi"] :is(.sa,.te,.enb):has(+.prb)::before,html[data-ul="hi"] .dfir
 
 .hv.cmp .hv-art{width:74px;flex:0 0 74px;border-radius:37px 37px 10px 10px}
 .rvm{font-weight:600;color:var(--mute);font-size:.8em;white-space:nowrap}
+
+.htabs button span{display:grid;place-items:center;height:32px;padding:0;color:#8a6a3a}
+.tbi{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.htabs button{color:#6b5a44}
+.htabs button[aria-pressed="true"] span{background:var(--acc);color:var(--acc-ink,#fff)}
 </style>
 </head>
 <body>
@@ -1201,7 +1206,7 @@ function hsPath(L){var cur=Math.min(S.pos,V.length-1),lo=Math.max(0,cur-3),hi=Ma
   nd+='<button class="pnd '+(big?'pnw':dn?'pdn':'plk')+'" style="left:calc(50% - 60px + '+(x-(big?8:0))+'px);top:'+y+'px"'+(big?' data-act="start"':dn?' data-act="gov" data-v="'+n+'"':'')+'>'+n+(dn?'✓':'')+'</button>';
   if(big)nd+='<button class="ptag" data-act="start" style="left:calc(50% - 60px + '+(x<46?x+86:x-112)+'px);top:'+(y+20)+'px">▶ Today</button>';y+=big?88:66}
  return '<div class="pd"><div class="pdt">Sahasranama Guru</div><button class="chip pslk" data-act="'+(HS==='E'?'ht':'hp')+'" data-v="'+(HS==='E'?'lib':'slokas')+'">🪷 Vishnu Sahasranamam ▾</button><button class="pdp" data-act="vopen">'+L+' / '+TOTAL+' learned · '+(VOPEN?'Hide':'See all ›')+'</button></div>'+(VOPEN?allVersesCard():'')+'<div class="ppath" style="height:'+(y+6)+'px">'+nd+'</div>'}
-function hsTabs(){var TB=[['today','🏠','Today'],['prac','🔁','Revise'],['sat','👥','Satsang'],['lib','📚','Learn'],['me','\ud83d\ude42','You']];return PL.on?'':'<nav class="htabs"><div>'+TB.map(function(t){return '<button data-act="ht" data-v="'+t[0]+'" aria-pressed="'+(HT===t[0])+'"><span>'+t[1]+'</span>'+t[2]+'</button>'}).join('')+'</div></nav>'}
+function hsTabs(){var TB=[['today','<svg class="tbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1.6 2 2.4 3.6 2.4 5a2.4 2.4 0 0 1-4.8 0c0-1.4.8-3 2.4-5z"/><path d="M4 14h16c-.6 3.6-3.8 6-8 6s-7.4-2.4-8-6z"/><path d="M9 14c.5-1.2 1.6-2 3-2s2.5.8 3 2"/></svg>','Today'],['prac','<svg class="tbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.3-4.9"/><path d="M5 3v4h4"/><path d="M4 13a8 8 0 0 0 14.3 4.9"/><path d="M19 21v-4h-4"/></svg>','Revise'],['sat','<svg class="tbi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><path d="M15.5 14.2c2.6-.4 4.9 1.1 5.5 4.3"/></svg>','Satsang'],['lib','<svg class="tbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6c-2-1.3-4.7-1.8-8-1.5v13c3.3-.3 6 .2 8 1.5 2-1.3 4.7-1.8 8-1.5v-13c-3.3-.3-6 .2-8 1.5z"/><path d="M12 6v13"/></svg>','Learn'],['me','<svg class="tbi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-4 3.5-6 7-6s6.2 2 7 6"/></svg>','You']];return PL.on?'':'<nav class="htabs"><div>'+TB.map(function(t){return '<button data-act="ht" data-v="'+t[0]+'" aria-pressed="'+(HT===t[0])+'"><span>'+t[1]+'</span>'+t[2]+'</button>'}).join('')+'</div></nav>'}
 function home(){var P=hsParts();if(!P)return homeOld();var bar=hsBar()+offBar(),L=S.learned.length,tabs=HS==='B'||HS==='E',ban=satBanner(),hero=hsNoRead(P.HERO);
  if(!tabs&&HP)return bar+hsPage(P);
  if(HS==='A')return bar+hero+P.PANEL+P.NOTE+ban+P.TODAY+'<div class="hgrid">'+hsTile('hp','more','🔁','Practice more','Recap, listen, play')+hsTile('lpopen','mean','📖','Meanings','All 108 verses')+hsTile('hp','satsang','👥','Satsang','Monthly parayanam')+hsTile('lpopen','menu','📚','Read &amp; learn','Text, how to read')+hsTile('meopen','','\ud83d\ude42','You','Progress, recordings, settings')+hsTile('hp','slokas','🪷','More slokas','Other stotras',1)+'</div>'+P.END;
@@ -1677,7 +1682,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[S.lan
 var GPAUSED=false,LOCKP=false;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=182,NEWV=0,VCHK=0;
+var APPV=183,NEWV=0,VCHK=0;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
