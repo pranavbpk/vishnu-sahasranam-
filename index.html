@@ -770,6 +770,18 @@ html[data-ul="hi"] :is(.sa,.te,.enb):has(+.prb)::before,html[data-ul="hi"] .dfir
 .tcard .hgo{min-height:48px;font-size:1rem}
 .pacel2{margin:6px auto 0;min-height:30px;font-size:.88rem;color:#4a3a22;font-weight:600}.pacel2 .pgo2{color:var(--acc)}
 @media (max-width:370px){.tsteps{flex-wrap:wrap;white-space:normal;font-size:.74rem}}
+
+.hv.cmp{padding:10px 12px}
+.hv.cmp .hv-streak,.hv.cmp .hv-set{min-height:34px;padding:4px 11px;font-size:.85rem}
+.hv.cmp .slch{margin-top:8px}.hv.cmp .slc{min-height:32px;padding:4px 12px;font-size:.86rem}
+.hv.cmp .hv-main{margin-top:8px;gap:10px}
+.hv.cmp .hv-art{width:62px;flex:0 0 62px;border-radius:31px 31px 10px 10px}
+.hv.cmp .hv-sk{font-size:1.1rem}.hv.cmp h1{font-size:1.15rem;margin:0}
+.hv.cmp .hv-sub{display:none}
+.hv.cmp .hv-tog{margin:6px auto 0;padding:3px 12px;min-height:30px;font-size:.82rem}.hv.cmp .hv-tog i{width:18px;height:18px;font-size:.7rem}
+.hv.cmp .hv-prog{margin-top:8px;padding:6px 12px;min-height:44px;gap:10px}
+.hv.cmp .hv-n{font-size:1.55rem}.hv.cmp .hv-pt{gap:2px}.hv.cmp .hv-pt b{white-space:nowrap;font-size:.92rem}.hv.cmp .hv-pt small{font-size:.74rem}
+.hv.cmp .hv-all{padding:5px 10px;font-size:.8rem}
 </style>
 </head>
 <body>
@@ -1572,7 +1584,7 @@ function smPlay(i){S.plOpen=Date.now();setTimeout(plCheck,0);i=Math.max(0,Math.m
 function plRate(){var r=PL.all?(S.plsp||1):1;try{plA.muted=!!(PL.all&&S.plmute);plA.preservesPitch=true;plA.webkitPreservesPitch=true;plA.defaultPlaybackRate=r;plA.playbackRate=r}catch(e){}}
 function plPlay(i){if(PL.all&&M108&&!PL.nosm)return smPlay(i);setTimeout(plCheck,0);if(PL.all){S.pl108=Math.max(0,Math.min(PL.list.length-1,i));if(S.pl108>=PL.list.length-1)S.pl108=0;sv()}clearTimeout(PL.gap);PL.k=1;PL.st=Date.now();PL.idx=Math.max(0,Math.min(PL.list.length-1,i));PL.tried=0;PL.err='';PL.paused=false;PL.done=false;PL.T=null;PL.cut=0;PL.adv=0;plA.src=rpUrl(PL.list[PL.idx],'.m4a');plRate();(function(n){getCut(n).then(function(c){if(PL.list&&PL.list[PL.idx]===n){PL.cut=c||0;PL.T=null}})})(PL.list[PL.idx]);var p=plA.play();if(p&&p.catch)p.catch(function(){PL.paused=true;render()});plMeta();render()}
 var JMSG='',JVV='',JSR=false;function jDef(){if(!JVV&&!JSR&&S.learned.length)JVV=String(S.learned[S.learned.length-1]);return JVV}
-var MEFROM='',VLBL='Version 97 \u00b7 1 Nov 2026';var HS='B';var HP='',HT='today',HSEC='more',MQ='',MV=0,BKP=null,BKMSG='';
+var MEFROM='',VLBL='Version 98 \u00b7 1 Nov 2026';var HS='B';var HP='',HT='today',HSEC='more',MQ='',MV=0,BKP=null,BKMSG='';
 var LP='',LPBACK='',RLOPEN=false,FT=false,FTBLOB=null,FTMSG='',FTURL='vishnu-sahasranamam-108-verses.pdf';
 function ftLoad(){if(FTBLOB)return;try{fetch(FTURL).then(function(r){return r.ok?r.blob():null}).then(function(b){if(b)FTBLOB=b}).catch(function(){})}catch(e){}}
 function ftShare(){var f=null;try{if(FTBLOB)f=new File([FTBLOB],'Vishnu-Sahasranamam-108-verses.pdf',{type:'application/pdf'})}catch(e){}if(f&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:'Vishnu Sahasranamam'}).catch(function(){});return}var w=null;try{w=window.open(FTURL,'_blank')}catch(e){}if(!w){FTMSG='Could not open the share menu here. Open the app in Safari and try again.';render()}}
@@ -1662,7 +1674,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[S.lan
 var GPAUSED=false,LOCKP=false;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=180,NEWV=0,VCHK=0;
+var APPV=181,NEWV=0,VCHK=0;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});

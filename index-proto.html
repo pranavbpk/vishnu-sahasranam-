@@ -770,6 +770,18 @@ html[data-ul="hi"] :is(.sa,.te,.enb):has(+.prb)::before,html[data-ul="hi"] .dfir
 .tcard .hgo{min-height:48px;font-size:1rem}
 .pacel2{margin:6px auto 0;min-height:30px;font-size:.88rem;color:#4a3a22;font-weight:600}.pacel2 .pgo2{color:var(--acc)}
 @media (max-width:370px){.tsteps{flex-wrap:wrap;white-space:normal;font-size:.74rem}}
+
+.hv.cmp{padding:10px 12px}
+.hv.cmp .hv-streak,.hv.cmp .hv-set{min-height:34px;padding:4px 11px;font-size:.85rem}
+.hv.cmp .slch{margin-top:8px}.hv.cmp .slc{min-height:32px;padding:4px 12px;font-size:.86rem}
+.hv.cmp .hv-main{margin-top:8px;gap:10px}
+.hv.cmp .hv-art{width:62px;flex:0 0 62px;border-radius:31px 31px 10px 10px}
+.hv.cmp .hv-sk{font-size:1.1rem}.hv.cmp h1{font-size:1.15rem;margin:0}
+.hv.cmp .hv-sub{display:none}
+.hv.cmp .hv-tog{margin:6px auto 0;padding:3px 12px;min-height:30px;font-size:.82rem}.hv.cmp .hv-tog i{width:18px;height:18px;font-size:.7rem}
+.hv.cmp .hv-prog{margin-top:8px;padding:6px 12px;min-height:44px;gap:10px}
+.hv.cmp .hv-n{font-size:1.55rem}.hv.cmp .hv-pt{gap:2px}.hv.cmp .hv-pt b{white-space:nowrap;font-size:.92rem}.hv.cmp .hv-pt small{font-size:.74rem}
+.hv.cmp .hv-all{padding:5px 10px;font-size:.8rem}
 </style>
 </head>
 <body>
@@ -1662,7 +1674,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[S.lan
 var GPAUSED=false,LOCKP=false;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=180,NEWV=0,VCHK=0;
+var APPV=181,NEWV=0,VCHK=0;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
