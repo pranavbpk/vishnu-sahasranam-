@@ -1,6 +1,6 @@
 /* Offline support for the live app (index.html) and Guru Test (index-proto.html).
    Old benchmark pages (index-vNN.html) are never touched. */
-var CORE='gt-core-v3', AUD='gt-audio-v2';
+var CORE='gt-core-v4', AUD='gt-audio-v2';
 var CORE_FILES=['index.html','manifest.webmanifest','index-proto.html','manifest-test.webmanifest','icon-180.png','icon-192.png','icon-512.png','audio/cuts.json','satsang.json','vishnu-sahasranamam-108-verses.pdf'];
 
 self.addEventListener('install',function(e){
@@ -67,6 +67,12 @@ self.addEventListener('fetch',function(e){
   }
   /* small data files: network first, saved copy when offline */
   if(/\.(json|webmanifest)$/.test(p)){
+    e.respondWith(fetch(req).then(function(r){if(r.ok){var cp=r.clone();caches.open(CORE).then(function(c){c.put(p,cp)})}return r})
+      .catch(function(){return caches.match(p,{ignoreSearch:true})}));
+    return;
+  }
+  /* pictures: newest from the internet, saved copy when offline */
+  if(/^img\//.test(p)){
     e.respondWith(fetch(req).then(function(r){if(r.ok){var cp=r.clone();caches.open(CORE).then(function(c){c.put(p,cp)})}return r})
       .catch(function(){return caches.match(p,{ignoreSearch:true})}));
     return;
