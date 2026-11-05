@@ -1754,7 +1754,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=201,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=202,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -1778,8 +1778,9 @@ function rpUrl(n,ext){return 'audio/v'+('00'+n).slice(-3)+ext}
 function rpKill(){try{clearInterval(RP.tm);clearInterval(RP.sm);clearInterval(RP.hl);clearTimeout(RP.chk);clearTimeout(RP.adv)}catch(e){}}
 function rpStart(){rpKill();if(gA)gA.pause();try{var AC0=window.AudioContext||window.webkitAudioContext;if(AC0){window._ac=window._ac||new AC0();if(window._ac.state==='suspended')window._ac.resume()}}catch(e){}var n=V[LST[vi].i].n;
  if((LST[vi]||{}).rt==='recap'){RP={on:true,n:n,round:1,phase:'listen',paused:false,tried:0,steps:[2],cut:0,recap:true};try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){RP.wl=l}).catch(function(){})}catch(e){}rpListen();return}
- if((S.lm==='line'||S.lm==='pada'||((S.lm||'auto')==='auto'&&!(LST[vi]||{}).r))&&CUTS[n]===undefined){RP={on:true,n:n,round:1,phase:'listen',paused:false,tried:0,steps:[2,2,2],wait:true};render();getCut(n).then(function(){if(RP.on&&RP.n===n&&RP.wait){RP.wait=false;rpStart()}});return}
- var it0=LST[vi]||{},mode0=S.lm||'auto',wantLine=mode0==='line'||mode0==='pada'||(mode0==='auto'&&!it0.r),lm=wantLine&&CUTS[n]>0,pd=lm&&mode0==='pada'&&!it0.r&&PADA[n];
+ var lmE=(S.lm||'auto')==='auto'&&lvl()==='b'&&!(LST[vi]||{}).r?'pada':(S.lm||'auto');
+ if((lmE==='line'||lmE==='pada'||(lmE==='auto'&&!(LST[vi]||{}).r))&&CUTS[n]===undefined){RP={on:true,n:n,round:1,phase:'listen',paused:false,tried:0,steps:[2,2,2],wait:true};render();getCut(n).then(function(){if(RP.on&&RP.n===n&&RP.wait){RP.wait=false;rpStart()}});return}
+ var it0=LST[vi]||{},mode0=lmE,wantLine=mode0==='line'||mode0==='pada'||(mode0==='auto'&&!it0.r),lm=wantLine&&CUTS[n]>0,pd=lm&&mode0==='pada'&&!it0.r&&PADA[n];
  RP={on:true,n:n,round:1,phase:'listen',paused:false,tried:0,steps:pd?[5,6,0,7,8,1,2,2,2]:lm?[0,0,1,1,2,2,2]:[2,2,2],cut:lm?CUTS[n]:0};if(GRES&&GRES.n===n&&GRES.vi===vi){RP.steps=GRES.steps;RP.cut=GRES.cut;RP.round=Math.min(GRES.round,GRES.steps.length)}GRES=null;
  try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){RP.wl=l}).catch(function(){})}catch(e){}
  rpListen()}
