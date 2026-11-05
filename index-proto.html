@@ -1754,7 +1754,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=202,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=203,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -1781,7 +1781,7 @@ function rpStart(){rpKill();if(gA)gA.pause();try{var AC0=window.AudioContext||wi
  var lmE=(S.lm||'auto')==='auto'&&lvl()==='b'&&!(LST[vi]||{}).r?'pada':(S.lm||'auto');
  if((lmE==='line'||lmE==='pada'||(lmE==='auto'&&!(LST[vi]||{}).r))&&CUTS[n]===undefined){RP={on:true,n:n,round:1,phase:'listen',paused:false,tried:0,steps:[2,2,2],wait:true};render();getCut(n).then(function(){if(RP.on&&RP.n===n&&RP.wait){RP.wait=false;rpStart()}});return}
  var it0=LST[vi]||{},mode0=lmE,wantLine=mode0==='line'||mode0==='pada'||(mode0==='auto'&&!it0.r),lm=wantLine&&CUTS[n]>0,pd=lm&&mode0==='pada'&&!it0.r&&PADA[n];
- RP={on:true,n:n,round:1,phase:'listen',paused:false,tried:0,steps:pd?[5,6,0,7,8,1,2,2,2]:lm?[0,0,1,1,2,2,2]:[2,2,2],cut:lm?CUTS[n]:0};if(GRES&&GRES.n===n&&GRES.vi===vi){RP.steps=GRES.steps;RP.cut=GRES.cut;RP.round=Math.min(GRES.round,GRES.steps.length)}GRES=null;
+ RP={on:true,n:n,round:1,phase:'listen',paused:false,tried:0,steps:pd?[5,6,0,7,8,1,2,2,2]:lm?(S.lx!=='1'?[0,1,2,2,2]:[0,0,1,1,2,2,2]):[2,2,2],cut:lm?CUTS[n]:0};if(GRES&&GRES.n===n&&GRES.vi===vi){RP.steps=GRES.steps;RP.cut=GRES.cut;RP.round=Math.min(GRES.round,GRES.steps.length)}GRES=null;
  try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){RP.wl=l}).catch(function(){})}catch(e){}
  rpListen()}
 function rpListen(){clearInterval(RP.tm);RP.phase='listen';RP.blocked=false;rpCheck();listenCount[RP.n]=(listenCount[RP.n]||0)+1;
@@ -1870,7 +1870,7 @@ app.addEventListener('click',function(e){
  else if(a==='ftclose'){FT=false;if(LPBACK){LP=LPBACK;LPBACK='';render(1);return}render(1);if(RLOPEN)setTimeout(function(){var c=document.querySelector('.rlc');if(c)c.scrollIntoView({block:'center'})},50)}
  else if(a==='ftshare'){ftShare()}
  else if(a==='jrep'){var jv0=$('jv');JVV=jv0?jv0.value:JVV;S.jrep=+v;sv();render()}
- else if(a==='omw'||a==='oml'||a==='omp'){var lnm=(a==='oml'||a==='omp')&&CUTS[RP.n]>0;RP.steps=a==='omp'&&lnm&&PADA[RP.n]?[5,6,0,7,8,1,2,2,2]:lnm?[0,0,1,1,2,2,2]:[2,2,2];RP.cut=CUTS[RP.n]||0;RP.round=1;RP.paused=false;RP.err=false;try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){RP.wl=l}).catch(function(){})}catch(e){}rpListen()}
+ else if(a==='omw'||a==='oml'||a==='omp'){var lnm=(a==='oml'||a==='omp')&&CUTS[RP.n]>0;RP.steps=a==='omp'&&lnm&&PADA[RP.n]?[5,6,0,7,8,1,2,2,2]:lnm?(S.lx!=='1'?[0,1,2,2,2]:[0,0,1,1,2,2,2]):[2,2,2];RP.cut=CUTS[RP.n]||0;RP.round=1;RP.paused=false;RP.err=false;try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){RP.wl=l}).catch(function(){})}catch(e){}rpListen()}
  else if(a==='recapfin'){RP.on=false;vi=LST.length-1;skipN=true;goNext()}
  else if(a==='recapagain'){vi=0;tab='say';render(1);rpStart()}
  else if(a==='rpagain'){clearInterval(RP.tm);rpA.pause();rpListen()}
