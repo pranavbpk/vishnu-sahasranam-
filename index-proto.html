@@ -1630,10 +1630,16 @@ function ocrLib(){if(window.Tesseract)return Promise.resolve(window.Tesseract);i
  OCRLIB=new Promise(function(res,rej){var sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';sc.onload=function(){window.Tesseract?res(window.Tesseract):rej('no lib')};sc.onerror=function(){OCRLIB=null;rej('net')};document.head.appendChild(sc)});return OCRLIB}
 /* shrink and grey the photo so the phone reads it faster and uses less memory */
 function ocrPrep(fl){return new Promise(function(res,rej){var u=URL.createObjectURL(fl),im=new Image();im.onload=function(){var k=Math.min(1,1800/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);var g=c.getContext('2d');g.filter='grayscale(1) contrast(1.25)';g.drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c)};im.onerror=function(){URL.revokeObjectURL(u);rej('img')};im.src=u})}
-function myOcr(fl){if(OCRB)return;var l=S.ocrl||'san';OCRB=1;OCRM='📷 Getting the reader ready… (first time needs internet, about 5–15 MB)';render();var W=null;
- ocrLib().then(function(T){return Promise.all([ocrPrep(fl),T.createWorker(l,1,{logger:function(m){if(m&&m.status==='recognizing text'){OCRM='📷 Reading the photo… '+Math.round((m.progress||0)*100)+'%';var e=document.querySelector('.msk-om');if(e)e.textContent=OCRM}}})])})
- .then(function(a){W=a[1];OCRM='📷 Reading the photo…';render();return W.recognize(a[0])})
- .then(function(r){var t=r&&r.data?r.data.text:'';OCRM=myAddWords(t)?'✅ Words read from the photo. Please check them and fix any mistakes. One line per piece.':'Couldn’t find words in that photo. Try a clearer, straight photo in good light.'})
+/* turn the photo a quarter (d=90/270) or half (180) round */
+function ocrTurn(c,d){if(!d)return c;var o=document.createElement('canvas'),q=d%180;o.width=q?c.height:c.width;o.height=q?c.width:c.height;var g=o.getContext('2d');g.translate(o.width/2,o.height/2);g.rotate(d*Math.PI/180);g.drawImage(c,-c.width/2,-c.height/2);return o}
+/* keep only lines the reader is fairly sure of */
+function ocrGood(r){var d=r&&r.data||{},ls=d.lines||[],o=[];if(!ls.length)return {c:d.confidence||0,t:d.confidence>=60?d.text||'':''};ls.forEach(function(x){if((x.confidence||0)>=55&&/[A-Za-zऀ-ॿఀ-౿]{2}/.test(x.text||''))o.push(x.text)});return {c:d.confidence||0,t:o.join('\n')}}
+function myOcr(fl){if(OCRB)return;var l=S.ocrl||'san';OCRB=1;OCRM='📷 Getting the reader ready… (first time needs internet, about 5–15 MB)';render();var W=null,C=null,best={c:-1,t:''},turns=[0,90,270,180],i=0;
+ function show(m){OCRM=m;var e=document.querySelector('.msk-om');if(e)e.textContent=m}
+ function next(){var d=turns[i++];show('📷 Reading the photo…'+(d?' (trying it turned round)':''));return W.recognize(ocrTurn(C,d)).then(function(r){var g=ocrGood(r);if(g.c>best.c)best=g;if(best.c>=70||i>=turns.length)return best;return next()})}
+ ocrLib().then(function(T){return Promise.all([ocrPrep(fl),T.createWorker(l,1)])})
+ .then(function(a){C=a[0];W=a[1];return next()})
+ .then(function(g){var ok=g.c>=50&&myAddWords(g.t);OCRM=ok?'✅ Words read from the photo. Please check them and fix any mistakes. One line per piece.':'⚠️ Couldn’t read that photo clearly, so nothing was added. Check “Writing in the photo” matches the page (English letters → English), then take a sharp photo, straight on, in good light, with just the sloka in it. Or type the words.'})
  .catch(function(e){OCRM=e==='net'?'Couldn’t get the reader. Connect to the internet and try again.':'Couldn’t read that photo. Try again, or type the words.'})
  .then(function(){OCRB=0;if(W)try{W.terminate()}catch(e){}render()})}
 var MYMODES=[['line','🪜','Line by line','Guru style: hear a line, say it twice'],['half','🧩','Half lines','Smaller pieces, good for children'],['whole','🔁','Whole sloka','Short slokas or revising']];
@@ -2480,7 +2486,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=237,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=238,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
