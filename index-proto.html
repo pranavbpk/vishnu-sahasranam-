@@ -1469,19 +1469,36 @@ function ownPage(){if(OWNP==='pin')return '<div class="fth ow-top"><b>🔒 Only 
 
 /* ---------- Swadhyayam: daily class audio ---------- */
 var SWA=null,SWCUR=null,SWTK=null,SWN=0,SWDEL=null,SWNOTE=null,SWF='todo';
-function swAud(){if(!SWA){SWA=new Audio();SWA.preload='auto';SWA.addEventListener('ended',function(){var l=swL();if(l){l.done=1;l.pos=0;oPut('lec',l)}swStop(1);render()});SWA.addEventListener('loadedmetadata',function(){var l=swL();if(l&&isFinite(SWA.duration)&&!l.dur){l.dur=SWA.duration;oPut('lec',l)}swUI()})}return SWA}
+function swAud(){if(!SWA){SWA=new Audio();SWA.preload='auto';SWA.addEventListener('ended',function(){if(/^data:/.test(SWA.src))return;var l=swL();if(l){l.done=1;l.pos=0;oPut('lec',l)}swStop(1);render()});SWA.addEventListener('error',function(){if(!SWCUR||/^data:/.test(SWA.src))return;OMSG='Could not play this class. Check the internet and tap ▶ again.';render()});SWA.addEventListener('seeking',function(){SWB=null});SWA.addEventListener('play',function(){try{navigator.mediaSession.playbackState='playing'}catch(e){}});SWA.addEventListener('pause',function(){try{navigator.mediaSession.playbackState='paused'}catch(e){}});SWA.addEventListener('loadedmetadata',function(){if(/^data:/.test(SWA.src))return;var l=swL();if(l&&isFinite(SWA.duration)&&!l.dur){l.dur=SWA.duration;oPut('lec',l)}swUI()})}return SWA}
 function swL(){return LEC.filter(function(x){return x.id===SWCUR})[0]}
-function swTick(){if(!SWA||SWA.paused)return;S.swd=S.swd||{};S.swd[tdy()]=(S.swd[tdy()]||0)+1;SWN++;var l=swL();if(l){l.pos=SWA.currentTime;if(SWN%5===0){var c={};for(var k in l)c[k]=l[k];oPut('lec',c);sv()}}swUI()}
-function swUI(){if(!SWA)return;var sk=document.getElementById('ow-seek'),tm=document.getElementById('ow-tm'),td=document.getElementById('ow-today');var d=isFinite(SWA.duration)?SWA.duration:0;if(sk&&!sk.matches(':active')){sk.max=Math.floor(d)||1;sk.value=Math.floor(SWA.currentTime)}if(tm)tm.textContent=oT(SWA.currentTime)+' / '+oT(d);if(td)td.textContent=swMin(tdy())+' min today'}
+var SWB=null,SWACC=0,SWSIL='data:audio/wav;base64,UklGRkQDAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YSADAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==',MSU={};
+function swTick(){if(!SWA||SWA.paused||/^data:/.test(SWA.src))return;var now=Date.now(),ct=SWA.currentTime;if(SWB){var d=ct-SWB.t,w=(now-SWB.w)/1000;if(d>0&&d<=w*Math.max(1,SWA.playbackRate)+1.5)SWACC+=d}SWB={t:ct,w:now};var add=Math.floor(SWACC);SWACC-=add;S.swd=S.swd||{};if(add)S.swd[tdy()]=(S.swd[tdy()]||0)+add;SWN++;var l=swL();if(l){l.pos=SWA.currentTime;if(SWN%5===0){var c={};for(var k in l)c[k]=l[k];oPut('lec',c);sv()}}swUI()}
+function swUI(){if(!SWA||/^data:/.test(SWA.src))return;var sk=document.getElementById('ow-seek'),tm=document.getElementById('ow-tm'),td=document.getElementById('ow-today');var d=isFinite(SWA.duration)?SWA.duration:0;if(sk&&!sk.matches(':active')){sk.max=Math.floor(d)||1;sk.value=Math.floor(SWA.currentTime)}if(tm)tm.textContent=oT(SWA.currentTime)+' / '+oT(d);if(td)td.textContent=swMin(tdy())+' min today'}
 function swStop(keep){clearInterval(SWTK);SWTK=null;if(SWA&&!keep)SWA.pause();sv()}
-function swOpen(id){var l=LEC.filter(function(x){return x.id===id})[0];if(!l)return;var a=swAud();
- if(SWCUR===id&&a.src){swToggle();return}
- a.pause();(l.od?msDl(l).then(function(u){return {u:u}}).catch(function(e){OMSG='Could not play from OneDrive: '+e;render();return null}):oGet('lecb',id)).then(function(r){if(!r||!(r.b||r.u)){if(!l.od)OMSG='This audio is missing. Please add it again.';render();return}
-  try{if(a.src)URL.revokeObjectURL(a.src)}catch(e){}SWCUR=id;S.swl=id;sv();a.src=r.u||URL.createObjectURL(r.b);a.playbackRate=S.swsp||1;
-  var st=l.done?0:(l.pos||0);var go=function(){try{if(st>2)a.currentTime=Math.max(0,st-3)}catch(e){}a.playbackRate=S.swsp||1};a.addEventListener('loadedmetadata',go,{once:true});
-  a.play().catch(function(){});swStart();try{navigator.mediaSession.metadata=new MediaMetadata({title:l.name,artist:'Swadhyayam'})}catch(e){}render()})}
+function swOpen(id){var l=LEC.filter(function(x){return x.id===id})[0];if(!l)return;var a=swAud();OMSG='';
+ if(SWCUR===id&&a.src&&!/^data:/.test(a.src)){swToggle();return}
+ a.pause();try{if(/^blob:/.test(a.src))URL.revokeObjectURL(a.src)}catch(e){}
+ var st=l.done?0:(l.pos||0);
+ var start=function(src){SWCUR=id;S.swl=id;sv();a.src=src;a.playbackRate=S.swsp||1;
+  var go=function(){try{if(st>2)a.currentTime=Math.max(0,st-3)}catch(e){}a.playbackRate=S.swsp||1};a.addEventListener('loadedmetadata',go,{once:true});
+  a.play().catch(function(e){if(e&&e.name==='NotAllowedError'){OMSG='Tap ▶ once more to start.';render()}});SWB=null;swStart();swMeta(l);render();setTimeout(function(){var p=document.querySelector('.ow-pl');if(p&&p.getBoundingClientRect().top<0)p.scrollIntoView({behavior:'smooth',block:'start'})},60)};
+ var c=l.od&&MSU[l.od.i];
+ if(c&&Date.now()-c.at<45*60000){start(c.u);return}
+ /* iPhone only lets sound start straight from a tap: start a moment of silence now, then switch to the class */
+ SWCUR=id;a.src=SWSIL;a.play().catch(function(){});
+ if(l.od)OMSG='Opening the class…';render();
+ (l.od?msDl(l).then(function(u){MSU[l.od.i]={u:u,at:Date.now()};return {u:u}}).catch(function(e){OMSG='Could not play from OneDrive: '+e;render();return null}):oGet('lecb',id)).then(function(r){
+  if(SWCUR!==id)return;
+  if(!r||!(r.b||r.u)){if(!l.od)OMSG='This audio is missing. Please add it again.';a.pause();render();return}
+  OMSG='';start(r.u||URL.createObjectURL(r.b))})}
+function swMeta(l){if(!('mediaSession' in navigator))return;var ms=navigator.mediaSession,H=function(k,f){try{ms.setActionHandler(k,f)}catch(e){}};
+ try{ms.metadata=new MediaMetadata({title:l.name,artist:'Swadhyayam',album:'Guru’s class',artwork:[{src:'icon-512.png',sizes:'512x512',type:'image/png'}]})}catch(e){}
+ H('play',function(){if(SWA&&SWA.paused)swToggle()});H('pause',function(){if(SWA&&!SWA.paused)swToggle()});
+ H('seekbackward',function(){if(SWA){SWA.currentTime=Math.max(0,SWA.currentTime-15);swUI()}});H('seekforward',function(){if(SWA){SWA.currentTime=SWA.currentTime+30;swUI()}});
+ H('seekto',function(d){if(SWA&&d&&d.seekTime!=null){SWA.currentTime=d.seekTime;swUI()}});H('nexttrack',null);H('previoustrack',null)}
 function swStart(){clearInterval(SWTK);SWTK=setInterval(swTick,1000)}
-function swToggle(){var a=swAud();if(a.paused){a.playbackRate=S.swsp||1;a.play().catch(function(){});swStart()}else{a.pause();swTick();swStop(1)}render()}
+document.addEventListener('visibilitychange',function(){if(!SWA||!SWCUR||/^data:/.test(SWA.src))return;swTick();var l=swL();if(l){l.pos=SWA.currentTime;var c={};for(var k in l)c[k]=l[k];oPut('lec',c);sv()}});
+function swToggle(){var a=swAud();if(a.paused){a.playbackRate=S.swsp||1;a.play().catch(function(){});SWB=null;swStart()}else{a.pause();swTick();swStop(1)}render()}
 function swPage(){var m=swMin(tdy()),g=swGoal(),ok=m>=g,l=swL(),pl=SWA&&!SWA.paused,h='';
  h+='<div class="ow-stat '+(ok?'ok':'')+'"><b>'+(ok?'✅ Today’s study done':'⏳ Today’s study')+'</b><span id="ow-today">'+m+' of '+g+' min</span>'+(swStreak()?'<span>🔥 '+swStreak()+' day'+(swStreak()>1?'s':'')+' in a row</span>':'')+'<i class="ow-bar" style="flex-basis:100%"><u style="width:'+Math.min(100,m/g*100)+'%"></u></i><span class="ow-gl">Daily goal '+[30,45,60,90].map(function(x){return '<button class="chip" data-act="swg" data-v="'+x+'" aria-pressed="'+(g===x)+'">'+x+'</button>'}).join('')+' min</span></div>';
  if(l)h+='<div class="ow-pl"><div class="ow-pt">'+oEsc(l.name)+'</div><input id="ow-seek" class="ow-seek" type="range" min="0" step="1" max="'+Math.floor(l.dur||1)+'" value="'+Math.floor(SWA?SWA.currentTime:l.pos||0)+'" aria-label="Position"><div id="ow-tm" class="ow-tm">'+oT(SWA?SWA.currentTime:l.pos)+' / '+oT(l.dur)+'</div>'
@@ -1640,7 +1657,7 @@ function msIsAud(n){return /\.(m4a|mp3|aac|wav|ogg|opus|mp4|m4v|mov|webm|amr|3gp
 function msOpenRoot(){if(!S.swlink){MSF.err='Paste the guru’s OneDrive folder link first.';render();return}MSF.busy=true;MSF.err='';render();
  msGet('https://graph.microsoft.com/v1.0/shares/'+msShareId(S.swlink)+'/driveItem',1).then(function(it){MSF.path=[{d:it.parentReference&&it.parentReference.driveId,i:it.id,n:it.name}];return msList()}).catch(function(e){MSF.busy=false;MSF.err='Could not open the folder: '+e;render()})}
 function msList(){var p=MSF.path[MSF.path.length-1];MSF.busy=true;render();
- return msGet('https://graph.microsoft.com/v1.0/drives/'+p.d+'/items/'+p.i+'/children?$top=200&$select=id,name,folder,file,size,lastModifiedDateTime,createdDateTime,parentReference,video,audio').then(function(j){
+ return msGet('https://graph.microsoft.com/v1.0/drives/'+p.d+'/items/'+p.i+'/children?$top=200&$select=id,name,folder,file,size,lastModifiedDateTime,createdDateTime,parentReference,video,audio,@microsoft.graph.downloadUrl').then(function(j){var tn=Date.now();(j.value||[]).forEach(function(x){var u=x['@microsoft.graph.downloadUrl'];if(u)MSU[x.id]={u:u,at:tn}});
   MSF.items=(j.value||[]).filter(function(x){return x.folder||msIsAud(x.name)}).sort(function(a,b){return (b.createdDateTime||'').localeCompare(a.createdDateTime||'')});MSF.busy=false;render()}).catch(function(e){MSF.busy=false;MSF.err=String(e);render()})}
 function msDl(l){return msGet('https://graph.microsoft.com/v1.0/drives/'+l.od.d+'/items/'+l.od.i+'?$select=id,@microsoft.graph.downloadUrl').then(function(j){var u=j['@microsoft.graph.downloadUrl'];if(!u)throw 'No download link';return u})}
 function msPlay(id){var x=(MSF.items||[]).filter(function(y){return y.id===id})[0];if(!x)return;var lid='od_'+x.id,l=LEC.filter(function(y){return y.id===lid})[0];
@@ -2215,7 +2232,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=219,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=220,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
