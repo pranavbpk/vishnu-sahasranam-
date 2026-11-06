@@ -1613,7 +1613,9 @@ function addLecFiles(fs){var n=fs.length,k=0;OMSG='Saving '+n+' file'+(n>1?'s':'
 var MYV={m:'list'},MYNEW=null,MYREC=null,MYA=null,MYW=null,PR=null,MYDEL=null;
 function myAud(){if(!MYA){MYA=new Audio();MYA.preload='auto'}return MYA}
 function myL(id){return SLK.filter(function(x){return x.id===id})[0]}
-function myLoadAudio(id){var a1=myAud();if(a1.dataset.id===id&&a1.src&&!/^data:/.test(a1.src))return Promise.resolve(a1);return oGet('slkb',id).then(function(r){if(!r||!r.b)throw 'missing';var a=myAud();try{if(a.src)URL.revokeObjectURL(a.src)}catch(e){}a.src=URL.createObjectURL(r.b);a.dataset.id=id;return a})}
+function myBlob(r){if(!r)return null;if(r.b)return r.b;if(r.ab)return new Blob([r.ab],{type:r.t||'audio/mp4'});return null}
+function mySaveSound(id,b){return b.arrayBuffer().then(function(ab){return oPut('slkb',{id:id,ab:ab,t:b.type||'audio/mp4'})}).catch(function(e){return oPut('slkb',{id:id,b:b})})}
+function myLoadAudio(id){var a1=myAud();if(a1.dataset.id===id&&a1.src&&!/^data:/.test(a1.src))return Promise.resolve(a1);return oGet('slkb',id).then(function(r){var bl=myBlob(r);if(!bl)throw 'missing';var a=myAud();try{if(a.src)URL.revokeObjectURL(a.src)}catch(e){}a.src=URL.createObjectURL(bl);a.dataset.id=id;return a})}
 function myNext(n){return [1,3,7][Math.min(n-1,2)]}
 /* ---------- My slokas v2: simple steps, automatic pieces, words that light up ---------- */
 var MYHOW=false,MYMSG='',MYPC=null,OCRM='',OCRB=0;
@@ -1779,7 +1781,7 @@ function myVoiced(R,thr){var V=[],st=-1;for(var k=0;k<=R.length;k++){var on=k<R.
  var M=[];V.forEach(function(v){if(M.length&&v[0]-M[M.length-1][1]<0.12)M[M.length-1][1]=v[1];else M.push(v.slice())});
  return M.filter(function(v){return v[1]-v[0]>=0.06}).map(function(v){return [Math.round(v[0]*100)/100,Math.round(v[1]*100)/100]})}
 /* decode once and keep the voiced parts and true length (does not change the pieces) */
-function myAnalyse(x){return oGet('slkb',x.id).then(function(r){return myDecode(r.b)}).then(function(ab){var an=myPauses(ab);x.vs=an.V;if(ab.duration)x.dur=ab.duration;return oPut('slk',x)}).catch(function(){})}
+function myAnalyse(x){return oGet('slkb',x.id).then(function(r){return myDecode(myBlob(r))}).then(function(ab){var an=myPauses(ab);x.vs=an.V;if(ab.duration)x.dur=ab.duration;return oPut('slk',x)}).catch(function(){})}
 /* syllables in a word (any script) */
 function mySylN(w,src){var o=scParse(w,src);if(o.every(function(t){return t.p}))return 0.3;return Math.max(1,scSyl(o).length)}
 /* time inside the voiced parts of [s,e] at a fraction f of the voiced time */
@@ -1836,7 +1838,7 @@ function myAutoCuts(x,an){var P=an.P.slice(),L=myLines(x.text).length,want=-1;if
  if(want>=0){pick=bylen.slice(0,want)}else{var mx=bylen.length?bylen[0].len:0;pick=bylen.filter(function(p){return p.len>=(x.mode==='half'?0.3:0.55)*mx})}
  var cuts=pick.map(function(p){return p.t}).sort(function(a,b){return a-b}),out=[],prev=0;cuts.forEach(function(c){if(c-prev>=0.8&&(x.dur||1e6)-c>=0.8){out.push(c);prev=c}});return out}
 function myMakePieces(id){var x=myL(id);if(!x)return Promise.resolve();MYMSG='✂ Finding the pieces…';render();
- return oGet('slkb',id).then(function(r){return myDecode(r.b)}).then(function(ab){if(ab.duration)x.dur=ab.duration;var an=myPauses(ab);x.vs=an.V;x.dur=ab.duration||x.dur;x.cuts=x.lt&&x.lt.length===myLines(x.text).length?myCutsFromLines(x):myAutoCuts(x,an);x.auto=1;MYMSG='';return oPut('slk',x)})
+ return oGet('slkb',id).then(function(r){return myDecode(myBlob(r))}).then(function(ab){if(ab.duration)x.dur=ab.duration;var an=myPauses(ab);x.vs=an.V;x.dur=ab.duration||x.dur;x.cuts=x.lt&&x.lt.length===myLines(x.text).length?myCutsFromLines(x):myAutoCuts(x,an);x.auto=1;MYMSG='';return oPut('slk',x)})
   .catch(function(e){MYMSG='Couldn’t find the pauses by itself. Use ✋ Adjust by hand.';x.cuts=x.cuts||[];return oPut('slk',x)}).then(function(){render()})}
 function myPage(){var h='';
  if(MYV.m==='tap'){var xt=myL(MYV.id);if(!xt){MYV={m:'list'};return myPage()}return myTapPage(xt)}
@@ -1989,7 +1991,7 @@ var OWNA={
  mynewclr:function(){myKeep();MYNEW=null;render()},
  myocrl:function(t,v){myKeep();S.ocrl=v;sv();render()},
  mysave:function(){myKeep();if(!MYNEW)return;var id='s'+Date.now(),x={id:id,name:(MYV.nm||'').trim()||('My sloka '+(SLK.length+1)),text:(MYV.tx||'').trim(),cuts:[],mode:MYV.mode||'line',added:Date.now(),dur:MYNEW.d||0,prac:[]};
-  oPut('slkb',{id:id,b:MYNEW.b}).then(function(){return oPut('slk',x)}).then(function(){SLK.unshift(x);MYNEW=null;MYV={m:'review',id:id};render(1);myLoadAudio(id);return myMakePieces(id)}).catch(function(e){OMSG='Could not save ('+(e&&e.name||e)+').';render()})},
+  mySaveSound(id,MYNEW.b).then(function(){return oPut('slk',x)}).then(function(){SLK.unshift(x);MYNEW=null;MYV={m:'review',id:id};render(1);myLoadAudio(id);return myMakePieces(id)}).catch(function(e){OMSG=(e&&e.name==='QuotaExceededError')?'Phone storage is full, so the sound could not be saved. Free some space and try again.':'Could not save ('+(e&&e.name||e)+'). Tap ✂ Make the pieces again; if it keeps failing, close the app fully and reopen it.';render()})},
  mymark:function(t,v){MYV={m:'mark',id:v};myLoadAudio(v).then(function(){render(1)})},
  mkplay:function(){var a=myAud();if(a.paused){a.play().catch(function(){});clearInterval(MYW);MYW=setInterval(function(){var e=document.getElementById('ow-mt');if(e)e.textContent=oT(a.currentTime);if(a.paused){clearInterval(MYW);render()}},250)}else a.pause();render()},
  mkback:function(){var a=myAud();a.currentTime=Math.max(0,a.currentTime-5)},
@@ -2655,7 +2657,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=241,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=242,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
