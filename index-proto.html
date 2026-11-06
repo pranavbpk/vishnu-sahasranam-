@@ -1441,7 +1441,7 @@ function hmChips(){var c=hmV(),SW={0:'#fff;border:1px solid #ccc',1:'linear-grad
 function hmSw(){var c=hmV();return '<div class="hmsw"><span>Test · Home style</span>'+[[0,'Classic'],[1,'1 Sunrise'],[2,'2 Temple'],[3,'3 Lotus'],[4,'4 Festival'],[5,'5 Tulasi'],[6,'6 Royal'],[7,'7 Moonlight']].map(function(x){return '<button class="chip" data-act="hmn" data-v="'+x[0]+'" aria-pressed="'+(c===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>'}
 /* ===== Owner-only area (build 212): Swadhyayam, My slokas, My plans. Turn on: tap the version line 5 times. ===== */
 var OWNP=null,OWN=false,VTN=0,VTT=0,LEC=[],SLK=[],OWNLD=false,OMSG='';
-try{OWN=localStorage.getItem('sg_owner')==='1';}catch(e){}
+var OLK=0;try{OWN=localStorage.getItem('sg_owner')==='1';}catch(e){}
 function oDB(){return new Promise(function(res,rej){var r=indexedDB.open('sg_own',1);r.onupgradeneeded=function(){var d=r.result;['lec','lecb','slk','slkb'].forEach(function(n){if(!d.objectStoreNames.contains(n))d.createObjectStore(n,{keyPath:'id'})})};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
 function oTx(st,mode,fn){return oDB().then(function(d){return new Promise(function(res,rej){var tx=d.transaction(st,mode),o=tx.objectStore(st),out=fn(o);tx.oncomplete=function(){res(out&&out.result!==undefined?out.result:out)};tx.onerror=function(){rej(tx.error)}})})}
 function oPut(st,x){return oTx(st,'readwrite',function(o){o.put(x)})}
@@ -1456,7 +1456,7 @@ function swMin(day){return Math.round(((S.swd||{})[day]||0)/60)}
 function swGoal(){return S.swg||60}
 function swStreak(){var g=swGoal()*60,n=0,d=new Date();if(((S.swd||{})[tdy()]||0)<g)d.setDate(d.getDate()-1);for(;;){if(((S.swd||{})[dstr(d)]||0)>=g){n++;d.setDate(d.getDate()-1)}else break}return n}
 function ownYou(){if(!OWN&&!S.swinv)return '';
- if(!OWN)return S.swinv?'<div class="rlh">📿 GURU’S CLASSES</div>'+hsRow('ownp','sw','📿','Swadhyayam',swMin(tdy())+' of '+swGoal()+' min today · classes and notes'):'';var m=swMin(tdy()),g=swGoal();return '<div class="rlh">🔒 ONLY YOU</div>'+hsRow('ownp','sw','📿','Swadhyayam',m+' of '+g+' min today · classes and notes')+hsRow('ownp','my','🎵','My slokas (trial)','Add any sloka or song and practise it')+hsRow('ownp','plan','🗒','My plans','Future ideas, so nothing is forgotten')+hsRow('ownlock','','🔓','Sign out','Hide this section on this phone')}
+ if(!OWN)return S.swinv?'<div class="rlh">📿 GURU’S CLASSES</div>'+hsRow('ownp','sw','📿','Swadhyayam',swMin(tdy())+' of '+swGoal()+' min today · classes and notes'):'';var m=swMin(tdy()),g=swGoal();return '<div class="rlh">🔒 ONLY YOU</div>'+hsRow('ownp','sw','📿','Swadhyayam',m+' of '+g+' min today · classes and notes')+hsRow('ownp','my','🎵','My slokas (trial)','Add any sloka or song and practise it')+hsRow('ownp','plan','🗒','My plans','Future ideas, so nothing is forgotten')+hsRow('ownlock','','🔒',OLK?'Tap again to lock':'Lock this area',OLK?'You will need your passcode to open it again':'Not needed. Only to hide it if someone else uses this phone')}
 function ownCard(){return swLine()}
 function ownCardOld(){if(!OWN)return '';var m=swMin(tdy()),ok=m>=5,l=S.swl&&LEC.filter(function(x){return x.id===S.swl})[0];
  return '<div class="ow-card"><div class="ow-h">🔒 Only you <small>Trials and plans · not shown to others</small></div>'
@@ -1748,7 +1748,7 @@ function planPage(){var dn=S.plan||{},h='<div class="mute ow-note">Only you can 
 /* ---------- actions ---------- */
 var OWNA={
  vtap:function(){var n=Date.now();VTN=n-VTT<1500?VTN+1:1;VTT=n;if(VTN>=5){VTN=0;if(OWN){OWNP=null;HT='me';render(1);return}OWNP='pin';PINMSG='';render(1);scrollTo(0,0)}},
- ownlock:function(){OWN=false;try{localStorage.setItem('sg_owner','0')}catch(e){}if(SWA)SWA.pause();notice='Signed out. Tap the version line 5 times to sign in again.';OWNP=null;HT='today';render(1);scrollTo(0,0)},
+ ownlock:function(){if(!OLK){OLK=1;render();setTimeout(function(){OLK=0;render()},4000);return}OLK=0;OWN=false;try{localStorage.setItem('sg_owner','0')}catch(e){}if(SWA)SWA.pause();notice='Locked. Tap the version line 5 times to open it again.';OWNP=null;HT='today';render(1);scrollTo(0,0)},
  pinok:function(){var e=document.getElementById('ow-pin'),e2=document.getElementById('ow-pin2'),v=(e&&e.value||'').trim(),h0=localStorage.getItem('sg_pin');if(v.length<4){PINMSG='Use at least 4 digits or letters.';render();return}
   if(!h0){if(!e2||e2.value.trim()!==v){PINMSG='The two passcodes don’t match.';render();return}localStorage.setItem('sg_pin',pinH(v))}else if(pinH(v)!==h0){PINMSG='Wrong passcode.';render();return}
   OWN=true;localStorage.setItem('sg_owner','1');ownLoad();OWNP=null;HT='me';notice='';render(1);scrollTo(0,0)},
@@ -2474,7 +2474,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=235,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=236,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
