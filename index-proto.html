@@ -1487,9 +1487,9 @@ function swOpen(id){var l=LEC.filter(function(x){return x.id===id})[0];if(!l)ret
  /* iPhone only lets sound start straight from a tap: start a moment of silence now, then switch to the class */
  SWCUR=id;a.src=SWSIL;a.play().catch(function(){});
  if(l.od)OMSG='Opening the class…';render();
- (l.od?msDl(l).then(function(u){MSU[l.od.i]={u:u,at:Date.now()};return {u:u}}).catch(function(e){OMSG='Could not play from OneDrive: '+e;render();return null}):oGet('lecb',id)).then(function(r){
+ (l.od?msDl(l).then(function(u){if(!/^blob:/.test(u))MSU[l.od.i]={u:u,at:Date.now()};return {u:u}}).catch(function(e){OMSG='Could not play from OneDrive: '+e;render();return null}):oGet('lecb',id)).then(function(r){
   if(SWCUR!==id)return;
-  if(!r||!(r.b||r.u)){if(!l.od)OMSG='This audio is missing. Please add it again.';a.pause();render();return}
+  if(!r||!(r.b||r.u)){if(!l.od)OMSG='This audio is missing. Please add it again.';a.pause();a.removeAttribute('src');try{a.load()}catch(e){}render();return}
   OMSG='';start(r.u||URL.createObjectURL(r.b))})}
 function swMeta(l){if(!('mediaSession' in navigator))return;var ms=navigator.mediaSession,H=function(k,f){try{ms.setActionHandler(k,f)}catch(e){}};
  try{ms.metadata=new MediaMetadata({title:l.name,artist:'Swadhyayam',album:'Guru’s class',artwork:[{src:'icon-512.png',sizes:'512x512',type:'image/png'}]})}catch(e){}
@@ -1499,7 +1499,7 @@ function swMeta(l){if(!('mediaSession' in navigator))return;var ms=navigator.med
 function swStart(){clearInterval(SWTK);SWTK=setInterval(swTick,1000)}
 document.addEventListener('visibilitychange',function(){if(!SWA||!SWCUR||/^data:/.test(SWA.src))return;swTick();var l=swL();if(l){l.pos=SWA.currentTime;var c={};for(var k in l)c[k]=l[k];oPut('lec',c);sv()}});
 function swToggle(){var a=swAud();if(a.paused){a.playbackRate=S.swsp||1;a.play().catch(function(){});SWB=null;swStart()}else{a.pause();swTick();swStop(1)}render()}
-function swPage(){var m=swMin(tdy()),g=swGoal(),ok=m>=g,l=swL(),pl=SWA&&!SWA.paused,h='';
+function swPage(){var m=swMin(tdy()),g=swGoal(),ok=m>=g,l=swL(),pl=SWA&&!SWA.paused&&!/^data:/.test(SWA.src),h='';
  h+='<div class="ow-stat '+(ok?'ok':'')+'"><b>'+(ok?'✅ Today’s study done':'⏳ Today’s study')+'</b><span id="ow-today">'+m+' of '+g+' min</span>'+(swStreak()?'<span>🔥 '+swStreak()+' day'+(swStreak()>1?'s':'')+' in a row</span>':'')+'<i class="ow-bar" style="flex-basis:100%"><u style="width:'+Math.min(100,m/g*100)+'%"></u></i><span class="ow-gl">Daily goal '+[30,45,60,90].map(function(x){return '<button class="chip" data-act="swg" data-v="'+x+'" aria-pressed="'+(g===x)+'">'+x+'</button>'}).join('')+' min</span></div>';
  if(l)h+='<div class="ow-pl"><div class="ow-pt">'+oEsc(l.name)+'</div><input id="ow-seek" class="ow-seek" type="range" min="0" step="1" max="'+Math.floor(l.dur||1)+'" value="'+Math.floor(SWA?SWA.currentTime:l.pos||0)+'" aria-label="Position"><div id="ow-tm" class="ow-tm">'+oT(SWA?SWA.currentTime:l.pos)+' / '+oT(l.dur)+'</div>'
   +'<div class="ow-ctl"><button class="ow-b" data-act="swskip" data-v="-15">⏪ 15</button><button class="ow-big" data-act="swplay">'+(pl?'⏸':'▶')+'</button><button class="ow-b" data-act="swskip" data-v="30">30 ⏩</button></div>'
@@ -1657,9 +1657,14 @@ function msIsAud(n){return /\.(m4a|mp3|aac|wav|ogg|opus|mp4|m4v|mov|webm|amr|3gp
 function msOpenRoot(){if(!S.swlink){MSF.err='Paste the guru’s OneDrive folder link first.';render();return}MSF.busy=true;MSF.err='';render();
  msGet('https://graph.microsoft.com/v1.0/shares/'+msShareId(S.swlink)+'/driveItem',1).then(function(it){MSF.path=[{d:it.parentReference&&it.parentReference.driveId,i:it.id,n:it.name}];return msList()}).catch(function(e){MSF.busy=false;MSF.err='Could not open the folder: '+e;render()})}
 function msList(){var p=MSF.path[MSF.path.length-1];MSF.busy=true;render();
- return msGet('https://graph.microsoft.com/v1.0/drives/'+p.d+'/items/'+p.i+'/children?$top=200&$select=id,name,folder,file,size,lastModifiedDateTime,createdDateTime,parentReference,video,audio,@microsoft.graph.downloadUrl').then(function(j){var tn=Date.now();(j.value||[]).forEach(function(x){var u=x['@microsoft.graph.downloadUrl'];if(u)MSU[x.id]={u:u,at:tn}});
+ return msGet('https://graph.microsoft.com/v1.0/drives/'+p.d+'/items/'+p.i+'/children?$top=200').then(function(j){var tn=Date.now();(j.value||[]).forEach(function(x){var u=msDU(x);if(u)MSU[x.id]={u:u,at:tn}});
   MSF.items=(j.value||[]).filter(function(x){return x.folder||msIsAud(x.name)}).sort(function(a,b){return (b.createdDateTime||'').localeCompare(a.createdDateTime||'')});MSF.busy=false;render()}).catch(function(e){MSF.busy=false;MSF.err=String(e);render()})}
-function msDl(l){return msGet('https://graph.microsoft.com/v1.0/drives/'+l.od.d+'/items/'+l.od.i+'?$select=id,@microsoft.graph.downloadUrl').then(function(j){var u=j['@microsoft.graph.downloadUrl'];if(!u)throw 'No download link';return u})}
+function msDU(j){return j&&(j['@microsoft.graph.downloadUrl']||j['@content.downloadUrl'])}
+function msDl(l){var base='https://graph.microsoft.com/v1.0/drives/'+l.od.d+'/items/'+l.od.i;
+ return msGet(base).then(function(j){var u=msDU(j);if(u)return u;
+  if((j.size||l.size||0)>150*1048576)throw 'OneDrive did not give a play link for this big file';
+  OMSG='Downloading the class first (about '+Math.round((j.size||l.size||0)/1048576)+' MB)…';render();
+  return msAT().then(function(at){return fetch(base+'/content',{headers:{Authorization:'Bearer '+at}})}).then(function(r){if(!r.ok)throw ('Error '+r.status);return r.blob()}).then(function(b){return URL.createObjectURL(b)})})}
 function msPlay(id){var x=(MSF.items||[]).filter(function(y){return y.id===id})[0];if(!x)return;var lid='od_'+x.id,l=LEC.filter(function(y){return y.id===lid})[0];
  if(!l){l={id:lid,name:x.name.replace(/\.[^.]+$/,''),added:Date.parse(x.createdDateTime)||Date.now(),size:x.size,pos:0,dur:0,od:{d:x.parentReference.driveId,i:x.id}};LEC.unshift(l);LEC.sort(function(a,b){return b.added-a.added});oPut('lec',l)}
  swOpen(lid)}
@@ -2232,7 +2237,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=220,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=221,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
