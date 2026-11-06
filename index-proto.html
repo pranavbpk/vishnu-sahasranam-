@@ -1893,9 +1893,9 @@ function prBuild(x){var pc=myPieces(x),st=[];
 function prSpan(stp){if(stp.w)return [0,PR.pc[PR.pc.length-1][1]];return PR.pc[stp.p]}
 function prClear(){clearInterval(MYW);MYW=null;clearTimeout(PR&&PR.to);if(MYA)MYA.pause()}
 /* play one span of the recording; stops at its end. Guards against iPhone's stale position after a jump back */
-function myPlaySpan(sp,done,onTick){var a=myAud(),dur=isFinite(a.duration)?a.duration:1e6,end=Math.min(sp[1],dur-0.12),ok=false,t0=Date.now();clearInterval(MYW);a.pause();try{a.currentTime=sp[0]}catch(e){}a.play().catch(function(){});
+function myPlaySpan(sp,done,onTick){var a=myAud(),dur=isFinite(a.duration)?a.duration:1e6,end=sp[1]>=dur-0.3?dur+5:Math.min(sp[1],dur-0.12),ok=false,t0=Date.now();clearInterval(MYW);a.pause();try{a.currentTime=sp[0]}catch(e){}a.play().catch(function(){});
  MYW=setInterval(function(){var ct=a.currentTime;if(!ok){if(ct>=sp[0]-0.3&&ct<end-0.05&&!a.paused&&Date.now()-t0>60)ok=true;else{if(Date.now()-t0<3000){if(Date.now()-t0>250&&(ct<sp[0]-0.3||ct>=end-0.05)){try{a.currentTime=sp[0]}catch(e){}}if(a.paused||a.ended)a.play().catch(function(){});return}ok=true}}
-  if(onTick)onTick(ct);if(ct>=end-0.06||(a.ended&&Date.now()-t0>800)){a.pause();clearInterval(MYW);MYW=null;done()}},40)}
+  if(onTick)onTick(ct);if(ct>=end-0.06||((a.ended||(a.paused&&ct>=dur-0.1))&&Date.now()-t0>800)){a.pause();clearInterval(MYW);MYW=null;done()}},40)}
 function prGo(){if(!PR)return;prClear();var stp=PR.steps[PR.k];if(!stp){prFinish();return}PR.ph=stp.ph;PR.paused=false;var sp=prSpan(stp),x=myL(PR.id);
  if(!PR.T)PR.T=myTimeline(x);
  if(stp.ph==='listen'){render();myPlaySpan(sp,function(){PR.k++;prGo()},function(ct){myHL(PR.T,ct,stp.w?{all:1}:null)})}
@@ -2657,7 +2657,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=242,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=243,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
