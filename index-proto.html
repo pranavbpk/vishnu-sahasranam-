@@ -1031,6 +1031,29 @@ html[data-ht="me"] .chip{min-height:36px;padding:5px 12px;font-size:.88rem;borde
 .bh.bv3 .bh-frame,.bh.bv5 .bh-frame{width:calc(clamp(110px,18vh,196px)*var(--bhs,1));height:calc(clamp(110px,18vh,196px)*var(--bhs,1))}
 /* b253: Language & display in 3 groups, tap to open */
 .sgx{padding:0!important;overflow:hidden;margin:0 0 10px!important}.sgx-h b{white-space:nowrap}.sgx-h{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;font:inherit;color:inherit;text-align:left;padding:13px 14px;cursor:pointer;min-height:52px}.sgx-i{font-size:1.25rem}.sgx-h b{font-size:1rem;color:#5a3a10}.sgx-h small{margin-left:auto;font-size:.76rem;color:#8a7350;text-align:right}.sgx-h i{font-style:normal;color:#b08a4a;font-size:1.3rem;transition:transform .2s}.sgx.on .sgx-h i{transform:rotate(90deg)}.sgx-b{padding:0 14px 14px;border-top:1px solid #f0e2c0}.sgx-b h2{margin-top:12px!important}
+/* b254: Language & display cards: full border, clear open/close arrow, bigger text on You */
+.pnl>.card.sgx{border:1.5px solid #e3c98c;border-radius:16px;background:#fffdf7;margin:0 0 12px!important;box-shadow:0 1px 3px rgba(120,80,20,.06)}
+.pnl>.card.sgx.on{border-color:#d4a23c;box-shadow:0 2px 10px rgba(180,120,30,.12)}
+.sgx-h{display:grid!important;grid-template-columns:40px 1fr 32px;grid-template-rows:auto auto;column-gap:12px;row-gap:1px;align-items:center;min-height:64px;padding:11px 14px}
+.sgx-h .sgx-i{grid-row:1/span 2;grid-column:1}.sgx-h b{grid-column:2;grid-row:1;align-self:end}.sgx-h small{grid-column:2;grid-row:2;margin:0!important;text-align:left!important;align-self:start}.sgx-h i{grid-column:3;grid-row:1/span 2}
+.sgx.on .sgx-h{background:color-mix(in srgb,var(--acc) 6%,#fffaf0)}
+.sgx-i{font-size:1.4rem;width:40px;height:40px;flex:0 0 40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff3dc}
+.sgx-h b{font-size:1.1rem}
+.sgx-h small{font-size:.86rem;color:#7a6440}
+.sgx-h i{flex:0 0 32px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--acc) 14%,#fff);color:var(--acc);font-size:1.45rem;font-weight:700;line-height:1;padding-bottom:3px}
+.sgx.on .sgx-h i{background:var(--acc);color:#fff}
+.sgx-b{border-top:1px solid #efdcb0;padding:2px 16px 16px}
+.sgx-b h2{font-size:1.04rem!important;margin:16px 0 8px!important}
+html[data-ht="me"] .sgx-b .chip{min-height:42px;padding:7px 14px;font-size:.98rem}
+html[data-ht="me"] .sgx-b .mute{font-size:.9rem;line-height:1.45}
+html[data-ht="me"] .chip{min-height:40px;font-size:.95rem}
+html[data-ht="me"] .card h2{font-size:1.02rem}
+html[data-ht="me"] .card .mute{font-size:.88rem}
+html[data-ht="me"] .rli{min-height:56px}
+html[data-ht="me"] .rlt b{font-size:1.02rem}
+html[data-ht="me"] .rlt small{font-size:.85rem}
+html[data-ht="me"] .yousub{font-size:.92rem}
+html[data-ht="me"] .fth b{font-size:1.15rem}
 </style>
 </head>
 <body>
@@ -2771,7 +2794,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=253,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=254,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
