@@ -843,28 +843,47 @@ html[data-ul="hi"] :is(.sa,.te,.enb):has(+.prb)::before,html[data-ul="hi"] .dfir
 @keyframes rbp{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,.35),0 4px 14px rgba(192,57,43,.3)}50%{box-shadow:0 0 0 10px rgba(192,57,43,0),0 4px 14px rgba(192,57,43,.3)}}
 @media (prefers-reduced-motion:reduce){.recbig .rmic{animation:none}}
 
-.bh{position:relative;display:flex;flex-direction:column;min-height:calc(100svh - 118px);margin:4px 0 12px;border-radius:26px;overflow:hidden;border:1.5px solid #e2c27a;background:#f8f1e1 var(--bimg) center -36px/122% auto no-repeat;box-shadow:0 10px 30px rgba(120,80,20,.14)}
-.bh:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(251,246,234,.55) 0%,rgba(251,246,234,0) 16%,rgba(251,246,234,0) 52%,rgba(251,246,234,.9) 66%,#fbf6ea 76%);pointer-events:none}
+.bh{position:relative;display:flex;flex-direction:column;margin:4px 0 0;border-radius:26px 26px 0 0;overflow:hidden;padding-bottom:40px}
 .bh>*{position:relative}
 .bh-top{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 0}
-.bh-pill{background:rgba(255,255,255,.85);border:1px solid #e8d3a2;border-radius:99px;padding:7px 13px;font-size:.9rem;color:#5a3a10}
-.bh-tr{display:flex;gap:8px}
-.bh-ic{width:42px;height:42px;border-radius:50%;border:1px solid #e8d3a2;background:rgba(255,255,255,.85);font-size:1.15rem;display:grid;place-items:center;padding:0}
-.bh-brand{text-align:center;margin-top:6px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:#7a5418;font-weight:700}
-.bh-sp{flex:1}
-.bh-low{padding:0 18px 16px;text-align:center}
-.bh-slk{background:#fff;border:1.5px solid var(--acc);color:var(--acc);border-radius:99px;padding:8px 16px;font-weight:700;font-size:.95rem}
+.bh-pill{background:rgba(255,255,255,.88);border:1px solid #e8d3a2;border-radius:99px;padding:7px 13px;font-size:.9rem;color:#5a3a10}
+.bh-tr{display:flex;gap:7px}
+.bh-ic{width:40px;height:40px;border-radius:50%;border:1px solid #e8d3a2;background:rgba(255,255,255,.88);font-size:1.1rem;display:grid;place-items:center;padding:0;color:#5a3a10}
+.bh-sp{height:250px}
+.bh-frame{margin:10px auto 0;background-size:150% auto;background-position:center 34%;background-repeat:no-repeat;cursor:pointer}
+.bh-title{text-align:center;margin-top:4px}
+.bh-om{display:block;font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.3rem;line-height:1;opacity:.85}
+.bh-title h1{font-family:'Tiro Devanagari Sanskrit',serif;font-weight:400;font-size:clamp(2.3rem,11vw,3rem);line-height:1.05;margin:2px 0 0;letter-spacing:.01em;background:var(--tg);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bh-orn{display:flex;align-items:center;justify-content:center;gap:10px;margin:6px 0 10px;font-size:1rem}
+.bh-orn i{display:block;width:60px;height:2px;border-radius:2px;background:var(--og)}
+.bh-slk{display:block;margin:0 auto;border-radius:99px;padding:7px 16px;font-size:.92rem;background:rgba(255,255,255,.9);border:1.5px solid var(--acc);color:#4a3a22}
+.bh-slk b{color:var(--acc)}
 .bh-slk i{font-style:normal;opacity:.7}
-.bh-sk{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.65rem;color:#8a2b10;margin:10px 0 2px;line-height:1.25}
-.bh-ess{font-size:.95rem;color:#6b5330;letter-spacing:.02em;margin-bottom:14px}
-.bh-go{display:block;width:100%;min-height:58px;border:0;border-radius:18px;background:var(--acc);color:#fff;font-size:1.15rem;font-weight:800;box-shadow:0 8px 20px rgba(0,0,0,.18),inset 0 -3px 0 rgba(0,0,0,.12)}
-.bh-meta{margin-top:9px;font-size:.88rem;color:#4a3a22;font-weight:600}
-.bh-part{font-size:.85rem;color:#7a5418;margin-bottom:6px;font-weight:700}
-.bh-done{background:#e7f2e3;border:1px solid #b9d7ae;color:#2f5d27;border-radius:16px;padding:13px;font-weight:700}
-.bh-foot{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 14px;margin-top:14px;padding-top:12px;border-top:1px dashed #e2cfa3}
-.bh-foot button{background:none;border:0;padding:4px 2px;color:#6b5330;font-size:.85rem;font-weight:600}
-.bh-sp{min-height:120px}
-@media (max-height:700px){.bh{background-position:center -70px}.bh-sk{font-size:1.4rem;margin-top:6px}.bh-ess{margin-bottom:10px}}
+.bh-ess{display:flex;justify-content:center;flex-wrap:wrap;gap:5px;margin:12px 0 0}
+.bh-ess span{border-radius:99px;padding:5px 9px;font-size:.8rem;font-weight:700;white-space:nowrap}
+.bh-panel{position:relative;margin:-30px 6px 12px;background:#fff;border:1.5px solid #ecd9ae;border-radius:24px;padding:12px 14px 14px;box-shadow:0 -6px 24px rgba(90,58,16,.10),0 8px 20px rgba(90,58,16,.08)}
+.bh-panel .tcard{background:none;border:0;padding:2px 0 0;box-shadow:none}
+.bh-panel .hv-n{font-size:1.55rem}.bh-panel .hv-pt{gap:2px}.bh-panel .hv-pt b{white-space:nowrap;font-size:.92rem}.bh-panel .hv-pt small{font-size:.74rem}.bh-panel .hv-all{padding:5px 10px;font-size:.8rem}
+.bh-panel .hv-prog{margin-top:12px;padding:6px 12px;min-height:44px;gap:10px}
+/* 1 Sunrise: picture fills the top */
+.bh.bv1{--tg:linear-gradient(90deg,#9c2a0e,#d4570f 45%,#e39a1b);--og:linear-gradient(90deg,transparent,#d9a034,transparent);background:#fbf3e2 var(--bimg) center -40px/118% auto no-repeat}
+.bh.bv1:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(251,243,226,.5) 0%,rgba(251,243,226,0) 14%,rgba(251,243,226,0) 40%,rgba(251,243,226,.9) 56%,#fbf3e2 66%,#fde9c8 100%)}
+.bh.bv1 .bh-om{color:#c0661a}
+.bh.bv1 .bh-ess span{background:#fff;border:1px solid #f0cf94;color:#8a3b0e}
+/* 2 Temple: deep peacock night, picture in a golden arch */
+.bh.bv2{--tg:linear-gradient(180deg,#fff2c4,#f2c14e 55%,#d48f1c);--og:linear-gradient(90deg,transparent,#f2c14e,transparent);background:radial-gradient(circle at 50% 30%,rgba(255,214,120,.35),transparent 45%),radial-gradient(1px 1px at 20% 20%,#ffe9a8,transparent),radial-gradient(1.5px 1.5px at 80% 14%,#ffe9a8,transparent),radial-gradient(1px 1px at 70% 40%,#ffe9a8,transparent),radial-gradient(1px 1px at 12% 52%,#ffe9a8,transparent),linear-gradient(170deg,#0d2340,#0f3b4c 55%,#0c5a58)}
+.bh.bv2 .bh-pill,.bh.bv2 .bh-ic{background:rgba(255,255,255,.12);border-color:rgba(242,193,78,.6);color:#fbe7b0}
+.bh.bv2 .bh-frame{width:180px;height:232px;border-radius:90px 90px 16px 16px;border:3px solid #f2c14e;box-shadow:0 0 0 6px rgba(242,193,78,.18),0 0 40px rgba(255,200,90,.45)}
+.bh.bv2 .bh-om{color:#f2c14e}
+.bh.bv2 .bh-slk{background:rgba(255,255,255,.1);border-color:#f2c14e;color:#fbe7b0}
+.bh.bv2 .bh-slk b{color:#ffd877}
+.bh.bv2 .bh-ess span{background:rgba(242,193,78,.16);border:1px solid rgba(242,193,78,.55);color:#fbe7b0}
+/* 3 Lotus: soft pink dawn, round picture */
+.bh.bv3{--tg:linear-gradient(90deg,#7a1235,#b8325a 50%,#d9653b);--og:linear-gradient(90deg,transparent,#e48aa3,transparent);background:radial-gradient(circle at 50% 28%,#fff 0,rgba(255,255,255,0) 38%),linear-gradient(180deg,#fcd9df,#fde3d3 55%,#fdf0dd)}
+.bh.bv3 .bh-frame{width:196px;height:196px;border-radius:50%;background-size:170% auto;background-position:center 30%;border:4px solid #fff;box-shadow:0 0 0 3px #e7b04a,0 12px 30px rgba(184,50,90,.25)}
+.bh.bv3 .bh-om{color:#b8325a}
+.bh.bv3 .bh-slk{border-color:#b8325a}.bh.bv3 .bh-slk b{color:#9b2148}
+.bh.bv3 .bh-ess span{background:#fff;border:1px solid #f2b8c6;color:#8f1d44}
 .hmsw{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin:14px 0 4px;font-size:.78rem;color:#8a7350}
 .hmsw .chip{padding:4px 10px;font-size:.8rem}
 </style>
@@ -1285,25 +1304,17 @@ function hsPath(L){var cur=Math.min(S.pos,V.length-1),lo=Math.max(0,cur-3),hi=Ma
   nd+='<button class="pnd '+(big?'pnw':dn?'pdn':'plk')+'" style="left:calc(50% - 60px + '+(x-(big?8:0))+'px);top:'+y+'px"'+(big?' data-act="start"':dn?' data-act="gov" data-v="'+n+'"':'')+'>'+n+(dn?'✓':'')+'</button>';
   if(big)nd+='<button class="ptag" data-act="start" style="left:calc(50% - 60px + '+(x<46?x+86:x-112)+'px);top:'+(y+20)+'px">▶ Today</button>';y+=big?88:66}
  return '<div class="pd"><div class="pdt">Sahasranama Guru</div><button class="chip pslk" data-act="'+(HS==='E'?'ht':'hp')+'" data-v="'+(HS==='E'?'lib':'slokas')+'">🪷 Vishnu Sahasranamam ▾</button><button class="pdp" data-act="vopen">'+L+' / '+TOTAL+' learned · '+(VOPEN?'Hide':'See all ›')+'</button></div>'+(VOPEN?allVersesCard():'')+'<div class="ppath" style="height:'+(y+6)+'px">'+nd+'</div>'}
-function hmSw(){return '<div class="hmsw"><span>Test · Home style</span><button class="chip" data-act="hmn" data-v="0" aria-pressed="'+(S.hmN===0)+'">Classic</button><button class="chip" data-act="hmn" data-v="1" aria-pressed="'+(S.hmN!==0)+'">New</button></div>'}
+function hmV(){return S.hmN===undefined||S.hmN===null?1:S.hmN}
+function hmSw(){var c=hmV();return '<div class="hmsw"><span>Test · Home style</span>'+[[0,'Classic'],[1,'1 Sunrise'],[2,'2 Temple'],[3,'3 Lotus']].map(function(x){return '<button class="chip" data-act="hmn" data-v="'+x[0]+'" aria-pressed="'+(c===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>'}
 function bigHome(P){
- var L=S.learned.length,fin=S.pos>=V.length,done=S.doneDay===tdy(),rvL=mkList().filter(function(x){return x.r}),nwL=mkList().filter(function(x){return !x.r});
- var part=!done&&S.days.indexOf(tdy())>=0&&!fin,sk=streak();
- var top='<div class="bh-top"><b class="bh-pill">🔥 '+sk+(sk===1?' day':' days')+'</b><span class="bh-tr"><button class="bh-ic" data-act="rdopen" aria-label="How to read">📖</button><button class="bh-ic" data-act="ht" data-v="me" aria-label="Settings">⚙️</button></span></div>'
-  +'<div class="bh-brand">🪔 Sloka Guru</div>';
- var mid='<button class="bh-slk" data-act="lpopen" data-v="slk">🪷 Vishnu Sahasranamam <i>▾</i></button>'
-  +'<div class="bh-sk">श्री विष्णु सहस्रनाम</div>'
-  +'<div class="bh-ess">Listen · Repeat · Chant · Understand</div>';
- var act='';
- if(fin)act='<div class="bh-done">🌸 All verses learned</div>';
- else if(done)act='<div class="bh-done">✅ Practice done for today · 🔥 '+sk+'</div>';
- else{
-  var lbl=part?'▶ Continue'+(rvL.length?' · revise verse '+V[rvL[0].i].n:nwL.length?' · verse '+V[nwL[0].i].n:''):'▶ Start today’s practice';
-  var meta=[];if(rvL.length)meta.push('🔁 Revise '+rvL.length);if(nwL.length)meta.push('✨ New: verse '+nwL.map(function(x){return V[x.i].n}).join(', '));meta.push('⏱ 10 min');
-  act=(part?'<div class="bh-part">⏸ Paused midway</div>':'')+'<button class="bh-go" data-act="start">'+lbl+'</button><div class="bh-meta">'+meta.join(' · ')+'</div>';
- }
- var foot='<div class="bh-foot"><button data-act="vopen">'+L+' / '+TOTAL+' learned · '+(VOPEN?'Hide ▴':'See all ›')+'</button><button data-act="popen">📅 '+S.pace+' a day</button><button data-act="herotog">ⓘ About</button></div>';
- var h='<div class="bh" style="--bimg:url(\''+IMG+'\')">'+top+'<div class="bh-sp"></div><div class="bh-low">'+mid+act+foot+'</div></div>';
+ var vr=hmV(),sk=streak(),prog=(P.HERO.match(/<button class="hv-prog"[\s\S]*?<\/button>/)||[''])[0];
+ var top='<div class="bh-top"><b class="bh-pill">🔥 '+sk+(sk===1?' day':' days')+'</b><span class="bh-tr"><button class="bh-ic" data-act="herotog" aria-label="About this app">ⓘ</button><button class="bh-ic" data-act="rdopen" aria-label="How to read">📖</button><button class="bh-ic" data-act="ht" data-v="me" aria-label="Settings">⚙️</button></span></div>';
+ var pic=vr===1?'<div class="bh-sp"></div>':'<div class="bh-frame" role="button" data-act="img" aria-label="View the picture" style="background-image:url(\''+IMG+'\')"></div>';
+ var title='<div class="bh-title"><span class="bh-om">ॐ</span><h1>Sloka Guru</h1><div class="bh-orn"><i></i>🪷<i></i></div></div>'
+  +'<button class="bh-slk" data-act="lpopen" data-v="slk">Learning: <b>Vishnu Sahasranamam</b> <i>▾</i></button>'
+  +'<div class="bh-ess"><span>🎧 Listen</span><span>🗣 Chant</span><span>📖 Know the meaning</span></div>';
+ var h='<div class="bh bv'+vr+'"'+(vr===1?' style="--bimg:url(\''+IMG+'\')"':'')+'>'+top+pic+title+'</div>'
+  +'<div class="bh-panel">'+P.TODAY+prog+'</div>';
  if(VOPEN)h+=allVersesCard();
  return h}
 function hsTabs(){var TB=[['today','<svg class="tbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1.6 2 2.4 3.6 2.4 5a2.4 2.4 0 0 1-4.8 0c0-1.4.8-3 2.4-5z"/><path d="M4 14h16c-.6 3.6-3.8 6-8 6s-7.4-2.4-8-6z"/><path d="M9 14c.5-1.2 1.6-2 3-2s2.5.8 3 2"/></svg>','Today'],['prac','<svg class="tbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.3-4.9"/><path d="M5 3v4h4"/><path d="M4 13a8 8 0 0 0 14.3 4.9"/><path d="M19 21v-4h-4"/></svg>','Revise'],['sat','<svg class="tbi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><path d="M15.5 14.2c2.6-.4 4.9 1.1 5.5 4.3"/></svg>','Satsang'],['lib','<svg class="tbi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6c-2-1.3-4.7-1.8-8-1.5v13c3.3-.3 6 .2 8 1.5 2-1.3 4.7-1.8 8-1.5v-13c-3.3-.3-6 .2-8 1.5z"/><path d="M12 6v13"/></svg>','Learn'],['me','<svg class="tbi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-4 3.5-6 7-6s6.2 2 7 6"/></svg>','You']];return PL.on?'':'<nav class="htabs"><div>'+TB.map(function(t){return '<button data-act="ht" data-v="'+t[0]+'" aria-pressed="'+(HT===t[0])+'"><span>'+t[1]+'</span>'+t[2]+'</button>'}).join('')+'</div></nav>'}
@@ -1315,7 +1326,7 @@ function home(){var P=hsParts();if(!P)return homeOld();var bar=hsBar()+offBar(),
   +'<div class="hh">SATSANG</div>'+sec('sat','👥','Chant together','Monthly parayanam',hsSat())+'<div class="hh">READ &amp; LEARN</div>'+sec('read','📚','Learn','Meanings, stories, chanting help',learnBody())
   +'<div class="hh">SLOKAS</div>'+sec('slk','🪷','Vishnu Sahasranamam','More slokas later',hsSlk())+'<div class="hh">YOURS</div>'+sec('rec','\ud83d\ude42','You','Progress, recordings, settings','<button class="btn" data-act="meopen">Open \u203a</button>')+P.END}
  if(tabs){var b;
-  if(HT==='today'&&HS==='B'&&S.hmN!==0&&!heroFull())b=bigHome(P)+P.NOTE+ban+(S.doneDay===tdy()||POPEN?P.TODAY:'')+hmSw();
+  if(HT==='today'&&HS==='B'&&hmV()!==0&&!heroFull())b=bigHome(P)+P.NOTE+ban+hmSw();
   else if(HT==='today')b=HS==='E'?hsTop(P,1)+hsPath(L)+P.NOTE+ban+P.TODAY+(HS==='B'?hmSw():''):hero.replace(/<button class="hv-set" data-act="gear"[^>]*>[^<]*<\/button>/,'<button class="hv-set" data-act="ht" data-v="me">⚙ Settings</button>')+P.NOTE+ban+P.TODAY;
   else if(HT==='prac')b='<div class="fth"><b>🔁 Revise</b></div>'+revBody(P);
   else if(HT==='sat')b='<div class="fth"><b>👥 Satsang</b></div>'+hsSat();
@@ -1819,7 +1830,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=209,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=210,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -1908,7 +1919,7 @@ app.addEventListener('click',function(e){
  if(AUL[a])audUnlock();
  if(a==='step'){var k=+t.dataset.k,s=S.steps[tdy()]||[0,0,0,0,0];setStep(k,!s[k]);render()}
  else if(a==='vopen'){VOPEN=!VOPEN;render()}
- else if(a==='hmn'){S.hmN=v==='1'?1:0;sv();render(1);scrollTo(0,0)}
+ else if(a==='hmn'){S.hmN=+v;sv();render(1);scrollTo(0,0)}
  else if(a==='popen'){POPEN=!POPEN;render()}
  else if(a==='start'){panel='';if(!mkList().length&&S.doneDay!==tdy()&&S.pos<V.length){S.pos=Math.min(S.pos+S.pace,V.length);S.doneDay=tdy();S.doneAt=Date.now();addDay();sv();render(1);return}if(S.pr===tdy()){beginSession()}else{PR=true;render(1)}}
  else if(a==='pranamx'){PR=false;render(1)}
