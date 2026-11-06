@@ -1465,7 +1465,7 @@ function ownCardOld(){if(!OWN)return '';var m=swMin(tdy()),ok=m>=5,l=S.swl&&LEC.
  +'<button class="ow-row" data-act="ownp" data-v="plan"><span class="ow-ic">🗒</span><span class="ow-tx"><b>My plans</b><small>Future ideas, so nothing is forgotten</small></span><span class="ow-go">›</span></button></div>'}
 var PINMSG='';function pinH(v){var h=5381;for(var i=0;i<v.length;i++)h=((h<<5)+h+v.charCodeAt(i))>>>0;return 'p'+h.toString(36)}
 function pinPage(){var first=!localStorage.getItem('sg_pin');return '<div class="card ow-pinc"><div style="font-size:2rem">🔒</div><h2>'+(first?'Set your passcode':'Sign in')+'</h2><div class="mute">'+(first?'Only you will use this. It opens your private section (Swadhyayam, My slokas, My plans) on this phone.':'Enter your passcode.')+'</div><input id="ow-pin" class="ow-in" type="password" inputmode="numeric" autocomplete="current-password" placeholder="Passcode">'+(first?'<input id="ow-pin2" class="ow-in" type="password" inputmode="numeric" placeholder="Type it again" style="margin-top:8px">':'')+(PINMSG?'<div class="ow-err">'+PINMSG+'</div>':'')+'<button class="btn" data-act="pinok" style="margin-top:12px">'+(first?'Save and sign in':'Sign in')+'</button></div>'
- +'<div class="card ow-pinc"><div style="font-size:1.6rem">📿</div><h2>Guru’s student?</h2><div class="mute">No passcode needed.</div><button class="btn" data-act="ownp" data-v="gate" style="margin-top:12px">Sign in for the classes</button></div>'}
+ +'<div class="card ow-pinc"><div style="font-size:1.6rem">📿</div><h2>Guru’s student, or Pranav?</h2><div class="mute">No passcode needed. Sign in with your Microsoft account.</div><button class="btn" data-act="ownp" data-v="gate" style="margin-top:12px">☁️ Sign in with Microsoft</button></div>'}
 var SWJMSG='';
 function gatePage(){var t=msTok();return '<div class="fth ow-top"><b>📿 Guru’s classes</b><button class="chip" data-act="ownp" data-v="">✕ Close</button></div><div class="card ow-pinc"><div style="font-size:2rem">📿</div><h2>Sign in</h2><div class="mute">Use the Microsoft account made with the email you gave for the classes.</div>'+(STUMSG?'<div class="plain" style="margin-top:10px">'+oEsc(STUMSG)+'</div>':'')+(t&&t.at?'<div class="mute" style="margin-top:10px">Signed in as '+oEsc(t.mail||'')+'</div><button class="chip" data-act="mslogout" style="margin-top:8px">Sign out</button>':'<button class="btn" data-act="mslogin" style="margin-top:12px">Sign in with Microsoft</button>')+'</div>'}
 function ownPage(){if(OWNP==='gate')return gatePage();if(OWNP==='pin')return '<div class="fth ow-top"><b>🔒 Only you</b><button class="chip" data-act="ownp" data-v="">✕ Close</button></div>'+pinPage();if(!OWN&&!(OWNP==='sw'&&S.swinv)){OWNP=null;return home()}var T={sw:'📿 Swadhyayam',my:'🎵 My slokas',plan:'🗒 My plans'}[OWNP],b='';
@@ -1894,7 +1894,13 @@ function stuCheck(){var t=msTok()||{},em=String(t.mail||'').trim().toLowerCase()
  return fetch('content/students.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():{s:[]}}).catch(function(){return {s:[]}}).then(function(L){
   return sha('sg-id|'+em).then(function(h){h=hx(h);var e=(L.s||[]).filter(function(x){return x.h===h})[0];if(!e)return false;if(!e.c)return 'nolink';
    return stuKey(em).then(function(k){return crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(e.iv)},k,unb64(e.c))}).then(function(p){var link=new TextDecoder().decode(p);S.swlink=link;S.swinv=1;MSAUTO=false;sv();return true})})})}
-function stuAfterSignIn(){if(OWN||S.swinv){OWNP='sw';msOpenRoot();return}
+/* owner by Microsoft sign-in (build 237): only the hash of the owner's email is in the code */
+var OWNH='67e1d42c0de2d49af0dcadef5c4daf40bb36b4af538c3eb8d021c699b4b819f9';
+function stuAfterSignIn(){var t=msTok()||{},em=String(t.mail||'').trim().toLowerCase();
+ if(!OWN&&em){sha('sg-own|'+em).then(function(h){if(hx(h)===OWNH){OWN=true;try{localStorage.setItem('sg_owner','1')}catch(e){}ownLoad();HT='me';OWNP='sw';notice='';
+   (S.swlink?Promise.resolve():stuCheck().catch(function(){})).then(function(){OWNP='sw';HT='me';render(1);scrollTo(0,0);msOpenRoot()})}else stuAfter2()}).catch(stuAfter2);return}
+ stuAfter2()}
+function stuAfter2(){if(OWN||S.swinv){OWNP='sw';msOpenRoot();return}
  stuCheck().then(function(ok){var t=msTok()||{};if(ok===true){STUMSG='';OWNP='sw';HT='me';render(1);msOpenRoot();return}
   OWNP='gate';HT='me';STUMSG=ok==='nolink'?'You are on the guru’s student list, but the class folder isn’t set up for you yet. Please tell Pranav.':'Signed in as '+(t.mail||'')+', but this email isn’t on the class list yet. Please check you used the email you gave, or ask Pranav.';render(1);scrollTo(0,0)}).catch(function(e){OWNP='gate';HT='me';STUMSG='Could not check the class list: '+e;render(1)})}
 function msPanel(o){o=o||{};var t=msTok(),h='<div class="ow-fold ms-p">';
@@ -2474,7 +2480,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=236,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=237,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
