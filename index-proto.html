@@ -979,6 +979,7 @@ html[data-ul="hi"] :is(.sa,.te,.enb):has(+.prb)::before,html[data-ul="hi"] .dfir
 .ow-rm{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px;font-weight:700;font-size:.9rem}.ow-rm input{border:1px solid #e2cfa3;border-radius:10px;padding:5px 8px;font:inherit}.ow-rm .chip{text-decoration:none;color:inherit}
 .ow-fold{background:#fff;border:1px solid #ecd9ae;border-radius:14px;padding:10px 12px;margin:0 0 10px;display:flex;flex-direction:column;gap:6px}.ow-fold a.btn{text-decoration:none;text-align:center}
 
+.ms-p b{font-size:.98rem}.ms-who{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.ms-who small{color:#8a7350;flex:1}.ms-crumb{display:flex;align-items:center;gap:4px;flex-wrap:wrap}.ms-crumb .chip{padding:3px 9px;font-size:.8rem}.ms-week{display:flex;flex-direction:column;gap:2px;background:#fff6e5;border:1px solid #f0d49a;border-radius:12px;padding:9px 11px}.ms-week small{font-size:.72rem;font-weight:800;color:#8a5a10;text-transform:uppercase;letter-spacing:.06em}.ms-week span{font-size:.82rem;color:#5a4a30}.ms-week .btn{align-self:flex-start;margin-top:4px}
 .lvlock{background:#fff;border:1px dashed #d8c69c;border-radius:14px;padding:10px 12px;font-size:.88rem;color:#5a4a30}
 .hmc .chip{display:inline-flex;align-items:center;gap:6px}.hmsq{display:inline-block;width:16px;height:16px;border-radius:5px}
 /* one-screen fit: sizes follow the screen height */
@@ -1475,8 +1476,8 @@ function swUI(){if(!SWA)return;var sk=document.getElementById('ow-seek'),tm=docu
 function swStop(keep){clearInterval(SWTK);SWTK=null;if(SWA&&!keep)SWA.pause();sv()}
 function swOpen(id){var l=LEC.filter(function(x){return x.id===id})[0];if(!l)return;var a=swAud();
  if(SWCUR===id&&a.src){swToggle();return}
- a.pause();oGet('lecb',id).then(function(r){if(!r||!r.b){OMSG='This audio is missing. Please add it again.';render();return}
-  try{if(a.src)URL.revokeObjectURL(a.src)}catch(e){}SWCUR=id;S.swl=id;sv();a.src=URL.createObjectURL(r.b);a.playbackRate=S.swsp||1;
+ a.pause();(l.od?msDl(l).then(function(u){return {u:u}}).catch(function(e){OMSG='Could not play from OneDrive: '+e;render();return null}):oGet('lecb',id)).then(function(r){if(!r||!(r.b||r.u)){if(!l.od)OMSG='This audio is missing. Please add it again.';render();return}
+  try{if(a.src)URL.revokeObjectURL(a.src)}catch(e){}SWCUR=id;S.swl=id;sv();a.src=r.u||URL.createObjectURL(r.b);a.playbackRate=S.swsp||1;
   var st=l.done?0:(l.pos||0);var go=function(){try{if(st>2)a.currentTime=Math.max(0,st-3)}catch(e){}a.playbackRate=S.swsp||1};a.addEventListener('loadedmetadata',go,{once:true});
   a.play().catch(function(){});swStart();try{navigator.mediaSession.metadata=new MediaMetadata({title:l.name,artist:'Swadhyayam'})}catch(e){}render()})}
 function swStart(){clearInterval(SWTK);SWTK=setInterval(swTick,1000)}
@@ -1489,6 +1490,7 @@ function swPage(){var m=swMin(tdy()),g=swGoal(),ok=m>=g,l=swL(),pl=SWA&&!SWA.pau
   +'<div class="ow-two" style="justify-content:center"><button class="chip" data-act="swnote">📝 Write a note</button><button class="chip" data-act="swmark">⭐ Mark this moment</button><button class="chip" data-act="swdone">'+(l.done?'↺ Mark not done':'✅ Mark done')+'</button></div>'
   +(SWNOTE?'<div class="ow-nb"><div class="mute">Note at '+oT(SWNOTE.t)+'</div><textarea id="ow-nt" class="ow-in" rows="3" placeholder="Type while it keeps playing. What did the guru say?"></textarea><div class="ow-two"><button class="btn ow-sm" data-act="swnsave">Save note</button><button class="chip" data-act="swncan">Cancel</button></div></div>':'')
   +((l.notes||[]).length?'<div class="ow-notes"><div class="ow-gh" style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">My notes · '+l.notes.length+'<button class="chip" data-act="swshare">📤 Share notes</button></div>'+l.notes.map(function(n,i){return '<div class="ow-n"><button class="ow-nt" data-act="swjump" data-v="'+n.t+'">'+oT(n.t)+'</button><span>'+oEsc(n.x).replace(/\n/g,'<br>')+'</span><button class="ow-x" data-act="swndel" data-v="'+i+'">✕</button></div>'}).join('')+'</div>':'')+'</div>';
+ h+=msPanel();
  h+=(S.swlink?'<div class="ow-fold"><a class="btn ow-sm" href="'+oEsc(S.swlink)+'" target="_blank" rel="noopener">📂 Open guru’s class folder</a><button class="chip" data-act="swlinkclr">Change link</button><div class="mute">Opens OneDrive. Play there, or save the class to Files and add it below so the app tracks it.</div></div>':'<div class="ow-fold"><label class="ow-lab" style="margin-top:0">🔗 Guru’s OneDrive class folder link</label><div class="ow-two" style="margin-top:0"><input id="ow-link" class="ow-in" style="flex:1" placeholder="Paste the shared link"><button class="btn ow-sm" data-act="swlink">Save</button></div><div class="mute">Saved only on this phone, never in the app’s code.</div></div>');
  h+='<details class="ow-gd"><summary>📜 How to do Swadhyayam · daily guide</summary><ol><li>Same time and place every day. Sit calmly, phone on silent.</li><li>Begin with a short prayer to the guru.</li><li>Listen with full attention. New class: normal speed. Revising: faster is fine.</li><li>Tap ⭐ when something touches you; write a 📝 note in a few words.</li><li>After the class, write 3 points to remember and one thing to practise today.</li><li>Busy day? At least 15 minutes. Never break the chain.</li><li>Weekend: read the week’s notes again. Take doubts to the guru.</li><li>End with a prayer of thanks.</li></ol><div class="mute">Draft for the guru’s review.</div></details>'
   +'<div class="ow-rm"><span>⏰ Daily reminder</span><input id="ow-rt" type="time" value="'+(S.swrt||'06:00')+'"><a class="chip" href="#" data-act="swrem">Add to calendar</a></div>';
@@ -1612,6 +1614,62 @@ var OWNA={
 document.addEventListener('change',function(e){var t=e.target;if(!t||!t.dataset)return;if(t.dataset.own==='lecfile'&&t.files&&t.files.length){addLecFiles(t.files);t.value=''}else if(t.dataset.own==='slkfile'&&t.files&&t.files[0]){myKeep();myNew(t.files[0]);t.value=''}},true);
 document.addEventListener('input',function(e){var t=e.target;if(t&&t.id==='ow-seek'&&SWA){SWA.currentTime=+t.value;swUI()}},true);
 if(OWN)setTimeout(function(){ownLoad().then(function(){if(view==='home')render()})},800);
+
+/* ===== Microsoft sign-in (PKCE, no library) + guru's OneDrive folder (build 219) ===== */
+var MSC='88ed2d53-3411-4ba1-ac6c-e29302a61c93',MSAUTH='https://login.microsoftonline.com/common/oauth2/v2.0/',MSSC='openid profile offline_access User.Read Files.Read.All';
+var MSRED=location.origin+location.pathname,MSF={path:[],items:null,err:'',busy:false};
+function msTok(){try{return JSON.parse(localStorage.getItem('sg_ms')||'null')}catch(e){return null}}
+function msSave(t){try{localStorage.setItem('sg_ms',JSON.stringify(t))}catch(e){}}
+function b64u(buf){var s='',b=new Uint8Array(buf);for(var i=0;i<b.length;i++)s+=String.fromCharCode(b[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function msRand(){var a=new Uint8Array(32);crypto.getRandomValues(a);return b64u(a)}
+function msLogin(){var v=msRand(),st=msRand();try{sessionStorage.setItem('sg_pkce',v);sessionStorage.setItem('sg_st',st);localStorage.setItem('sg_pkce',v);localStorage.setItem('sg_st',st)}catch(e){}
+ crypto.subtle.digest('SHA-256',new TextEncoder().encode(v)).then(function(h){location.href=MSAUTH+'authorize?client_id='+MSC+'&response_type=code&redirect_uri='+encodeURIComponent(MSRED)+'&response_mode=query&scope='+encodeURIComponent(MSSC)+'&state='+st+'&code_challenge='+b64u(h)+'&code_challenge_method=S256&prompt=select_account'})}
+function msTokenReq(body){return fetch(MSAUTH+'token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body}).then(function(r){return r.json()}).then(function(j){if(!j.access_token)throw (j.error_description||j.error||'Sign-in failed');var t=msTok()||{};t.at=j.access_token;t.exp=Date.now()+(j.expires_in-120)*1000;if(j.refresh_token)t.rt=j.refresh_token;msSave(t);return t})}
+function msRedirect(){var q=new URLSearchParams(location.search),c=q.get('code'),st=q.get('state'),er=q.get('error_description')||q.get('error');if(!c&&!er)return;
+ history.replaceState(null,'',location.pathname);if(er){MSF.err='Microsoft sign-in: '+er;OWNP='sw';return}
+ var v=null,s0=null;try{v=sessionStorage.getItem('sg_pkce')||localStorage.getItem('sg_pkce');s0=sessionStorage.getItem('sg_st')||localStorage.getItem('sg_st')}catch(e){}
+ if(!v||st!==s0){MSF.err='Sign-in could not be checked. Please try again.';OWNP='sw';return}
+ OWNP='sw';MSF.busy=true;msTokenReq('client_id='+MSC+'&grant_type=authorization_code&code='+encodeURIComponent(c)+'&redirect_uri='+encodeURIComponent(MSRED)+'&code_verifier='+v+'&scope='+encodeURIComponent(MSSC))
+  .then(function(){return msGet('https://graph.microsoft.com/v1.0/me')}).then(function(me){var t=msTok();t.name=me.displayName||'';t.mail=me.userPrincipalName||me.mail||'';msSave(t);MSF.busy=false;msOpenRoot()})
+  .catch(function(e){MSF.busy=false;MSF.err=String(e);render()})}
+function msAT(){var t=msTok();if(!t||!t.at)return Promise.reject('Not signed in');if(Date.now()<t.exp)return Promise.resolve(t.at);if(!t.rt)return Promise.reject('Please sign in again');
+ return msTokenReq('client_id='+MSC+'&grant_type=refresh_token&refresh_token='+encodeURIComponent(t.rt)+'&scope='+encodeURIComponent(MSSC)).then(function(t2){return t2.at})}
+function msGet(u,pf){return msAT().then(function(at){var h={Authorization:'Bearer '+at};if(pf)h.Prefer='redeemSharingLink';return fetch(u,{headers:h})}).then(function(r){return r.json().then(function(j){if(!r.ok)throw ((j.error&&j.error.message)||('Error '+r.status));return j})})}
+function msShareId(url){return 'u!'+btoa(unescape(encodeURIComponent(url))).replace(/=+$/,'').replace(/\//g,'_').replace(/\+/g,'-')}
+function msIsAud(n){return /\.(m4a|mp3|aac|wav|ogg|opus|mp4|m4v|mov|webm|amr|3gp)$/i.test(n||'')}
+function msOpenRoot(){if(!S.swlink){MSF.err='Paste the guru’s OneDrive folder link first.';render();return}MSF.busy=true;MSF.err='';render();
+ msGet('https://graph.microsoft.com/v1.0/shares/'+msShareId(S.swlink)+'/driveItem',1).then(function(it){MSF.path=[{d:it.parentReference&&it.parentReference.driveId,i:it.id,n:it.name}];return msList()}).catch(function(e){MSF.busy=false;MSF.err='Could not open the folder: '+e;render()})}
+function msList(){var p=MSF.path[MSF.path.length-1];MSF.busy=true;render();
+ return msGet('https://graph.microsoft.com/v1.0/drives/'+p.d+'/items/'+p.i+'/children?$top=200&$select=id,name,folder,file,size,lastModifiedDateTime,createdDateTime,parentReference,video,audio').then(function(j){
+  MSF.items=(j.value||[]).filter(function(x){return x.folder||msIsAud(x.name)}).sort(function(a,b){return (b.createdDateTime||'').localeCompare(a.createdDateTime||'')});MSF.busy=false;render()}).catch(function(e){MSF.busy=false;MSF.err=String(e);render()})}
+function msDl(l){return msGet('https://graph.microsoft.com/v1.0/drives/'+l.od.d+'/items/'+l.od.i+'?$select=id,@microsoft.graph.downloadUrl').then(function(j){var u=j['@microsoft.graph.downloadUrl'];if(!u)throw 'No download link';return u})}
+function msPlay(id){var x=(MSF.items||[]).filter(function(y){return y.id===id})[0];if(!x)return;var lid='od_'+x.id,l=LEC.filter(function(y){return y.id===lid})[0];
+ if(!l){l={id:lid,name:x.name.replace(/\.[^.]+$/,''),added:Date.parse(x.createdDateTime)||Date.now(),size:x.size,pos:0,dur:0,od:{d:x.parentReference.driveId,i:x.id}};LEC.unshift(l);LEC.sort(function(a,b){return b.added-a.added});oPut('lec',l)}
+ swOpen(lid)}
+function msPanel(){var t=msTok(),h='<div class="ow-fold ms-p">';
+ if(!t||!t.at){h+='<b>☁️ Guru’s classes from OneDrive</b><div class="mute">Sign in once with a Microsoft account (Outlook, Hotmail, or one made with Gmail). The classes then show here with your progress, and play straight from OneDrive.</div><button class="btn ow-sm" data-act="mslogin">Sign in with Microsoft</button>';
+  if(MSF.err)h+='<div class="ow-err">'+oEsc(MSF.err)+'</div>';return h+'</div>'}
+ h+='<div class="ms-who">☁️ <b>'+oEsc(t.name||'Signed in')+'</b> <small>'+oEsc(t.mail||'')+'</small><button class="chip" data-act="mslogout">Sign out</button></div>';
+ if(MSF.err)h+='<div class="ow-err">'+oEsc(MSF.err)+'</div>';
+ if(!MSF.items){h+=MSF.busy?'<div class="mute">Opening the folder…</div>':'<button class="btn ow-sm" data-act="msroot">📂 Show the guru’s classes</button>';return h+'</div>'}
+ h+='<div class="ms-crumb">'+MSF.path.map(function(p,i){return '<button class="chip" data-act="msup" data-v="'+i+'">'+(i?oEsc(p.n):'🏠 Classes')+'</button>'}).join('<span>›</span>')+(MSF.busy?' <small>loading…</small>':'')+'</div>';
+ var files=MSF.items.filter(function(x){return !x.folder});
+ if(files.length&&MSF.path.length){var nw=files[0],nl=LEC.filter(function(y){return y.id==='od_'+nw.id})[0];
+  h+='<div class="ms-week"><small>Newest class</small><b>'+oEsc(nw.name.replace(/\.[^.]+$/,''))+'</b><span>'+(nl&&nl.done?'✅ Done':nl&&nl.pos?'⏳ In progress':'🆕 Not started')+' · listen before next Sunday</span><button class="btn ow-sm" data-act="msplay" data-v="'+nw.id+'">▶ Play</button></div>'}
+ h+=MSF.items.map(function(x){if(x.folder)return '<button class="ow-lb" data-act="msdir" data-v="'+x.id+'"><span class="ow-lp" style="background:#d9a034">📁</span><span class="ow-tx"><b>'+oEsc(x.name)+'</b><small>'+(x.folder.childCount||0)+' items</small></span><span class="ow-go">›</span></button>';
+  var l=LEC.filter(function(y){return y.id==='od_'+x.id})[0],p=l&&l.dur?Math.min(100,Math.round((l.done?l.dur:l.pos||0)/l.dur*100)):0,cur=SWCUR==='od_'+x.id,pl=cur&&SWA&&!SWA.paused;
+  return '<button class="ow-lb'+(cur?' cur':'')+'" data-act="msplay" data-v="'+x.id+'"><span class="ow-lp">'+(pl?'⏸':'▶')+'</span><span class="ow-tx"><b>'+oEsc(x.name.replace(/\.[^.]+$/,''))+'</b><small>'+oDay(Date.parse(x.createdDateTime))+' · '+(x.size?Math.round(x.size/1048576)+' MB':'')+(l&&l.done?' · ✅ done':p?' · '+p+'% heard':' · not started')+((l&&l.notes||[]).length?' · 📝 '+l.notes.length:'')+'</small><i class="ow-bar"><u style="width:'+(l&&l.done?100:p)+'%"></u></i></span></button>'}).join('');
+ if(!MSF.items.length)h+='<div class="mute">No audio or video here.</div>';
+ return h+'</div>'}
+Object.assign(OWNA,{
+ mslogin:function(){if(!S.swlink){MSF.err='Paste the guru’s OneDrive folder link first (below).';render();return}msLogin()},
+ mslogout:function(){try{localStorage.removeItem('sg_ms')}catch(e){}MSF={path:[],items:null,err:'',busy:false};render()},
+ msroot:function(){msOpenRoot()},
+ msdir:function(t,v){var x=(MSF.items||[]).filter(function(y){return y.id===v})[0];if(!x)return;MSF.path.push({d:x.parentReference.driveId,i:x.id,n:x.name});msList()},
+ msup:function(t,v){MSF.path=MSF.path.slice(0,+v+1);msList()},
+ msplay:function(t,v){msPlay(v)}
+});
+try{msRedirect()}catch(e){}
 
 function bhSheet(act,t,body){return '<div class="bhs-bg" data-act="'+act+'"></div><div class="bhs" role="dialog" aria-label="'+t+'"><div class="bhs-h"><b>'+t+'</b><button class="chip" data-act="'+act+'">\u2715 Close</button></div><div class="bhs-b">'+body+'</div></div>'}
 function allGrid(){var nw={};mkList().forEach(function(x){if(!x.r)nw[V[x.i].n]=1});var L=S.learned.length,c='';
@@ -2157,7 +2215,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=218,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=219,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
