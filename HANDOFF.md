@@ -2,7 +2,7 @@
 
 Owner: Pranav. Repo: https://github.com/pranavbpk/vishnu-sahasranam-
 Live site (GitHub Pages): https://pranavbpk.github.io/vishnu-sahasranam-/
-Updated: 7 Nov 2026 (live = Version 106, Guru Test = build 262).
+Updated: 8 Nov 2026 (live = Version 106, Guru Test = build 277).
 
 ## What the app is
 A free web app (PWA) for learning Vishnu Sahasranamam the guru-shishya way:
@@ -60,9 +60,24 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 6. Meanings, Telugu/Hindi wording and pronunciation are drafts for the guru's review.
 7. Plain, simple wording in the app and in replies to the owner.
 
-## Status and next ideas
-- Testing now in Guru Test: Today layouts A/B/C (test switch), Swadhyayam time and progress in You,
-  Vishnu picture behind verses (Soft/Clear/Off), My slokas piece-by-piece + word highlight.
-- Planned: Azure hosting (Static Web Apps + Functions + Cosmos DB free tier) for real satsang booking,
-  messages and sign-in; full chant parts (opening prayers, Dhyanam, 108, Phala-shruti, Lakshmi Ashtottaram)
-  each with its own progress; class satsang with pranayama for the guru's students.
+## Status and next ideas (8 Nov 2026)
+- Live (index.html) = Version 106. Everything newer is only in Guru Test (index-proto.html), waiting for the owner's iPhone test and "go live".
+- Being tested in Guru Test, owner still choosing:
+  - Today layouts A/B/C (S.tdl), switch under the Today card.
+  - Repeat after me screen: old (rpSheet) or new (rpSheet2), S.gsty, "Old screen" button.
+  - My slokas player views (S.mpv): focus / karaoke / mini / full.
+  - Vishnu picture behind verses (S.vbg: Soft / Clear / Off).
+- Sound fix in build 274 (guided practice re-seeks until the part really plays from its start, because iPhone sometimes ignores a jump back). Must be tested on the owner's iPhone before going live.
+- Build 276: verse + read-aloud lines shrink to fit the screen (vFit, never below 62%).
+- Build 277: draggable progress bars ([data-seek]) in My slokas player and the PL players.
+- Clickable previews (not part of the app): preview-future.html, preview-mysloka.html, preview-108.html.
+- Planned: Azure hosting (Static Web Apps + Functions + Cosmos DB free tier) for real satsang booking, messages and sign-in; full chant parts (opening prayers, Dhyanam, 108, Phala-shruti, Lakshmi Ashtottaram) each with its own progress; class satsang with pranayama for the guru's students.
+
+## Rules for any other AI helping (Gemini, Copilot, ChatGPT)
+- Work only on index-proto.html (Guru Test). Never edit index.html, sw-proto.js caches, content/students.json or the owner-only areas (Swadhyayam, My plans, OWN/OWNH checks) unless the owner asks in plain words.
+- Do not add any analytics, tracking, ads, third-party scripts, fonts or CDNs, cookies, or calls to any server or API that are not already in the file. No new fetch() to outside addresses. Say so clearly if a feature would need one.
+- Do not ask for, store or print passwords, tokens, keys, email addresses, the guru's OneDrive link, or the owner's progress file.
+- Keep: one file, vanilla JS/CSS, no build step, no framework. Keep the iPhone audio rules above.
+- Never name books, institutes or commercial recordings inside the app.
+- Bump APPV by 1 for every change. Test at 393x852. Check the script with node --check.
+- Give the owner a short list of what changed and how to test it.
