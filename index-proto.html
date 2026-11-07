@@ -1153,13 +1153,14 @@ a.btn.lnk{display:flex!important;align-items:center!important;justify-content:ce
 /* b258-260: Vishnu picture behind verse screens. 1 = soft (default), 2 = clear */
 html[data-vbg]:not([data-vbg=""]){background:#faf5ea}
 html[data-vbg="1"] body,html[data-vbg="2"] body{background:transparent!important}
-html[data-vbg="1"] body::before,html[data-vbg="2"] body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(var(--vtint),var(--vtint)),var(--vimg) center top/auto 135% no-repeat}
+html[data-vbg="1"] body::before,html[data-vbg="2"] body::before{content:'';position:fixed;left:0;right:0;top:0;height:100vh;height:100lvh;z-index:-1;pointer-events:none;background:linear-gradient(var(--vtint),var(--vtint)),var(--vimg) center top/auto 135% no-repeat}
 html[data-vbg="1"]{--vtint:rgba(250,245,234,.62);--vcard:rgba(255,253,247,.72)}
 html[data-vbg="2"]{--vtint:rgba(250,245,234,.22);--vcard:rgba(255,253,247,.5)}
 html[data-vbg="1"] #app .card,html[data-vbg="2"] #app .card{background:var(--vcard)}
 html[data-vbg="1"] #app .card .chip:not([aria-pressed="true"]):not(.on),html[data-vbg="2"] #app .card .chip:not([aria-pressed="true"]):not(.on){background:rgba(255,255,255,.7)}
 html[data-vbg="1"] #app .vtop,html[data-vbg="2"] #app .vtop{background:rgba(255,253,247,.8)}
-html[data-vbg="1"] .rpsheet,html[data-vbg="2"] .rpsheet{background:linear-gradient(var(--vtint),var(--vtint)),var(--vimg) center top/auto 135% no-repeat fixed,#faf5ea}
+html[data-vbg="1"] .rpsheet,html[data-vbg="2"] .rpsheet{background:transparent}
+html[data-vbg="1"]:has(.rpsheet) body::after,html[data-vbg="2"]:has(.rpsheet) body::after{content:'';position:fixed;left:0;right:0;top:0;height:100vh;height:100lvh;z-index:44;pointer-events:none;background:linear-gradient(var(--vtint),var(--vtint)),var(--vimg) center top/auto 135% no-repeat,#faf5ea}
 html[data-vbg="1"] .rpsheet .rpverse,html[data-vbg="2"] .rpsheet .rpverse{background:var(--vcard)}
 html[data-vbg="2"] #app .card .sa,html[data-vbg="2"] #app .card .te,html[data-vbg="2"] #app .card .enb,html[data-vbg="2"] #app .card a,html[data-vbg="2"] #app .card span,html[data-vbg="2"] .rpverse,html[data-vbg="2"] .rpverse *{text-shadow:0 0 3px #fffdf7,0 0 6px #fffdf7,0 0 10px #fffdf7}
 html[data-vbg="1"] #app .card .sa,html[data-vbg="1"] #app .card .te,html[data-vbg="1"] #app .card .enb,html[data-vbg="1"] #app .card a,html[data-vbg="1"] .rpverse,html[data-vbg="1"] .rpverse *{text-shadow:0 0 4px #fffdf7}
@@ -2924,7 +2925,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=260,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=261,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
