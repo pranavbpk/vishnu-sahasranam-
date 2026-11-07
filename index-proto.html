@@ -1150,12 +1150,17 @@ html[data-tdl="B"] .bh.bv1 .bh-frame{border:3px solid #f2c14e;box-shadow:0 0 0 4
 html[data-ht="me"] .pnl>.card{border:1.5px solid #e3c98c;border-radius:16px;margin:0 0 12px;background:#fffdf7}
 html[data-ht="me"] .pnl-rem>.card>h2:first-child{display:block}
 a.btn.lnk{display:flex!important;align-items:center!important;justify-content:center;min-height:52px;padding-top:0;padding-bottom:0}
-/* b258: soft Vishnu picture behind verse screens */
+/* b258: soft Vishnu picture behind verse screens (b259: guided too, face clearer) */
 html[data-vbg="1"]{background:#faf5ea}
 html[data-vbg="1"] body{background:transparent!important}
-html[data-vbg="1"] body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(rgba(250,245,234,.42),rgba(250,245,234,.42)),var(--vimg) center 30%/cover no-repeat}
-html[data-vbg="1"] #app .card{background:rgba(255,253,247,.68)}
-html[data-vbg="1"] #app .vtop{background:rgba(255,253,247,.8)}
+html[data-vbg="1"] body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(rgba(250,245,234,.22),rgba(250,245,234,.22)),var(--vimg) center top/auto 135% no-repeat}
+html[data-vbg="1"] #app .card{background:rgba(255,253,247,.5)}
+html[data-vbg="1"] #app .card .chip:not([aria-pressed="true"]):not(.on){background:rgba(255,255,255,.6)}
+html[data-vbg="1"] #app .vtop{background:rgba(255,253,247,.75)}
+html[data-vbg="1"] .rpsheet{background:linear-gradient(rgba(250,245,234,.22),rgba(250,245,234,.22)),var(--vimg) center top/auto 135% no-repeat fixed,#faf5ea}
+html[data-vbg="1"] .rpsheet .rpverse{background:rgba(255,253,247,.5)}
+html[data-vbg="1"] #app .card .sa,html[data-vbg="1"] #app .card .te,html[data-vbg="1"] #app .card .enb,html[data-vbg="1"] #app .card a,html[data-vbg="1"] #app .card span,html[data-vbg="1"] .rpverse,html[data-vbg="1"] .rpverse *{text-shadow:0 0 3px #fffdf7,0 0 6px #fffdf7,0 0 10px #fffdf7}
+html[data-vbg="1"] .gcsheet,html[data-vbg="1"] .gcs{background:transparent}
 </style>
 </head>
 <body>
@@ -2917,7 +2922,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=258,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=259,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
