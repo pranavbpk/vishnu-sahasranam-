@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sahasranama Guru · Future preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}html,body{margin:0}
+body{background:#faf5ea;font-family:Inter,system-ui,-apple-system,sans-serif;color:#2b2015;padding-bottom:96px;-webkit-tap-highlight-color:transparent}
+:root{--acc:#11696a;--gold:#e0a526;--sage:#3f8f5a;--mar:#8a2a3a}
+.pv{background:#2a1f10;color:#ffe9b0;font-size:.8rem;text-align:center;padding:7px 10px}
+.wrap{max-width:460px;margin:0 auto}
+.scr{display:none}.scr.on{display:block}
+button{font:inherit;color:inherit;cursor:pointer}
+.hero{background:linear-gradient(180deg,#fde3e6,#fdf0e2);padding:14px 16px 26px;border-radius:0 0 28px 28px;display:grid;grid-template-columns:76px 1fr;gap:4px 12px;align-items:center}
+.hero .top{grid-column:1/-1;display:flex;justify-content:space-between;margin-bottom:6px}
+.pill{background:#fff;border:1px solid #f0d9c0;border-radius:20px;padding:5px 12px;font-weight:700;font-size:.92rem}
+.pic{grid-row:2/span 2;width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#fff6d8,#f2c14e 70%,#c98a1e);border:3px solid #f2c14e;display:flex;align-items:center;justify-content:center;font-size:2.2rem}
+.hero h1{margin:0;font-family:'Tiro Devanagari Sanskrit',serif;font-size:2rem;color:#a3243f;line-height:1}
+.slk{justify-self:start;border:2px solid #a3243f;color:#a3243f;background:#fff;border-radius:20px;padding:4px 12px;font-weight:700;font-size:.9rem}
+.card{background:#fff;border:1.5px solid #ecdcb6;border-radius:20px;margin:12px 12px 0;padding:14px 16px}
+.lift{margin-top:-16px;box-shadow:0 6px 18px rgba(120,80,20,.08)}
+h2{margin:0;font-size:1.3rem}
+.row{display:flex;align-items:center;gap:10px}
+.sp{flex:1;min-width:0}
+.mute{color:#6b5a3e;font-size:.92rem}
+.tag{display:inline-block;border-radius:10px;padding:2px 10px;font-weight:700;font-size:.9rem}
+.t-rev{border:2px solid var(--acc);color:var(--acc)}.t-new{background:#f6c445}
+.ok{color:#2f6b3a;background:#e2f1df}.soon{background:#eee;color:#7a6440}.lv{background:#d9363e;color:#fff}
+.btn{display:block;width:100%;border:0;border-radius:16px;background:var(--acc);color:#fff;font-weight:700;font-size:1.15rem;padding:15px;margin-top:12px}
+.btn.ghost{background:#fff;color:var(--acc);border:2px solid var(--acc)}
+.btn.gold{background:#f2c14e;color:#3b2a14}
+.status{margin-top:8px;font-size:.95rem;color:#2f6b3a;font-weight:600}
+.vl{font-family:'Tiro Devanagari Sanskrit',serif;color:var(--mar);font-size:1.3rem;margin-top:8px}
+.strip{display:flex;gap:10px;overflow-x:auto;margin:12px 12px 0;padding-bottom:2px}
+.up{flex:0 0 78%;background:#fff;border:1.5px solid #ecdcb6;border-radius:18px;padding:11px 13px;text-align:left}
+.up b{display:block;font-size:1rem}.up small{display:block;color:#6b5a3e;font-size:.86rem;margin-top:2px}
+.lab{font-size:.78rem;font-weight:800;letter-spacing:.07em;color:#9a7f52;margin:18px 18px 4px}
+.part{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #f3e7cb;width:100%;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left}
+.part:first-child{border-top:0}
+.pn{flex:0 0 38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800}
+.bar{height:7px;border-radius:4px;background:#f1e4c6;margin-top:5px;overflow:hidden}.bar u{display:block;height:100%;border-radius:4px;background:var(--gold)}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:#fffdf7;border-top:1px solid #ecdcb6;display:flex;justify-content:space-around;padding:8px 4px calc(10px + env(safe-area-inset-bottom))}
+.tabs button{border:0;background:none;display:flex;flex-direction:column;align-items:center;font-size:.8rem;font-weight:700;color:#7a6440;padding:4px 10px;border-radius:14px}
+.tabs button i{font-style:normal;font-size:1.35rem}
+.tabs button.on{color:var(--acc);background:#e3f0ef}
+.seg{display:flex;background:#fff;border:1.5px solid #ecdcb6;border-radius:24px;margin:12px;padding:4px}
+.seg button{flex:1;border:0;background:none;border-radius:20px;padding:9px;font-weight:700;color:#6b5a3e}
+.seg button.on{background:var(--acc);color:#fff}
+.hd{display:flex;align-items:center;justify-content:space-between;padding:18px 16px 4px}.hd h1{margin:0;font-size:1.5rem;color:var(--acc)}
+.x{border:1.5px solid #ecdcb6;background:#fff;border-radius:14px;padding:6px 12px}
+.ev{width:100%;text-align:left;background:#fff;border:1.5px solid #ecdcb6;border-radius:18px;padding:12px 14px;margin-top:10px;display:flex;gap:12px;align-items:center}
+.dt{flex:0 0 54px;text-align:center;border-radius:12px;background:#fff3dc;padding:6px 0;line-height:1.1}.dt b{display:block;font-size:1.3rem}.dt small{font-size:.75rem;font-weight:700;color:#9a5b10}
+.msg{background:#fffaf0;border:1px solid #f0e2c0;border-radius:14px;padding:10px 12px;margin-top:8px}.msg b{font-size:.9rem}.msg p{margin:3px 0 0;font-size:.95rem}
+.prog{counter-reset:p}.st{display:flex;gap:12px;padding:9px 0;border-top:1px dashed #ecdcb6}.st:first-child{border-top:0}
+.st .n{flex:0 0 30px;height:30px;border-radius:50%;background:#fde7c8;color:#9a5b10;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.st b{display:block}.st small{color:#6b5a3e}
+.inp{width:100%;font:inherit;font-size:1rem;border:1.5px solid #e3cf9f;border-radius:12px;padding:10px;margin-top:6px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.chip{border:1.5px solid #e3cf9f;background:#fff;border-radius:18px;padding:7px 14px;font-weight:600}.chip.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.ring{width:150px;height:150px;border-radius:50%;margin:16px auto;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#e6f2f1 55%,#cfe7e4 56%);font-size:1.4rem;font-weight:800;color:var(--acc);text-align:center}
+.note{font-size:.82rem;color:#9a7f52;text-align:center;margin:14px 20px}
+</style></head><body>
+<div class="pv">🧪 Preview only · not the real app · nothing here is saved or sent</div>
+<div class="wrap">
+
+<!-- TODAY -->
+<section class="scr on" id="s-today">
+ <div class="hero"><div class="top"><span class="pill">🔥 9 days</span><span class="pill">⚙️</span></div>
+  <div class="pic">🪷</div><h1>Sloka Guru</h1><button class="slk" onclick="go('path')">Learning: 1,000 names ▾</button></div>
+ <div class="card lift">
+  <div class="row"><h2 class="sp">Today's practice</h2><span class="tag" style="background:#e3f0ef;color:var(--acc)">⏱ 10 min</span></div>
+  <div class="status">✅ Revision done · now the new verse</div>
+  <div class="row" style="margin-top:8px"><span class="tag t-new">New</span><b style="font-size:1.2rem">Verse 72</b></div>
+  <div class="vl">महाक्रमो महाकर्मा महातेजा महोरगः ।</div>
+  <button class="btn">▶ Continue · verse 72</button>
+ </div>
+ <div class="lab">COMING UP</div>
+ <div class="strip">
+  <button class="up" onclick="go('event')"><b>🪔 Monthly parayanam</b><small>Sun 15 Nov · 6:30 pm · <span class="tag ok">✓ booked</span></small><small>Programme: 7 parts · 75 min</small></button>
+  <button class="up" onclick="go('class')"><b>🌬 Class satsang</b><small>Tue 10 Nov · 7:00 pm</small><small>Pranayama done today ✓</small></button>
+ </div>
+ <div class="card"><button class="part" onclick="go('path')" style="padding:0">
+  <span class="pn" style="background:#fff3dc">🪷</span><span class="sp"><b>My full chant path</b><br><span class="mute">1 of 6 parts underway · 12 of 108 verses</span><div class="bar"><u style="width:9%"></u></div></span><b style="color:var(--acc)">›</b></button></div>
+ <div class="card"><div class="row"><span style="font-size:1.6rem">📿</span><span class="sp"><b>Swadhyayam</b> <span class="tag ok" style="font-size:.78rem">1 of 3 heard</span><br><span class="mute">34/60 min · your time 6:00 am</span></span><button class="btn" style="width:52px;height:52px;border-radius:50%;margin:0;padding:0">▶</button></div></div>
+ <div class="note">Today = one big Start button. Everything else is a small line or card.</div>
+</section>
+
+<!-- PATH -->
+<section class="scr" id="s-path">
+ <div class="hd"><h1>🪷 My full chant path</h1><button class="x" onclick="go('today')">✕</button></div>
+ <div class="mute" style="padding:0 16px">The full chant is learned in parts, in the order it is chanted. Each part has its own progress, like the 108 verses.</div>
+ <div class="card">
+  <button class="part"><span class="pn" style="background:#fde7c8;color:#9a5b10">1</span><span class="sp"><b>Guru vandanam</b><br><span class="mute">Śrīśaileśa dayāpātram · 1 verse</span><div class="bar"><u style="width:0"></u></div></span><span class="tag soon">soon</span></button>
+  <button class="part"><span class="pn" style="background:#fbe3e8;color:#8a2a3a">2</span><span class="sp"><b>Lakshmi Ashtottaram</b><br><span class="mute">108 names of Lakshmi</span><div class="bar"><u style="width:0"></u></div></span><span class="tag soon">soon</span></button>
+  <button class="part"><span class="pn" style="background:#fde7c8;color:#9a5b10">3</span><span class="sp"><b>Opening prayers</b><br><span class="mute">Pūrva bhāga · 22 verses + nyāsa</span><div class="bar"><u style="width:0"></u></div></span><span class="tag soon">soon</span></button>
+  <button class="part"><span class="pn" style="background:#e6eefb;color:#23356b">4</span><span class="sp"><b>Dhyānam</b><br><span class="mute">8 verses · text ready</span><div class="bar"><u style="width:0"></u></div></span><span class="tag soon">audio soon</span></button>
+  <button class="part"><span class="pn" style="background:#e6f2f1;color:var(--acc)">5</span><span class="sp"><b>The 1,000 names</b><br><span class="mute">12 of 108 verses · learning now</span><div class="bar"><u style="width:11%"></u></div></span><span class="tag ok">now</span></button>
+  <button class="part"><span class="pn" style="background:#fbe3e8;color:#8a2a3a">6</span><span class="sp"><b>Blessings</b><br><span class="mute">Phala-shruti · 33 verses</span><div class="bar"><u style="width:0"></u></div></span><span class="tag soon">soon</span></button>
+ </div>
+ <div class="card"><b>How progress works</b><div class="mute" style="margin-top:4px">• Today's practice teaches one part at a time (now: the 1,000 names).<br>• When a part is done, the next one starts.<br>• Already know a part? Tap it and mark it known.<br>• "Chant all, start to end" plays every part in this order.</div>
+ <button class="btn ghost">▶ Chant all, start to end</button></div>
+</section>
+
+<!-- SATSANG -->
+<section class="scr" id="s-sat">
+ <div class="hd"><h1>🙏 Satsang</h1></div>
+ <div class="seg"><button class="on" onclick="seg(0)">Everyone</button><button onclick="seg(1)">My class 🔒</button></div>
+ <div id="seg0" style="padding:0 12px">
+  <div class="lab" style="margin-left:6px">UPCOMING</div>
+  <button class="ev" onclick="go('event')"><span class="dt"><small>NOV</small><b>15</b><small>SUN</small></span><span class="sp"><b>Monthly Sahasranama parayanam</b><br><span class="mute">6:30 pm · online · 24 of 40 places</span><br><span class="tag ok" style="font-size:.8rem">✓ You're booked</span></span>›</button>
+  <button class="ev"><span class="dt"><small>DEC</small><b>?</b><small>TBC</small></span><span class="sp"><b>Vaikuntha Ekadashi special</b><br><span class="mute">Date set by guru · booking opens soon</span><br><span class="tag" style="background:#fff3dc;color:#9a5b10;font-size:.8rem">Special occasion</span></span>›</button>
+  <button class="ev"><span class="dt"><small>DEC</small><b>13</b><small>SUN</small></span><span class="sp"><b>Monthly Sahasranama parayanam</b><br><span class="mute">6:30 pm · online · 9 of 40 places</span><br><span class="tag" style="border:1.5px solid var(--acc);color:var(--acc);font-size:.8rem">Book my place</span></span>›</button>
+  <div class="lab" style="margin-left:6px">MESSAGES</div>
+  <div class="msg"><b>📣 Pranav · 2 days ago</b><p>Please join 10 minutes early. Keep your mic muted and chant along softly.</p></div>
+  <div class="msg"><b>📣 Pranav · last week</b><p>Next month we add Lakshmi Ashtottaram before the Sahasranamam.</p></div>
+  <div class="lab" style="margin-left:6px">PAST</div>
+  <div class="mute" style="margin:6px">1 Nov · 18 joined · you chanted ✓</div>
+ </div>
+ <div id="seg1" style="padding:0 12px;display:none">
+  <div class="mute" style="margin:4px 6px">Only for the guru's students (signed in).</div>
+  <button class="ev" onclick="go('class')"><span class="dt" style="background:#e2f1df"><small style="color:#2f6b3a">NOV</small><b>10</b><small style="color:#2f6b3a">TUE</small></span><span class="sp"><b>Class satsang · weekly</b><br><span class="mute">7:00 pm · pranayama + this week's class</span><br><span class="tag ok" style="font-size:.8rem">🌬 Pranayama 5 days in a row</span></span>›</button>
+  <div class="msg"><b>📣 Class · today</b><p>Doubts for Tuesday: add them in Swadhyayam ❓ before Monday night.</p></div>
+ </div>
+</section>
+
+<!-- EVENT -->
+<section class="scr" id="s-event">
+ <div class="hd"><h1>🪔 Parayanam</h1><button class="x" onclick="go('sat')">✕</button></div>
+ <div class="card"><b style="font-size:1.15rem">Monthly Sahasranama parayanam</b><div class="mute" style="margin-top:4px">Sun 15 Nov 2026 · 6:30–7:45 pm (Melbourne) · online video call</div>
+  <div class="chips"><span class="tag ok">✓ Booked · 2 people</span><span class="tag" style="background:#fff3dc;color:#9a5b10">24 of 40 places</span></div>
+  <button class="btn">📹 Join · opens 15 min before</button>
+  <div class="chips"><button class="chip">📅 Add to calendar</button><button class="chip">✏️ Change booking</button><button class="chip">❌ Cancel</button></div></div>
+ <div class="card"><b>Programme (draft · guru to confirm)</b>
+  <div class="prog" style="margin-top:6px">
+   <div class="st"><span class="n">1</span><span><b>Guru vandanam</b><small>Śrīśaileśa dayāpātram · all together</small></span></div>
+   <div class="st"><span class="n">2</span><span><b>Lakshmi Ashtottaram</b><small>108 names of Lakshmi · 10 min</small></span></div>
+   <div class="st"><span class="n">3</span><span><b>Opening prayers · Pūrva bhāga</b><small>Śuklāmbaradharam … nyāsa · 8 min</small></span></div>
+   <div class="st"><span class="n">4</span><span><b>Dhyānam</b><small>Kṣīrodanvat-pradeśe … · 3 min</small></span></div>
+   <div class="st"><span class="n">5</span><span><b>Vishnu Sahasranamam · 108 verses</b><small>One person leads each 12 verses · 25 min</small></span></div>
+   <div class="st"><span class="n">6</span><span><b>Phala-shruti</b><small>Blessings · 6 min</small></span></div>
+   <div class="st"><span class="n">7</span><span><b>Maṅgalam · Kāyena vācā</b><small>Sarvam Śrī Kṛṣṇārpaṇam astu</small></span></div>
+  </div>
+  <div class="mute" style="margin-top:8px">During the call: the app shows the current part and verse, with the text, so everyone can follow.</div></div>
+ <div class="card"><b>Messages for this satsang</b>
+  <div class="msg"><b>Pranav</b><p>I'll lead verses 1–12. Who can lead 13–24?</p></div>
+  <div class="msg"><b>Lakshmi</b><p>I'll take 13–24 🙏</p></div>
+  <input class="inp" placeholder="Write a message…"></div>
+ <div class="card"><b>After the satsang</b><button class="btn ghost">✅ I chanted along</button><div class="mute" style="margin-top:6px">Counts for your streak.</div></div>
+</section>
+
+<!-- CLASS -->
+<section class="scr" id="s-class">
+ <div class="hd"><h1>🌬 Class satsang</h1><button class="x" onclick="go('sat')">✕</button></div>
+ <div class="card"><b style="font-size:1.1rem">Weekly · Tue 7:00 pm</b><div class="mute">Guru's students only · 12 in the class</div>
+  <div class="prog" style="margin-top:8px">
+   <div class="st"><span class="n">1</span><span><b>Prayer</b><small>Opening prayer together · 2 min</small></span></div>
+   <div class="st"><span class="n">2</span><span><b>Pranayama</b><small>Guided breathing · 15 min</small></span></div>
+   <div class="st"><span class="n">3</span><span><b>This week's class</b><small>Talk about the Swadhyayam recording · 25 min</small></span></div>
+   <div class="st"><span class="n">4</span><span><b>Doubts</b><small>From everyone's ❓ list · 15 min</small></span></div>
+  </div><button class="btn">📹 Join on Tuesday</button></div>
+ <div class="card" style="text-align:center"><b>Daily pranayama</b><div class="mute">Do it on your own every day</div>
+  <div class="ring">Breathe in<br><span style="font-size:2.2rem">4</span></div>
+  <div class="chips" style="justify-content:center"><button class="chip on">5 min</button><button class="chip">10 min</button><button class="chip">15 min</button></div>
+  <button class="btn">▶ Start pranayama</button><div class="mute" style="margin-top:6px">🔥 5 days in a row · steps and timings from the guru</div></div>
+</section>
+
+<!-- YOU -->
+<section class="scr" id="s-you">
+ <div class="hd"><h1>🙂 You</h1></div>
+ <div class="card"><div class="row"><b class="sp">🪷 Full chant</b><span class="mute">1 of 6 parts</span></div>
+  <div class="mute" style="margin-top:6px">1,000 names · 12 / 108</div><div class="bar"><u style="width:11%"></u></div>
+  <div class="mute" style="margin-top:6px">Dhyānam · 0 / 8 · Phala-shruti · 0 / 33 · Lakshmi Ashtottaram · not started</div></div>
+ <div class="card"><div class="row"><b class="sp">📿 Swadhyayam</b><span class="mute">🔥 5 days</span></div><div class="mute">34/60 min today · 5 of 7 days this week</div><div class="bar"><u style="width:57%;background:var(--sage)"></u></div></div>
+ <div class="card"><div class="row"><b class="sp">🙏 Satsang</b><span class="mute">3 attended</span></div><div class="mute">Next: Sun 15 Nov (booked) · Class: Tue 10 Nov</div></div>
+ <div class="card"><div class="row"><b class="sp">🌬 Pranayama</b><span class="mute">🔥 5 days</span></div><div class="mute">10 min today ✓</div></div>
+ <div class="note">One heading per practice. Students see Swadhyayam, Class satsang and Pranayama; everyone else sees Full chant and Satsang.</div>
+</section>
+</div>
+
+<nav class="tabs"><button class="on" data-t="today" onclick="go('today')"><i>🪔</i>Today</button><button data-t="path" onclick="go('path')"><i>🔄</i>Revise</button><button data-t="sat" onclick="go('sat')"><i>🙏</i>Satsang</button><button data-t="learn" onclick="go('path')"><i>📖</i>Learn</button><button data-t="you" onclick="go('you')"><i>🙂</i>You</button></nav>
+<script>
+function go(s){document.querySelectorAll('.scr').forEach(function(e){e.classList.toggle('on',e.id==='s-'+s)});var t={today:'today',path:'path',sat:'sat',event:'sat',class:'sat',you:'you'}[s];document.querySelectorAll('.tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.t===t)});scrollTo(0,0);location.hash=s}
+function seg(i){document.querySelectorAll('.seg button').forEach(function(b,k){b.classList.toggle('on',k===i)});document.getElementById('seg0').style.display=i?'none':'block';document.getElementById('seg1').style.display=i?'block':'none'}
+if(location.hash.length>1)go(location.hash.slice(1));
+</script>
+</body></html>
