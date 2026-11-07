@@ -1164,6 +1164,11 @@ html[data-vbg="1"]:has(.rpsheet) body::after,html[data-vbg="2"]:has(.rpsheet) bo
 html[data-vbg="1"] .rpsheet .rpverse,html[data-vbg="2"] .rpsheet .rpverse{background:var(--vcard)}
 html[data-vbg="2"] #app .card .sa,html[data-vbg="2"] #app .card .te,html[data-vbg="2"] #app .card .enb,html[data-vbg="2"] #app .card a,html[data-vbg="2"] #app .card span,html[data-vbg="2"] .rpverse,html[data-vbg="2"] .rpverse *{text-shadow:0 0 3px #fffdf7,0 0 6px #fffdf7,0 0 10px #fffdf7}
 html[data-vbg="1"] #app .card .sa,html[data-vbg="1"] #app .card .te,html[data-vbg="1"] #app .card .enb,html[data-vbg="1"] #app .card a,html[data-vbg="1"] .rpverse,html[data-vbg="1"] .rpverse *{text-shadow:0 0 4px #fffdf7}
+/* b264: darker text when the Vishnu picture is behind the verse */
+html[data-vbg="1"] .sa,html[data-vbg="1"] .te,html[data-vbg="1"] .enb,html[data-vbg="2"] .sa,html[data-vbg="2"] .te,html[data-vbg="2"] .enb{color:#3a2210!important}
+html[data-vbg="1"] .sa,html[data-vbg="2"] .sa{font-weight:500}
+html[data-vbg="1"] .te,html[data-vbg="2"] .te{font-weight:600}
+html[data-vbg="1"] .prb .wd,html[data-vbg="2"] .prb .wd,html[data-vbg="1"] .prl,html[data-vbg="2"] .prl{color:#0a5354}
 </style>
 </head>
 <body>
@@ -2931,7 +2936,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=263,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=264,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
