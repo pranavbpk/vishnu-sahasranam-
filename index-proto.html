@@ -1150,6 +1150,32 @@ html[data-tdl="B"] .bh.bv1 .bh-frame{border:3px solid #f2c14e;box-shadow:0 0 0 4
 html[data-ht="me"] .pnl>.card{border:1.5px solid #e3c98c;border-radius:16px;margin:0 0 12px;background:#fffdf7}
 html[data-ht="me"] .pnl-rem>.card>h2:first-child{display:block}
 a.btn.lnk{display:flex!important;align-items:center!important;justify-content:center;min-height:52px;padding-top:0;padding-bottom:0}
+/* b267: simpler My slokas player, styles A/B/C */
+.mpw{padding-bottom:150px}
+.mp-sty{display:flex;align-items:center;gap:6px;justify-content:center;font-size:.8rem;color:#8a7350;margin:2px 0 8px}.mp-sty .chip{min-height:30px;min-width:38px;padding:2px 10px;font-size:.85rem}
+.mp-nm b{font-size:1.15rem}.mp-nm{margin:2px 2px 8px}
+.mp-tip{margin:4px 4px 8px;font-size:.9rem}
+.mpt .msk-ln{cursor:pointer;border-radius:12px}
+.mp-a{padding:8px 12px}
+.mp-mode{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1.5px solid #ecdcb6;border-radius:16px;padding:10px 12px;margin:7px 0;background:#fff;font:inherit;color:inherit;cursor:pointer}
+.mp-mode.on{border:2px solid var(--acc);background:color-mix(in srgb,var(--acc) 8%,#fff)}
+.mp-ic{font-size:1.45rem}.mp-mt{flex:1;min-width:0}.mp-mt b{display:block;font-size:1.02rem}.mp-mt small{color:#6b5a3e;font-size:.86rem}
+.mp-ck{font-weight:800;color:var(--acc);font-size:1.1rem}
+.mp-r{display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-top:8px}.mp-rl{width:64px;font-size:.88rem;color:#6b5a3e}
+.mp-r .chip,.mpsh .chip{min-height:36px;padding:4px 12px}
+.mp-sm{font-size:.8rem;margin-top:3px;width:100%}
+.mp-seg{display:flex;background:#fff;border:1.5px solid #ecdcb6;border-radius:22px;padding:4px;margin-bottom:8px}.mp-seg button{flex:1;border:0;background:none;border-radius:18px;padding:9px 4px;font:inherit;font-weight:700;font-size:.9rem;color:#6b5a3e;cursor:pointer}.mp-seg button.on{background:var(--acc);color:#fff}
+.mp-say{font-size:.98rem;margin:2px 4px 4px}.mp-say .lnkb{display:inline;padding:0;margin:0;font-size:.95rem}
+.mp-links{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}
+.mpdock{position:fixed;left:0;right:0;bottom:0;z-index:40;background:#fffdf7;border-top:1.5px solid #ecdcb6;box-shadow:0 -6px 16px rgba(0,0,0,.06);padding:10px 14px calc(12px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto}
+.mpdock-row{display:flex;gap:6px;justify-content:center;flex-wrap:nowrap;margin-bottom:8px}.mpdock-row .chip{min-height:36px;padding:4px 12px;white-space:nowrap}
+.mpbx{display:flex;align-items:center;gap:12px}
+.mpb-pp{flex:0 0 58px;width:58px;height:58px;border-radius:50%;border:0;background:var(--acc);color:#fff;font-size:1.6rem;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.mpb-t{flex:1;min-width:0}.mpb-t b{display:block;font-size:.98rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mpb-pg{height:6px;border-radius:4px;background:#f1e4c6;overflow:hidden;margin-top:7px}.mpb-pg i{display:block;height:100%;width:0;background:#e0a526;border-radius:4px;transition:width .2s linear}
+.mpsh-dim{position:fixed;inset:0;background:rgba(40,30,15,.35);z-index:46}
+.mpsh{position:fixed;left:0;right:0;bottom:0;z-index:47;background:#fff;border-radius:22px 22px 0 0;padding:16px 18px calc(18px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto;box-shadow:0 -8px 24px rgba(0,0,0,.15)}
+.mpsh-h{font-size:1.15rem}.mp-lab{font-size:.75rem;font-weight:800;letter-spacing:.06em;color:#9a7f52;margin:12px 0 4px}
 /* b258-260: Vishnu picture behind verse screens. 1 = soft (default), 2 = clear */
 html[data-vbg]:not([data-vbg=""]){background:#faf5ea}
 html[data-vbg="1"] body,html[data-vbg="2"] body{background:transparent!important}
@@ -2005,7 +2031,7 @@ function mypVerses(x){var L=myLines(x.text),dur=x.dur||0,out=[],i;
 function mypGlow(ct){if(!MYP||!MYP.T)return;var li=-1,cw=-1;for(var i=0;i<MYP.T.length;i++){if(ct>=MYP.T[i].t0-0.1&&ct<MYP.T[i].pe){li=MYP.T[i].li}if(ct>=MYP.T[i].t0&&ct<MYP.T[i].pe)cw=MYP.T[i].g}
  var box=document.querySelector('.msk-txt');if(!box)return;var wd=S.myword!==0,ws=box.querySelectorAll('.msk-w');for(var j=0;j<ws.length;j++){var g=+ws[j].dataset.w,lw=+(ws[j].closest('.msk-ln')||{dataset:{l:-9}}).dataset.l;ws[j].className='msk-w'+(wd&&cw>=0&&lw===li?(g<cw?' mk2':g===cw?' cur':''):'')}var ls=box.querySelectorAll('.msk-ln');for(var k=0;k<ls.length;k++)ls[k].classList.toggle('on',+ls[k].dataset.l===li);
  if(li!==MYP.li){MYP.li=li;var el=box.querySelector('.msk-ln[data-l="'+li+'"]');if(el&&el.scrollIntoView)try{el.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}}}
-function mypInfo(){var r=document.getElementById('myp-r');if(r&&MYP)r.textContent=mypLine()}
+function mypInfo(){var r=document.getElementById('myp-r'),x=MYP&&myL(MYP.id);if(r&&MYP)r.textContent=document.querySelector('.mpdock')?mypSay(x):mypLine();var g=document.getElementById('myp-pg');if(g)g.style.width=mypPct(myAud().currentTime||0)+'%'}
 function mypLine(){if(!MYP)return 'Whole sloka · '+mypRep()+(mypRep()>1?' times':' time');var xe=MYP.e!=null?MYP.e:((myL(MYP.id)||{}).dur||0);return (MYP.lbl||'Whole sloka')+' · '+oT(MYP.s)+'–'+oT(xe)+' · '+(MYP.done?'done ✓':MYP.gap?'next round…':'round '+MYP.k+' of '+MYP.n)}
 function mypSet(a){a.playbackRate=mypSp();try{a.preservesPitch=true;a.webkitPreservesPitch=true}catch(e){}}
 function mypMeta(x){try{if('mediaSession' in navigator){navigator.mediaSession.metadata=new MediaMetadata({title:x.name,artist:'My slokas'});navigator.mediaSession.setActionHandler('play',function(){var a=myAud();a.play().catch(function(){});mypTick()});navigator.mediaSession.setActionHandler('pause',function(){myAud().pause()})}}catch(e){}}
@@ -2022,7 +2048,44 @@ function mypStart(id,span,lbl,bp){var a=myAud(),x=myL(id);if(!x)return;clearInte
  myLoadAudio(id).then(function(){mypGo()}).catch(function(){OMSG='Audio for this sloka is missing.';MYP=null;render()});
  if(!x.vs)myAnalyse(x).then(function(){if(MYP&&MYP.id===id)MYP.T=myTimeline(x);render()})}
 function mypStop(){if(MYP){clearTimeout(MYP.gt);MYP.on=false}MYPAB=null}
-function mypPage(x){var a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused,L=myLines(x.text),vs=mypVerses(x),pc=myPcs(x),dst=rdL(),src=scDetect(x.text);
+/* b267: simpler player, 3 test styles (S.mypsty A/B/C). Modes S.mypm: w = whole sloka, l = line by line, o = one line (S.myline) */
+var MYPSH=false;
+function mypM(){return S.mypm==='l'||S.mypm==='o'?S.mypm:'w'}
+function mypLineSpan(x,li){var L=myLines(x.text),sp=myLineSpans(x,L.length);if(sp&&sp.lines[li])return [sp.lines[li][0],Math.min(sp.lines[li][1],x.dur||sp.lines[li][1])];var pc=myPcs(x);if(pc[li])return [pc[li][0],Math.min(pc[li][1],x.dur||pc[li][1])];return null}
+function mypNth(k){return k+(k%10===1&&k%100!==11?'st':k%10===2&&k%100!==12?'nd':k%10===3&&k%100!==13?'rd':'th')}
+function mypGoMode(x){var m=mypM();MYPAB=null;if(m==='l'){mypStart(x.id,null,'Whole sloka',true);return}if(m==='o'){var li=S.myline||0,sp=mypLineSpan(x,li);if(sp){mypStart(x.id,sp,'Line '+(li+1),false);return}}mypStart(x.id,null,null,false)}
+function mypSay(x){var n=mypRep(),m=mypM(),tm=n===1?'once':n+' times';
+ if(!MYP||(!MYP.on&&!MYP.done))return m==='l'?'Line by line · each line '+tm:m==='o'?'Line '+((S.myline||0)+1)+' · '+tm:'Whole sloka · '+tm;
+ if(MYP.done)return '✅ Done · tap ▶ to play again';
+ var t=mypNth(MYP.k)+' time of '+MYP.n;
+ if(MYP.q)return (MYP.gap&&MYP.k===1?'Next: ':'')+'Line '+(MYP.qi+1)+' of '+MYP.q.length+' · '+t;
+ return (MYP.lbl&&MYP.lbl!=='Whole sloka'?MYP.lbl:'Whole sloka')+' · '+(MYP.gap?'next: '+t:t)}
+function mypPct(ct){if(!MYP||!MYP.on)return MYP&&MYP.done?100:0;var x=myL(MYP.id)||{},e=MYP.e!=null?MYP.e:(x.dur||1),f=Math.max(0,Math.min(1,(ct-MYP.s)/Math.max(0.1,e-MYP.s)));if(MYP.q)return ((MYP.qi+((MYP.k-1)+f)/MYP.n)/MYP.q.length)*100;return (((MYP.k-1)+f)/MYP.n)*100}
+function mypBar(x){var a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused;return '<div class="mpbx"><button class="mpb-pp" data-act="mpgo" aria-label="Play or pause">'+(pl?'⏸':'▶')+'</button><div class="mpb-t"><b id="myp-r">'+oEsc(mypSay(x))+'</b><div class="mpb-pg"><i id="myp-pg" style="width:'+mypPct(a.currentTime||0)+'%"></i></div></div></div>'}
+function mypChips(act,list,cur){return list.map(function(o){var on=String(cur)===String(o[0]);return '<button class="chip'+(on?' on':'')+'" aria-pressed="'+on+'" data-act="'+act+'" data-v="'+o[0]+'">'+o[1]+'</button>'}).join('')}
+function mypTimes(){return mypChips('mprep',[[1,'1'],[3,'3'],[5,'5'],[11,'11'],[21,'21'],[108,'108']],mypRep())}
+function mypSpeeds(){return mypChips('mpsp',[[0.75,'🐢 Slow'],[1,'Normal'],[1.25,'Fast']],mypSp())}
+function mypFollow(){return mypChips('mpwd',[['1','Each word'],['0','Whole line']],S.myword===0?'0':'1')}
+function mypLoop(){var a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused;return '<button class="chip" data-act="mpab"'+(pl||MYPAB?'':' disabled')+'>🔂 '+(MYPAB?'Tap where the bit ends':'Loop a bit')+'</button><div class="mute mp-sm">'+(MYPAB?'Started at '+oT(MYPAB.s)+'.':'While it plays: tap here where a tricky bit starts, then again where it ends.')+'</div>'}
+function mypText(x){var h=myTextHTML(x,'big lp mpt');return h.replace(/<div class="msk-ln" data-l="/g,'<div class="msk-ln" data-act="mpln" data-l="')}
+function mypSheet(){if(!MYPSH)return '';return '<div class="mpsh-dim" data-act="mpsh"></div><div class="mpsh"><b class="mpsh-h">Player settings</b><div class="mp-lab">HOW MANY TIMES</div><div>'+mypTimes()+'</div><div class="mp-lab">SPEED</div><div>'+mypSpeeds()+'</div><div class="mp-lab">LIGHT UP</div><div>'+mypFollow()+'</div><div class="mp-lab">TRICKY BIT</div>'+mypLoop()+'<button class="btn" data-act="mpsh" style="margin-top:14px">Done</button></div>'}
+function mypStyleBar(){var c=S.mypsty||'B';return '<div class="mp-sty"><span>Test · player style</span>'+mypChips('mpsty',[['A','A'],['B','B'],['C','C']],c)+'</div>'}
+function mypPage(x){var sty=S.mypsty||'B',m=mypM(),L=myLines(x.text),h=mypStyleBar();
+ var head='<div class="mp-nm"><b>'+oEsc(x.name)+'</b></div>'+(MYMSG?'<div class="msk-cov">'+MYMSG+'</div>':'');
+ var foot='<div class="mp-links"><button class="chip" data-act="myrev" data-v="'+x.id+'">⚙️ Adjust lines</button>'+(sty!=='C'?'<button class="chip" data-act="mypr" data-v="'+x.id+'">🗣 Learn with guru</button>':'')+'<button class="chip" data-act="mylist">Close</button></div>';
+ if(sty==='A'){var card=function(k,ic,t,s){return '<button class="mp-mode'+(m===k?' on':'')+'" data-act="mpmode" data-v="'+k+'"><span class="mp-ic">'+ic+'</span><span class="mp-mt"><b>'+t+'</b><small>'+s+'</small></span>'+(m===k?'<span class="mp-ck">✓</span>':'')+'</button>'},n=mypRep();
+  h+=head+'<div class="card mp-a">'+card('w','🔁','Whole sloka','Start to end, '+(n===1?'once':n+' times'))+card('l','🪜','Line by line','Each line '+(n===1?'once':n+' times')+', then the next line')+card('o','🎯','One line only','Tap a line below to repeat just that line')
+   +'<div class="mp-r"><span class="mp-rl">Times</span>'+mypTimes()+'</div><div class="mp-r"><span class="mp-rl">Speed</span>'+mypSpeeds()+'</div><div class="mp-r"><span class="mp-rl">Light up</span>'+mypFollow()+'</div><div class="mp-r">'+mypLoop()+'</div></div>'
+   +(L.length?myReadIn(x,1)+mypText(x):'')+foot}
+ else if(sty==='C'){var tb=function(k,t){return '<button class="'+(m===k||(k==='w'&&m==='o')?'on':'')+'" data-act="mpmode" data-v="'+k+'">'+t+'</button>'},n2=mypRep(),tm=n2===1?'once':n2+' times';
+  h+=head+'<div class="mp-seg">'+tb('w','🎧 Listen')+tb('l','🪜 Learn lines')+'<button data-act="mypr" data-v="'+x.id+'">🗣 With guru</button></div>'
+   +'<div class="mp-say">'+(m==='l'?'Each line plays <b>'+tm+'</b>, then the next line.':m==='o'?'Line '+((S.myline||0)+1)+' plays <b>'+tm+'</b>.':'The whole sloka plays <b>'+tm+'</b>.')+' <button class="lnkb" data-act="mpsh">Change</button></div>'
+   +'<div class="mute mp-tip">Tap any line to repeat just that line.</div>'+(L.length?mypText(x)+'<div style="margin-top:4px">'+myReadIn(x,1)+'</div>':'')+foot}
+ else{h+=head+'<div class="mute mp-tip">Tap any line to repeat just that line.</div>'+(L.length?mypText(x)+'<div style="margin-top:4px">'+myReadIn(x,1)+'</div>':'')+foot
+  }
+ return '<div class="mpw mp-'+sty+'">'+h+'</div>'+'<div class="mpdock'+(sty==='B'?' tall':'')+'">'+(sty==='B'?'<div class="mpdock-row">'+mypChips('mpmode',[['w','🔁 Whole'],['l','🪜 Line by line']],m==='o'?'':m)+'<button class="chip" data-act="mpsh">'+mypRep()+'×</button><button class="chip" data-act="mpsh" aria-label="Settings">⚙️</button></div>':'')+mypBar(x)+'</div>'+mypSheet()}
+
+function mypPageOld(x){var a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused,L=myLines(x.text),vs=mypVerses(x),pc=myPcs(x),dst=rdL(),src=scDetect(x.text);
  var h='<div class="msk-head"><b>🔁 '+oEsc(x.name)+'</b></div>'+(MYMSG?'<div class="msk-cov">'+MYMSG+'</div>':'')
   +'<div class="card lp-box"><button class="lp-big" data-act="mppp" aria-label="Play or pause">'+(pl?'⏸':'▶')+'</button><div class="lp-r" id="myp-r">'+mypLine()+'</div>'
   +'<div class="lp-row"><span>Repeat</span>'+[1,3,5,11,21,108].map(function(n){return '<button class="chip'+(mypRep()===n?' on':'')+'" data-act="mprep" data-v="'+n+'">'+n+'×</button>'}).join('')+'</div>'
@@ -2208,6 +2271,11 @@ var OWNA={
  mpopen:function(t,v){prClear();MYMSG='';MYV={m:'play',id:v};MYPAB=null;mypStart(v,null,null);render(1)},
  mppp:function(){var a=myAud();if(MYP&&MYP.on&&!MYP.gap&&!a.paused){a.pause();render();return}if(MYP&&MYP.on&&MYP.gap){clearTimeout(MYP.gt);mypGo();return}if(MYP&&MYP.on){mypSet(a);a.play().catch(function(){});mypTick();render();return}var o=MYP;if(o&&o.q){mypStart(MYV.id,o.span0||null,o.qlbl==='Whole sloka'?null:o.qlbl,!!S.mypbp);return}mypStart(MYV.id,o&&o.lbl&&o.e!=null?[o.s,o.e]:null,o&&o.e!=null?o.lbl:null,!!S.mypbp&&!(o&&o.lbl&&/^(Line|Your bit)/.test(o.lbl)))},
  mprep:function(t,v){S.myrep=+v;sv();if(MYP){MYP.n=Math.max(+v,MYP.on?MYP.k:1);if(MYP.done){MYP.done=false}}render()},
+ mpgo:function(){var a=myAud(),x=myL(MYV.id);if(!x)return;if(MYP&&MYP.on&&!MYP.gap&&!a.paused){a.pause();render();return}if(MYP&&MYP.on&&MYP.gap){clearTimeout(MYP.gt);mypGo();return}if(MYP&&MYP.on){mypSet(a);a.play().catch(function(){});mypTick();render();return}mypGoMode(x)},
+ mpmode:function(t,v){var x=myL(MYV.id);S.mypm=v;sv();var a=myAud();if(MYP&&MYP.on){mypStop();a.pause();if(x)mypGoMode(x);return}render()},
+ mpln:function(t){var x=myL(MYV.id);if(!x)return;var li=+t.dataset.l;S.myline=li;if((S.mypsty||'B')==='A')S.mypm='o';sv();var sp=mypLineSpan(x,li);if(!sp)return;mypStop();mypStart(x.id,sp,'Line '+(li+1),false)},
+ mpsh:function(){MYPSH=!MYPSH;render()},
+ mpsty:function(t,v){S.mypsty=v;sv();MYPSH=false;render(1)},
  mpbp:function(t,v){S.mypbp=v==='1'?1:0;sv();render()},
  mpwd:function(t,v){S.myword=v==='1'?1:0;sv();render()},
  mpsp:function(t,v){S.mysp=+v;sv();mypSet(myAud());render()},
@@ -2939,7 +3007,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=266,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=268,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
