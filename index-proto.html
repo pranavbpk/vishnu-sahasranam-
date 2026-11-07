@@ -1187,6 +1187,15 @@ a.btn.lnk{display:flex!important;align-items:center!important;justify-content:ce
 .rpbar[data-seek]{margin:10px 0 4px}
 .pl-sk{font-size:.75rem;color:#8a7350;text-align:center;margin:2px 0 4px}
 .gnew{border-color:var(--acc)!important;color:var(--acc)!important;font-weight:700;white-space:nowrap;padding:4px 9px!important;flex:0 0 auto}
+/* b279: tighter read-aloud (dash) lines everywhere, so the verse script keeps its size */
+.prb{word-spacing:0!important}
+.prb .wd{padding:0 3px!important;margin:1px 2px 2px 0!important;line-height:1.35!important}
+:not(.dfirst)>.prb:not(.big2){line-height:1.5!important}
+.rpsheet .rpverse .prb.big2{font-size:min(1.12rem,4.5vw)!important;line-height:1.45!important}
+.rpsheet .rpverse.dfirst .prb.big2{font-size:min(1.4rem,5.2vw)!important;line-height:1.55!important}
+.dfirst .prb{line-height:1.6!important}
+.prb .ln{margin:2px 0!important;padding-top:1px!important;padding-bottom:1px!important}
+.rpverse .prb .ln+.ln{margin-top:6px!important}
 /* b275: nudge a line start; picture behind Well done */
 .mll-n{flex:0 0 100%;display:flex;align-items:center;gap:6px;padding:4px 0 2px 50px;font-size:.8rem;color:#6b5a3e}
 .mll-n button{border:1.5px solid #ecdcb6;background:#fffaf0;border-radius:12px;padding:5px 10px;font:inherit;font-weight:700;color:var(--acc);cursor:pointer}
@@ -3274,7 +3283,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=278,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=279,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
