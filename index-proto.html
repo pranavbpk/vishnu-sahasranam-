@@ -1176,6 +1176,12 @@ a.btn.lnk{display:flex!important;align-items:center!important;justify-content:ce
 .mpsh-dim{position:fixed;inset:0;background:rgba(40,30,15,.35);z-index:46}
 .mpsh{position:fixed;left:0;right:0;bottom:0;z-index:47;background:#fff;border-radius:22px 22px 0 0;padding:16px 18px calc(18px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto;box-shadow:0 -8px 24px rgba(0,0,0,.15)}
 .mpsh-h{font-size:1.15rem}.mp-lab{font-size:.75rem;font-weight:800;letter-spacing:.06em;color:#9a7f52;margin:12px 0 4px}
+/* b273: steady guided screen: one-line step bar, fixed banner height */
+.g2-st{min-height:82px}.g2-bt b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.g2-bt small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g2-pw{height:34px;flex:0 0 34px}
+.g2-seg{display:flex;gap:4px}.g2-seg i{flex:1;height:6px;border-radius:3px;background:#e9dfcb}.g2-seg i.d{background:#3f8f5a}.g2-seg i.on{background:var(--acc)}
+.g2-sl{display:flex;justify-content:space-between;font-size:.78rem;font-weight:700;color:#6b5a3e;margin-top:5px}
+.g2 .rpverse .te{font-size:1.3rem}.g2 .rpverse .sa{font-size:1.45rem}.g2 .rpverse .prb{font-size:1.02rem}
 /* b272: player views */
 .mfw-wrap{padding-bottom:190px}.mf-mini{padding-bottom:120px}
 .mf-tb{display:flex;align-items:center;gap:8px;margin:0 0 6px}.mf-tb b{flex:1;min-width:0;font-size:1.12rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -3226,7 +3232,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=272,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=273,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -3239,11 +3245,12 @@ function preCuts(){try{(LST||[]).forEach(function(x){if(V[x.i])getCut(V[x.i].n)}
 function rpSheet2(){var ph=RP.phase,it=LST[vi]||{},n=RP.n,st=RP.steps||[2,2,2],r=RP.round||1,sg=st[r-1],tot=st.filter(function(x){return x===sg}).length,idx=st.slice(0,r).filter(function(x){return x===sg}).length;
  var what=RP.recap?'verse '+n:(segN(sg)||'Whole verse').toLowerCase(),times=tot>1?' · '+mypNth(idx)+' of '+tot+(ph==='turn'?' times':''):'';
  var hide=ph==='turn'&&hideNow(it);
- var big=RP.paused?'Paused':ph==='listen'?'Listen':(hide?'Your turn · from memory':RP.x2?'Your turn · say it 2 times':'Your turn');
+ var big=RP.paused?'Paused':ph==='listen'?'Listen':'Your turn';if(hide&&!RP.paused)times+=' · from memory';if(RP.x2&&ph==='turn')times=' · say it 2 times';
  var sub=RP.paused?'Tap Play to carry on':ph==='listen'?'Guru says '+what+times:'Say '+what+times;
  if(RP.blocked&&ph==='listen'){big='Tap to continue';sub='No sound? Check Silent mode, volume and Bluetooth'}
  var segs=[];st.forEach(function(x){if(segs.indexOf(x)<0)segs.push(x)});var ci=segs.indexOf(sg);
- var path=RP.recap?'':segs.map(function(x,i){return '<span class="'+(i<ci?'d':i===ci?'on':'')+'">'+(x===2?'Whole ×'+st.filter(function(y){return y===2}).length:segN(x))+(i<ci?' ✓':'')+'</span>'}).join('<i>›</i>')+(it.r?'':'<i>›</i><span>🎙 Record</span><i>›</i><span>📖 Meaning</span>');
+ var path=RP.recap||segs.length<2?'':'<div class="g2-seg">'+segs.map(function(x,i){return '<i class="'+(i<ci?'d':i===ci?'on':'')+'"></i>'}).join('')+'</div><div class="g2-sl"><span>'+(segN(sg)||'Whole verse')+'</span><span>step '+(ci+1)+' of '+segs.length+'</span></div>';
+ var pathOld=RP.recap?'':segs.map(function(x,i){return '<span class="'+(i<ci?'d':i===ci?'on':'')+'">'+(x===2?'Whole ×'+st.filter(function(y){return y===2}).length:segN(x))+(i<ci?' ✓':'')+'</span>'}).join('<i>›</i>')+(it.r?'':'<i>›</i><span>🎙 Record</span><i>›</i><span>📖 Meaning</span>');
  var rem=Math.max(0,Math.ceil(((RP.end||0)-Date.now())/1000));
  var ring=ph==='turn'&&!RP.paused?'<span class="g2-r turn"><b id="rpcd" data-n="1">'+rem+'</b></span>':'<span class="g2-r">'+(RP.paused?'⏸':'🎧')+'</span>';
  var head='<div class="g2-tb"><button class="g2-x" data-act="rpclose" aria-label="Close">✕</button><div class="g2-t"><b>'+(RP.recap?'Weekly recap':'Verse '+n)+'</b><small>'+(it.rt==='recap'?'Recap':it.r?'Revision':'New today')+(LST.length>1?' · verse '+(vi+1)+' of '+LST.length+(RP.recap?'':' today'):'')+'</small></div><button class="g2-c" data-act="rdopen" aria-label="How to read">📖</button><button class="g2-c" data-act="gsty" data-v="old">Old screen</button></div>';
@@ -3251,7 +3258,7 @@ function rpSheet2(){var ph=RP.phase,it=LST[vi]||{},n=RP.n,st=RP.steps||[2,2,2],r
  var bl='';if(LST.length>1){for(var i=0;i<LST.length;i++)bl+='<i class="'+(i<vi?'d':i===vi?'c':'')+'"></i>'}
  var left=LST.length-vi,dock='<div class="g2-dock"><div class="g2-day"><span>'+(RP.recap?'RECAP':'TODAY')+' · VERSE '+(vi+1)+' OF '+LST.length+'</span><span>'+(left>1?left-1+' more after this':'last one')+'</span></div>'+(bl?'<div class="g2-blk">'+bl+'</div>':'')
   +'<div class="g2-b"><button data-act="rpagain"><span>↺</span>Hear again</button><button data-act="rpback"'+(vi>0&&GS.on?'':' disabled')+'><span>⏮</span>Last verse</button><button class="p" data-act="rppause"><span>'+(RP.paused?'▶':'⏸')+'</span>'+(RP.paused?'Play':'Pause')+'</button><button data-act="rpskip"><span>'+(ph==='turn'?'✓':'⏭')+'</span>'+(ph==='turn'?'I’m done':'Skip')+'</button>'+(GS.on&&it.r&&!RP.recap?'<button data-act="rpnextv"><span>⏩</span>Next verse</button>':'')+'</div></div>';
- return '<div class="rpsheet g2">'+head+ban+(path?'<div class="g2-path">'+path+'</div>':'')+sheetVerse()+(hide?'<div class="hidnote">🙈 Hidden so you chant from memory · Tap to peek</div>':'')+'<div class="g2-sp"></div>'+dock+mSheet()+'</div>'}
+ return '<div class="rpsheet g2">'+head+ban+(path?'<div class="g2-pw">'+path+'</div>':'')+sheetVerse()+(hide?'<div class="hidnote">🙈 Hidden so you chant from memory · Tap to peek</div>':'')+'<div class="g2-sp"></div>'+dock+mSheet()+'</div>'}
 function rpSheet(){var ph=RP.phase;if(S.gsty==='new'&&!RP.wait&&!RP.err&&(ph==='listen'||ph==='turn'))return rpSheet2();
  if(RP.wait)return '<div class="rpsheet"><div class="rpph listen">Getting ready\u2026</div></div>';
  if(RP.err)return '<div class="rpsheet"><div class="rpph turn">Guide audio for this verse is coming soon.</div><button class="btn ghost" data-act="rpclose">Close</button></div>';
