@@ -1997,20 +1997,22 @@ function mypVerses(x){var L=myLines(x.text),dur=x.dur||0,out=[],i;
  var cuts=G.filter(function(g){return g[1]-g[0]>=thr}).map(function(g){return (g[0]+g[1])/2});if(!cuts.length)return [];
  var pts=[0].concat(cuts,[dur]);for(i=0;i+1<pts.length;i++)out.push([pts[i],pts[i+1]]);out=out.filter(function(s){return s[1]-s[0]>=3});return out.length>1?out:[]}
 /* light up the whole line being sung (no word-by-word guessing) */
-function mypGlow(ct){if(!MYP||!MYP.T)return;var li=-1;for(var i=0;i<MYP.T.length;i++){if(ct>=MYP.T[i].t0-0.1&&ct<MYP.T[i].pe){li=MYP.T[i].li}}
- var box=document.querySelector('.msk-txt');if(!box)return;var ls=box.querySelectorAll('.msk-ln');for(var k=0;k<ls.length;k++)ls[k].classList.toggle('on',+ls[k].dataset.l===li);
+function mypGlow(ct){if(!MYP||!MYP.T)return;var li=-1,cw=-1;for(var i=0;i<MYP.T.length;i++){if(ct>=MYP.T[i].t0-0.1&&ct<MYP.T[i].pe){li=MYP.T[i].li}if(ct>=MYP.T[i].t0&&ct<MYP.T[i].pe)cw=MYP.T[i].g}
+ var box=document.querySelector('.msk-txt');if(!box)return;var wd=S.myword!==0,ws=box.querySelectorAll('.msk-w');for(var j=0;j<ws.length;j++){var g=+ws[j].dataset.w,lw=+(ws[j].closest('.msk-ln')||{dataset:{l:-9}}).dataset.l;ws[j].className='msk-w'+(wd&&cw>=0&&lw===li?(g<cw?' mk2':g===cw?' cur':''):'')}var ls=box.querySelectorAll('.msk-ln');for(var k=0;k<ls.length;k++)ls[k].classList.toggle('on',+ls[k].dataset.l===li);
  if(li!==MYP.li){MYP.li=li;var el=box.querySelector('.msk-ln[data-l="'+li+'"]');if(el&&el.scrollIntoView)try{el.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}}}
 function mypInfo(){var r=document.getElementById('myp-r');if(r&&MYP)r.textContent=mypLine()}
 function mypLine(){if(!MYP)return 'Whole sloka · '+mypRep()+(mypRep()>1?' times':' time');return (MYP.lbl||'Whole sloka')+' · '+(MYP.done?'done ✓':MYP.gap?'next round…':'round '+MYP.k+' of '+MYP.n)}
 function mypSet(a){a.playbackRate=mypSp();try{a.preservesPitch=true;a.webkitPreservesPitch=true}catch(e){}}
 function mypMeta(x){try{if('mediaSession' in navigator){navigator.mediaSession.metadata=new MediaMetadata({title:x.name,artist:'My slokas'});navigator.mediaSession.setActionHandler('play',function(){var a=myAud();a.play().catch(function(){});mypTick()});navigator.mediaSession.setActionHandler('pause',function(){myAud().pause()})}}catch(e){}}
-function mypTick(){clearInterval(MYW);var a=myAud();MYW=setInterval(function(){if(!MYP||!MYP.on){clearInterval(MYW);MYW=null;return}var ct=a.currentTime;(MYP.holes||[]).forEach(function(hh){if(ct>=hh[0]&&ct<hh[1]-0.05){try{a.currentTime=hh[1]}catch(e){}}});mypGlow(ct);mypInfo();if(MYP.e!=null&&!a.paused&&ct>=MYP.e-0.04)mypRound()},80)}
+function mypTick(){clearInterval(MYW);var a=myAud();MYW=setInterval(function(){if(!MYP||!MYP.on){clearInterval(MYW);MYW=null;return}var ct=a.currentTime;(MYP.holes||[]).forEach(function(hh){if(ct>=hh[0]&&ct<hh[1]-0.05){try{a.currentTime=hh[1]}catch(e){}}});mypGlow(ct);mypInfo();if(MYP.gap)return;if(MYP.e!=null&&((!a.paused&&ct>=MYP.e-0.04)||(a.ended&&ct>MYP.s+0.8)))mypRound()},80)}
 function mypGo(){if(!MYP)return;var a=myAud(),x=myL(MYP.id);if(!x)return;MYP.gap=false;mypSet(a);try{a.currentTime=MYP.s}catch(e){}a.play().catch(function(){});mypMeta(x);mypTick();render()}
-function mypRound(){if(!MYP)return;var a=myAud();a.pause();var xr=myL(MYP.id);if(xr){xr.plays=(xr.plays||0)+1;xr.lastp=tdy();oPut('slk',xr)}if(MYP.k<MYP.n){MYP.k++;if(document.hidden){mypGo();return}MYP.gap=true;clearTimeout(MYP.gt);MYP.gt=setTimeout(mypGo,1200);render()}else{MYP.on=false;MYP.done=true;clearInterval(MYW);MYW=null;render()}}
+function mypRound(){if(!MYP||MYP.gap)return;var a=myAud();a.pause();var xr=myL(MYP.id);if(MYP.k<MYP.n){MYP.k++;if(document.hidden){mypGo();return}MYP.gap=true;clearTimeout(MYP.gt);MYP.gt=setTimeout(mypGo,1200);render()}else if(MYP.q&&MYP.qi<MYP.q.length-1){MYP.qi++;var nq=MYP.q[MYP.qi];MYP.s=nq[0];MYP.e=nq[1];MYP.k=1;MYP.lbl=MYP.qlbl+' · piece '+(MYP.qi+1)+' of '+MYP.q.length;if(document.hidden){mypGo();return}MYP.gap=true;clearTimeout(MYP.gt);MYP.gt=setTimeout(mypGo,1500);render()}else{if(xr){xr.plays=(xr.plays||0)+1;xr.lastp=tdy();oPut('slk',xr)}MYP.on=false;MYP.done=true;clearInterval(MYW);MYW=null;render()}}
+function mypQ(x,span){var pc=myPcs(x),d=x.dur||0,s0=span?span[0]:-1,e0=span?span[1]:1e9;return pc.filter(function(p){var m=(p[0]+Math.min(p[1],d||p[1]))/2;return m>=s0&&m<e0}).map(function(p){return [p[0],Math.min(p[1],d||p[1])]})}
 /* start a round of plays from a tap (iPhone needs play() inside the tap) */
-function mypStart(id,span,lbl){var a=myAud(),x=myL(id);if(!x)return;clearInterval(MYW);if(MYP)clearTimeout(MYP.gt);
+function mypStart(id,span,lbl,bp){var a=myAud(),x=myL(id);if(!x)return;clearInterval(MYW);if(MYP)clearTimeout(MYP.gt);
  if(!MYPEV){MYPEV=true;a.addEventListener('ended',function(){if(MYP&&MYP.on&&MYP.e==null)mypRound()})}
  var rg=myRange(x);MYP={id:id,s:span?span[0]:rg.s,e:span?span[1]:(rg.end?null:rg.e),holes:span?[]:rg.holes,n:mypRep(),k:1,lbl:lbl||null,on:true,T:myTimeline(x),li:-2};
+ if(bp){var q=mypQ(x,span);if(q.length>1){MYP.q=q;MYP.qi=0;MYP.qlbl=lbl||'Whole sloka';MYP.s=q[0][0];MYP.e=q[0][1];MYP.holes=[];MYP.lbl=MYP.qlbl+' · piece 1 of '+q.length}}
  if(a.dataset.id!==id){try{a.src=SWSIL;a.play().catch(function(){})}catch(e){}}
  myLoadAudio(id).then(function(){mypGo()}).catch(function(){OMSG='Audio for this sloka is missing.';MYP=null;render()});
  if(!x.vs)myAnalyse(x).then(function(){if(MYP&&MYP.id===id)MYP.T=myTimeline(x);render()})}
@@ -2019,9 +2021,11 @@ function mypPage(x){var a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused,L=myLines(
  var h='<div class="msk-head"><b>🔁 '+oEsc(x.name)+'</b></div>'+(MYMSG?'<div class="msk-cov">'+MYMSG+'</div>':'')
   +'<div class="card lp-box"><button class="lp-big" data-act="mppp" aria-label="Play or pause">'+(pl?'⏸':'▶')+'</button><div class="lp-r" id="myp-r">'+mypLine()+'</div>'
   +'<div class="lp-row"><span>Repeat</span>'+[1,3,5,11,21,108].map(function(n){return '<button class="chip'+(mypRep()===n?' on':'')+'" data-act="mprep" data-v="'+n+'">'+n+'×</button>'}).join('')+'</div>'
+  +'<div class="lp-row"><span>Play</span>'+[['0','Straight through'],['1','🧩 Piece by piece']].map(function(o){return '<button class="chip'+((S.mypbp?'1':'0')===o[0]?' on':'')+'" data-act="mpbp" data-v="'+o[0]+'">'+o[1]+'</button>'}).join('')+'</div>'
+  +'<div class="lp-row"><span>Follow</span>'+[['1','Word by word'],['0','Line only']].map(function(o){return '<button class="chip'+((S.myword===0?'0':'1')===o[0]?' on':'')+'" data-act="mpwd" data-v="'+o[0]+'">'+o[1]+'</button>'}).join('')+'</div>'
   +'<div class="lp-row"><span>Speed</span>'+[[0.75,'🐢 Slower'],[1,'Normal'],[1.25,'Faster']].map(function(s){return '<button class="chip'+(mypSp()===s[0]?' on':'')+'" data-act="mpsp" data-v="'+s[0]+'">'+s[1]+'</button>'}).join('')+'</div></div>';
  /* parts */
- var cur=MYP&&MYP.lbl;h+='<div class="card msk-c"><div class="msk-ct">🧩 Play one part</div><div class="lp-parts"><button class="chip'+(!cur?' on':'')+'" data-act="mppart" data-v="w">Whole sloka</button>'
+ var cur=MYP&&(MYP.qlbl||MYP.lbl);h+='<div class="card msk-c"><div class="msk-ct">🧩 Play one part</div><div class="mute" style="margin:-2px 0 6px">'+(S.mypbp?'Piece by piece: each piece plays '+mypRep()+'×, then the next piece, to the end of the part you pick.':'Straight through: the part you pick plays '+mypRep()+'×.')+'</div><div class="lp-parts"><button class="chip'+(!cur?' on':'')+'" data-act="mppart" data-v="w">Whole sloka</button>'
   +vs.map(function(v,i){var l='Verse '+(i+1);return '<button class="chip'+(cur===l?' on':'')+'" data-act="mppart" data-v="v:'+i+'">'+l+'</button>'}).join('')+'</div>';
  if(pc.length>1){var ln=function(i){if(L.length===pc.length)return scLine(L[i],dst,src).w.join(' ');if(L.length*2===pc.length)return (i%2?'… ':'')+scLine(L[Math.floor(i/2)],dst,src).w.join(' ');return ''};
   h+='<details class="lp-lines"><summary>Lines · '+pc.length+'</summary>'+pc.map(function(p,i){var l='Line '+(i+1);return '<button class="msk-pc'+(cur===l?' on':'')+'" data-act="mppart" data-v="p:'+i+'"><em>🔁</em><span><b>'+l+'</b><small>'+oT(p[0])+' – '+oT(Math.min(p[1],x.dur||p[1]))+(ln(i)?' · '+oEsc(ln(i)):'')+'</small></span></button>'}).join('')+'</details>'}
@@ -2031,7 +2035,7 @@ function mypPage(x){var a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused,L=myLines(
  return h}
 
 function myHL(T,ct,opts){var box=document.querySelector('.msk-txt');if(!box||!T)return;var cur=-1,li=-1;for(var i=0;i<T.length;i++){if(ct>=T[i].t0&&ct<T[i].pe){cur=T[i].g;li=T[i].li}}
- var ws=box.querySelectorAll('.msk-w');for(var j=0;j<ws.length;j++){var g=+ws[j].dataset.w;ws[j].className='msk-w'+(S.myword?(g<cur?' mk2':g===cur?' cur':''):'')}
+ var ws=box.querySelectorAll('.msk-w');for(var j=0;j<ws.length;j++){var g=+ws[j].dataset.w;ws[j].className='msk-w'+(S.myword!==0?(g<cur?' mk2':g===cur?' cur':''):'')}
  var showLi=opts&&opts.li!=null?opts.li:li,ls=box.querySelectorAll('.msk-ln');for(var k=0;k<ls.length;k++){var on=opts&&opts.all?true:(+ls[k].dataset.l===showLi);ls[k].classList.toggle('on',on)}}
 /* find the breathing pauses in the recording */
 function myDecode(blob){return blob.arrayBuffer().then(function(buf){var C=window.OfflineAudioContext||window.webkitOfflineAudioContext;if(!C)throw 'no decoder';var ctx=new C(1,1,22050);
@@ -2199,8 +2203,10 @@ var OWNA={
  mpopen:function(t,v){prClear();MYMSG='';MYV={m:'play',id:v};MYPAB=null;mypStart(v,null,null);render(1)},
  mppp:function(){var a=myAud();if(MYP&&MYP.on&&!MYP.gap&&!a.paused){a.pause();render();return}if(MYP&&MYP.on&&MYP.gap){clearTimeout(MYP.gt);mypGo();return}if(MYP&&MYP.on){mypSet(a);a.play().catch(function(){});mypTick();render();return}var o=MYP;mypStart(MYV.id,o&&o.lbl&&o.e!=null?[o.s,o.e]:null,o&&o.e!=null?o.lbl:null)},
  mprep:function(t,v){S.myrep=+v;sv();if(MYP){MYP.n=Math.max(+v,MYP.on?MYP.k:1);if(MYP.done){MYP.done=false}}render()},
+ mpbp:function(t,v){S.mypbp=v==='1'?1:0;sv();render()},
+ mpwd:function(t,v){S.myword=v==='1'?1:0;sv();render()},
  mpsp:function(t,v){S.mysp=+v;sv();mypSet(myAud());render()},
- mppart:function(t,v){var x=myL(MYV.id);if(!x)return;MYPAB=null;if(v==='w'){mypStart(x.id,null,null);return}var k=+v.slice(2);if(v[0]==='v'){var vs=mypVerses(x);if(vs[k])mypStart(x.id,vs[k],'Verse '+(k+1))}else{var pc=myPieces(x);if(pc[k])mypStart(x.id,[pc[k][0],Math.min(pc[k][1],x.dur||pc[k][1])],'Line '+(k+1))}},
+ mppart:function(t,v){var x=myL(MYV.id);if(!x)return;MYPAB=null;var bp=!!S.mypbp;if(v==='w'){mypStart(x.id,null,null,bp);return}var k=+v.slice(2);if(v[0]==='v'){var vs=mypVerses(x);if(vs[k])mypStart(x.id,vs[k],'Verse '+(k+1),bp)}else{var pc=myPieces(x);if(pc[k])mypStart(x.id,[pc[k][0],Math.min(pc[k][1],x.dur||pc[k][1])],'Line '+(k+1))}},
  mpab:function(){var a=myAud(),x=myL(MYV.id);if(!x)return;var ct=a.currentTime;if(!MYPAB){MYPAB={s:Math.max(0,ct-0.3)};render();return}var s0=MYPAB.s,e0=ct;MYPAB=null;if(e0-s0<0.6){render();return}mypStart(x.id,[s0,e0],'Your bit')},
  mylisten:function(t,v){prClear();var a=myAud();if(a.dataset.id!==v){try{a.src=SWSIL;a.play().catch(function(){})}catch(e){}}MYV={m:'listen',id:v};render(1);(function(x){if(x&&!x.vs)myAnalyse(x)})(myL(v));myLoadAudio(v).then(function(){myListenGo(0)}).catch(function(){OMSG='Audio for this sloka is missing.';render()})},
  mylsp:function(){var a=myAud();if(a.paused)myListenGo(null);else{a.pause();clearInterval(MYW);render()}},
@@ -2925,7 +2931,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=261,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=262,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
