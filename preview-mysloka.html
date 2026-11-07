@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><title>My slokas · new design preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit&family=Inter:wght@400;600;700;800&display=swap" rel=stylesheet><style>*{box-sizing:border-box}body{margin:0;max-width:460px;margin:0 auto;min-height:100vh;background:#faf5ea;font-family:Inter,system-ui,-apple-system,sans-serif;color:#2b2015;position:relative}
+.hd{display:flex;justify-content:space-between;align-items:center;padding:18px 16px 6px}.hd b{font-size:1.25rem;color:#11696a}.x{border:1.5px solid #ecdcb6;background:#fff;border-radius:14px;padding:7px 12px;font-size:.95rem}
+.nm{padding:0 16px 8px;font-weight:800;font-size:1.15rem}
+.card{background:#fff;border:1.5px solid #ecdcb6;border-radius:18px;margin:8px 12px;padding:12px 14px}
+.chip{display:inline-block;white-space:nowrap;border:1.5px solid #e3cf9f;background:#fff;border-radius:16px;padding:6px 12px;font-size:.92rem;font-weight:600;margin:3px 2px}.chip.on{background:#11696a;color:#fff;border-color:#11696a}
+.lab{font-size:.75rem;font-weight:800;letter-spacing:.06em;color:#9a7f52;margin:10px 0 4px}
+.ln{font-family:"Tiro Devanagari Sanskrit",serif;font-size:1.25rem;line-height:1.55;padding:5px 30px 5px 10px;border-radius:12px;color:#5a4a36;position:relative}
+.ln i{position:absolute;right:10px;top:9px}
+.ln.on{background:#fff4d6;color:#3a2210;box-shadow:inset 3px 0 0 #e0a526}
+.ln .w{background:#f6c445;border-radius:5px;padding:0 3px}
+.ln i{font-style:normal;font-family:Inter;font-size:.8rem;color:#9a7f52}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#fffdf7;border-top:1.5px solid #ecdcb6;padding:12px 16px 26px;box-shadow:0 -6px 16px rgba(0,0,0,.05)}
+.pp{width:60px;height:60px;border-radius:50%;background:#11696a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex:0 0 60px}
+.prog{height:6px;border-radius:4px;background:#f1e4c6;overflow:hidden;margin-top:8px}.prog u{display:block;height:100%;width:30%;background:#e0a526}
+.row{display:flex;align-items:center;gap:12px}
+.mode{display:flex;align-items:center;gap:12px;border:1.5px solid #ecdcb6;border-radius:16px;padding:11px 12px;margin:8px 0;background:#fff}
+.mode.on{border:2px solid #11696a;background:#eef6f5}
+.mode b{display:block;font-size:1.02rem}.mode small{color:#6b5a3e;font-size:.85rem}
+.mode .ic{font-size:1.5rem}.mode .ck{margin-left:auto;font-weight:800;color:#11696a}
+.seg{display:flex;background:#fff;border:1.5px solid #ecdcb6;border-radius:22px;margin:6px 12px;padding:4px}.seg span{flex:1;text-align:center;padding:9px 4px;border-radius:18px;font-weight:700;font-size:.88rem;color:#6b5a3e}.seg span.on{background:#11696a;color:#fff}
+.lbl{position:absolute;top:0;left:0;right:0;background:#1f5f5b;color:#fff;font-weight:800;font-size:1rem;padding:9px 14px;z-index:3}
+.sp{height:38px}
+.mute{color:#6b5a3e;font-size:.88rem}
+.sheet{position:fixed;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;padding:14px 18px 28px;box-shadow:0 -8px 24px rgba(0,0,0,.15)}
+.dim{position:fixed;inset:0;background:rgba(40,30,15,.35)}
+
+
+#s-list .sl{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid #ecdcb6;border-radius:18px;margin:10px 12px;padding:12px 12px 12px 14px}
+#s-list .sl b{display:block;font-size:1.05rem}
+#s-list .sl small{color:#6b5a3e;font-size:.85rem}
+#s-list .sl .pp{width:50px;height:50px;flex:0 0 50px;font-size:1.3rem}
+#s-list .dots{font-size:1.4rem;color:#9a7f52;padding:0 4px}
+#s-list .add{margin:12px;border:2px dashed #d4a23c;border-radius:18px;padding:14px;text-align:center;font-weight:800;color:#11696a}
+#s-list .menu{position:fixed;right:20px;top:205px;background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.2);width:200px;z-index:5}
+#s-list .menu div{padding:12px 14px;border-top:1px solid #f3e7cb;font-weight:600}
+#s-list .menu div:first-child{border-top:0}
+
+
+#s-edit .st{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1.5px solid #ecdcb6;border-radius:18px;margin:10px 12px;padding:12px 14px}
+#s-edit .n{flex:0 0 30px;height:30px;border-radius:50%;background:#e6f2f1;color:#11696a;font-weight:800;display:flex;align-items:center;justify-content:center}
+#s-edit .st b{display:block;font-size:1.02rem}
+#s-edit .st small{display:block;color:#6b5a3e;font-size:.86rem;margin-top:2px}
+#s-edit .ok{color:#2f6b3a;font-weight:700}
+#s-edit .go{margin-left:auto;font-weight:800;color:#11696a;white-space:nowrap}
+#s-edit .more{margin:12px 16px;color:#11696a;font-weight:700}
+#s-edit .save{position:fixed;left:12px;right:12px;bottom:26px;background:#11696a;color:#fff;text-align:center;border-radius:16px;padding:15px;font-weight:800;font-size:1.1rem}
+
+
+#s-lines .lr{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid #ecdcb6;border-radius:14px;margin:7px 12px;padding:8px 10px}
+#s-lines .lr .pp{width:40px;height:40px;flex:0 0 40px;font-size:1rem}
+#s-lines .lr b{display:block;font-size:.95rem}
+#s-lines .lr small{color:#6b5a3e;font-size:.8rem}
+#s-lines .lr .w{font-family:Tiro;color:#3a2210;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:180px}
+#s-lines .k{font-size:1.2rem;color:#9a7f52;padding:0 4px}
+#s-lines .lr.off{opacity:.45}
+#s-lines .lr.off b{text-decoration:line-through}
+#s-lines .save{position:fixed;left:12px;right:12px;bottom:26px;background:#11696a;color:#fff;text-align:center;border-radius:16px;padding:15px;font-weight:800;font-size:1.1rem}
+
+
+#s-play .tb{display:flex;align-items:center;gap:8px;padding:14px 12px 6px}
+#s-play .tb .x{padding:6px 10px}
+#s-play .tb b{flex:1;font-size:1.05rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#s-play .ic{border:1.5px solid #ecdcb6;background:#fff;border-radius:12px;padding:6px 9px;font-size:.88rem;font-weight:700;white-space:nowrap}
+#s-play .words{margin:6px 12px;padding-bottom:160px}
+#s-play .L{padding:6px 10px;border-radius:12px;margin:2px 0}
+#s-play .L .s{font-family:Tiro;font-size:1.3rem;color:#8a7a66;line-height:1.5}
+#s-play .L .d{font-size:1rem;color:#7fa6a6;font-weight:700;line-height:1.7}
+#s-play .L .d span{border-bottom:2px solid #e3cf9f;margin-right:8px;padding-bottom:1px}
+#s-play .L.on{background:#fff4d6;box-shadow:inset 3px 0 0 #e0a526}
+#s-play .L.on .s{color:#3a2210}
+#s-play .L.on .d{color:#0a5354}
+#s-play .L.on .d span{border-color:#c98f1e}
+#s-play .L.on .d span.cur{background:#f6c445;border-radius:5px;padding:0 3px}
+#s-play .L.done .s{color:#5a4a36}
+#s-play .L.done .d{color:#2f7f7f}
+#s-play .dock{position:fixed;left:0;right:0;bottom:0;background:#fffdf7;border-top:1.5px solid #ecdcb6;padding:10px 14px 24px;box-shadow:0 -6px 16px rgba(0,0,0,.06)}
+#s-play .now{font-size:.8rem;color:#9a7f52;font-weight:800;letter-spacing:.05em}
+#s-play .prog2{display:flex;gap:4px;margin:6px 0 10px}
+#s-play .prog2 i{flex:1;height:6px;border-radius:3px;background:#f1e4c6}
+#s-play .prog2 i.d{background:#e0a526}
+#s-play .prog2 i.c{background:linear-gradient(90deg,#e0a526 40%,#f1e4c6 40%)}
+#s-play .mini{display:flex;gap:6px;margin-left:auto}
+
+
+#s-menu .tb{display:flex;align-items:center;gap:8px;padding:14px 12px 6px}
+#s-menu .tb b{flex:1;font-size:1.05rem}
+#s-menu .ic{border:1.5px solid #ecdcb6;background:#fff;border-radius:12px;padding:6px 9px;font-size:.88rem;font-weight:700}
+#s-menu .dim{position:fixed;inset:0;background:rgba(40,30,15,.35)}
+#s-menu .sheet{position:fixed;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;padding:14px 16px 26px}
+#s-menu .it{display:flex;align-items:center;gap:12px;padding:12px 4px;border-top:1px solid #f3e7cb;font-weight:600}
+#s-menu .it:first-of-type{border-top:0}
+#s-menu .it small{display:block;color:#6b5a3e;font-weight:400}
+
+
+#s-guru .tb{display:flex;align-items:center;gap:8px;padding:14px 12px 4px}
+#s-guru .tb b{flex:1;font-size:1.05rem}
+#s-guru .ic{border:1.5px solid #ecdcb6;background:#fff;border-radius:12px;padding:6px 9px;font-size:.88rem;font-weight:700}
+#s-guru .st{margin:6px 12px;border-radius:16px;padding:10px 14px;color:#fff;background:linear-gradient(135deg,#f0952a,#d9531e);display:flex;align-items:center;gap:12px}
+#s-guru .st .big{font-size:1.25rem;font-weight:800}
+#s-guru .st small{display:block;opacity:.9;font-size:.85rem}
+#s-guru .ring{width:46px;height:46px;border-radius:50%;background:conic-gradient(#fff 0 60%,rgba(255,255,255,.3) 0);display:flex;align-items:center;justify-content:center}
+#s-guru .ring i{width:36px;height:36px;border-radius:50%;background:#e2701f;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:800}
+#s-guru .path{display:flex;align-items:center;gap:4px;margin:8px 14px 2px;font-size:.78rem;font-weight:700;color:#9a7f52}
+#s-guru .path span{padding:3px 8px;border-radius:10px;background:#f3ead6}
+#s-guru .path span.d{background:#e2f1df;color:#2f6b3a}
+#s-guru .path span.on{background:#11696a;color:#fff}
+#s-guru .L{padding:6px 10px;border-radius:12px;margin:2px 12px}
+#s-guru .L .s{font-family:Tiro;font-size:1.3rem;color:#8a7a66;line-height:1.5}
+#s-guru .L .d{font-size:1rem;color:#7fa6a6;font-weight:700;line-height:1.7}
+#s-guru .L .d span{border-bottom:2px solid #e3cf9f;margin-right:8px}
+#s-guru .L.on{background:#fff4d6;box-shadow:inset 3px 0 0 #e0a526}
+#s-guru .L.on .s{color:#3a2210;font-size:1.45rem}
+#s-guru .L.on .d{color:#0a5354;font-size:1.1rem}
+#s-guru .L.on .d span{border-color:#c98f1e}
+#s-guru .dock{position:fixed;left:0;right:0;bottom:0;background:#fffdf7;border-top:1.5px solid #ecdcb6;padding:10px 14px 24px}
+#s-guru .btns{display:flex;gap:8px}
+#s-guru .btns span{flex:1;text-align:center;border:1.5px solid #ecdcb6;border-radius:14px;padding:10px 0;font-weight:700;background:#fff}
+#s-guru .btns span.p{background:#11696a;color:#fff;border-color:#11696a}
+
+.scr{display:none;position:relative;padding-top:44px}.scr.on{display:block}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:#2a1f10;color:#ffe9b0;display:flex;gap:4px;overflow-x:auto;padding:6px 8px;font-size:.78rem}
+.nav button{border:0;border-radius:10px;padding:5px 9px;background:#3d2e18;color:#ffe9b0;font:inherit;font-weight:700;white-space:nowrap}.nav button.on{background:#f2c14e;color:#2a1f10}
+#s-menu .dim,#s-menu .sheet{z-index:20}
+[data-go]{cursor:pointer}
+</style></head><body>
+<div class=nav><button data-n=list>1 List</button><button data-n=menu2>⋯ menu</button><button data-n=play>2 Player</button><button data-n=menu>Player ⋯</button><button data-n=guru>3 With guru</button><button data-n=edit>4 Edit</button><button data-n=lines>5 Lines</button></div>
+<section class=scr id=s-list>
+<div class=hd><b>🎵 My slokas</b><span class=x>✕ Close</span></div>
+<div class=add>＋ Add a sloka</div>
+<div class=sl><span style="flex:1"><b>Parvadi Panchakam · 2</b><small>9 lines · 0:42 · played 46× · next Nov 8</small></span><span class=pp>▶</span><span class=dots>⋯</span></div>
+<div class=sl><span style="flex:1"><b>Udyad bhanu</b><small>9 lines · 0:45 · next Nov 8</small></span><span class=pp>▶</span><span class=dots>⋯</span></div>
+<div class=sl><span style="flex:1"><b>My sloka 3</b><small>17 lines · 3:40 · new</small></span><span class=pp>▶</span><span class=dots>⋯</span></div>
+<div class=menu><div>🗣 Learn with guru</div><div>✏️ Edit sloka</div><div style="color:#c0392b">🗑 Delete</div></div>
+<div class="mute" style="padding:8px 18px">▶ plays it straight away. ⋯ has everything else.</div>
+</section>
+<section class=scr id=s-edit>
+<div class=hd><b>✏️ Edit · Parvadi Panchakam · 2</b><span class=x>✕</span></div>
+<div class=st><span class=n>1</span><span style="flex:1"><b>Name</b><small>Parvadi Panchakam · sloka 2</small></span><span class=go>Change</span></div>
+<div class=st><span class=n>2</span><span style="flex:1"><b>Words</b><small>8 lines · Telugu</small><small style="font-family:Tiro;color:#3a2210">आमोदे भुवने प्रमोद उत …</small></span><span class=go>Fix ›</span></div>
+<div class=st><span class=n>3</span><span style="flex:1"><b>Lines in the sound</b><small class=ok>✅ 8 lines found · 0:00 – 0:42 · matches the words</small><small>Tap to listen to each line, join two, or leave one out.</small></span><span class=go>Check ›</span></div>
+<div class=more>▸ Words not in time with the voice?</div>
+<div class="mute" style="margin:-6px 18px 0">👆 Tap along once · ↺ Find the lines again · ✋ Mark by hand</div>
+<div class=save>✓ Done · back to the player</div>
+</section>
+<section class=scr id=s-lines>
+<div class=hd><b>‹ Lines in the sound</b></div>
+<div class="mute" style="padding:0 16px 4px">▶ listen · ⋯ join with next or leave out</div>
+<div class=lr><span class=pp>▶</span><span style="flex:1"><b>Line 1 · 0:00–0:06</b><span class=w>आमोदे भुवने प्रमोद उत</span></span><span class=k>⋯</span></div>
+<div class=lr><span class=pp>▶</span><span style="flex:1"><b>Line 2 · 0:06–0:10</b><span class=w>सम्मोदे च सङ्कर्षणम्</span></span><span class=k>⋯</span></div>
+<div class="lr off"><span class=pp>▶</span><span style="flex:1"><b>Line 3 · 0:10–0:16</b><small>left out · ↩ use again</small></span><span class=k>⋯</span></div>
+<div class=lr><span class=pp>▶</span><span style="flex:1"><b>Line 4 · 0:16–0:21</b><span class=w>प्रद्युम्नं च ततोऽनिरुद्धम्</span></span><span class=k>⋯</span></div>
+<div class=lr><span class=pp>▶</span><span style="flex:1"><b>Line 5 · 0:21–0:26</b><span class=w>कुर्वाणान् मति मुख्य षड्</span></span><span class=k>⋯</span></div>
+<div class=save>✓ Done</div>
+</section>
+<section class=scr id=s-play>
+<div class=tb><span class=x>‹</span><b>Parvadi Panchakam · 2</b><span class=ic>తె ▾</span><span class=ic>⋯</span></div>
+<div class=words>
+<div class="L done"><div class=s>आमोदे भुवने प्रमोद उत ।</div><div class=d><span>Aa-mo-de</span><span>Bhu-va-ne</span><span>Pra-mo-da</span><span>U-ta</span></div></div>
+<div class="L on"><div class=s>सम्मोदे च सङ्कर्षणम् ।</div><div class=d><span>Sam-mo-de</span><span class=cur>Cha</span><span>San-kar-sha-nam</span></div></div>
+<div class=L><div class=s>प्रद्युम्नं च ततोऽनिरुद्धम् ।</div><div class=d><span>Pra-dyum-nam</span><span>Cha</span><span>Ta-to-ni-rud-dham</span></div></div>
+<div class=L><div class=s>अपि तान् संहार सृष्टि स्थितीः ॥</div><div class=d><span>A-pi</span><span>Taan</span><span>Sam-haa-ra</span><span>Srish-ti</span></div></div>
+</div>
+<div class=dock>
+<div class=row><span class=now>NOW · LINE 2 OF 8 · 2ND TIME OF 3</span></div>
+<div class=prog2><i class=d></i><i class=c></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class=row><span class=pp>⏸</span><span class=chip>⏮</span><span class=chip>⏭</span><span class=mini><span class="chip on">🪜 Lines</span><span class=chip>3×</span></span></div>
+</div></section>
+<section class=scr id=s-menu>
+<div class=tb><span class=x>‹</span><b>Parvadi Panchakam · 2</b><span class=ic>తె ▾</span><span class=ic>⋯</span></div>
+<div class=dim></div><div class=sheet><b style="font-size:1.1rem">Parvadi Panchakam · 2</b>
+<div class=lab>PLAY</div><span class=chip>🔁 Whole sloka</span><span class="chip on">🪜 Line by line</span>
+<div class=lab>TIMES</div><span class=chip>1</span><span class="chip on">3</span><span class=chip>5</span><span class=chip>11</span><span class=chip>21</span><span class=chip>108</span>
+<div class=lab>SPEED</div><span class=chip>🐢 Slow</span><span class="chip on">Normal</span><span class=chip>Fast</span>
+<div class=lab>LIGHT UP</div><span class="chip on">Each word</span><span class=chip>Whole line</span>
+<div style="margin-top:10px"><div class=it>🗣<span>Learn with guru<small>Listen, then your turn, line by line</small></span></div><div class=it>✏️<span>Edit sloka<small>Name, words, lines in the sound</small></span></div><div class=it>🔂<span>Loop a bit<small>Repeat a tricky part</small></span></div></div>
+</div></section>
+<section class=scr id=s-guru>
+<div class=tb><span class=x>✕</span><b>Verse 72 · new today</b><span class=ic>📖</span><span class=ic>⋯</span></div>
+<div class=st><span class=ring><i>3s</i></span><span><span class=big>🎤 Your turn</span><small>Say line 2 · 1st of 2 times</small></span></div>
+<div class=path><span class=d>Line 1 ✓</span>›<span class=on>Line 2</span>›<span>Whole ×3</span>›<span>🎙 Record</span></div>
+<div style="height:6px"></div>
+<div class=L><div class=s>महाक्रमो महाकर्मा महातेजा महोरगः ।</div><div class=d><span>Ma-haa-kra-mo</span><span>Ma-haa-kar-maa</span><span>Ma-haa-te-jaa</span><span>Ma-ho-ra-gah</span></div></div>
+<div class="L on"><div class=s>महाक्रतुर्महायज्वा महायज्ञो महाहविः ॥</div><div class=d><span>Ma-haa-kra-tur</span><span>Ma-haa-yaj-vaa</span><span>Ma-haa-yaj-no</span><span>Ma-haa-ha-vih</span></div></div>
+<div class=dock><div class=btns><span>↺ Hear again</span><span class=p>⏸ Pause</span><span>✓ I'm done</span></div></div>
+</section>
+<div class="mute" style="text-align:center;padding:10px 16px 140px;font-size:.8rem">Preview only · not the real app · nothing is saved</div>
+<script>
+function go(n){var m2=n==='menu2';if(m2)n='list';document.querySelectorAll('.scr').forEach(function(e){e.classList.toggle('on',e.id==='s-'+n)});document.querySelectorAll('.nav button').forEach(function(b){b.classList.toggle('on',b.dataset.n===(m2?'menu2':n))});var mm=document.querySelector('#s-list .menu');if(mm)mm.style.display=m2?'block':'none';scrollTo(0,0)}
+document.querySelectorAll('.nav button').forEach(function(b){b.onclick=function(){go(b.dataset.n)}});
+/* links inside screens */
+function link(sel,n){document.querySelectorAll(sel).forEach(function(e){e.setAttribute('data-go',n);e.onclick=function(ev){ev.stopPropagation();go(n)}})}
+link('#s-list .sl .pp','play');link('#s-list .dots','menu2');link('#s-menu .dim','play');link('#s-play .tb .ic:last-child','menu');link('#s-play .tb .x','list');link('#s-edit .st:nth-of-type(3) .go','lines');link('#s-edit .save','play');link('#s-lines .save','edit');link('#s-lines .hd','edit');link('#s-guru .tb .x','play');link('#s-edit .hd .x','list');
+document.querySelectorAll('#s-list .menu div').forEach(function(d,i){d.setAttribute('data-go',1);d.onclick=function(){go(['guru','edit','list'][i])}});
+document.querySelectorAll('#s-menu .it').forEach(function(d,i){d.setAttribute('data-go',1);d.onclick=function(){go(['guru','edit','play'][i])}});
+document.querySelectorAll('.chip').forEach(function(c){c.onclick=function(){var p=c.parentNode;p.querySelectorAll('.chip').forEach(function(x){if(x.previousElementSibling&&x.previousElementSibling.className==='lab')return});var grp=[],e=c;while(e.previousElementSibling&&e.previousElementSibling.classList.contains('chip'))e=e.previousElementSibling;while(e&&e.classList&&e.classList.contains('chip')){grp.push(e);e=e.nextElementSibling}grp.forEach(function(x){x.classList.remove('on')});c.classList.add('on')}});
+/* animate word highlight in player and guru */
+(function(){var Ls=document.querySelectorAll('#s-play .L'),li=1,wi=0,k=0;setInterval(function(){var L=Ls[li];var ws=L.querySelectorAll('.d span');ws.forEach(function(w){w.classList.remove('cur')});ws[wi].classList.add('cur');wi++;if(wi>=ws.length){wi=0;k++;if(k>=3){k=0;L.classList.remove('on');L.classList.add('done');li=(li+1)%Ls.length;if(li===0)Ls.forEach(function(x){x.classList.remove('done')});Ls[li].classList.add('on')}}
+ var now=document.querySelector('#s-play .now');if(now)now.textContent='NOW · LINE '+(li+1)+' OF 8 · '+['1ST','2ND','3RD'][k]+' TIME OF 3';var bs=document.querySelectorAll('#s-play .prog2 i');bs.forEach(function(b,i){b.className=i<li?'d':i===li?'c':''})},700)})();
+(function(){var r=document.querySelector('#s-guru .ring i'),n=6,turn=true;setInterval(function(){n--;if(n<=0){turn=!turn;n=6;var st=document.querySelector('#s-guru .st');st.style.background=turn?'linear-gradient(135deg,#f0952a,#d9531e)':'linear-gradient(135deg,#11696a,#2f8f8a)';st.querySelector('.big').textContent=turn?'🎤 Your turn':'🎧 Listen';st.querySelector('small').textContent=turn?'Say line 2 · 1st of 2 times':'Guru says line 2'}r.textContent=n+'s'},1000)})();
+go(location.hash.slice(1)||'play');
+</script></body></html>
