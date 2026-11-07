@@ -1950,7 +1950,7 @@ function myVIn(x,s,e){var V=(x.vs||[]).map(function(v){return [Math.max(s,v[0]),
 function myPcs(x){var sk=x.skip||[];return myPieces(x).filter(function(_,i){return sk.indexOf(i)<0})}
 /* what 'whole sloka' means: from the first used piece (or first tapped line) to the last used piece (or tapped end); skipped pieces in between are jumped over */
 function myRange(x){var pc=myPieces(x),sk=x.skip||[],dur=x.dur||1e6,use=pc.map(function(_,i){return sk.indexOf(i)<0}),f=use.indexOf(true),l=use.lastIndexOf(true);if(f<0){f=0;l=pc.length-1}
- var s0=pc[f][0],e0=Math.min(pc[l][1],dur);if(x.lt&&x.lt.length&&f===0)s0=Math.max(s0,x.lt[0]-0.15);if(x.tend&&x.tend>s0+1&&x.tend<e0)e0=x.tend;
+ var s0=pc[f][0],e0=Math.min(pc[l][1],dur);if(x.lt&&x.lt.length&&f===0)s0=Math.max(s0,x.lt[0]-0.15);if(x.tend&&x.tend>pc[l][0]+0.3&&x.tend<e0)e0=x.tend;
  var holes=[];for(var i=f+1;i<l;i++)if(!use[i])holes.push([pc[i][0],pc[i][1]]);return {s:s0,e:e0,holes:holes,end:e0>=dur-0.3}}
 function myLineSpans(x,L){var pc=myPcs(x),dur=x.dur||1e6;
  if(x.lt&&x.lt.length===L)return {lines:x.lt.map(function(t,i){return [t,i+1<L?x.lt[i+1]:dur]})};
@@ -2001,18 +2001,18 @@ function mypGlow(ct){if(!MYP||!MYP.T)return;var li=-1,cw=-1;for(var i=0;i<MYP.T.
  var box=document.querySelector('.msk-txt');if(!box)return;var wd=S.myword!==0,ws=box.querySelectorAll('.msk-w');for(var j=0;j<ws.length;j++){var g=+ws[j].dataset.w,lw=+(ws[j].closest('.msk-ln')||{dataset:{l:-9}}).dataset.l;ws[j].className='msk-w'+(wd&&cw>=0&&lw===li?(g<cw?' mk2':g===cw?' cur':''):'')}var ls=box.querySelectorAll('.msk-ln');for(var k=0;k<ls.length;k++)ls[k].classList.toggle('on',+ls[k].dataset.l===li);
  if(li!==MYP.li){MYP.li=li;var el=box.querySelector('.msk-ln[data-l="'+li+'"]');if(el&&el.scrollIntoView)try{el.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}}}
 function mypInfo(){var r=document.getElementById('myp-r');if(r&&MYP)r.textContent=mypLine()}
-function mypLine(){if(!MYP)return 'Whole sloka · '+mypRep()+(mypRep()>1?' times':' time');return (MYP.lbl||'Whole sloka')+' · '+(MYP.done?'done ✓':MYP.gap?'next round…':'round '+MYP.k+' of '+MYP.n)}
+function mypLine(){if(!MYP)return 'Whole sloka · '+mypRep()+(mypRep()>1?' times':' time');var xe=MYP.e!=null?MYP.e:((myL(MYP.id)||{}).dur||0);return (MYP.lbl||'Whole sloka')+' · '+oT(MYP.s)+'–'+oT(xe)+' · '+(MYP.done?'done ✓':MYP.gap?'next round…':'round '+MYP.k+' of '+MYP.n)}
 function mypSet(a){a.playbackRate=mypSp();try{a.preservesPitch=true;a.webkitPreservesPitch=true}catch(e){}}
 function mypMeta(x){try{if('mediaSession' in navigator){navigator.mediaSession.metadata=new MediaMetadata({title:x.name,artist:'My slokas'});navigator.mediaSession.setActionHandler('play',function(){var a=myAud();a.play().catch(function(){});mypTick()});navigator.mediaSession.setActionHandler('pause',function(){myAud().pause()})}}catch(e){}}
 function mypTick(){clearInterval(MYW);var a=myAud();MYW=setInterval(function(){if(!MYP||!MYP.on){clearInterval(MYW);MYW=null;return}var ct=a.currentTime;(MYP.holes||[]).forEach(function(hh){if(ct>=hh[0]&&ct<hh[1]-0.05){try{a.currentTime=hh[1]}catch(e){}}});mypGlow(ct);mypInfo();if(MYP.gap)return;if(MYP.e!=null&&((!a.paused&&ct>=MYP.e-0.04)||(a.ended&&ct>MYP.s+0.8)))mypRound()},80)}
-function mypGo(){if(!MYP)return;var a=myAud(),x=myL(MYP.id);if(!x)return;MYP.gap=false;mypSet(a);try{a.currentTime=MYP.s}catch(e){}a.play().catch(function(){});mypMeta(x);mypTick();render()}
+function mypGo(){if(!MYP)return;var a=myAud(),x=myL(MYP.id);if(!x)return;MYP.gap=false;MYP.t0=Date.now();mypSet(a);try{a.currentTime=MYP.s}catch(e){}a.play().catch(function(){});mypMeta(x);mypTick();render()}
 function mypRound(){if(!MYP||MYP.gap)return;var a=myAud();a.pause();var xr=myL(MYP.id);if(MYP.k<MYP.n){MYP.k++;if(document.hidden){mypGo();return}MYP.gap=true;clearTimeout(MYP.gt);MYP.gt=setTimeout(mypGo,1200);render()}else if(MYP.q&&MYP.qi<MYP.q.length-1){MYP.qi++;var nq=MYP.q[MYP.qi];MYP.s=nq[0];MYP.e=nq[1];MYP.k=1;MYP.lbl=MYP.qlbl+' · piece '+(MYP.qi+1)+' of '+MYP.q.length;if(document.hidden){mypGo();return}MYP.gap=true;clearTimeout(MYP.gt);MYP.gt=setTimeout(mypGo,1500);render()}else{if(xr){xr.plays=(xr.plays||0)+1;xr.lastp=tdy();oPut('slk',xr)}MYP.on=false;MYP.done=true;clearInterval(MYW);MYW=null;render()}}
 function mypQ(x,span){var pc=myPcs(x),d=x.dur||0,s0=span?span[0]:-1,e0=span?span[1]:1e9;return pc.filter(function(p){var m=(p[0]+Math.min(p[1],d||p[1]))/2;return m>=s0&&m<e0}).map(function(p){return [p[0],Math.min(p[1],d||p[1])]})}
 /* start a round of plays from a tap (iPhone needs play() inside the tap) */
 function mypStart(id,span,lbl,bp){var a=myAud(),x=myL(id);if(!x)return;clearInterval(MYW);if(MYP)clearTimeout(MYP.gt);
- if(!MYPEV){MYPEV=true;a.addEventListener('ended',function(){if(MYP&&MYP.on&&MYP.e==null)mypRound()})}
+ if(!MYPEV){MYPEV=true;a.addEventListener('ended',function(){if(!(MYP&&MYP.on&&MYP.e==null&&!MYP.gap))return;var d=a.duration||0;if(Date.now()-(MYP.t0||0)<1500||(d&&isFinite(d)&&a.currentTime<d-0.8)){a.play().catch(function(){});return}mypRound()})}
  var rg=myRange(x);MYP={id:id,s:span?span[0]:rg.s,e:span?span[1]:(rg.end?null:rg.e),holes:span?[]:rg.holes,n:mypRep(),k:1,lbl:lbl||null,on:true,T:myTimeline(x),li:-2};
- if(bp){var q=mypQ(x,span);if(q.length>1){MYP.q=q;MYP.qi=0;MYP.qlbl=lbl||'Whole sloka';MYP.s=q[0][0];MYP.e=q[0][1];MYP.holes=[];MYP.lbl=MYP.qlbl+' · piece 1 of '+q.length}}
+ MYP.span0=span||null;if(bp){var q=mypQ(x,span);if(q.length>1){MYP.q=q;MYP.qi=0;MYP.qlbl=lbl||'Whole sloka';MYP.s=q[0][0];MYP.e=q[0][1];MYP.holes=[];MYP.lbl=MYP.qlbl+' · piece 1 of '+q.length}}
  if(a.dataset.id!==id){try{a.src=SWSIL;a.play().catch(function(){})}catch(e){}}
  myLoadAudio(id).then(function(){mypGo()}).catch(function(){OMSG='Audio for this sloka is missing.';MYP=null;render()});
  if(!x.vs)myAnalyse(x).then(function(){if(MYP&&MYP.id===id)MYP.T=myTimeline(x);render()})}
@@ -2201,7 +2201,7 @@ var OWNA={
  myrev:function(t,v){prClear();MYV={m:'review',id:v,ed:false};MYMSG='';MYPC=null;render(1);myLoadAudio(v).then(function(){render()}).catch(function(){})},
  mypcplay:function(t,v){var i=+v,x=myL(MYV.id),a=myAud();if(!x)return;if(MYPC===i&&!a.paused){a.pause();clearInterval(MYW);MYPC=null;render();return}MYPC=i;myPlaySpan(myPieces(x)[i],function(){MYPC=null;render()});render()},
  mpopen:function(t,v){prClear();MYMSG='';MYV={m:'play',id:v};MYPAB=null;mypStart(v,null,null);render(1)},
- mppp:function(){var a=myAud();if(MYP&&MYP.on&&!MYP.gap&&!a.paused){a.pause();render();return}if(MYP&&MYP.on&&MYP.gap){clearTimeout(MYP.gt);mypGo();return}if(MYP&&MYP.on){mypSet(a);a.play().catch(function(){});mypTick();render();return}var o=MYP;mypStart(MYV.id,o&&o.lbl&&o.e!=null?[o.s,o.e]:null,o&&o.e!=null?o.lbl:null)},
+ mppp:function(){var a=myAud();if(MYP&&MYP.on&&!MYP.gap&&!a.paused){a.pause();render();return}if(MYP&&MYP.on&&MYP.gap){clearTimeout(MYP.gt);mypGo();return}if(MYP&&MYP.on){mypSet(a);a.play().catch(function(){});mypTick();render();return}var o=MYP;if(o&&o.q){mypStart(MYV.id,o.span0||null,o.qlbl==='Whole sloka'?null:o.qlbl,!!S.mypbp);return}mypStart(MYV.id,o&&o.lbl&&o.e!=null?[o.s,o.e]:null,o&&o.e!=null?o.lbl:null,!!S.mypbp&&!(o&&o.lbl&&/^(Line|Your bit)/.test(o.lbl)))},
  mprep:function(t,v){S.myrep=+v;sv();if(MYP){MYP.n=Math.max(+v,MYP.on?MYP.k:1);if(MYP.done){MYP.done=false}}render()},
  mpbp:function(t,v){S.mypbp=v==='1'?1:0;sv();render()},
  mpwd:function(t,v){S.myword=v==='1'?1:0;sv();render()},
@@ -2931,7 +2931,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=262,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=263,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
