@@ -1,0 +1,68 @@
+# Sahasranama Guru: handoff for another developer or AI
+
+Owner: Pranav. Repo: https://github.com/pranavbpk/vishnu-sahasranam-
+Live site (GitHub Pages): https://pranavbpk.github.io/vishnu-sahasranam-/
+Updated: 7 Nov 2026 (live = Version 106, Guru Test = build 262).
+
+## What the app is
+A free web app (PWA) for learning Vishnu Sahasranamam the guru-shishya way:
+listen, repeat each line after the guide, say the whole verse, record yourself,
+then read the meaning. One new verse a day, revision after 1, 3 and 7 days.
+Extras: Swadhyayam (guru's class recordings, owner and students only),
+My slokas (owner only: add any audio + words and practise it), Satsang dates,
+Learn (meanings, stories, how to read), Telugu/Hindi interface.
+
+## Files
+- `index.html`: the LIVE app. One file: HTML + CSS + vanilla JS. No framework, no build step.
+- `index-proto.html`: "Guru Test", the test copy. ALL new work goes here first.
+- `sw-proto.js`: service worker (offline cache) for both pages.
+- `manifest.webmanifest` (live) and `manifest-test.webmanifest` (Guru Test).
+- `audio/vNNN.m4a`: guide audio for verses 1-108 (owner's voice).
+  `audio/cuts.json` = pause between line 1 and line 2 (seconds) per verse.
+  `audio/trim.json` = [speech start, speech end] per verse.
+  `audio/all108.m4a` + `audio/all108.json` = all 108 verses in one file.
+  `audio/ex/*.m4a` = example words for the "How to read" table.
+- `content/*.json`: Guru explains, stories, Dhyanam, why-we-chant, arrangement, students list.
+- `img/story/*.jpg`, `img/mean/*.jpg`: pictures (AI made, owner chosen).
+- `satsang.json`: satsang dates and links.
+- `preview-future.html`: static, clickable preview of future screens (not part of the app).
+- Old versions live on the `backups` branch (backups/index-vNN.html), not on main.
+
+## How the code is organised (inside index-proto.html)
+- State: one object `S`, saved to localStorage key `sp2` with `sv()`.
+  Recordings in IndexedDB `sp_rec`; owner data (My slokas etc.) in its own IndexedDB stores (`oPut`).
+- Verse data: array `V` (n, sa = Devanagari lines, te = Telugu lines, pr = dash read-aloud lines, en, tip).
+  Meanings in `M`. Telugu/Devanagari dash lines in `DASH`. Dhyanam in `DHY`, `DHYD`, `DHYE`.
+- Rendering: `render()` builds HTML strings and morphs them into `#app`; `render(1)` replaces fully.
+  Top-level views: `view` = 'home' or 'verse'. Home tabs: `HT` = today / prac (Revise) / sat / lib (Learn) / me (You).
+  You sub-pages: `HMS`. Owner pages: `OWNP`. Overlays: `ovl()` (guided practice sheet `rpSheet()`, etc.).
+- Clicks: one delegated listener on `#app` reads `data-act` (+ `data-v`). Owner actions live in the `OWNA` object.
+- Guided practice ("Repeat after me"): `RP` state, `rpStart()`; steps line1 x2, line2 x2, whole x3.
+- My slokas: `SLK` list, player state `MYP` (`mypStart`, `mypRound`, `mypQ` piece queue), words timeline `myTimeline`.
+- Version: `var APPV=<n>` (Guru Test build number). The app compares it with the server copy and shows "New version ready". Bump it on EVERY change.
+
+## iPhone rules learned the hard way (do not break these)
+- Never use Web Audio (AudioContext) for playback: it silenced HTML audio in the Home Screen app.
+- `play()` must run inside the user's tap. If a file must load first, play the silent clip `SWSIL` on the same element inside the tap, then swap `src`.
+- iPhone sometimes fires an early `ended`, and after a jump back it can briefly report the old position. Guard both (see `myPlaySpan`, the 1.5 s early-ended guard).
+- Fixed backgrounds inside scrolling boxes don't stay fixed on iPhone: use a `position:fixed` layer instead.
+
+## Working rules agreed with the owner
+1. Change `index-proto.html` only. Bump `APPV` +1 every time.
+2. Make it live only when the owner says "go live":
+   copy the old index.html to the `backups` branch as backups/index-vNN.html;
+   index.html = index-proto.html with title/apple-mobile-web-app-title "Sahasranama Guru",
+   manifest-test.webmanifest -> manifest.webmanifest, hsBar() returns '', VLBL='Version N · date',
+   remove the "VLBL='Guru Test · build '+APPV" line (keep APPV).
+3. Before every push: syntax-check the script (extract <script> blocks, `node --check`), test at phone size (393x852).
+4. Anything touching sound: Guru Test first, the owner tests on his iPhone.
+5. Never name books, institutes or commercial recordings inside the app. Guide audio = owner's own voice only.
+6. Meanings, Telugu/Hindi wording and pronunciation are drafts for the guru's review.
+7. Plain, simple wording in the app and in replies to the owner.
+
+## Status and next ideas
+- Testing now in Guru Test: Today layouts A/B/C (test switch), Swadhyayam time and progress in You,
+  Vishnu picture behind verses (Soft/Clear/Off), My slokas piece-by-piece + word highlight.
+- Planned: Azure hosting (Static Web Apps + Functions + Cosmos DB free tier) for real satsang booking,
+  messages and sign-in; full chant parts (opening prayers, Dhyanam, 108, Phala-shruti, Lakshmi Ashtottaram)
+  each with its own progress; class satsang with pranayama for the guru's students.
