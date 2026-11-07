@@ -1176,6 +1176,23 @@ a.btn.lnk{display:flex!important;align-items:center!important;justify-content:ce
 .mpsh-dim{position:fixed;inset:0;background:rgba(40,30,15,.35);z-index:46}
 .mpsh{position:fixed;left:0;right:0;bottom:0;z-index:47;background:#fff;border-radius:22px 22px 0 0;padding:16px 18px calc(18px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto;box-shadow:0 -8px 24px rgba(0,0,0,.15)}
 .mpsh-h{font-size:1.15rem}.mp-lab{font-size:.75rem;font-weight:800;letter-spacing:.06em;color:#9a7f52;margin:12px 0 4px}
+/* b270: My slokas player: script + settings on top, clearer dock */
+.mp-top{background:#fff;border:1.5px solid #ecdcb6;border-radius:16px;padding:8px 10px;margin:0 0 10px}
+.mp-tr{display:flex;align-items:center;gap:8px}.mp-tl{font-size:.8rem;color:#8a7350;font-weight:700;white-space:nowrap}
+.mp-tr .rdsel{flex:1;display:flex;gap:4px;margin:0}.mp-tr .rdsel button{flex:1;min-height:34px;padding:2px 4px;font-size:.88rem;white-space:nowrap}
+.mp-set{margin-top:8px;gap:6px}.mp-set button{flex:1;border:1.5px solid #ecdcb6;background:#fffaf0;border-radius:12px;padding:5px 6px;font:inherit;text-align:center;cursor:pointer;min-width:0}
+.mp-set small{display:block;font-size:.7rem;color:#9a7f52;font-weight:700;text-transform:uppercase;letter-spacing:.04em}.mp-set b{display:block;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mp-warn{background:#fff3dc;border:1px solid #e9c97f;border-radius:12px;padding:8px 10px;font-size:.86rem;margin:0 0 8px}
+.mpw3{padding-bottom:190px}
+.mpd2{padding-top:12px}.mpd-h{display:flex;align-items:flex-end;gap:8px}.mpd-h>div{flex:1;min-width:0}.mpd-h b{display:block;font-size:1.12rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mpd-h small{display:block;font-size:.88rem;color:#6b5a3e}
+.mpd-t{font-size:.8rem;color:#9a7f52;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mpd-c{display:flex;align-items:flex-end;justify-content:space-between;gap:6px}
+.mpd-c button{border:0;background:none;font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:58px;color:#3b2a14}
+.mpd-c small{font-size:.72rem;font-weight:700;color:#6b5a3e}
+.mpd-s span{width:44px;height:44px;border-radius:50%;border:1.5px solid #ecdcb6;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+.mpd-s.on span{background:var(--acc);border-color:var(--acc);color:#fff}
+.mpd-p span{width:60px;height:60px;margin-top:-8px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.6rem;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.mpd-p small{color:var(--acc)}
 /* b269: simpler My slokas pages */
 .mtb{display:flex;align-items:center;gap:8px;margin:2px 0 10px}.mtb b{flex:1;min-width:0;font-size:1.12rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mtb-b{flex:0 0 40px;height:40px;border-radius:50%;border:1.5px solid #ecdcb6;background:#fff;font-size:1.3rem;font-weight:700;color:var(--acc);cursor:pointer}
@@ -2085,7 +2102,7 @@ function mypVerses(x){var L=myLines(x.text),dur=x.dur||0,out=[],i;
 function mypGlow(ct){if(!MYP||!MYP.T)return;var li=-1,cw=-1;for(var i=0;i<MYP.T.length;i++){if(ct>=MYP.T[i].t0-0.1&&ct<MYP.T[i].pe){li=MYP.T[i].li}if(ct>=MYP.T[i].t0&&ct<MYP.T[i].pe)cw=MYP.T[i].g}
  var box=document.querySelector('.msk-txt');if(!box)return;var wd=S.myword!==0,ws=box.querySelectorAll('.msk-w');for(var j=0;j<ws.length;j++){var g=+ws[j].dataset.w,lw=+(ws[j].closest('.msk-ln')||{dataset:{l:-9}}).dataset.l;ws[j].className='msk-w'+(wd&&cw>=0&&lw===li?(g<cw?' mk2':g===cw?' cur':''):'')}var ls=box.querySelectorAll('.msk-ln');for(var k=0;k<ls.length;k++){ls[k].classList.toggle('on',+ls[k].dataset.l===li);ls[k].classList.toggle('past',li>=0&&+ls[k].dataset.l<li)}
  if(li!==MYP.li){MYP.li=li;var el=box.querySelector('.msk-ln[data-l="'+li+'"]');if(el&&el.scrollIntoView)try{el.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}}}
-function mypInfo(){var r=document.getElementById('myp-r'),x=MYP&&myL(MYP.id);if(r&&MYP)r.textContent=document.querySelector('.mp-now')?mypNow(x):document.querySelector('.mpdock')?mypSay(x):mypLine();if(MYP&&MYP.q&&document.querySelector('.mpt')){var LS=document.querySelectorAll('.mpt .msk-ln');for(var z=0;z<LS.length;z++){LS[z].classList.toggle('on',z===MYP.qi);LS[z].classList.toggle('past',z<MYP.qi)}}var bl=document.getElementById('myp-bl');if(bl&&x){var c=mypCurLi(),ii=bl.children;for(var q=0;q<ii.length;q++)ii[q].className=q<c?'d':q===c?'c':''}var p1=document.getElementById('myp-pg1');if(p1)p1.style.setProperty('--f',mypPct(myAud().currentTime||0)+'%');var g=document.getElementById('myp-pg');if(g)g.style.width=mypPct(myAud().currentTime||0)+'%'}
+function mypInfo(){var r=document.getElementById('myp-r'),x=MYP&&myL(MYP.id);if(r&&MYP&&document.getElementById('myp-big')){var _a=myAud(),_c=mypCurLi();document.getElementById('myp-big').textContent=MYP.done?'✅ Done':MYP.q?'Line '+(MYP.qi+1)+' of '+MYP.q.length:(MYP.lbl&&/^Line/.test(MYP.lbl)?MYP.lbl:'Whole sloka'+(_c>=0?' · line '+(_c+1):''));r.textContent=MYP.done?'Tap ▶ to play again':(MYP.gap?'Next: ':'')+mypNth(MYP.k)+' time of '+MYP.n;var _t=document.querySelector('.mpd-t');if(_t)_t.textContent=oT(_a.currentTime||0)+' / '+oT((x&&x.dur)||0)}else if(r&&MYP)r.textContent=document.querySelector('.mp-now')?mypNow(x):document.querySelector('.mpdock')?mypSay(x):mypLine();if(MYP&&MYP.q&&document.querySelector('.mpt')){var LS=document.querySelectorAll('.mpt .msk-ln');for(var z=0;z<LS.length;z++){LS[z].classList.toggle('on',z===MYP.qi);LS[z].classList.toggle('past',z<MYP.qi)}}var bl=document.getElementById('myp-bl');if(bl&&x){var c=mypCurLi(),ii=bl.children;for(var q=0;q<ii.length;q++)ii[q].className=q<c?'d':q===c?'c':''}var p1=document.getElementById('myp-pg1');if(p1)p1.style.setProperty('--f',mypPct(myAud().currentTime||0)+'%');var g=document.getElementById('myp-pg');if(g)g.style.width=mypPct(myAud().currentTime||0)+'%'}
 function mypLine(){if(!MYP)return 'Whole sloka · '+mypRep()+(mypRep()>1?' times':' time');var xe=MYP.e!=null?MYP.e:((myL(MYP.id)||{}).dur||0);return (MYP.lbl||'Whole sloka')+' · '+oT(MYP.s)+'–'+oT(xe)+' · '+(MYP.done?'done ✓':MYP.gap?'next round…':'round '+MYP.k+' of '+MYP.n)}
 function mypSet(a){a.playbackRate=mypSp();try{a.preservesPitch=true;a.webkitPreservesPitch=true}catch(e){}}
 function mypMeta(x){try{if('mediaSession' in navigator){navigator.mediaSession.metadata=new MediaMetadata({title:x.name,artist:'My slokas'});navigator.mediaSession.setActionHandler('play',function(){var a=myAud();a.play().catch(function(){});mypTick()});navigator.mediaSession.setActionHandler('pause',function(){myAud().pause()})}}catch(e){}}
@@ -2141,16 +2158,21 @@ function mypNow(x){var nL=myPcs(x).length,n=mypRep();if(!MYP||(!MYP.on&&!MYP.don
  if(MYP.lbl&&/^Line/.test(MYP.lbl))return (MYP.gap?'NEXT · ':'NOW · ')+MYP.lbl.toUpperCase()+' · '+t;
  var li=MYP.li>=0?MYP.li:0;return (MYP.gap?'NEXT · ':'NOW · ')+'WHOLE SLOKA · '+t+(MYP.li>=0?' · LINE '+(li+1)+' OF '+nL:'')}
 function mypBlocks(x){var n=myPcs(x).length;if(n<2)return '<div class="mpg2"><i id="myp-pg1" style="--f:'+mypPct(myAud().currentTime||0)+'%"></i></div>';var c=mypCurLi(),h='';for(var i=0;i<n;i++)h+='<i class="'+(i<c?'d':i===c?'c':'')+'"></i>';return '<div class="mpg2" id="myp-bl">'+h+'</div>'}
-function mypPage(x){var a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused,L=myLines(x.text),m=mypM(),d=rdL();
- var sc={sa:'सं',te:'తె',en:'En',hi:'हि'}[d]||'Aa';
- var h=myTop(['mylist','','‹'],oEsc(x.name),'<button class="mtb-c" data-act="mpsc">'+sc+' ▾</button><button class="mtb-c" data-act="mpsh" aria-label="More">⋯</button>');
- if(MYV.sc)h+='<div class="mp-scr">'+rdChips()+'</div>';
+function mypPage(x){var a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused,L=myLines(x.text),m=mypM(),n=mypRep(),sp=mypSp(),pcs=myPcs(x);
+ var h=myTop(['mylist','','‹'],oEsc(x.name),'<button class="mtb-c" data-act="mpsh" aria-label="Settings">⚙️ Settings</button>');
+ h+='<div class="mp-top"><div class="mp-tr"><span class="mp-tl">Read in</span>'+rdChips()+'</div>'
+  +'<div class="mp-tr mp-set"><button data-act="mpsh"><small>Play</small><b>'+(m==='l'?'🪜 Lines':m==='o'?'🎯 Line '+((S.myline||0)+1):'🔁 Whole')+'</b></button><button data-act="mpsh"><small>Times</small><b>'+n+'×</b></button><button data-act="mpsh"><small>Speed</small><b>'+(sp<1?'🐢 Slow':sp>1?'Fast':'Normal')+'</b></button></div></div>';
  if(MYMSG)h+='<div class="msk-cov">'+MYMSG+'</div>';
- h+=L.length?mypText(x):'<div class="card mute" style="text-align:center">No words yet. ⋯ › Edit sloka › Words to add them.</div>';
+ if(L.length&&pcs.length>1&&L.length!==pcs.length&&L.length*2!==pcs.length)h+='<div class="mp-warn">The words have '+L.length+' line'+(L.length>1?'s':'')+' but the sound has '+pcs.length+'. Put each chanted line on its own line so the right line lights up. <button class="lnkb" data-act="myrev" data-v="'+x.id+'">Fix ›</button></div>';
+ h+=L.length?mypText(x):'<div class="card mute" style="text-align:center">No words yet. ⚙️ Settings › Edit sloka › Words to add them.</div>';
  h+='<div class="mute" style="text-align:center;font-size:.82rem;margin:6px 0 0">Tap a line to repeat just that line</div>';
- var dock='<div class="mpdock"><div class="mp-now" id="myp-r">'+oEsc(mypNow(x))+'</div>'+mypBlocks(x)
-  +'<div class="mp-ctl"><button class="mpb-pp" data-act="mpgo" aria-label="Play or pause">'+(pl?'⏸':'▶')+'</button><button class="mp-sk" data-act="mpskip" data-v="-1" aria-label="Previous line">⏮</button><button class="mp-sk" data-act="mpskip" data-v="1" aria-label="Next line">⏭</button><span class="mp-sp"></span><button class="chip'+(m==='l'?' on':'')+'" aria-pressed="'+(m==='l')+'" data-act="mpmode" data-v="'+(m==='l'?'w':'l')+'">'+(m==='l'?'🪜 Lines':'🔁 Whole')+'</button><button class="chip" data-act="mpsh">'+mypRep()+'×</button></div></div>';
- return '<div class="mpw2">'+h+'</div>'+dock+mypSheet2(x)}
+ var c=mypCurLi(),big,small;
+ if(!MYP||(!MYP.on&&!MYP.done)){big=m==='l'?'Line by line':m==='o'?'Line '+((S.myline||0)+1):'Whole sloka';small=(m==='l'?'Each line '+n+'×, then the next':n+(n>1?' times':' time'))+' · tap ▶ to start'}
+ else if(MYP.done){big='✅ Done';small='Tap ▶ to play again'}
+ else{big=(MYP.q?'Line '+(MYP.qi+1)+' of '+MYP.q.length:(MYP.lbl&&/^Line/.test(MYP.lbl)?MYP.lbl:'Whole sloka'+(c>=0?' · line '+(c+1):'')));small=(MYP.gap?'Next: ':'')+mypNth(MYP.k)+' time of '+MYP.n+(a.paused&&!MYP.gap?' · paused':'')}
+ var dock='<div class="mpdock mpd2"><div class="mpd-h"><div><b id="myp-big">'+oEsc(big)+'</b><small id="myp-r">'+oEsc(small)+'</small></div><span class="mpd-t">'+oT(a.currentTime||0)+' / '+oT(x.dur||0)+'</span></div>'+mypBlocks(x)
+  +'<div class="mpd-c"><button class="mpd-s" data-act="mpskip" data-v="-1"><span>⏮</span><small>Back</small></button><button class="mpd-p" data-act="mpgo"><span>'+(pl?'⏸':'▶')+'</span><small>'+(pl?'Pause':'Play')+'</small></button><button class="mpd-s" data-act="mpskip" data-v="1"><span>⏭</span><small>Next line</small></button><button class="mpd-s'+(m==='l'?' on':'')+'" data-act="mpmode" data-v="'+(m==='l'?'w':'l')+'"><span>'+(m==='l'?'🪜':'🔁')+'</span><small>'+(m==='l'?'Lines':'Whole')+'</small></button></div></div>';
+ return '<div class="mpw2 mpw3">'+h+'</div>'+dock+mypSheet2(x)}
 function mypSheet2(x){if(!MYPSH)return '';var m=mypM();return '<div class="mpsh-dim" data-act="mpsh"></div><div class="mpsh"><div class="mpsh-g"></div><b class="mpsh-h">'+oEsc(x.name)+'</b>'
  +'<div class="mp-lab">PLAY</div><div>'+mypChips('mpmode',[['w','🔁 Whole sloka'],['l','🪜 Line by line']],m==='o'?'':m)+'</div>'
  +'<div class="mp-lab">TIMES</div><div>'+mypTimes()+'</div><div class="mp-lab">SPEED</div><div>'+mypSpeeds()+'</div><div class="mp-lab">LIGHT UP</div><div>'+mypFollow()+'</div>'
@@ -3110,7 +3132,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=269,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=270,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
