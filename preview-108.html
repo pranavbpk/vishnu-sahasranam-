@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><title>108 verses · new player preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit&family=Inter:wght@400;600;700;800&display=swap" rel=stylesheet><style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;color:#2b2015;background:#faf5ea}
+.wrap{max-width:460px;margin:0 auto;padding:52px 12px 210px;position:relative;min-height:100vh}
+.bg{position:fixed;inset:0;z-index:-1;background:linear-gradient(rgba(250,245,234,.62),rgba(250,245,234,.62)),url(img/story/dhyanam.jpg) center/cover;filter:saturate(.8)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:#2a1f10;display:flex;gap:4px;overflow-x:auto;padding:6px 8px}
+.nav button{border:0;border-radius:10px;padding:5px 10px;background:#3d2e18;color:#ffe9b0;font:inherit;font-size:.78rem;font-weight:700;white-space:nowrap}.nav button.on{background:#f2c14e;color:#2a1f10}
+.scr{display:none}.scr.on{display:block}
+.tb{display:flex;align-items:center;gap:8px;margin:4px 0 10px}.tb b{flex:1;font-size:1.1rem}.tb small{display:block;font-weight:600;color:#7a6440;font-size:.82rem}
+.cb{width:40px;height:40px;border-radius:50%;border:1.5px solid #ecdcb6;background:#fff;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+.ic{border:1.5px solid #ecdcb6;background:#fff;border-radius:12px;padding:7px 10px;font-weight:700;font-size:.9rem}
+.st{display:flex;align-items:center;gap:12px;border-radius:16px;padding:10px 14px;color:#fff;margin:0 0 8px;transition:background .3s}
+.st.lis{background:linear-gradient(135deg,#11696a,#2f8f8a)}.st.turn{background:linear-gradient(135deg,#f0952a,#d9531e)}
+.st b{display:block;font-size:1.25rem}.st small{display:block;opacity:.92;font-size:.88rem}
+.ring{flex:0 0 46px;height:46px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800}
+.bar{height:5px;border-radius:3px;background:rgba(255,255,255,.3);margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:#fff;width:40%;transition:width 1s linear}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:0 2px 10px;font-size:.78rem;font-weight:700;color:#9a7f52}.path span{padding:3px 8px;border-radius:10px;background:#f3ead6}.path span.d{background:#e2f1df;color:#2f6b3a}.path span.on{background:#11696a;color:#fff}
+.vc{background:rgba(255,253,247,.78);border:1.5px solid #ecdcb6;border-radius:18px;padding:8px}
+.chips{display:flex;gap:4px;margin:2px 2px 6px}.chips span{flex:1;text-align:center;border:1.5px solid #ecdcb6;border-radius:14px;padding:5px 0;font-size:.85rem;font-weight:700;background:#fff}.chips span.on{background:#11696a;color:#fff;border-color:#11696a}
+.L{padding:7px 10px;border-radius:12px;margin:3px 0}
+.s{font-family:"Tiro Devanagari Sanskrit",serif;font-size:1.32rem;line-height:1.5;color:#8a7a66}
+.d{font-size:1.02rem;font-weight:700;line-height:1.8;color:#7fa6a6}.d span{border-bottom:2px solid #e8d8b0;margin-right:8px;padding-bottom:1px}
+.L.on{background:#fff4d6;box-shadow:inset 3px 0 0 #e0a526}.L.on .s{color:#3a2210;font-size:1.45rem}.L.on .d{color:#0a5354;font-size:1.1rem}.L.on .d span{border-color:#c98f1e}
+.L .d span.cur{background:#f6c445;border-radius:5px;color:#2b2015;padding:0 3px}
+.hid .s,.hid .d{filter:blur(6px)}
+.peek{font-size:.82rem;color:#7a6440;text-align:center;margin:4px 0}
+.dock{position:fixed;left:0;right:0;bottom:0;background:#fffdf7;border-top:1.5px solid #ecdcb6;padding:10px 14px 24px;box-shadow:0 -6px 16px rgba(0,0,0,.06)}
+.dock .in{max-width:460px;margin:0 auto}
+.day{display:flex;justify-content:space-between;font-size:.8rem;font-weight:800;color:#8a6a2a;letter-spacing:.03em}
+.blk{display:flex;gap:4px;margin:6px 0 10px}.blk i{flex:1;height:6px;border-radius:3px;background:#f1e4c6}.blk i.d{background:#3f8f5a}.blk i.c{background:#e0a526}
+.bt{display:flex;align-items:flex-end;justify-content:space-between}
+.bt div{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:62px;font-size:.72rem;font-weight:700;color:#6b5a3e}
+.bt div span{width:44px;height:44px;border-radius:50%;border:1.5px solid #ecdcb6;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+.bt div.p span{width:60px;height:60px;margin-top:-8px;background:#11696a;color:#fff;border:0;font-size:1.5rem;box-shadow:0 4px 12px rgba(0,0,0,.18)}.bt div.p{color:#11696a}
+.big{font-size:1.12rem;font-weight:800}.sm{font-size:.88rem;color:#6b5a3e}
+.note{font-size:.8rem;color:#7a6440;background:rgba(255,253,247,.85);border-radius:12px;padding:8px 10px;margin-top:10px}
+.done{text-align:center;background:rgba(255,253,247,.9);border:1.5px solid #ecdcb6;border-radius:18px;padding:16px;margin-bottom:10px}
+.tile{display:flex;gap:10px;align-items:center;background:#fff;border:1.5px solid #ecdcb6;border-radius:14px;padding:11px 12px;margin:7px 0;font-weight:700}.tile small{display:block;font-weight:400;color:#6b5a3e}
+.tile.g{background:#11696a;color:#fff;border-color:#11696a}.tile.g small{color:#d8eceb}
+</style></head><body><div class=bg></div>
+<div class=nav><button data-n=lis>1 Listen</button><button data-n=turn>2 Your turn</button><button data-n=whole>3 Whole · from memory</button><button data-n=done>4 Well done</button><button data-n=all>5 Chant all 108</button></div>
+<div class=wrap>
+<section class=scr id=s-lis>
+ <div class=tb><span class=cb>✕</span><b>Verse 72 <small>New today · verse 2 of 3 today</small></b><span class=ic>📖</span><span class=ic>⚙️</span></div>
+ <div class="st lis"><span class=ring>🎧</span><span style="flex:1"><b>Listen</b><small>Guru says line 2 · 1st of 2 times</small><div class=bar><i class=pb></i></div></span></div>
+ <div class=path><span class=d>Line 1 ✓</span>›<span class=on>Line 2</span>›<span>Whole ×3</span>›<span>🎙 Record</span>›<span>📖 Meaning</span></div>
+ <div class=vc><div class=chips><span class=on>संस्कृत</span><span>తెలుగు</span><span>English</span><span>हिन्दी</span></div>
+ <div class=L><div class=s>महाक्रमो महाकर्मा महातेजा महोरगः ।</div><div class=d><span>Ma-haa-kra-mo</span><span>Ma-haa-kar-maa</span><span>Ma-haa-te-jaa</span><span>Ma-ho-ra-gah</span></div></div>
+ <div class="L on w"><div class=s>महाक्रतुर्महायज्वा महायज्ञो महाहविः ॥७२॥</div><div class=d><span>Ma-haa-kra-tur</span><span>Ma-haa-yaj-vaa</span><span>Ma-haa-yaj-no</span><span>Ma-haa-ha-vih</span></div></div></div>
+ <div class=note>The gold word follows the guru's voice. The words never move off the screen.</div>
+</section>
+<section class=scr id=s-turn>
+ <div class=tb><span class=cb>✕</span><b>Verse 72 <small>New today · verse 2 of 3 today</small></b><span class=ic>📖</span><span class=ic>⚙️</span></div>
+ <div class="st turn"><span class=ring id=cd>4</span><span style="flex:1"><b>Your turn</b><small>Say line 2 · 1st of 2 times</small><div class=bar><i class=pb></i></div></span></div>
+ <div class=path><span class=d>Line 1 ✓</span>›<span class=on>Line 2</span>›<span>Whole ×3</span>›<span>🎙 Record</span>›<span>📖 Meaning</span></div>
+ <div class=vc><div class=chips><span class=on>संस्कृत</span><span>తెలుగు</span><span>English</span><span>हिन्दी</span></div>
+ <div class=L><div class=s>महाक्रमो महाकर्मा महातेजा महोरगः ।</div><div class=d><span>Ma-haa-kra-mo</span><span>Ma-haa-kar-maa</span><span>Ma-haa-te-jaa</span><span>Ma-ho-ra-gah</span></div></div>
+ <div class="L on"><div class=s>महाक्रतुर्महायज्वा महायज्ञो महाहविः ॥७२॥</div><div class=d><span>Ma-haa-kra-tur</span><span>Ma-haa-yaj-vaa</span><span>Ma-haa-yaj-no</span><span>Ma-haa-ha-vih</span></div></div></div>
+ <div class=note>Your turn: the line stays lit (no moving word), the ring counts down. "I'm done" moves on early.</div>
+</section>
+<section class=scr id=s-whole>
+ <div class=tb><span class=cb>✕</span><b>Verse 70 <small>Revision · verse 1 of 3 today</small></b><span class=ic>📖</span><span class=ic>⚙️</span></div>
+ <div class="st turn"><span class=ring>6</span><span style="flex:1"><b>Your turn · from memory</b><small>Say the whole verse · 2nd of 3 times</small><div class=bar><i class=pb></i></div></span></div>
+ <div class=path><span class=d>Listen ✓</span>›<span class=on>Whole ×3</span>›<span>Next verse</span></div>
+ <div class="vc hid"><div class=L><div class=s>कामदेवः कामपालः कामी कान्तः कृतागमः ।</div><div class=d><span>Kaa-ma-de-vah</span><span>Kaa-ma-paa-lah</span><span>Kaa-mee</span></div></div><div class=L><div class=s>अनिर्देश्यवपुर्विष्णुर्वीरोऽनन्तो धनञ्जयः ॥७०॥</div><div class=d><span>A-nir-de-shya-va-pur</span><span>Vish-nur</span></div></div></div>
+ <div class=peek>🙈 Hidden so you chant from memory · tap to peek</div>
+</section>
+<section class=scr id=s-done>
+ <div class=tb><span class=cb>✕</span><b>Verse 72 <small>New today · verse 2 of 3 today</small></b></div>
+ <div class=done><div style="font-size:2rem">🙏</div><div class=big>Well done! Verse 72</div><div class=sm>You chanted it line by line and 3 times whole.</div></div>
+ <div class="tile g">🎙<span>Record my take<small>Hear yourself next to the guru</small></span></div>
+ <div class=tile>📖<span>Meaning<small>What these names mean</small></span></div>
+ <div class=tile>↺<span>Once more with guru<small>Whole verse or line by line</small></span></div>
+ <div class=tile style="background:#e3f0ef">▶<span>Next verse · 73<small>1 more today</small></span></div>
+</section>
+<section class=scr id=s-all>
+ <div class=tb><span class=cb>✕</span><b>Chant all 108 <small>Sound on · Normal speed</small></b><span class=ic>📖</span><span class=ic>⚙️</span></div>
+ <div class=vc><div class=chips><span class=on>संस्कृत</span><span>తెలుగు</span><span>English</span><span>हिन्दी</span></div>
+ <div class=L style="opacity:.6"><div class=s>वनमाली गदी शार्ङ्गी शङ्खी चक्री च नन्दकी ।</div></div>
+ <div class="L on w"><div class=s>महाक्रतुर्महायज्वा महायज्ञो महाहविः ॥</div><div class=d><span>Ma-haa-kra-tur</span><span>Ma-haa-yaj-vaa</span><span>Ma-haa-yaj-no</span><span>Ma-haa-ha-vih</span></div></div></div>
+ <div class=note>Same player bar as My slokas: what's playing, a progress bar, labelled buttons.</div>
+</section>
+</div>
+<div class=dock><div class=in id=dk></div></div>
+<script>
+var DK={lis:'<div class=day><span>TODAY · VERSE 2 OF 3</span><span>~6 min left</span></div><div class=blk><i class=d></i><i class=c></i><i></i></div><div class=bt><div><span>↺</span>Hear again</div><div><span>⏮</span>Back</div><div class=p><span>⏸</span>Pause</div><div><span>⏭</span>Skip</div><div><span>✓</span>I\'m done</div></div>',
+all:'<div class=big id=al>Verse 72 of 108</div><div class=sm style="display:flex;justify-content:space-between"><span>Line 2 · Sound on</span><span>17:42 / 24:36</span></div><div style="height:6px;border-radius:3px;background:#f1e4c6;margin:8px 0 10px;overflow:hidden"><i style="display:block;height:100%;width:66%;background:#e0a526"></i></div><div class=bt><div><span>⏮</span>Verse 71</div><div><span>⏪</span>Line</div><div class=p><span>⏸</span>Pause</div><div><span>⏩</span>Line</div><div><span>⏭</span>Verse 73</div></div>'};
+DK.turn=DK.lis;DK.whole=DK.lis.replace('VERSE 2 OF 3','VERSE 1 OF 3').replace('<i class=d></i><i class=c></i>','<i class=c></i><i></i>');DK.done=DK.lis.replace('<i class=c></i>','<i class=d></i>');
+function go(n){document.querySelectorAll('.scr').forEach(function(e){e.classList.toggle('on',e.id==='s-'+n)});document.querySelectorAll('.nav button').forEach(function(b){b.classList.toggle('on',b.dataset.n===n)});document.getElementById('dk').innerHTML=DK[n]||'';scrollTo(0,0)}
+document.querySelectorAll('.nav button').forEach(function(b){b.onclick=function(){go(b.dataset.n)}});
+var wi=0;setInterval(function(){document.querySelectorAll('.L.w').forEach(function(L){var ws=L.querySelectorAll('.d span');ws.forEach(function(w){w.classList.remove('cur')});ws[wi%ws.length].classList.add('cur')});wi++;document.querySelectorAll('.pb').forEach(function(p){p.style.width=((wi%8)/8*100)+'%'});var c=document.getElementById('cd');if(c)c.textContent=4-(wi%5)},800);
+document.querySelector('.peek').onclick=function(){document.querySelector('#s-whole .vc').classList.toggle('hid')};
+go(location.hash.slice(1)||'lis');
+</script></body></html>
