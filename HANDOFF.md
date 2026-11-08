@@ -63,7 +63,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Status and next ideas (8 Nov 2026)
 - Live (index.html) = Version 106. Everything newer is only in Guru Test (index-proto.html), waiting for the owner's iPhone test and "go live".
 - Being tested in Guru Test, owner still choosing:
-  - Today layouts A/B/C (S.tdl), switch under the Today card.
+  - Today layouts A/B/C/D (S.tdl), switch under the Today card. D (build 284) = clean: small streak pill, verse chips, clearer Swadhyayam card (tdDone, swHomeD), parayanam moves to the top when it is within 2 days (satSoon).
   - Repeat after me screen: old (rpSheet) or new (rpSheet2), S.gsty, "Old screen" button.
   - My slokas player views (S.mpv): focus / karaoke / mini / full.
   - Vishnu picture behind verses (S.vbg: Soft / Clear / Off).
