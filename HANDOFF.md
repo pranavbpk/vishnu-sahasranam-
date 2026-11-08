@@ -39,6 +39,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Clicks: one delegated listener on `#app` reads `data-act` (+ `data-v`). Owner actions live in the `OWNA` object.
 - Guided practice ("Repeat after me"): `RP` state, `rpStart()`; steps line1 x2, line2 x2, whole x3.
 - My slokas: `SLK` list, player state `MYP` (`mypStart`, `mypRound`, `mypQ` piece queue), words timeline `myTimeline`.
+  Build 287: Lines in the sound ⋯ menu has ✂ Split the sound in two (myspl, cut at the longest pause near the middle) and 🧩 Learn in 2 small pieces (mypz: cuts sound + words, cut saved in `x.soft`). Learn with guru groups soft-cut pieces (myGroups): piece 1, piece 2, then the full line. Join on a soft cut merges the words back. Words view auto-scrolls to the line being chanted (myScrollLn).
 - Version: `var APPV=<n>` (Guru Test build number). The app compares it with the server copy and shows "New version ready". Bump it on EVERY change.
 
 ## iPhone rules learned the hard way (do not break these)
