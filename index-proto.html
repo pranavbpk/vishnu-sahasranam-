@@ -1367,7 +1367,10 @@ html[data-gem="1"] .sw-hp{background:radial-gradient(circle at 35% 30%,#2f8f8a,#
 .mp-ctl{display:flex;align-items:center;gap:8px}.mp-sp{flex:1}
 .mp-sk{width:42px;height:42px;border-radius:50%;border:1.5px solid #ecdcb6;background:#fff;font-size:1rem;cursor:pointer}
 .mp-ctl .chip{min-height:38px;padding:4px 12px;white-space:nowrap}
-.mpsh{max-height:88vh;overflow:auto}.mpsh-g{width:40px;height:5px;border-radius:3px;background:#e3d6bb;margin:0 auto 10px}
+.mpsh{max-height:88vh;overflow:auto}
+.mpsh-top{position:sticky;top:-16px;z-index:2;display:flex;align-items:center;gap:10px;background:#fff;margin:-16px -18px 0;padding:16px 18px 10px;border-bottom:1px solid #f1e6cc}
+.mpsh-top .mpsh-h{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mpsh-x{flex:none;background:#0f6b6b;color:#fff;border:0;border-radius:20px;padding:8px 16px;font:inherit;font-size:.95rem;font-weight:700;cursor:pointer}.mpsh-g{width:40px;height:5px;border-radius:3px;background:#e3d6bb;margin:0 auto 10px}
 .mpsh-l{margin-top:10px}.mpsh-l button{display:flex;gap:12px;align-items:center;width:100%;text-align:left;border:0;border-top:1px solid #f3e7cb;background:none;padding:11px 2px;font:inherit;color:inherit;cursor:pointer}
 .mpsh-l button>span:first-child{font-size:1.3rem}.mpsh-l b{display:block;font-size:1rem}.mpsh-l small{color:#6b5a3e;font-size:.84rem}
 .msl-add{display:block;width:100%;border:2px dashed #d4a23c;background:transparent;border-radius:18px;padding:13px;font:inherit;font-weight:800;color:var(--acc);margin:4px 0 10px;cursor:pointer}
@@ -2324,7 +2327,7 @@ function mypSpeeds(){return mypChips('mpsp',[[0.75,'🐢 Slow'],[1,'Normal'],[1.
 function mypFollow(){return mypChips('mpwd',[['1','Each word'],['0','Whole line']],S.myword===0?'0':'1')}
 function mypLoop(){var a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused;return '<button class="chip" data-act="mpab"'+(pl||MYPAB?'':' disabled')+'>🔂 '+(MYPAB?'Tap where the bit ends':'Loop a bit')+'</button><div class="mute mp-sm">'+(MYPAB?'Started at '+oT(MYPAB.s)+'.':'While it plays: tap here where a tricky bit starts, then again where it ends.')+'</div>'}
 function mypText(x){var h=myTextHTML(x,'big lp mpt');return h.replace(/<div class="msk-ln" data-l="/g,'<div class="msk-ln" data-act="mpln" data-l="')}
-function mypSheet(){if(!MYPSH)return '';return '<div class="mpsh-dim" data-act="mpsh"></div><div class="mpsh"><b class="mpsh-h">Player settings</b><div class="mp-lab">HOW MANY TIMES</div><div>'+mypTimes()+'</div><div class="mp-lab">SPEED</div><div>'+mypSpeeds()+'</div><div class="mp-lab">LIGHT UP</div><div>'+mypFollow()+'</div><div class="mp-lab">TRICKY BIT</div>'+mypLoop()+'<button class="btn" data-act="mpsh" style="margin-top:14px">Done</button></div>'}
+function mypSheet(){if(!MYPSH)return '';return '<div class="mpsh-dim" data-act="mpsh"></div><div class="mpsh"><div class="mpsh-top"><b class="mpsh-h">Player settings</b><button class="mpsh-x" data-act="mpsh">Done</button></div><div class="mp-lab">HOW MANY TIMES</div><div>'+mypTimes()+'</div><div class="mp-lab">SPEED</div><div>'+mypSpeeds()+'</div><div class="mp-lab">LIGHT UP</div><div>'+mypFollow()+'</div><div class="mp-lab">TRICKY BIT</div>'+mypLoop()+'<button class="btn" data-act="mpsh" style="margin-top:14px">Done</button></div>'}
 function mypStyleBar(){var c=S.mypsty||'B';return '<div class="mp-sty"><span>Test · player style</span>'+mypChips('mpsty',[['A','A'],['B','B'],['C','C']],c)+'</div>'}
 /* ===== b269: simpler My slokas: list, player, settings sheet, edit, lines, learn with guru ===== */
 var MYMENU=null,MYLM=null,MYNM=false;
@@ -2389,7 +2392,7 @@ function mypPage270(x){var a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused,L=myLin
  var dock='<div class="mpdock mpd2"><div class="mpd-h"><div><b id="myp-big">'+oEsc(big)+'</b><small id="myp-r">'+oEsc(small)+'</small></div><span class="mpd-t">'+oT(a.currentTime||0)+' / '+oT(x.dur||0)+'</span></div>'+mypBlocks(x)
   +'<div class="mpd-c"><button class="mpd-s" data-act="mpskip" data-v="-1"><span>⏮</span><small>Back</small></button><button class="mpd-p" data-act="mpgo"><span>'+(pl?'⏸':'▶')+'</span><small>'+(pl?'Pause':'Play')+'</small></button><button class="mpd-s" data-act="mpskip" data-v="1"><span>⏭</span><small>Next line</small></button><button class="mpd-s'+(m==='l'?' on':'')+'" data-act="mpmode" data-v="'+(m==='l'?'w':'l')+'"><span>'+(m==='l'?'🪜':'🔁')+'</span><small>'+(m==='l'?'Lines':'Whole')+'</small></button></div></div>';
  return '<div class="mpw2 mpw3">'+h+'</div>'+dock+mypSheet2(x)}
-function mypSheet2(x){if(!MYPSH)return '';var m=mypM();return '<div class="mpsh-dim" data-act="mpsh"></div><div class="mpsh"><div class="mpsh-g"></div><b class="mpsh-h">'+oEsc(x.name)+'</b>'
+function mypSheet2(x){if(!MYPSH)return '';var m=mypM();return '<div class="mpsh-dim" data-act="mpsh"></div><div class="mpsh"><div class="mpsh-g"></div><div class="mpsh-top"><b class="mpsh-h">'+oEsc(x.name)+'</b><button class="mpsh-x" data-act="mpsh">Done</button></div>'
  +'<div class="mp-lab">VIEW</div><div>'+mypChips('mpv',[['focus','Focus'],['karaoke','Karaoke'],['mini','Minimal'],['full','Full']],mpView())+'</div>'+'<div class="mp-lab">PLAY</div><div>'+mypChips('mpmode',[['w','🔁 Whole sloka'],['l','🪜 Line by line']],m==='o'?'':m)+'</div>'
  +'<div class="mp-lab">TIMES</div><div>'+mypTimes()+'</div><div class="mp-lab">SPEED</div><div>'+mypSpeeds()+'</div><div class="mp-lab">LIGHT UP</div><div>'+mypFollow()+'</div>'
  +'<div class="mp-lab">SCRIPT</div><div class="mp-scr2">'+rdChips()+'</div>'
@@ -3391,7 +3394,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=287,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=288,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
