@@ -66,7 +66,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
   - Today layouts A/B/C/D (S.tdl), switch under the Today card. D (build 284) = clean: small streak pill, verse chips, clearer Swadhyayam card (tdDone, swHomeD), parayanam moves to the top when it is within 2 days (satSoon).
   - Repeat after me screen: old (rpSheet) or new (rpSheet2), S.gsty, "Old screen" button.
     Build 285: in the new style the finish screens (done, revdone, after recording) also use the new look: g2Done(). 
-  - Verse meaning picture band above the verse on the new practice screens (vBand, S.vpic Show/Hide), caption from MCAP. Verse 1 has two test pictures (S.v1p a/b: img/mean/v001.jpg, v001b.jpg).
+  - Verse meaning picture: slim row (small round picture + caption) while listening/chanting, big band on finish screens (vBand(n,sm), S.vpic Show/Hide), caption from MCAP. Verse 1 has two test pictures (S.v1p a/b: img/mean/v001.jpg, v001b.jpg).
   - My slokas player views (S.mpv): focus / karaoke / mini / full.
   - Vishnu picture behind verses (S.vbg: Soft / Clear / Off).
 - Sound fix in build 274 (guided practice re-seeks until the part really plays from its start, because iPhone sometimes ignores a jump back). Must be tested on the owner's iPhone before going live.

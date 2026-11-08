@@ -1067,6 +1067,10 @@ html[data-ht="me"] .fth b{font-size:1.15rem}
 .vbimg{height:104px;background-size:cover;background-position:center 40%;cursor:pointer}
 .vbcap{padding:7px 11px;font-size:.84rem;line-height:1.45;color:#5c5240}
 .vbcap b{color:#3b2a14}
+.vbs{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#fffdf8;border:1.5px solid #ecdcb6;border-radius:14px;padding:6px 10px 6px 6px;font:inherit;cursor:pointer;flex:none}
+.vbs-i{flex:0 0 48px;height:48px;border-radius:50%;background-size:cover;background-position:center 35%;border:2px solid #f2c14e}
+.vbs-t{flex:1;min-width:0;font-size:.8rem;line-height:1.35;color:#5c5240;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vbs-t b{color:#3b2a14}
 /* b284: Today layout D (clean) */
 html[data-tdl="D"] .bh-om,html[data-tdl="D"] .bh-orn{display:none!important}
 html[data-tdl="D"] .bh{padding-bottom:24px}
@@ -3370,7 +3374,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=285,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=286,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -3383,7 +3387,7 @@ function preCuts(){try{(LST||[]).forEach(function(x){if(V[x.i])getCut(V[x.i].n)}
 /* b285: verse picture band (test) + finish screens in the new style */
 var MCAP={1:'Vishnu is the whole universe. He was, is and will be. He creates and cares for every being.'};
 function vPicF(n){return 'img/mean/v'+('00'+n).slice(-3)+(n===1&&S.v1p==='b'?'b':'')}
-function vBand(n){if(!MPIC[n]||S.vpic==='0')return '';return '<div class="vband"><div class="vbimg" role="button" data-act="mopen" data-v="m" aria-label="Meaning of verse '+n+'" style="background-image:url(\''+vPicF(n)+'.jpg\')"></div>'+(MCAP[n]?'<div class="vbcap">💡 <b>This verse:</b> '+MCAP[n]+'</div>':'')+'</div>'}
+function vBand(n,sm){if(!MPIC[n]||S.vpic==='0')return '';if(sm)return '<button class="vbs" data-act="mopen" data-v="m" aria-label="Meaning of verse '+n+'"><span class="vbs-i" style="background-image:url(\''+vPicF(n)+'-s.jpg\')"></span><span class="vbs-t">'+(MCAP[n]?'<b>This verse:</b> '+MCAP[n]:'<b>See what this verse means</b>')+'</span></button>';return '<div class="vband"><div class="vbimg" role="button" data-act="mopen" data-v="m" aria-label="Meaning of verse '+n+'" style="background-image:url(\''+vPicF(n)+'.jpg\')"></div>'+(MCAP[n]?'<div class="vbcap">💡 <b>This verse:</b> '+MCAP[n]+'</div>':'')+'</div>'}
 function g2Done(ph){var it=LST[vi]||{},n=RP.on&&RP.n?RP.n:(V[it.i]?V[it.i].n:0),rev=!!it.r||it.rt==='recap',last=vi>=LST.length-1,saved=ph==='saved',rd=ph==='revdone';
  var head='<div class="g2-tb"><button class="g2-x" data-act="'+(saved?'gstop':'rpclose')+'" aria-label="Close">✕</button><div class="g2-t"><b>Verse '+n+'</b><small>'+(it.rt==='recap'?'Recap':it.r?'Revision':'New today')+(LST.length>1?' · verse '+(vi+1)+' of '+LST.length+' today':'')+'</small></div><button class="g2-c" data-act="rdopen" aria-label="How to read">📖</button><button class="g2-c" data-act="gsty" data-v="old">Old screen</button></div>';
  var big=saved?'Take saved':rev?'Well done':'Now your turn to record',sub=saved?'Listen back below, or move on':rev?'Verse '+n+' revised':'Say the verse once, on your own';
@@ -3413,7 +3417,7 @@ function rpSheet2(){var ph=RP.phase,it=LST[vi]||{},n=RP.n,st=RP.steps||[2,2,2],r
  var bl='';if(LST.length>1){for(var i=0;i<LST.length;i++)bl+='<i class="'+(i<vi?'d':i===vi?'c':'')+'"></i>'}
  var left=LST.length-vi,dock='<div class="g2-dock"><div class="g2-day"><span>'+(RP.recap?'RECAP':'TODAY')+' · VERSE '+(vi+1)+' OF '+LST.length+'</span><span>'+(left>1?left-1+' more after this':'last one')+'</span></div>'+(bl?'<div class="g2-blk">'+bl+'</div>':'')
   +'<div class="g2-b"><button data-act="rpagain"><span>↺</span>Hear again</button><button data-act="rpback"'+(vi>0&&GS.on?'':' disabled')+'><span>⏮</span>Last verse</button><button class="p" data-act="rppause"><span>'+(RP.paused?'▶':'⏸')+'</span>'+(RP.paused?'Play':'Pause')+'</button><button data-act="rpskip"><span>'+(ph==='turn'?'✓':'⏭')+'</span>'+(ph==='turn'?'I’m done':'Skip')+'</button>'+(GS.on&&it.r&&!RP.recap?'<button data-act="rpnextv"><span>⏩</span>Next verse</button>':'')+'</div></div>';
- return '<div class="rpsheet g2">'+head+ban+(path?'<div class="g2-pw">'+path+'</div>':'')+vBand(n)+sheetVerse()+(hide?'<div class="hidnote">🙈 Hidden so you chant from memory · Tap to peek</div>':'')+'<div class="g2-sp"></div>'+dock+mSheet()+'</div>'}
+ return '<div class="rpsheet g2">'+head+ban+(path?'<div class="g2-pw">'+path+'</div>':'')+vBand(n,1)+sheetVerse()+(hide?'<div class="hidnote">🙈 Hidden so you chant from memory · Tap to peek</div>':'')+'<div class="g2-sp"></div>'+dock+mSheet()+'</div>'}
 function rpSheet(){var ph=RP.phase;if(S.gsty==='new'&&!RP.wait&&!RP.err&&(ph==='listen'||ph==='turn'))return rpSheet2();if(S.gsty==='new'&&!RP.wait&&!RP.err&&(ph==='done'||ph==='revdone'))return g2Done(ph);
  if(RP.wait)return '<div class="rpsheet"><div class="rpph listen">Getting ready\u2026</div></div>';
  if(RP.err)return '<div class="rpsheet"><div class="rpph turn">Guide audio for this verse is coming soon.</div><button class="btn ghost" data-act="rpclose">Close</button></div>';
