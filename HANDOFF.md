@@ -2,7 +2,7 @@
 
 Owner: Pranav. Repo: https://github.com/pranavbpk/vishnu-sahasranam-
 Live site (GitHub Pages): https://pranavbpk.github.io/vishnu-sahasranam-/
-Updated: 9 Nov 2026 (live = Version 106, Guru Test and Guru Dev = build 296).
+Updated: 9 Nov 2026 (live = Version 106, Guru Test and Guru Dev = build 303).
 
 ## What the app is
 A free web app (PWA) for learning Vishnu Sahasranamam the guru-shishya way:
@@ -25,6 +25,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
     (env block patches Storage/IDBFactory/CacheStorage). On first open they copy the live data once,
     read only (flags `<prefix>__init`, `<prefix>__idb_<name>`). Prod keeps the plain names. Live data is never written by Dev/Test.
   - Shared files (audio/, img/, content/, satsang.json): only add; never change a format Prod reads. New format = new file name.
+- `docs/GEMINI-BRIEF.md`: one-page brief to paste into another AI. `tools/smoke.py`: checks every main screen for errors.
 - `sw-proto.js`: service worker (offline cache) for all pages.
 - `manifest.webmanifest` (live), `manifest-test.webmanifest` (Guru Test), `manifest-dev.webmanifest` (Guru Dev).
 - `audio/vNNN.m4a`: guide audio for verses 1-108 (owner's voice).
