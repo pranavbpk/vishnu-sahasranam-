@@ -1096,7 +1096,8 @@ html[data-ht="me"] .fth b{font-size:1.15rem}
 .rpsheet:not(.g2) details.dv{background:#fffdf8;border:1.5px solid #ecdcb6;border-radius:14px;padding:8px 12px;margin-top:10px}
 .rpsheet:not(.g2) details.dv summary{color:#0f6b6b;font-weight:700}
 .rpsheet:not(.g2)>.lnkb{display:block;width:100%;background:#fffdf8;border:1.5px solid #ecdcb6;border-radius:14px;padding:10px;margin-top:8px;text-decoration:none;text-align:center}
-.gvnew{margin-left:auto;font-size:.8rem;padding:4px 10px}
+.gvnew{flex:none;font-size:.8rem;padding:4px 10px}
+.gvt:has(.gvnew){flex-wrap:wrap;white-space:normal;overflow:visible}
 /* b294: layout D home */
 .dh-big .dh-t,.dh-circ .dh-t{font-size:1.85rem}
 .dh-big .dh-ess,.dh-circ .dh-ess{margin-top:6px}
@@ -1550,8 +1551,8 @@ html[data-vbg="1"] .sa,html[data-vbg="1"] .te,html[data-vbg="1"] .enb,html[data-
 html[data-vbg="1"] .sa,html[data-vbg="2"] .sa{font-weight:500}
 html[data-vbg="1"] .te,html[data-vbg="2"] .te{font-weight:600}
 html[data-vbg="1"] .prb .wd,html[data-vbg="2"] .prb .wd,html[data-vbg="1"] .prl,html[data-vbg="2"] .prl{color:#0a5354}
-html[data-env="dev"] body:after,html[data-env="test"] body:after{content:"TEST";position:fixed;top:calc(env(safe-area-inset-top,0px) + 2px);left:50%;transform:translateX(-50%);z-index:9999;pointer-events:none;background:#d98a1a;color:#fff;font:700 10px/1 -apple-system,sans-serif;letter-spacing:.08em;padding:3px 8px;border-radius:8px;opacity:.9}
-html[data-env="dev"] body:after{content:"DEV";background:#c0392b}
+#envtag{position:fixed;top:calc(env(safe-area-inset-top,0px) + 2px);left:50%;transform:translateX(-50%);z-index:9999;pointer-events:none;background:#d98a1a;color:#fff;font:700 10px/1 -apple-system,sans-serif;letter-spacing:.08em;padding:3px 8px;border-radius:8px;opacity:.9}
+#envtag.dev{background:#c0392b}
 </style>
 </head>
 <body>
@@ -1562,6 +1563,8 @@ html[data-env="dev"] body:after{content:"DEV";background:#c0392b}
    On the first open, Dev/Test copy the live app's data once (read only), so you test with your real progress. */
 var ENV='test';
 (function(){var P=ENV==='prod'?'':ENV+'_';window.ENVP=P;try{document.documentElement.setAttribute('data-env',ENV)}catch(e){}if(!P)return;
+ /* DEV / TEST tag: its own element (never body::after, which the verse picture layer uses) */
+ var tag=function(){if(document.getElementById('envtag')||!document.body)return;var d=document.createElement('div');d.id='envtag';d.className=ENV;d.textContent=ENV.toUpperCase();document.body.appendChild(d)};if(document.body)tag();else document.addEventListener('DOMContentLoaded',tag);
  var ls=null,G,St,Rm;try{ls=window.localStorage;G=Storage.prototype.getItem;St=Storage.prototype.setItem;Rm=Storage.prototype.removeItem}catch(e){}
  if(ls){try{if(G.call(ls,P+'__init')===null){var ks=[];for(var i=0;i<ls.length;i++){var k=ls.key(i);if(k&&!/^(dev|test)_/.test(k))ks.push(k)}ks.forEach(function(k){if(G.call(ls,P+k)===null)St.call(ls,P+k,G.call(ls,k))});St.call(ls,P+'__init',String(Date.now()))}}catch(e){}
   Storage.prototype.getItem=function(k){return G.call(this,this===ls?P+k:k)};
@@ -3629,7 +3632,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=302,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=303,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
