@@ -1090,6 +1090,13 @@ html[data-ht="me"] .fth b{font-size:1.15rem}
 .mlw-bar .chip{font-size:.88rem}
 .mll-t span{display:block;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;line-height:1.45;margin-top:2px}
 /* b284: Today layout D (clean) */
+/* b296: old practice screen readability */
+.rpsheet:not(.g2) .recbig{background:#fffdf8;border:1.5px solid #ecdcb6;border-radius:18px;padding:12px 0;width:100%}
+.rpsheet:not(.g2) .recbig b{color:#3b2a14}
+.rpsheet:not(.g2) details.dv{background:#fffdf8;border:1.5px solid #ecdcb6;border-radius:14px;padding:8px 12px;margin-top:10px}
+.rpsheet:not(.g2) details.dv summary{color:#0f6b6b;font-weight:700}
+.rpsheet:not(.g2)>.lnkb{display:block;width:100%;background:#fffdf8;border:1.5px solid #ecdcb6;border-radius:14px;padding:10px;margin-top:8px;text-decoration:none;text-align:center}
+.gvnew{margin-left:auto;font-size:.8rem;padding:4px 10px}
 /* b294: layout D home */
 .dh-big .dh-t,.dh-circ .dh-t{font-size:1.85rem}
 .dh-big .dh-ess,.dh-circ .dh-ess{margin-top:6px}
@@ -1097,7 +1104,7 @@ html[data-ht="me"] .fth b{font-size:1.15rem}
 .dh-circ .dh-c{width:124px;height:124px;margin:-22px auto 4px}
 .dh-big .dh-sp{height:112px}
 .dh-big{background-size:50% auto!important;background-position:center -10px!important}
-.dt{min-height:66px!important;padding:8px 10px}
+.dts .dt{min-height:66px!important;padding:8px 10px}
 .dts{gap:7px;margin-top:7px}
 .dh{padding-bottom:2px}
 .zD{gap:0!important}
@@ -1132,10 +1139,10 @@ html[data-tdl="D"] .tdlb{margin:10px 0 0}
 .zD-s{font-weight:400;font-size:.78rem;color:#8a7e66}
 .zD-c i{cursor:pointer}
 .dts{display:grid;grid-template-columns:1.7fr 1fr;gap:8px;margin-top:8px}
-.dt{position:relative;display:block;text-align:left;background:#fff;border:1px solid #eadfc4;border-radius:16px;padding:9px 10px;font:inherit;color:#2a2416;cursor:pointer;min-height:76px;width:100%}
-.dt small{display:flex;align-items:center;gap:4px;font-size:.72rem;color:#8a7e66}.dt small .swic{width:16px;height:16px}
-.dt b{display:block;font-size:.92rem;margin-top:3px;line-height:1.25}
-.dt em{display:block;font-style:normal;font-size:.72rem;color:#8a7e66;margin-top:2px;line-height:1.35}
+.dts .dt{position:relative;display:block;text-align:left;background:#fff;border:1px solid #eadfc4;border-radius:16px;padding:9px 10px;font:inherit;color:#2a2416;cursor:pointer;min-height:76px;width:100%}
+.dts .dt small{display:flex;align-items:center;gap:4px;font-size:.72rem;color:#8a7e66}.dts .dt small .swic{width:16px;height:16px}
+.dts .dt b{display:block;font-size:.92rem;margin-top:3px;line-height:1.25}
+.dts .dt em{display:block;font-style:normal;font-size:.72rem;color:#8a7e66;margin-top:2px;line-height:1.35}
 .dt-sw{padding:0}.dt-b{display:block;width:100%;text-align:left;background:none;border:0;font:inherit;color:inherit;padding:9px 46px 9px 10px;cursor:pointer}
 .dt-pl{position:absolute;right:9px;bottom:9px;width:34px;height:34px;border-radius:50%;background:#0f6b6b;color:#fff;border:0;font-size:.85rem;cursor:pointer}
 .dt-par{background:#fdf1d3;border-color:#e8c779}.dt-par.live{background:#fde2d0;border-color:#e98a5a}.dt-par.wide{grid-column:1/-1;min-height:0}
@@ -1528,11 +1535,38 @@ html[data-vbg="1"] .sa,html[data-vbg="1"] .te,html[data-vbg="1"] .enb,html[data-
 html[data-vbg="1"] .sa,html[data-vbg="2"] .sa{font-weight:500}
 html[data-vbg="1"] .te,html[data-vbg="2"] .te{font-weight:600}
 html[data-vbg="1"] .prb .wd,html[data-vbg="2"] .prb .wd,html[data-vbg="1"] .prl,html[data-vbg="2"] .prl{color:#0a5354}
+html[data-env="dev"] body:after,html[data-env="test"] body:after{content:"TEST";position:fixed;top:calc(env(safe-area-inset-top,0px) + 2px);left:50%;transform:translateX(-50%);z-index:9999;pointer-events:none;background:#d98a1a;color:#fff;font:700 10px/1 -apple-system,sans-serif;letter-spacing:.08em;padding:3px 8px;border-radius:8px;opacity:.9}
+html[data-env="dev"] body:after{content:"DEV";background:#c0392b}
 </style>
 </head>
 <body>
 <main id="app"></main>
 <script>
+/* ENV: dev | test | prod. This line is the ONLY code difference between index-dev.html, index-proto.html and index.html.
+   tools/promote.py sets it. Dev and Test keep their own storage (prefix dev_ / test_), so they never touch the live app's data.
+   On the first open, Dev/Test copy the live app's data once (read only), so you test with your real progress. */
+var ENV='test';
+(function(){var P=ENV==='prod'?'':ENV+'_';window.ENVP=P;try{document.documentElement.setAttribute('data-env',ENV)}catch(e){}if(!P)return;
+ var ls=null,G,St,Rm;try{ls=window.localStorage;G=Storage.prototype.getItem;St=Storage.prototype.setItem;Rm=Storage.prototype.removeItem}catch(e){}
+ if(ls){try{if(G.call(ls,P+'__init')===null){var ks=[];for(var i=0;i<ls.length;i++){var k=ls.key(i);if(k&&!/^(dev|test)_/.test(k))ks.push(k)}ks.forEach(function(k){if(G.call(ls,P+k)===null)St.call(ls,P+k,G.call(ls,k))});St.call(ls,P+'__init',String(Date.now()))}}catch(e){}
+  Storage.prototype.getItem=function(k){return G.call(this,this===ls?P+k:k)};
+  Storage.prototype.setItem=function(k,v){return St.call(this,this===ls?P+k:k,v)};
+  Storage.prototype.removeItem=function(k){return Rm.call(this,this===ls?P+k:k)}}
+ try{var CO=CacheStorage.prototype.open;CacheStorage.prototype.open=function(n){return CO.call(this,P+n)}}catch(e){}
+ var IO=null;try{IO=IDBFactory.prototype.open;IDBFactory.prototype.open=function(n,v){return v===undefined?IO.call(this,P+n):IO.call(this,P+n,v)}}catch(e){}
+ /* one-time copy of the live app's databases (My slokas, recordings). Only if the live database exists, so nothing is created on the live side. */
+ if(IO&&ls&&indexedDB.databases){var done=0;['sg_own','sp_rec'].forEach(function(n){var fk=P+'__idb_'+n;if(G.call(ls,fk))return;
+  indexedDB.databases().then(function(list){var old=(list||[]).filter(function(d){return d.name===n})[0];if(!old){St.call(ls,fk,'none');return}
+   var ro=IO.call(indexedDB,n,old.version);ro.onsuccess=function(){var od=ro.result,names=[].slice.call(od.objectStoreNames);if(!names.length){od.close();St.call(ls,fk,'empty');return}
+    var sch={},t0=od.transaction(names,'readonly');names.forEach(function(sn){var os=t0.objectStore(sn);sch[sn]={kp:os.keyPath,ai:os.autoIncrement,ix:[].slice.call(os.indexNames).map(function(xn){var x=os.index(xn);return {n:xn,kp:x.keyPath,u:x.unique,m:x.multiEntry}})}});
+    var rows={},left=names.length;names.forEach(function(sn){var all=[],cr=t0.objectStore(sn).openCursor();cr.onsuccess=function(){var c=cr.result;if(c){all.push([c.primaryKey,c.value]);c.continue()}else{rows[sn]=all;if(--left===0)write()}}});
+    function write(){od.close();var rn=IO.call(indexedDB,P+n,old.version);rn.onupgradeneeded=function(){var nd=rn.result;names.forEach(function(sn){if(!nd.objectStoreNames.contains(sn)){var o=sch[sn],os=nd.createObjectStore(sn,o.kp!==null?{keyPath:o.kp,autoIncrement:o.ai}:{autoIncrement:o.ai});o.ix.forEach(function(x){os.createIndex(x.n,x.kp,{unique:x.u,multiEntry:x.m})})}})};
+     rn.onsuccess=function(){var nd=rn.result,have=names.filter(function(sn){return nd.objectStoreNames.contains(sn)});if(!have.length){nd.close();St.call(ls,fk,'skip');return}var tw=nd.transaction(have,'readwrite'),cnt=0;
+      have.forEach(function(sn){var os=tw.objectStore(sn),kp=sch[sn].kp;rows[sn].forEach(function(r){try{var g=os.get(r[0]);g.onsuccess=function(){if(g.result===undefined){cnt++;if(kp!==null)os.put(r[1]);else os.put(r[1],r[0])}}}catch(e){}})});
+      tw.oncomplete=function(){nd.close();St.call(ls,fk,String(cnt));if(cnt&&!done){done=1;setTimeout(function(){location.reload()},300)}}}}};
+  }).catch(function(){})})}
+})();
+
 var V=[
 {n:1,sa:["विश्वं विष्णुर्वषट्कारो भूतभव्यभवत्प्रभुः ।", "भूतकृद्भूतभृद्भावो भूतात्मा भूतभावनः ॥१॥"],pr:["Vish-vam Vish-nur Va-shat-kaa-ro Bhoo-ta-bhav-ya-bha-vat-pra-bhuh", "Bhoo-ta-krid Bhoo-ta-bhrid Bhaa-vo Bhoo-taat-maa Bhoo-ta-bhaa-va-nah"],en:["Vishvam Vishnur Vashatkaro Bhutabhavyabhavatprabhuh", "Bhutakrid Bhutabhrid Bhavo Bhutatma Bhutabhavanah"],te:["విశ్వం విష్ణుర్వషట్కారో భూతభవ్యభవత్ప్రభుః |", "భూతకృద్భూతభృద్భావో భూతాత్మా భూతభావనః ||"],tip:"Va-shat-kaa-ro: say the sh softly, then a short t. Bhoo is a breathy b with a long oo."},
 {n:2,sa:["पूतात्मा परमात्मा च मुक्तानां परमा गतिः ।", "अव्ययः पुरुषः साक्षी क्षेत्रज्ञोऽक्षर एव च ॥२॥"],pr:["Poo-taat-maa Pa-ra-maat-maa Cha Muk-taa-naam Pa-ra-maa Ga-tih", "Av-ya-yaf Pu-ru-shas Saak-shee Kshet-raj-no Ksha-ra E-va Cha"],en:["Putatma Paramatma Cha Muktanam Parama Gatih", "Avyayah Purushah Sakshi Kshetrajno Akshara Eva Cha"],te:["పూతాత్మా పరమాత్మా చ ముక్తానాం పరమా గతిః |", "అవ్యయః పురుషః సాక్షీ క్షేత్రజ్ఞోఽక్షర ఏవ చ ||"],tip:"Av-ya-yaf: a soft f before Pu-ru-shas. Kshet-raj-no Ksha-ra: ksh is k and sh together, and the a of Akshara is not said."},
@@ -3167,7 +3201,7 @@ if(panel==='again'){h+='<div class="card"><h2>Start from which verse?</h2><div c
  if(notice){h+='<div class="plain">'+notice+'</div>';notice=''}
  
  h+=(S.setupDone&&!S.rdSeen?rdTable(1):'');h+='<!--#TODAY-->';var rvL=mkList().filter(function(x){return x.r}),nwL=mkList().filter(function(x){return !x.r});
- h+=S.doneDay===tdy()?'<div class="tcard tdone">'+(tdL()==='D'?tdDone():S.gem!=='0'?(function(sk){return '<div class="tdn gemr"><span class="lf">🪴</span><b class="tt">Practice done<br>for today</b><span class="ring" style="--p:'+Math.min(100,sk/7*100)+'%"><i><b>'+sk+'</b><small>'+(sk===1?'DAY':'DAYS')+'</small></i></span></div>'})(streak()):'<div class="tdn">\u2705 <b>Practice done for today</b><span>\ud83d\udd25 '+streak()+' day'+(streak()===1?'':'s')+'</span></div>')+(tdL()==='D'?'':tdMsg()):'<div class="tcard"><div class="thead th2"><h2>Today\'s practice</h2><span class="mins">\u23f1 '+(tdL()==='D'?(rvL.length*2+nwL.length*6):10)+' min</span></div>';
+ h+=S.doneDay===tdy()?'<div class="tcard tdone">'+(tdL()==='D'?tdDone():S.gem!=='0'?(function(sk){return '<div class="tdn gemr"><span class="lf">🪴</span><b class="tt">Practice done<br>for today</b><span class="ring" style="--p:'+Math.min(100,sk/7*100)+'%"><i><b>'+sk+'</b><small>'+(sk===1?'DAY':'DAYS')+'</small></i></span></div>'})(streak()):'<div class="tdn">\u2705 <b>Practice done for today</b><span>\ud83d\udd25 '+streak()+' day'+(streak()===1?'':'s')+'</span></div>')+(tdL()==='D'?'':tdMsg()):'<div class="tcard"><div class="thead th2"><h2>Today\'s practice</h2>'+(tdL()==='D'&&!(rvL.length+nwL.length)?'':'<span class="mins">\u23f1 '+(tdL()==='D'?(rvL.length*2+nwL.length*6):10)+' min</span>')+'</div>';
  if(fin)h+='<div class="mute">All added verses are finished</div>';
  else if(S.doneDay!==tdy()&&tdL()==='D'){h+=tdCompact(rvL,nwL)}
  else if(S.doneDay!==tdy()&&(tdL()==='C'||tdL()==='D')){var vfl=function(n){var x=V[vIdx(n)],fm=S.main||'sa';return x&&x[fm]?x[fm][0]:''},zr=function(n,r){return '<div class="zq '+(r?'r':'n')+'"><span class="zqn">'+n+'</span><span class="zqt"><b>'+(r?'\ud83d\udd01 Revise':'\u2728 New verse')+'</b><span class="'+((S.main||'sa')==='te'?'te':(S.main||'sa')==='en'?'enb':'sa')+'">'+vfl(n)+'</span></span><span class="zqk">'+(r?'2':'6')+' min</span></div>'},rn=rvL.map(function(x){return V[x.i].n}),sh=rn.length>4?rn.slice(0,3):rn;h+='<div class="zql">'+sh.map(function(n){return zr(n,1)}).join('')+(rn.length>sh.length?'<div class="zq zqm">+ '+(rn.length-sh.length)+' more to revise: '+rn.slice(3).join(', ')+'</div>':'')+nwL.map(function(x){return zr(V[x.i].n,0)}).join('')+'</div>'}
@@ -3539,13 +3573,13 @@ MK.a.addEventListener('pause',function(){MK.on=false;var b=$('mkPlay');if(b)b.te
 MK.a.addEventListener('play',function(){MK.on=true;var b=$('mkPlay');if(b)b.textContent='Pause'});
 function mkLoad(){var want=rpUrl(MK.n,'.m4a');if(!MK.a.src||MK.a.src.slice(-want.length)!==want){MK.a.src=want}}
 
-function gvHead(){var it=LST[vi];if(!it||!V[it.i])return '';var n=V[it.i].n,rt=it.rt==='recap';return '<div class="gvt"><b>Verse '+n+'</b><span class="dt '+(it.r||rt?'rev':'new')+'"></span><span>'+(rt?'Weekly recap':it.r?'Revising':'New today')+'</span>'+(LST.length>1?'<span class="of">\u00b7 '+(vi+1)+' of '+LST.length+'</span>':'')+'</div>'}
+function gvHead(){var it=LST[vi];if(!it||!V[it.i])return '';var n=V[it.i].n,rt=it.rt==='recap';return '<div class="gvt"><b>Verse '+n+'</b><span class="dt '+(it.r||rt?'rev':'new')+'"></span><span>'+(rt?'Weekly recap':it.r?'Revising':'New today')+'</span>'+(LST.length>1?'<span class="of">\u00b7 '+(vi+1)+' of '+LST.length+'</span>':'')+(S.gsty!=='new'?'<button class="chip gvnew" data-act="gsty" data-v="new">New screen</button>':'')+'</div>'}
 function sheetVerseDone(){var it=LST[vi];if(hideNow(it))return '<details class="peek"><summary>\ud83d\udc41 Peek at the verse</summary>'+sheetVerse().split(' hid" data-act="peek').join('')+'</details>';return '<div class="vcomp">'+sheetVerse()+'</div>'}
 function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()],l=cL()||'en',o='';if(m&&m.v)o+='<details><summary>\ud83d\udcd6 Meaning of this verse</summary><div class="plain" style="margin-top:8px">'+m.v[k]+'</div></details>';if(BEN[n])o+='<details><summary>'+BEN[n].ic+' Benefit of this verse</summary>'+spCard(n)+'</details>';return o?'<div class="gmb">'+o+'</div>':''}
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=294,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=296,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});

@@ -2,7 +2,7 @@
 
 Owner: Pranav. Repo: https://github.com/pranavbpk/vishnu-sahasranam-
 Live site (GitHub Pages): https://pranavbpk.github.io/vishnu-sahasranam-/
-Updated: 8 Nov 2026 (live = Version 106, Guru Test = build 277).
+Updated: 9 Nov 2026 (live = Version 106, Guru Test and Guru Dev = build 296).
 
 ## What the app is
 A free web app (PWA) for learning Vishnu Sahasranamam the guru-shishya way:
@@ -13,10 +13,20 @@ My slokas (owner only: add any audio + words and practise it), Satsang dates,
 Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Files
-- `index.html`: the LIVE app. One file: HTML + CSS + vanilla JS. No framework, no build step.
-- `index-proto.html`: "Guru Test", the test copy. ALL new work goes here first.
-- `sw-proto.js`: service worker (offline cache) for both pages.
-- `manifest.webmanifest` (live) and `manifest-test.webmanifest` (Guru Test).
+- Three copies of ONE code file (Dev → Test → Prod), from 9 Nov 2026:
+  - `index-dev.html`: "Guru Dev" (red DEV tag). ALL new work goes here first.
+  - `index-proto.html`: "Guru Test" (amber TEST tag). Owner + a few testers.
+  - `index.html`: the LIVE app (Prod). One file: HTML + CSS + vanilla JS. No framework, no build step.
+  - The copies differ only in the `var ENV='dev'|'test'|'prod'` line (top of the first script), title, manifest
+    and version label. Never hand-edit Test or Prod: use `python3 tools/promote.py dev test` and,
+    only after the owner says "go live", `python3 tools/promote.py test prod` + `git tag vNNN`.
+    `python3 tools/promote.py check` shows each copy's build.
+  - Storage: Dev/Test prefix every localStorage key, IndexedDB name and Cache name with `dev_` / `test_`
+    (env block patches Storage/IDBFactory/CacheStorage). On first open they copy the live data once,
+    read only (flags `<prefix>__init`, `<prefix>__idb_<name>`). Prod keeps the plain names. Live data is never written by Dev/Test.
+  - Shared files (audio/, img/, content/, satsang.json): only add; never change a format Prod reads. New format = new file name.
+- `sw-proto.js`: service worker (offline cache) for all pages.
+- `manifest.webmanifest` (live), `manifest-test.webmanifest` (Guru Test), `manifest-dev.webmanifest` (Guru Dev).
 - `audio/vNNN.m4a`: guide audio for verses 1-108 (owner's voice).
   `audio/cuts.json` = pause between line 1 and line 2 (seconds) per verse.
   `audio/trim.json` = [speech start, speech end] per verse.
@@ -28,7 +38,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - `preview-future.html`: static, clickable preview of future screens (not part of the app).
 - Old versions live on the `backups` branch (backups/index-vNN.html), not on main.
 
-## How the code is organised (inside index-proto.html)
+## How the code is organised (inside index-dev.html)
 - State: one object `S`, saved to localStorage key `sp2` with `sv()`.
   Recordings in IndexedDB `sp_rec`; owner data (My slokas etc.) in its own IndexedDB stores (`oPut`).
 - Verse data: array `V` (n, sa = Devanagari lines, te = Telugu lines, pr = dash read-aloud lines, en, tip).
@@ -49,12 +59,10 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Fixed backgrounds inside scrolling boxes don't stay fixed on iPhone: use a `position:fixed` layer instead.
 
 ## Working rules agreed with the owner
-1. Change `index-proto.html` only. Bump `APPV` +1 every time.
-2. Make it live only when the owner says "go live":
-   copy the old index.html to the `backups` branch as backups/index-vNN.html;
-   index.html = index-proto.html with title/apple-mobile-web-app-title "Sahasranama Guru",
-   manifest-test.webmanifest -> manifest.webmanifest, hsBar() returns '', VLBL='Version N · date',
-   remove the "VLBL='Guru Test · build '+APPV" line (keep APPV).
+1. Change `index-dev.html` only. Bump `APPV` +1 every time. When it works, `tools/promote.py dev test`.
+2. Make it live only when the owner says "go live": `tools/promote.py test prod` (does the title, manifest,
+   hsBar() returns '', VLBL='Version N · date', removes the build label), commit, `git tag vN`, push the tag.
+   Roll back = check out the previous tag's index.html.
 3. Before every push: syntax-check the script (extract <script> blocks, `node --check`), test at phone size (393x852).
 4. Anything touching sound: Guru Test first, the owner tests on his iPhone.
 5. Never name books, institutes or commercial recordings inside the app. Guide audio = owner's own voice only.
@@ -77,7 +85,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Planned: Azure hosting (Static Web Apps + Functions + Cosmos DB free tier) for real satsang booking, messages and sign-in; full chant parts (opening prayers, Dhyanam, 108, Phala-shruti, Lakshmi Ashtottaram) each with its own progress; class satsang with pranayama for the guru's students.
 
 ## Rules for any other AI helping (Gemini, Copilot, ChatGPT)
-- Work only on index-proto.html (Guru Test). Never edit index.html, sw-proto.js caches, content/students.json or the owner-only areas (Swadhyayam, My plans, OWN/OWNH checks) unless the owner asks in plain words.
+- Work only on index-dev.html (Guru Dev), then promote to Test. Never edit index.html, sw-proto.js caches, content/students.json or the owner-only areas (Swadhyayam, My plans, OWN/OWNH checks) unless the owner asks in plain words.
 - Do not add any analytics, tracking, ads, third-party scripts, fonts or CDNs, cookies, or calls to any server or API that are not already in the file. No new fetch() to outside addresses. Say so clearly if a feature would need one.
 - Do not ask for, store or print passwords, tokens, keys, email addresses, the guru's OneDrive link, or the owner's progress file.
 - Keep: one file, vanilla JS/CSS, no build step, no framework. Keep the iPhone audio rules above.
