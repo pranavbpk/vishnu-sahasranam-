@@ -2063,7 +2063,7 @@ function swOpen(id){var l=LEC.filter(function(x){return x.id===id})[0];if(!l)ret
  /* iPhone only lets sound start straight from a tap: start a moment of silence now, then switch to the class */
  SWCUR=id;a.src=SWSIL;a.play().catch(function(){});
  if(l.od)OMSG='Opening the class…';render();
- (l.od?msDl(l).then(function(u){if(!/^blob:/.test(u))MSU[l.od.i]={u:u,at:Date.now()};return {u:u}}).catch(function(e){OMSG='Could not play from OneDrive: '+e;render();return null}):oGet('lecb',id)).then(function(r){
+ (l.od?msDl(l).then(function(u){if(!/^blob:/.test(u))MSU[l.od.i]={u:u,at:Date.now()};return {u:u}}).catch(function(e){OMSG=msExp(e)?msExpMsg():'Could not play from OneDrive: '+e;render();return null}):oGet('lecb',id)).then(function(r){
   if(SWCUR!==id)return;
   if(!r||!(r.b||r.u)){if(!l.od)OMSG='This audio is missing. Please add it again.';a.pause();a.removeAttribute('src');try{a.load()}catch(e){}render();return}
   OMSG='';start(r.u||URL.createObjectURL(r.b))})}
@@ -2855,6 +2855,9 @@ if(OWN||S.swinv)setTimeout(function(){ownLoad().then(function(){if(view==='home'
 /* ===== Microsoft sign-in (PKCE, no library) + guru's OneDrive folder (build 219) ===== */
 var MSC='88ed2d53-3411-4ba1-ac6c-e29302a61c93',MSAUTH='https://login.microsoftonline.com/common/oauth2/v2.0/',MSSC='openid profile offline_access User.Read Files.Read.All';
 var MSRED=location.origin+location.pathname,MSF={path:[],items:null,err:'',busy:false};
+/* b297: Microsoft asks single-page apps to sign in again every 24 hours. Show a plain message and the sign-in button instead of the raw error. */
+function msExp(e){return /AADSTS70000|AADSTS700082|AADSTS50173|invalid_grant|interaction_required|grant is expired|must sign in again/i.test(String(e&&e.message||e))}
+function msExpMsg(){try{localStorage.removeItem('sg_ms')}catch(x){}return 'Your Microsoft sign-in has ended (Microsoft asks again every day). Tap Sign in with Microsoft below, then play again.'}
 function msTok(){try{return JSON.parse(localStorage.getItem('sg_ms')||'null')}catch(e){return null}}
 function msSave(t){try{localStorage.setItem('sg_ms',JSON.stringify(t))}catch(e){}}
 function b64u(buf){var s='',b=new Uint8Array(buf);for(var i=0;i<b.length;i++)s+=String.fromCharCode(b[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
@@ -2875,7 +2878,7 @@ function msGet(u,pf){return msAT().then(function(at){var h={Authorization:'Beare
 function msShareId(url){return 'u!'+btoa(unescape(encodeURIComponent(url))).replace(/=+$/,'').replace(/\//g,'_').replace(/\+/g,'-')}
 function msIsAud(n){return /\.(m4a|mp3|aac|wav|ogg|opus|mp4|m4v|mov|webm|amr|3gp)$/i.test(n||'')}
 function msOpenRoot(){if(!S.swlink){MSF.err='Paste the guru’s OneDrive folder link first.';render();return}MSF.busy=true;MSF.err='';render();
- msGet('https://graph.microsoft.com/v1.0/shares/'+msShareId(S.swlink)+'/driveItem',1).then(function(it){MSF.path=[{d:it.parentReference&&it.parentReference.driveId,i:it.id,n:it.name}];return msList()}).catch(function(e){MSF.busy=false;S.swok=0;sv();var t=msTok()||{};MSF.err=/denied|forbidden|not found|403|404|itemNotFound/i.test(String(e))?'This Microsoft account ('+(t.mail||'')+') can’t open the guru’s class folder. Ask for the folder to be shared with this email, then tap Show the guru’s classes.':'Could not open the folder: '+e;render()})}
+ msGet('https://graph.microsoft.com/v1.0/shares/'+msShareId(S.swlink)+'/driveItem',1).then(function(it){MSF.path=[{d:it.parentReference&&it.parentReference.driveId,i:it.id,n:it.name}];return msList()}).catch(function(e){MSF.busy=false;S.swok=0;sv();var t=msTok()||{};MSF.err=msExp(e)?msExpMsg():/denied|forbidden|not found|403|404|itemNotFound/i.test(String(e))?'This Microsoft account ('+(t.mail||'')+') can’t open the guru’s class folder. Ask for the folder to be shared with this email, then tap Show the guru’s classes.':'Could not open the folder: '+e;render()})}
 function msList(){var p=MSF.path[MSF.path.length-1];MSF.busy=true;MSF.err='';render();
  return msGet('https://graph.microsoft.com/v1.0/drives/'+p.d+'/items/'+p.i+'/children?$top=200').then(function(j){var tn=Date.now();(j.value||[]).forEach(function(x){var u=msDU(x);if(u)MSU[x.id]={u:u,at:tn}});
   S.swpath=MSF.path.slice();S.swok=1;MSF.items=(j.value||[]).filter(function(x){return x.folder||msIsAud(x.name)}).sort(function(a,b){return (b.createdDateTime||'').localeCompare(a.createdDateTime||'')});var wk=swWeek();if(wk)S.swwk={id:wk.id,name:wk.name,d:wk.parentReference&&wk.parentReference.driveId,size:wk.size,c:wk.createdDateTime};sv();MSF.busy=false;render()}).catch(function(e){MSF.busy=false;if(MSF.path.length>1&&S.swpath){S.swpath=null;sv();msOpenRoot();return}MSF.err=String(e);render()})}
@@ -3579,7 +3582,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=296,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=297,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
