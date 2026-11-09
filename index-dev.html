@@ -1112,6 +1112,9 @@ html[data-ht="me"] .fth b{font-size:1.15rem}
 .zD-n{display:flex;align-items:center;gap:7px;margin-top:3px}
 .zD-n i{flex:none;font-style:normal;background:#f2c14e;color:#3a2e1a;border-radius:9px;padding:1px 9px;font-weight:700;cursor:pointer}
 .zD-n .zD-v{margin:0;flex:1;min-width:0}
+.ms-guide{display:block;margin:0 4px 10px;padding:9px 12px;border-radius:12px;background:#e3f1ec;color:#0f6b6b;font-weight:700;text-decoration:none;font-size:.92rem}
+.zD-n.r i{background:#e3f1ec;color:#0f6b6b}
+.rpsheet:not(.g2) .btn.rec{background:#c0392b!important;color:#fff!important;border:0!important}
 html[data-tdl="D"] .dh-panel .tcard{padding-top:10px;padding-bottom:12px}
 html[data-tdl="D"] .dh-panel .hgo,html[data-tdl="D"] .dh-panel .btn{margin-top:10px}
 html[data-tdl="D"] .tdlb{margin:10px 0 0}
@@ -1953,7 +1956,7 @@ function ydLine(){if(S.doneDay===tdy()||tdL())return '';var d=new Date();d.setDa
 /* b284: Today layout D (clean): small streak pill, verse chips, clearer Swadhyayam, parayanam on top when near */
 /* b293: layout D, compact Today list: revisions as one row of numbers, new verse as one row */
 function tdCompact(rvL,nwL){var rn=rvL.map(function(x){return V[x.i].n}),fm=S.main||'sa',cl=fm==='te'?'te':fm==='en'?'enb':'sa',h='<div class="zD">';
- if(rn.length)h+='<div class="zD-l">🔁 Revise · verses you learned before</div><div class="zD-c">'+rn.map(function(n){return '<i role="button" data-act="mvopen" data-v="'+n+'">'+n+'</i>'}).join('')+'</div>';
+ if(rn.length)h+='<div class="zD-l">🔁 Revise · verses you learned before</div>'+(rn.length<=2&&nwL.length<=1?rvL.map(function(x){var v=V[x.i];return '<div class="zD-n r"><i role="button" data-act="mvopen" data-v="'+v.n+'">'+v.n+'</i><span class="zD-v '+cl+'">'+(v[fm]?v[fm][0]:'')+'</span></div>'}).join(''):'<div class="zD-c">'+rn.map(function(n){return '<i role="button" data-act="mvopen" data-v="'+n+'">'+n+'</i>'}).join('')+'</div>');
  if(nwL.length)h+='<div class="zD-l">✨ New today</div>'+nwL.map(function(x){var v=V[x.i];return '<div class="zD-n"><i role="button" data-act="mvopen" data-v="'+v.n+'">'+v.n+'</i><span class="zD-v '+cl+'">'+(v[fm]?v[fm][0]:'')+'</span></div>'}).join('');
  return h+'</div>'}
 function tdDone(){var dv=(S.dayv||{})[tdy()]||{},l=(dv.l||[]).filter(function(x){return +x}),r=(dv.r||[]).filter(function(x){return +x&&l.indexOf(x)<0}),sk=streak(),t=S.doneAt&&new Date(S.doneAt).toDateString()===new Date().toDateString()?new Date(S.doneAt).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'',ch=function(a,c){return '<div class="dvc">'+a.map(function(n){return '<button class="dvn'+c+'" data-act="mvopen" data-v="'+n+'">'+n+'</button>'}).join('')+'</div>'};
@@ -2536,7 +2539,7 @@ function mypSheet2(x){if(!MYPSH)return '';var m=mypM();return '<div class="mpsh-
 /* ---- edit ---- */
 function myEditPage(x){var pc=myPcs(x),L=myLines(x.text),match=!L.length||L.length===pc.length||L.length*2===pc.length,d=rdL();
  if(MYV.lines)return myLinesPage(x);
- var h=myTop(['mpopen',x.id,'‹'],'✏️ Edit sloka','');if(MYMSG)h+='<div class="plain">'+MYMSG+'</div>';
+ var h=myTop(['mpopen',x.id,'‹'],'✏️ Edit sloka','');h+='<a class="ms-guide" href="help/my-slokas.html">📘 Step-by-step guide with pictures ›</a>';if(MYMSG)h+='<div class="plain">'+MYMSG+'</div>';
  h+='<div class="mse"><span class="mse-n">🎙</span><div class="mse-b"><b>Sound</b><small>'+oT(x.dur||0)+' long</small>'+(MYV.snd?(MYNEW?'<div class="ow-ok" style="margin-top:6px">✅ New sound ready'+(MYNEW.d?' · '+oT(MYNEW.d):'')+' <button class="chip" data-act="mynewplay">▶ Play</button></div><div class="msk-two" style="margin-top:6px"><button class="btn ow-sm" data-act="myrepl">Use this sound</button><button class="chip" data-act="mysnd">Cancel</button></div><div class="mute" style="font-size:.82rem;margin-top:4px">Your words stay. Then one listen with 👆 Tap along so they follow the new sound.</div>':'<div class="msk-two" style="margin-top:6px"><button class="msk-big'+(MYREC?' on':'')+'" data-act="myrec"><span>'+(MYREC?'⏹':'🎙')+'</span>'+(MYREC?'Stop recording':'Record')+'</button><label class="msk-big"><span>📁</span>Audio file<input type="file" accept="audio/*,.m4a,.mp3,.aac,.wav,video/mp4" hidden data-own="slkfile"></label></div><button class="chip" data-act="mysnd" style="margin-top:6px">Cancel</button>'):'')+'</div>'+(MYV.snd?'':'<button class="mse-g" data-act="mysnd">Change ›</button>')+'</div>';
  h+='<div class="mse"><span class="mse-n">1</span><div class="mse-b"><b>Name</b>'+(MYNM?'<input id="my-nm" class="ow-in" value="'+oEsc(x.name)+'"><div class="msk-two" style="margin-top:6px"><button class="btn ow-sm" data-act="mynmsave">Save</button><button class="chip" data-act="mynm">Cancel</button></div>':'<small>'+oEsc(x.name)+'</small>')+'</div>'+(MYNM?'':'<button class="mse-g" data-act="mynm">Change</button>')+'</div>';
  h+='<div class="mse"><span class="mse-n">2</span><div class="mse-b"><b>Words</b>'+(MYV.ed?'<textarea id="ow-tx2" class="ow-in" rows="6" placeholder="One chanted line per line">'+oEsc(x.text||'')+'</textarea><div class="mute" style="font-size:.82rem;margin-top:4px">Put each chanted line on its own line.</div><div class="msk-two" style="margin-top:6px"><button class="btn ow-sm" data-act="mywsave">Save words</button><button class="chip" data-act="mywedit">Cancel</button></div>':'<small>'+(L.length?L.length+' line'+(L.length>1?'s':''):'No words yet')+'</small>'+(L.length?'<small class="mse-w">'+oEsc(scLine(L[0],d).w.join(' '))+' …</small>':''))+'</div>'+(MYV.ed?'':'<button class="mse-g" data-act="mywedit">'+(L.length?'Fix ›':'Add ›')+'</button>')+'</div>';
@@ -2612,7 +2615,7 @@ function myPage(){var h='';
  if(MYV.m==='tap'){var xt=myL(MYV.id);if(!xt){MYV={m:'list'};return myPage()}return myTapPage(xt)}
  if(MYV.m==='tap2'){var x2t=myL(MYV.id);if(!x2t){MYV={m:'list'};return myPage()}return myT2Page(x2t)}
  if(MYV.m==='add'){var md=MYV.mode||'line';
-  h+='<div class="msk-head"><b>＋ New sloka</b><button class="chip" data-act="myhow">ⓘ How it works</button></div>'+(MYHOW?myHowCard():'')+myStepper(MYNEW?2:1,['Sound','Words','Save']);
+  h+='<div class="msk-head"><b>＋ New sloka</b><button class="chip" data-act="myhow">ⓘ How it works</button></div><a class="ms-guide" href="help/my-slokas.html">📘 Step-by-step guide with pictures ›</a>'+(MYHOW?myHowCard():'')+myStepper(MYNEW?2:1,['Sound','Words','Save']);
   h+='<div class="card msk-c"><div class="msk-ct"><span>1</span>🎙 The sound</div>'+(MYNEW?'<div class="ow-ok">✅ Sound ready'+(MYNEW.d?' · '+oT(MYNEW.d):'')+' <button class="chip" data-act="mynewplay">▶ Play</button> <button class="chip" data-act="mynewclr">✕ Remove</button></div>'
    :'<div class="msk-two"><button class="msk-big'+(MYREC?' on':'')+'" data-act="myrec"><span>'+(MYREC?'⏹':'🎙')+'</span>'+(MYREC?'Stop recording':'Record')+'</button><label class="msk-big"><span>📁</span>Audio file<input type="file" accept="audio/*,.m4a,.mp3,.aac,.wav,video/mp4" hidden data-own="slkfile"></label></div><div class="mute">'+(MYREC?'Recording… play the teacher’s audio near the phone, or chant it yourself.':'Play your teacher’s recording near the phone, or chant it yourself. Leave a short breath between lines.')+'</div>')+'</div>';
   h+='<div class="card msk-c"><div class="msk-ct"><span>2</span>📝 Name and words</div><input id="ow-nm" class="ow-in" placeholder="Name, e.g. Prajna sloka 3" value="'+oEsc(MYV.nm||'')+'"><textarea id="ow-tx" class="ow-in" rows="4" style="margin-top:8px" placeholder="Words (optional). One line per piece.">'+oEsc(MYV.tx||'')+'</textarea>'+myGetWords()+'</div>';
@@ -3582,7 +3585,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=297,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=298,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
