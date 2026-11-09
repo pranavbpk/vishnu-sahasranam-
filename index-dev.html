@@ -1621,6 +1621,30 @@ html[data-vbg="1"] .prb .wd,html[data-vbg="2"] .prb .wd,html[data-vbg="1"] .prl,
 .rpsheet .rpverse{flex-shrink:0}
 .ow-lb,.ow-tx{min-width:0}.ow-tx b,.ow-tx small{overflow-wrap:anywhere}
 .sw-home .sw-hb .ow-tx small{white-space:normal!important;overflow:visible!important;text-overflow:clip!important}
+/* b305: floating player + now-playing bar */
+#swflbg{display:none}#swflbg.on{display:block;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90}
+#swfl{display:none}
+#swfl.on{display:block;position:fixed;z-index:91;background:#111;color:#fff;box-shadow:0 8px 28px rgba(0,0,0,.4)}
+#swfl.full{left:0;right:0;top:max(40px,env(safe-area-inset-top));margin:0 auto;max-width:720px;border-radius:16px;padding:10px}
+#swfl.mini{right:10px;bottom:calc(84px + env(safe-area-inset-bottom,0px));width:min(62vw,260px);border-radius:12px;padding:6px}
+.fl-h{display:flex;align-items:center;gap:6px;margin-bottom:8px}.fl-h b{flex:1;min-width:0;font-size:.95rem;overflow-wrap:anywhere}
+#swfl.mini .fl-h{margin-bottom:5px}#swfl.mini .fl-h b{font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fl-b{flex:none;background:#2c2c2c;color:#fff;border:1px solid #444;border-radius:999px;min-height:36px;min-width:40px;padding:4px 12px;font-weight:700;font-size:.9rem;cursor:pointer}
+#swfl.mini .fl-b{min-height:32px;min-width:34px;padding:2px 8px}
+#swfl.full .fl-mini,#swfl.mini .fl-full{display:none}
+.fl-m{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden}
+.fl-m iframe,.fl-m video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.fl-w{padding:30px;text-align:center;color:#ddd}
+.fl-f{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin-top:8px;font-size:.8rem;color:#bbb}.fl-f a{color:#fff;font-weight:700}
+#swfl.mini .fl-f{display:none}
+#npbar{display:none}
+#npbar.on{display:flex;align-items:center;gap:6px;position:fixed;left:10px;right:10px;max-width:540px;margin:0 auto;z-index:70;background:#fffaf0;border:1.5px solid #e2cd9c;border-radius:16px;padding:6px 6px 9px 10px;box-shadow:0 6px 20px rgba(60,40,0,.22);overflow:hidden}
+.np-t{flex:1;min-width:0;display:flex;align-items:center;gap:8px;background:none;border:0;text-align:left;color:inherit;font:inherit;padding:2px 0;cursor:pointer}
+.np-i{font-size:1.3rem}.np-x{min-width:0}.np-x b{display:block;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.np-x small{display:block;font-size:.76rem;color:#6b5a3e}
+.np-p,.np-c{flex:none;width:42px;height:42px;border-radius:50%;border:0;font-size:1.1rem;cursor:pointer}
+.np-p{background:var(--acc);color:#fff}.np-c{background:none;color:#6b5a3e}
+.np-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:#eadfc8}.np-bar u{display:block;height:100%;background:var(--acc);text-decoration:none}
+#swfl.mini.top{bottom:auto;top:calc(70px + env(safe-area-inset-top,0px))}
 </style>
 </head>
 <body>
@@ -2243,12 +2267,12 @@ function swWeekCard(){var w=swWeek();if(!w)return '';var l=swLecOf(w),h=(l&&l.he
   +'<div class="sw-steps">'+st.map(function(s,i){return '<div class="'+(i<h?'mk1':i===h?'nw':'')+'"><i>'+(i<h?'✓':i+1)+'</i><span>'+s[0]+' '+s[1]+'</span></div>'}).join('')+'</div>'
   +'<button class="btn ow-sm" data-act="msplay" data-v="'+w.id+'">'+(pl?'⏸ Pause':h>=t?'▶ Listen again':l&&l.pos>5?'▶ Continue listen '+(h+1):'▶ Start listen '+(h+1))+'</button></div>'}
 var SWVID=null;
-function swVidSheet(){if(!SWVID)return '';return '<div class="sw-vbg" data-act="swvclose"></div><div class="sw-vs"><div class="sw-vh"><b>'+oEsc(swT(SWVID.n).t)+'</b><button class="chip" data-act="swvclose">✕ Close</button></div>'+(SWVID.u?'<video id="sw-vid" src="'+oEsc(SWVID.u)+'" controls playsinline preload="metadata"></video>':'<div class="mute" style="padding:30px;text-align:center;color:#ddd">Opening the video…</div>')+'<div class="mute" style="color:#bbb;font-size:.78rem;padding:6px 2px">Video stops when the screen locks. To listen with the screen off, close this and use ▶.</div></div>'}
+function swVidSheet(){return '';if(!SWVID)return '';return '<div class="sw-vbg" data-act="swvclose"></div><div class="sw-vs"><div class="sw-vh"><b>'+oEsc(swT(SWVID.n).t)+'</b><button class="chip" data-act="swvclose">✕ Close</button></div>'+(SWVID.u?'<video id="sw-vid" src="'+oEsc(SWVID.u)+'" controls playsinline preload="metadata"></video>':'<div class="mute" style="padding:30px;text-align:center;color:#ddd">Opening the video…</div>')+'<div class="mute" style="color:#bbb;font-size:.78rem;padding:6px 2px">Video stops when the screen locks. To listen with the screen off, close this and use ▶.</div></div>'}
 /* b299: Swadhyayam links (YouTube inside the app, audio links in the player), sleep timer, one line a day */
 var SWYT=null,SWYTP=0,SWYTT=null,SWSLP=0;
 function ytId(u){var m=String(u||'').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|live\/|embed\/))([\w-]{11})/);return m?m[1]:''}
-function swYtSheet(){if(!SWYT)return '';return '<div class="sw-vbg" data-act="swytclose"></div><div class="sw-vs"><div class="sw-vh"><b>'+oEsc(SWYT.n)+'</b><button class="chip" data-act="swytclose">✕ Close</button></div><div class="sw-yt"><iframe id="sw-ytf" src="https://www.youtube-nocookie.com/embed/'+SWYT.id+'?playsinline=1&enablejsapi=1&rel=0'+(SWYT.t?'&start='+Math.floor(SWYT.t):'')+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="'+oEsc(SWYT.n)+'"></iframe></div><div class="sw-yth"><a class="chip" href="https://www.youtube.com/watch?v='+SWYT.id+'" target="_blank" rel="noopener">Open in YouTube ↗</a><span class="mute">Plays while the screen is on. Minutes count while it plays.</span></div></div>'}
-function swYtOpen(l){SWYT={id:l.yt,n:swT(l.name).t,t:l.pos||0,lid:l.id};SWYTP=0;try{if(SWA&&!SWA.paused)swToggle()}catch(e){}render();setTimeout(function(){var f=document.getElementById('sw-ytf');if(!f)return;f.addEventListener('load',function(){try{f.contentWindow.postMessage(JSON.stringify({event:'listening',id:1}),'*')}catch(e){}})},50);clearInterval(SWYTT);SWYTT=setInterval(function(){if(!SWYT){clearInterval(SWYTT);return}if(SWYTP&&!document.hidden){S.swd=S.swd||{};S.swd[tdy()]=(S.swd[tdy()]||0)+5;var l=LEC.filter(function(x){return x.id===SWYT.lid})[0];if(l){l.pos=(l.pos||0)+5;l.last=Date.now();swLog(l,5,'y')}sv()}},5000)}
+function swYtSheet(){return '';if(!SWYT)return '';return '<div class="sw-vbg" data-act="swytclose"></div><div class="sw-vs"><div class="sw-vh"><b>'+oEsc(SWYT.n)+'</b><button class="chip" data-act="swytclose">✕ Close</button></div><div class="sw-yt"><iframe id="sw-ytf" src="https://www.youtube-nocookie.com/embed/'+SWYT.id+'?playsinline=1&enablejsapi=1&rel=0'+(SWYT.t?'&start='+Math.floor(SWYT.t):'')+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="'+oEsc(SWYT.n)+'"></iframe></div><div class="sw-yth"><a class="chip" href="https://www.youtube.com/watch?v='+SWYT.id+'" target="_blank" rel="noopener">Open in YouTube ↗</a><span class="mute">Plays while the screen is on. Minutes count while it plays.</span></div></div>'}
+function swYtOpen(l){SWYT={id:l.yt,n:swT(l.name).t,t:l.pos||0,lid:l.id};SWYTP=0;try{if(SWA&&!SWA.paused)swToggle()}catch(e){}FLM=0;flShowYt();render();setTimeout(function(){var f=document.getElementById('sw-ytf');if(!f)return;f.addEventListener('load',function(){try{f.contentWindow.postMessage(JSON.stringify({event:'listening',id:1}),'*')}catch(e){}})},50);clearInterval(SWYTT);SWYTT=setInterval(function(){if(!SWYT){clearInterval(SWYTT);return}if(SWYTP&&!document.hidden){S.swd=S.swd||{};S.swd[tdy()]=(S.swd[tdy()]||0)+5;var l=LEC.filter(function(x){return x.id===SWYT.lid})[0];if(l){l.pos=(l.pos||0)+5;l.last=Date.now();swLog(l,5,'y')}sv()}},5000)}
 window.addEventListener('message',function(e){if(!SWYT||!/youtube/.test(e.origin))return;try{var d=typeof e.data==='string'?JSON.parse(e.data):e.data;if(d&&d.info&&d.info.playerState!=null)SWYTP=d.info.playerState===1?1:0;if(d&&d.info&&d.info.currentTime!=null){var l=LEC.filter(function(x){return x.id===SWYT.lid})[0];if(l){l.pos=d.info.currentTime;if(d.info.duration)l.dur=d.info.duration}}}catch(x){}});
 function swLinkBox(){return '<details class="ow-gd"><summary>🔗 Add a link (YouTube or audio)</summary><div class="sw-lk"><input id="sw-lu" type="url" placeholder="https://youtu.be/… or https://…/talk.mp3" autocomplete="off"><input id="sw-ln" type="text" placeholder="Name (optional)"><button class="btn ow-sm" data-act="swlink">Add</button><div class="mute">YouTube plays inside the app while the screen is on. A direct audio link (.mp3, .m4a) plays in the player, also with the screen locked. Both count towards your minutes.</div></div></details>'}
 function swSlpChip(){var m=SWSLP?Math.max(0,Math.ceil((SWSLP-Date.now())/60000)):0;return '<button class="chip" data-act="swslp" aria-label="Sleep timer">🌙 '+(m?'Stops in '+m+' min':'Timer')+'</button>'}
@@ -2819,10 +2843,10 @@ var OWNA={
  stumake:function(){var e=document.getElementById('ow-stu'),v=(e&&e.value||'').trim();S.swstuE=v;sv();var L=v.split(/[\s,;]+/).filter(function(x){return /@/.test(x)});if(!L.length||!S.swlink){OMSG='Type at least one email.';render();return}
   stuMake(L).then(function(j){STUOUT='STUDENTS '+j;try{navigator.clipboard.writeText(STUOUT)}catch(x){}render()}).catch(function(x){OMSG='Could not make the list: '+x;render()})},
  swwatch:function(){var l=swL();if(!l)return;var t=SWA?SWA.currentTime:(l.pos||0);if(SWA)SWA.pause();swStop(1);SWVID={n:l.name,u:null,t:t,lid:l.id};SWVB=null;
-  if(SWA&&SWA.src&&!/^(data|blob):/.test(SWA.src)){SWVID.u=SWA.src}render();
-  if(!SWVID.u&&l.od){msDl(l).then(function(u){if(SWVID){SWVID.u=u;render()}}).catch(function(e){SWVID=null;OMSG='Could not open the video: '+e;render()})}
+  if(SWA&&SWA.src&&!/^(data|blob):/.test(SWA.src)){SWVID.u=SWA.src}FLM=0;flShowVid();render();
+  if(!SWVID.u&&l.od){msDl(l).then(function(u){if(SWVID){SWVID.u=u;flShowVid();render()}}).catch(function(e){SWVID=null;OMSG='Could not open the video: '+e;render()})}
   setTimeout(function vs(){var v=document.getElementById('sw-vid');if(!v){if(SWVID&&!SWVID.u)setTimeout(vs,400);return}v.addEventListener('loadedmetadata',function(){try{if(SWVID&&SWVID.t>3)v.currentTime=SWVID.t-3}catch(e){}},{once:true});try{v.play().catch(function(){})}catch(e){}},50)},
- swvclose:function(){var v=document.getElementById('sw-vid'),l=swL();if(v&&l&&v.currentTime>1){l.pos=v.currentTime;var c={};for(var k in l)c[k]=l[k];oPut('lec',c)}if(v)v.pause();SWVID=null;render()},
+ swvclose:function(){var v=document.getElementById('sw-vid'),l=swL();if(v&&l&&v.currentTime>1){l.pos=v.currentTime;var c={};for(var k in l)c[k]=l[k];oPut('lec',c)}if(v)v.pause();SWVID=null;flClear();render()},
  swall:function(){S.swall=S.swall?0:1;sv();render()},
  swjoin:function(){var e=document.getElementById('ow-inv'),m=String(e&&e.value||'').match(/[#&]sw=([A-Za-z0-9_-]+)/);if(!m){SWJMSG='That doesn’t look like an invite link. Please paste the whole link.';render();return}
   try{var b=atob(m[1].replace(/-/g,'+').replace(/_/g,'/')),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);var link=new TextDecoder().decode(u);if(!/^https:\/\//.test(link))throw 0;S.swlink=link;S.swinv=1;MSAUTO=false;SWJMSG='';sv();OWNP='sw';HT='me';render(1);scrollTo(0,0)}catch(x){SWJMSG='That link could not be read. Please ask for a new invite.';render()}},
@@ -2847,7 +2871,7 @@ var OWNA={
  ownp:function(t,v){if(!v){prClear();PR=null;MYV={m:'list'};sv()}OWNP=v||null;OMSG='';render(1);scrollTo(0,0)},
  swopen:function(t,v){SWDEL=null;swOpen(v)},
  swlink:function(){var u=(document.getElementById('sw-lu')||{}).value||'',nm=((document.getElementById('sw-ln')||{}).value||'').trim();u=u.trim();if(!/^https?:\/\//i.test(u)){OMSG='Paste a link that starts with https://';render();return}var y=ytId(u),id='ln_'+Date.now(),l={id:id,name:nm||(y?'YouTube talk':decodeURIComponent(u.split('?')[0].split('/').pop()||'Audio link').replace(/\.[^.]+$/,'')),added:Date.now(),pos:0,dur:0};if(y)l.yt=y;else l.url=u;LEC.unshift(l);oPut('lec',l);OMSG='✅ Added. Find it under “On this phone and links”.';render()},
- swytclose:function(){var l=SWYT&&LEC.filter(function(x){return x.id===SWYT.lid})[0];if(l){l.last=Date.now();var c={};for(var k in l)c[k]=l[k];oPut('lec',c)}SWYT=null;SWYTP=0;clearInterval(SWYTT);sv();render()},
+ swytclose:function(){var l=SWYT&&LEC.filter(function(x){return x.id===SWYT.lid})[0];if(l){l.last=Date.now();var c={};for(var k in l)c[k]=l[k];oPut('lec',c)}SWYT=null;SWYTP=0;clearInterval(SWYTT);flClear();sv();render()},
  swslp:function(){var opts=[0,15,30,60],cur=SWSLP?Math.round((SWSLP-Date.now())/60000):0,nx=opts.filter(function(m){return m>cur+1})[0]||0;if(cur>0&&!nx)nx=0;SWSLP=nx?Date.now()+nx*60000:0;render()},
  swtk:function(){var v=((document.getElementById('sw-tk')||{}).value||'').trim();if(!v)return;S.swtk=S.swtk||{};S.swtk[tdy()]=v;sv();OMSG='✍️ Saved in My notes.';render()},
  swtkno:function(){S.swtkno=tdy();sv();render()},
@@ -3700,7 +3724,7 @@ function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]
 var GPAUSED=false,LOCKP=false,GRES=null;
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&RP.on&&GS.on&&view==='verse'&&(RP.phase==='listen'||RP.phase==='turn')){LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};rpClose()}});
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=304,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=305,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -4025,20 +4049,20 @@ function myUb64(t){var s=atob(t),u=new Uint8Array(s.length);for(var i=0;i<s.leng
 function myClean(x,own){var c=JSON.parse(JSON.stringify(x));if(!own){delete c.plays;delete c.lastp;delete c.prac;delete c.next}delete c.nos;return c}
 function myPack(ids,snd,own){return Promise.all(ids.map(function(id){var x=myL(id);if(!x)return null;var m=myClean(x,own);if(!snd)return {x:m};
   return oGet('slkb',id).then(function(r){var bl=myBlob(r);if(!bl)return {x:m};return bl.arrayBuffer().then(function(ab){return {x:m,t:bl.type||'audio/mp4',a:myB64(ab)}})}).catch(function(){return {x:m}})}))
- .then(function(a){a=a.filter(Boolean);return {txt:JSON.stringify({app:'sahasranama-guru',kind:'slokas',v:1,date:new Date().toDateString(),items:a}),n:a.length,ns:a.filter(function(y){return y.a}).length}})}
+ .then(function(a){a=a.filter(Boolean);var o={app:'sahasranama-guru',kind:'slokas',v:1,date:new Date().toDateString(),items:a};return {o:o,n:a.length,ns:a.filter(function(y){return y.a}).length}})}
 function mySz(b){return b>1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB'}
 function mySlug(t){return String(t||'sloka').replace(/[^A-Za-z0-9ऀ-ൿ]+/g,'-').replace(/^-|-$/g,'').slice(0,40)||'sloka'}
 function myShPrep(mode){var all=MYSH.id==='all',ids=all?SLK.map(function(x){return x.id}):[MYSH.id],snd=mode!=='w',own=all||mode!=='s';MYSH.busy=1;MYSH.f=null;render();
  myPack(ids,snd,own).then(function(p){var d=new Date(),ds=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2),x=all?null:myL(ids[0]);
-  var nm=(all?'my-slokas-backup-'+ds:mySlug(x&&x.name)+(snd?'':'-words'))+'.sloka.json';
-  var f=null;try{f=new File([p.txt],nm,{type:'application/json'})}catch(e){}
+  var nm=(all?'my-slokas-backup-'+ds:mySlug(x&&x.name)+(snd?'':'-words'))+'.html';p.txt=myHtml(p.o,all?'My slokas · backup '+ds:(x?x.name:'Sloka'));
+  var f=null;try{f=new File([p.txt],nm,{type:'text/html'})}catch(e){}
   MYSH.busy=0;MYSH.f=f;MYSH.txt=p.txt;MYSH.nm=nm;MYSH.sz=p.txt.length;MYSH.n=p.n;MYSH.ns=p.ns;MYSH.mode=mode;render()}).catch(function(e){MYSH.busy=0;MYSH.err='Could not make the file ('+(e&&e.name||e)+').';render()})}
 function myShSheet(){if(!MYSH)return '';var all=MYSH.id==='all',x=all?null:myL(MYSH.id),h='<div class="mysh-bg" data-act="myshx"></div><div class="mysh"><div class="mysh-h"><b>'+(all?'📦 Back up all my slokas':'📤 Share or save · '+oEsc(x?x.name:''))+'</b><button class="chip" data-act="myshx">✕</button></div>';
  if(MYSH.err)h+='<div class="plain">'+oEsc(MYSH.err)+'</div>';
  if(MYSH.busy)return h+'<div class="mysh-w">⏳ Making the file…</div></div>';
  if(MYSH.f||MYSH.txt){var w=MYSH.mode==='w';h+='<div class="ow-ok">✅ Ready: <b>'+oEsc(MYSH.nm)+'</b> · '+mySz(MYSH.sz)+(MYSH.n>1?' · '+MYSH.n+' slokas':'')+(w?' · words and timings only':'')+'</div>'
   +'<button class="btn" data-act="mysend">📤 '+(all?'Save the backup':'Send or save')+'</button>'
-  +'<div class="mute mysh-tip">'+(all?'Pick <b>Save to Files</b> (iCloud Drive) to keep it safe, or send it to yourself on WhatsApp or email.':'Pick <b>WhatsApp</b> to send it to someone, or <b>Save to Files</b> to keep a copy.')+' To open it: My slokas › <b>📥 Add from a file</b>.</div>'
+  +'<div class="mute mysh-tip">'+(all?'Pick <b>Save to Files</b> (iCloud Drive) to keep it safe, or send it to yourself on WhatsApp or email.':'Pick <b>WhatsApp</b> to send it to someone, or <b>Save to Files</b> to keep a copy.')+' Tapping the file shows the sloka’s name, words and sound. To practise it in the app: save it to Files, then My slokas › <b>📥 Add from a file</b>.</div>'
   +'<button class="lnkb" data-act="myshm" data-v="">‹ Choose again</button></div>';return h}
  if(all){h+='<div class="mute" style="margin-bottom:8px">'+SLK.length+' sloka'+(SLK.length>1?'s':'')+' on this phone. Keep a copy somewhere safe, so nothing is lost if the app or phone is cleared.</div>'
   +'<button class="mysh-o" data-act="myshm" data-v="b"><span>💾</span><span><b>Everything, with the sound</b><small>Best backup. Bigger file.</small></span></button>'
@@ -4047,7 +4071,7 @@ function myShSheet(){if(!MYSH)return '';var all=MYSH.id==='all',x=all?null:myL(M
   +'<button class="mysh-o" data-act="myshm" data-v="b"><span>💾</span><span><b>Save a copy for me</b><small>Also keeps how many times you practised.</small></span></button>'
   +'<button class="mysh-o" data-act="myshm" data-v="w"><span>📝</span><span><b>Words and timings only</b><small>Tiny file, no sound.</small></span></button>'
   +'<button class="mysh-o" data-act="myshm" data-v="a"><span>🎵</span><span><b>Just the sound</b><small>An audio file anyone can play, even without this app.</small></span></button></div>';return h}
-function myImport(file){var r=new FileReader();r.onload=function(){var d=null;try{d=JSON.parse(r.result)}catch(e){}
+function myImport(file){var r=new FileReader();r.onload=function(){var d=null;try{d=/sg-sloka/.test(r.result)?myUnHtml(r.result):JSON.parse(r.result)}catch(e){}
   if(!d||!Array.isArray(d.items)){if(d&&d.S&&Array.isArray(d.S.learned)){MYMSG='This is a progress copy. Open it in You › Save my progress › Restore.'}else MYMSG='This file is not a sloka file from this app.';render();return}
   var add=0,skip=0,ns=0,names=[],q=Promise.resolve();
   d.items.forEach(function(it){var x=it&&it.x;if(!x||!x.name)return;q=q.then(function(){var same=SLK.filter(function(y){return y.id===x.id})[0];
@@ -4060,7 +4084,7 @@ function myImport(file){var r=new FileReader();r.onload=function(){var d=null;tr
 function myStore(){try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persisted().then(function(p){if(!p)navigator.storage.persist()}).catch(function(){})}catch(e){}
  try{if(navigator.storage&&navigator.storage.estimate)navigator.storage.estimate().then(function(e){var t=mySz(e.usage||0);if(t!==MYEST){MYEST=t;if(OWNP==='my'&&MYV.m==='list')render()}}).catch(function(){})}catch(e){}}
 function myKeepCard(){var env=typeof ENV!=='undefined'?ENV:'prod';
- return '<div class="mykeep"><div class="mykeep-h">🛟 Keep and share</div><div class="mykeep-b">'+(SLK.length?'<button data-act="myshare" data-v="all"><span>📦</span>Back up all</button>':'')+'<label><span>📥</span>Add from a file<input type="file" accept=".json,application/json,text/plain,*/*" hidden data-own="slkimp"></label></div>'
+ return '<div class="mykeep"><div class="mykeep-h">🛟 Keep and share</div><div class="mykeep-b">'+(SLK.length?'<button data-act="myshare" data-v="all"><span>📦</span>Back up all</button>':'')+'<label><span>📥</span>Add from a file<input type="file" accept=".html,.htm,text/html,.json,application/json,text/plain,*/*" hidden data-own="slkimp"></label></div>'
   +'<div class="mute mykeep-n">Slokas stay only on this phone'+(MYEST?' (all app data: '+MYEST+')':'')+'. A backup in Files or WhatsApp keeps them safe. To share one sloka: ⋯ › 📤 Share or save.'+(env!=='prod'?' <b>This '+(env==='dev'?'Dev':'Test')+' copy keeps its own slokas</b>, apart from the other copies: back up here, then Add from a file there.':'')+'</div></div>'}
 Object.assign(OWNA,{
  dvt:function(){var n=(LST[vi]&&V[LST[vi].i])?V[LST[vi].i].n:0;DVN=DVN===n?0:n;render()},
@@ -4075,7 +4099,7 @@ Object.assign(OWNA,{
   if(v==='a'){var x=myL(MYSH.id);MYSH.busy=1;render();oGet('slkb',MYSH.id).then(function(r){var bl=myBlob(r);if(!bl)throw 'This sloka has no sound saved.';var ext=/mpeg|mp3/.test(bl.type)?'mp3':/wav/.test(bl.type)?'wav':'m4a',f=null;try{f=new File([bl],mySlug(x&&x.name)+'.'+ext,{type:bl.type||'audio/mp4'})}catch(e){}MYSH.busy=0;MYSH.f=f;MYSH.blob=bl;MYSH.txt=null;MYSH.nm=mySlug(x&&x.name)+'.'+ext;MYSH.sz=bl.size;MYSH.n=1;MYSH.mode='a';render()}).catch(function(e){MYSH.busy=0;MYSH.err=String(e);render()});return}
   myShPrep(v)},
  mysend:function(){if(!MYSH)return;var f=MYSH.f;if(f&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:MYSH.nm}).then(function(){MYSH=null;MYMSG='✅ Done. Keep the file safe; open it with 📥 Add from a file.';render()}).catch(function(){});return}
-  var a=document.createElement('a');a.href=URL.createObjectURL(MYSH.blob||new Blob([MYSH.txt],{type:'application/json'}));a.download=MYSH.nm;document.body.appendChild(a);a.click();a.remove();MYMSG='Saved as '+MYSH.nm+' in your downloads.';MYSH=null;render()}
+  var a=document.createElement('a');a.href=URL.createObjectURL(MYSH.blob||new Blob([MYSH.txt],{type:'text/html'}));a.download=MYSH.nm;document.body.appendChild(a);a.click();a.remove();MYMSG='Saved as '+MYSH.nm+' in your downloads.';MYSH=null;render()}
 });
 document.addEventListener('change',function(e){var t=e.target;if(t&&t.dataset&&t.dataset.own==='slkimp'&&t.files&&t.files[0]){myImport(t.files[0]);t.value=''}},true);
 /* --- drag to move in Guru explains / stories and the old Listen page --- */
@@ -4083,6 +4107,40 @@ function gxPct(){return gxA&&gxA.duration&&isFinite(gxA.duration)?Math.min(100,g
 setInterval(function(){if(!gxA||gxA.paused||SEEKD)return;var b=document.getElementById('gxbar'),t=document.getElementById('gxtm');if(b)b.style.width=gxPct().toFixed(1)+'%';if(t&&isFinite(gxA.duration))t.textContent=oT(gxA.currentTime)+' / '+oT(gxA.duration)},250);
 setInterval(function(){if(SEEKD||!(OWNP==='my'&&MYV.m==='listen'&&MYA))return;var b=document.getElementById('mylbar'),x=myL(MYV.id),d=(x&&x.dur)||MYA.duration||0;if(b&&d)b.style.width=Math.min(100,MYA.currentTime/d*100).toFixed(1)+'%'},250);
 setInterval(function(){if(SEEKD)return;var g=document.querySelector('.mpd-pb i');if(!g)return;var x=MYP?myL(MYP.id):myL(MYV.id);if(!x)return;var a=myAud();g.style.width=mfPos(x)+'%';var t=document.getElementById('mf-tm');if(t)t.textContent=oT(a.currentTime||0)+' / '+oT(x.dur||0)},250);
+
+/* ===== b305: sloka file opens as a readable page; floating mini player; now-playing bar ===== */
+function myHtml(o,title){var it=o.items,esc=function(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')};
+ var meta={app:o.app,kind:o.kind,v:o.v,date:o.date,items:it.map(function(y,i){var c={x:y.x};if(y.a){c.t=y.t;c.ai=i}return c})};
+ var body=it.map(function(y,i){return '<section><h2>'+esc(y.x.name)+'</h2>'+(y.a?'<audio id="a'+i+'" controls preload="metadata" src="data:'+esc(y.t||'audio/mp4')+';base64,'+y.a+'"></audio>':'<p class="n">(No sound in this file.)</p>')+(y.x.text?'<pre>'+esc(y.x.text)+'</pre>':'')+'</section>'}).join('');
+ return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(title)+'</title><style>body{font-family:-apple-system,system-ui,sans-serif;background:#fbf6ea;color:#2b1d00;margin:0;padding:18px;line-height:1.5}h1{font-size:1.4rem;margin:0 0 6px}h2{font-size:1.15rem;margin:0 0 8px}section{background:#fff;border:1px solid #ecdcb6;border-radius:14px;padding:14px;margin:14px 0}audio{width:100%;margin:4px 0 8px}pre{white-space:pre-wrap;font:inherit;font-size:1.15rem;margin:0}.n{color:#6b5a3e;font-size:.92rem}.how{background:#eef6f3;border-radius:12px;padding:10px 12px;font-size:.92rem}<\/style></head><body><h1>🪷 '+esc(title)+'</h1><p class="n">Shared from Sahasranama Guru · '+esc(o.date)+'</p>'+body
+  +'<div class="how"><b>To practise it in the app:</b> save this file (Share › Save to Files), then open the app › My slokas › 📥 Add from a file, and pick it.</div>'
+  +'<script type="application/json" id="sg-sloka">'+JSON.stringify(meta).replace(/</g,'\\u003c')+'<\/script></body></html>'}
+function myUnHtml(t){var m=t.match(/<script type="application\/json" id="sg-sloka">([\s\S]*?)<\/script>/);if(!m)return null;var d=JSON.parse(m[1]);
+ (d.items||[]).forEach(function(y){if(y.ai==null)return;var r=new RegExp('<audio id="a'+y.ai+'"[^>]*src="data:([^;"]+);base64,([^"]+)"'),a=t.match(r);if(a){y.t=a[1];y.a=a[2]}});return d}
+/* floating player (YouTube / class video): lives outside the app screen, so it keeps playing while you move around */
+var FLM=0,FLT=false;
+function flEl(){var d=document.getElementById('swfl');if(!d){d=document.createElement('div');d.id='swfl';document.body.appendChild(d);
+  var bg=document.createElement('div');bg.id='swflbg';document.body.appendChild(bg);bg.addEventListener('click',function(){FLM=1;flSync()});
+  d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-fl]');if(!b)return;e.preventDefault();e.stopPropagation();var a=b.dataset.fl;if(a==='mv'){if(FLM){FLT=!FLT;flSync()}}else if(a==='min'){FLM=1;flSync()}else if(a==='max'){FLM=0;flSync()}else if(a==='x')flClose()})}return d}
+function flHead(t){return '<div class="fl-h"><b data-fl="mv">'+oEsc(t)+'</b><button class="fl-b fl-mini" data-fl="mv" aria-label="Move">⇅</button><button class="fl-b fl-full" data-fl="min" aria-label="Make small">⌄ Small</button><button class="fl-b fl-mini" data-fl="max" aria-label="Make big">⤢</button><button class="fl-b" data-fl="x" aria-label="Close">✕</button></div>'}
+function flSync(){var d=document.getElementById('swfl'),bg=document.getElementById('swflbg');if(!d)return;var on=!!(SWYT||SWVID);d.className=on?(FLM?'on mini'+(FLT?' top':''):'on full'):'';if(bg)bg.className=on&&!FLM?'on':''}
+function flShowYt(){var d=flEl();d.innerHTML=flHead(SWYT.n)+'<div class="fl-m"><iframe id="sw-ytf" src="https://www.youtube-nocookie.com/embed/'+SWYT.id+'?playsinline=1&enablejsapi=1&rel=0'+(SWYT.t?'&start='+Math.floor(SWYT.t):'')+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="'+oEsc(SWYT.n)+'"></iframe></div><div class="fl-f"><a href="https://www.youtube.com/watch?v='+SWYT.id+'" target="_blank" rel="noopener">Open in YouTube ↗</a><span>Tap ⌄ Small to keep it playing while you use the app.</span></div>';flSync()}
+function flShowVid(){if(!SWVID)return;var d=flEl(),v=document.getElementById('sw-vid');if(v&&SWVID.u&&v.getAttribute('src')===SWVID.u){flSync();return}
+ d.innerHTML=flHead(swT(SWVID.n).t)+'<div class="fl-m">'+(SWVID.u?'<video id="sw-vid" src="'+oEsc(SWVID.u)+'" controls playsinline preload="metadata"></video>':'<div class="fl-w">Opening the video…</div>')+'</div><div class="fl-f"><span>Tap ⌄ Small to keep it playing while you use the app. Video stops when the screen locks.</span></div>';flSync()}
+function flClose(){if(SWYT)OWNA.swytclose();else if(SWVID)OWNA.swvclose();flClear()}
+function flClear(){var d=document.getElementById('swfl');if(d&&!SWYT&&!SWVID){var v=document.getElementById('sw-vid');if(v)try{v.pause()}catch(e){}d.innerHTML='';FLM=0}flSync()}
+/* now-playing bar for the class audio when you leave the Swadhyayam page */
+var NPX=0;
+function npEl(){var d=document.getElementById('npbar');if(!d){d=document.createElement('div');d.id='npbar';document.body.appendChild(d);d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-np]');if(!b)return;e.preventDefault();e.stopPropagation();var a=b.dataset.np;
+  if(a==='pp'){swToggle();NPX=0}else if(a==='x'){if(SWA&&!SWA.paused)swToggle();NPX=1}else if(a==='go'){OWNP='sw';HT='me';view='home';SWHIST=false;render(1);scrollTo(0,0)}npSync()})}return d}
+function npSync(){var d=npEl(),l=typeof swL==='function'?swL():null,real=SWA&&SWA.src&&!/^data:/.test(SWA.src)&&l,onSw=OWNP==='sw'&&view==='home',inPr=view==='verse'||(typeof PL!=='undefined'&&PL.on);
+ if(real&&!SWA.paused)NPX=0;var show=real&&!onSw&&!inPr&&!NPX&&(!SWA.paused||d.dataset.on==='1');
+ if(!show){if(d.className){d.className='';d.innerHTML='';d.dataset.on=''}return}
+ var nav=document.querySelector('.htabs,.hdock'),b=nav?nav.offsetHeight:0;d.style.bottom='calc('+(b+8)+'px + '+(nav?'0px':'env(safe-area-inset-bottom,0px)')+')';
+ var pct=l.dur?Math.min(100,SWA.currentTime/l.dur*100):0,pl=!SWA.paused,k=pl+'|'+l.id;
+ if(d.dataset.k!==k){d.dataset.k=k;d.innerHTML='<button class="np-t" data-np="go"><span class="np-i">📿</span><span class="np-x"><b>'+oEsc(swT(l.name).t)+'</b><small id="np-tm"></small></span></button><button class="np-p" data-np="pp" aria-label="'+(pl?'Pause':'Play')+'">'+(pl?'⏸':'▶')+'</button><button class="np-c" data-np="x" aria-label="Close">✕</button><i class="np-bar"><u id="np-u"></u></i>'}
+ d.className='on';d.dataset.on='1';var u=document.getElementById('np-u'),t=document.getElementById('np-tm');if(u)u.style.width=pct.toFixed(1)+'%';if(t)t.textContent=(pl?'Playing':'Paused')+' · '+oT(SWA.currentTime)+' / '+oT(l.dur||SWA.duration||0)}
+setInterval(function(){try{npSync()}catch(e){}},700);
 
 render();
 </script>
