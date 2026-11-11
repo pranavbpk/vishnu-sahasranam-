@@ -100,3 +100,9 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Repeat after me pauses (Paused card, same round kept via GRES) when the view leaves the practice screen (check at the top of render()) or when other sound starts (HTMLMediaElement.play wrapper: Swadhyayam, My slokas, videos, the PL players). rpAway() is shared with the screen-lock pause.
 - Echo letters: default saffron #a8431a at .7em (contrast 5.7:1 on ivory; old gold was 3:1). S.ecol s/m/g (Saffron, Maroon, Gold old) in Language & display, with a preview; html[data-ec].
 - My slokas ⋯ menu: ⏱ Fix timing (tap along) opens the tap page directly; 📑 Duplicate copies words, timings and sound (new id, "(copy)", practice history cleared).
+
+## Build 307 (12 Nov 2026) — Dev only
+- Old | New practice-screen switch (gsw()) at the top of every Repeat after me screen (both styles, all phases); the old screen's How to say chip is icon-only (🗣) there to make room. Setting moved to Language & display › How I practise › Practice screen (removed from Look). The bottom "Try the new practice screen" link is gone.
+- Read-aloud (dash) lines have their own setting S.dl (English default; తెలుగు / हिन्दी), in Language & display › Language & reading, with a preview. dashL() no longer follows the app language or the Read in chips (S.rd); My slokas (scLine) and Dhyanam follow dashL() too.
+- Nothing on the practice screens shrinks any more (.rpsheet>*{flex-shrink:0}); the screen scrolls instead. Fixes the squashed record card on smaller phones.
+- Your-turn sound S.tbell: 'bell' (default; 880/1320/1760 Hz, ~1 s, louder), 'soft' (old 660 Hz beep), 'off'. Same AudioContext chime() as before (v60 baseline), only the notes changed. Tapping a choice plays it.
