@@ -93,3 +93,10 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Never name books, institutes or commercial recordings inside the app.
 - Bump APPV by 1 for every change. Test at 393x852. Check the script with node --check.
 - Give the owner a short list of what changed and how to test it.
+
+## Build 306 (12 Nov 2026) — Dev only
+- After the last revision verse, the "Wonderful! ... learn something new" page (transMsg) counts down 8 s and starts the new verse by itself (TRC, trcStart/trcStop); "Start now" and "✋ Wait, I need a moment". Setting S.autoc ('0' = wait for a tap) in Language & display › Repeating.
+- Top messages (tmShow) never float over the completion screen (END); they wait 2 s after it closes (TMEND/TMHOLD).
+- Repeat after me pauses (Paused card, same round kept via GRES) when the view leaves the practice screen (check at the top of render()) or when other sound starts (HTMLMediaElement.play wrapper: Swadhyayam, My slokas, videos, the PL players). rpAway() is shared with the screen-lock pause.
+- Echo letters: default saffron #a8431a at .7em (contrast 5.7:1 on ivory; old gold was 3:1). S.ecol s/m/g (Saffron, Maroon, Gold old) in Language & display, with a preview; html[data-ec].
+- My slokas ⋯ menu: ⏱ Fix timing (tap along) opens the tap page directly; 📑 Duplicate copies words, timings and sound (new id, "(copy)", practice history cleared).
