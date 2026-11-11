@@ -110,3 +110,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 308 (12 Nov 2026) — Dev only
 - Your-turn sound (S.tbell): 'temple' (default; old 'bell' maps to it), 'hand' (3 quick high rings), 'voice' (speechSynthesis "Your turn" / మీ వంతు / अब आप in the app language), 'both' (temple bell + voice), 'soft', 'off'. Bells are synthesised in the same AudioContext as before (tbPlay: strike noise + inharmonic partials with a slow shimmer); no sound files. Voice needs an iPhone check (speech may change the phone's sound settings for the next guide clip).
 - New practice screen header: the How-to-say button is now 🗣 (same as the old screen), not 📖.
+
+## Build 309 (12 Nov 2026) — Dev only
+- Bells lower and softer: temple bell 300 Hz with fewer bright partials, hand bell 620 Hz, overall gain 0.32 (peak ~0.23, about the old beep). No bell when the learner taps Skip ahead (RP.nobell); the bell rings only when the guru finishes by himself.
