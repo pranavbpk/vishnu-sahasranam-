@@ -113,3 +113,8 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 309 (12 Nov 2026) — Dev only
 - Bells lower and softer: temple bell 300 Hz with fewer bright partials, hand bell 620 Hz, overall gain 0.32 (peak ~0.23, about the old beep). No bell when the learner taps Skip ahead (RP.nobell); the bell rings only when the guru finishes by himself.
+
+## Build 310 (12 Nov 2026) — Dev only
+- Old practice screen header: Old|New, then 🗣, then a 14 px gap (.gcgap) before Close, so Close is not hit by mistake.
+- New screen finish (g2Done): compact step strip (stepStrip in .g2-ss, title line hidden): Listen ✓ Chant ✓ Record Meaning Finish/Next.
+- Hidden verse (from memory) on both screens: a note card on top of the blurred verse (hidOv, .hidw/.hidov) "🙈 Hidden · chant from memory / Tap to peek"; tapping it shows the verse for that round (RP.peekR = n:round, checked in hideNow). Banner no longer adds "· from memory" (it was cut off).
