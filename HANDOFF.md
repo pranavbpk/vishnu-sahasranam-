@@ -106,3 +106,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Read-aloud (dash) lines have their own setting S.dl (English default; తెలుగు / हिन्दी), in Language & display › Language & reading, with a preview. dashL() no longer follows the app language or the Read in chips (S.rd); My slokas (scLine) and Dhyanam follow dashL() too.
 - Nothing on the practice screens shrinks any more (.rpsheet>*{flex-shrink:0}); the screen scrolls instead. Fixes the squashed record card on smaller phones.
 - Your-turn sound S.tbell: 'bell' (default; 880/1320/1760 Hz, ~1 s, louder), 'soft' (old 660 Hz beep), 'off'. Same AudioContext chime() as before (v60 baseline), only the notes changed. Tapping a choice plays it.
+
+## Build 308 (12 Nov 2026) — Dev only
+- Your-turn sound (S.tbell): 'temple' (default; old 'bell' maps to it), 'hand' (3 quick high rings), 'voice' (speechSynthesis "Your turn" / మీ వంతు / अब आप in the app language), 'both' (temple bell + voice), 'soft', 'off'. Bells are synthesised in the same AudioContext as before (tbPlay: strike noise + inharmonic partials with a slow shimmer); no sound files. Voice needs an iPhone check (speech may change the phone's sound settings for the next guide clip).
+- New practice screen header: the How-to-say button is now 🗣 (same as the old screen), not 📖.
