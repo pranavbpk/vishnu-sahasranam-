@@ -118,3 +118,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Old practice screen header: Old|New, then 🗣, then a 14 px gap (.gcgap) before Close, so Close is not hit by mistake.
 - New screen finish (g2Done): compact step strip (stepStrip in .g2-ss, title line hidden): Listen ✓ Chant ✓ Record Meaning Finish/Next.
 - Hidden verse (from memory) on both screens: a note card on top of the blurred verse (hidOv, .hidw/.hidov) "🙈 Hidden · chant from memory / Tap to peek"; tapping it shows the verse for that round (RP.peekR = n:round, checked in hideNow). Banner no longer adds "· from memory" (it was cut off).
+
+## Build 311 (12 Nov 2026) — Dev + Test
+- Old practice screen's "Take saved / Finish today" page (gcontSheet, shown after recording and after reading the meaning) now has the same top bar as the other old screens: verse title, Old|New switch (gsw), 🗣, gap, Close (gstop). Before, it had no switch, so you could not change to the new screen there.
