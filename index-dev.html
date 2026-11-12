@@ -2663,13 +2663,24 @@ function myAlign(nA,nB,cost){if(!nA)return [];if(nB<nA)return null;var INF=1e18,
  for(var j=0;j<nB;j++)D[0][j]=cost(0,j);
  for(var i2=1;i2<nA;i2++){var best=INF,bj=-1;for(var j2=0;j2<nB;j2++){if(j2>0&&D[i2-1][j2-1]<best){best=D[i2-1][j2-1];bj=j2-1}if(bj>=0){D[i2][j2]=best+cost(i2,j2);P[i2][j2]=bj}}}
  var e=-1,ev=INF;for(var j3=0;j3<nB;j3++)if(D[nA-1][j3]<ev){ev=D[nA-1][j3];e=j3}if(e<0)return null;var out=new Array(nA);for(var i3=nA-1;i3>=0;i3--){out[i3]=e;e=P[i3][e]}return out}
+/* b321: lines → pauses. Also checks each line's length in sound fits its syllables, so a long line never lands in a short bit of sound */
+function myAlignL(x,W,B,G,mx){var V=x.vs||[],nB=B.length,nG=G.length;if(!nB||nG<nB)return null;var tv=0;V.forEach(function(v){tv+=v[1]-v[0]});var ts=0;W.forEach(function(w){ts+=w.s});if(!tv||!ts)return null;
+ var cv=[0];for(var j=0;j<nG;j++)cv.push(G[j].u*tv);cv.push(tv);/* voiced time before gap j = cv[j+1] */
+ var sb=[0];B.forEach(function(k){sb.push(W[k].f*ts)});sb.push(ts);
+ var seg=function(i,ja,jb){var d=cv[jb+1]-cv[ja+1],e=(sb[i+1]-sb[i])*tv/ts,z=(d-e)/(0.3*e+0.6);return z*z};
+ var pos=function(i,j){var d=(G[j].u-W[B[i]].f)/0.08;return d*d+4*(1-Math.min(1,G[j].len/mx))};
+ var INF=1e18,D=[],P=[],i,j,q;for(i=0;i<nB;i++){D.push(new Array(nG).fill(INF));P.push(new Array(nG).fill(-1))}
+ for(j=0;j<nG;j++)D[0][j]=pos(0,j)+seg(0,-1,j);
+ for(i=1;i<nB;i++)for(j=i;j<nG;j++){var b=INF,bq=-1;for(q=i-1;q<j;q++){if(D[i-1][q]>=INF)continue;var c=D[i-1][q]+seg(i,q,j);if(c<b){b=c;bq=q}}if(bq>=0){D[i][j]=b+pos(i,j);P[i][j]=bq}}
+ var e=-1,ev=INF;for(j=nB-1;j<nG;j++){if(D[nB-1][j]>=INF)continue;var c2=D[nB-1][j]+seg(nB,j,nG);if(c2<ev){ev=c2;e=j}}if(e<0)return null;
+ var out=new Array(nB);for(i=nB-1;i>=0;i--){out[i]=e;e=P[i][e]}return out}
 /* how many parts the app suggests by itself: one per clear breath */
 function myAutoN(x,W){var G=myGaps(x),mx=0;G.forEach(function(g){if(g.len>mx)mx=g.len});var n=G.filter(function(g){return g.len>=Math.max(0.3,mx*0.45)}).length;return Math.max(0,Math.min(n,W.length-1))}
 /* suggested part starts. n = number of cuts (null = by the lines if there are lines, else by the clear breaths) */
 function myAutoT2(x,n){var W=mySyW(x),G=myGaps(x),L=myLines(x.text).length,mx=0.01;G.forEach(function(g){if(g.len>mx)mx=g.len});if(!G.length||W.length<2)return [];
  var mk=function(k,g){return {k:k,t:g.e,c:myGapCut(g),a:1}};
  if(n==null&&L>=2){var B=[];W.forEach(function(w,k){if(w.ls)B.push(k)});
-  var al=myAlign(B.length,G.length,function(i,j){var d=(G[j].u-W[B[i]].f)/0.08;return d*d+4*(1-Math.min(1,G[j].len/mx))});
+  var al=myAlignL(x,W,B,G,mx);
   if(al)return B.map(function(k,i){return mk(k,G[al[i]])})}
  if(n==null)n=myAutoN(x,W);n=Math.max(0,Math.min(n,W.length-1,G.length));if(!n)return [];
  var pick=G.map(function(g,i){return i}).sort(function(a,b){return G[b].len-G[a].len}).slice(0,n).sort(function(a,b){return a-b}),Gp=pick.map(function(i){return G[i]});
@@ -3947,7 +3958,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=320,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=321,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
