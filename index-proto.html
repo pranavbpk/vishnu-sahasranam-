@@ -4026,7 +4026,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=327,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=328,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -4504,8 +4504,8 @@ function vcCard(){var SR=!!(window.SpeechRecognition||window.webkitSpeechRecogni
   +'<div class="card"><h3 class="mh">🗣 “Hey Siri, play verse” (iPhone)</h3><div>One-time setup, about 2 minutes, in Apple’s <b>Shortcuts</b> app:</div><ol class="vcst">'
   +'<li>Open <b>Shortcuts</b>, tap <b>+</b> (new shortcut).</li>'
   +'<li>Add the action <b>Ask for Input</b>. Input type: <b>Number</b>. Prompt: <i>Which verse?</i></li>'
-  +'<li>Add the action <b>Open URLs</b>. In its box paste this link, then tap at the very end and choose <b>Provided Input</b>:<span class="vclink">'+oEsc(vcBase())+'</span><button class="chip" data-act="vccopy" data-v="">📋 Copy the link</button>'+(VCMSG?' <span class="mute">'+VCMSG+'</span>':'')+'</li>'
-  +'<li>Name the shortcut <b>Play verse</b> and tap Done.</li></ol>'
+  +'<li>In <b>Search Actions</b> type <b>Open URLs</b> and add it (not \u201cAsk for URL\u201d). Tap <b>URL</b> in it, paste this link, then with the cursor after <b>play=</b> tap <b>Provided Input</b> above the keyboard:<span class="vclink">'+oEsc(vcBase())+'</span><button class="chip" data-act="vccopy" data-v="">📋 Copy the link</button>'+(VCMSG?' <span class="mute">'+VCMSG+'</span>':'')+'</li>'
+  +'<li>Check it reads: <b>Ask for Number</b> \u2192 <b>Open \u2026?play=Provided Input</b>. Name it <b>Play verse</b>, tap \u25b6 to test, then Done.</li></ol>'
   +'<div class="vcsay">Now say <b>“Hey Siri, play verse”</b>. Siri asks “Which verse?”, you say “twelve”, and the app opens on verse 12.</div>'
   +'<div class="mute" style="margin-top:8px">Good to know: the link opens in Safari, not the home-screen app. The guide’s voice is the same, but your progress stays in the home-screen app. iPhone may ask you to tap ▶ once before the sound starts.</div>'
   +'<details class="tipf" style="margin-top:8px"><summary>More links</summary><div class="mute" style="margin-top:6px"><b>?play=12&amp;x=3</b> plays verse 12 three times.<br><b>?play=learned</b> plays all the verses you learned.<br><b>?play=all</b> plays all 108.</div></details>'
