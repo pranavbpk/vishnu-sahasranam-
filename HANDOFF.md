@@ -143,3 +143,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 315 (12 Nov 2026) — Dev only
 - Full chant reader: each read-aloud word is underlined (fcLn: span.fw, marks like | ||1|| span.fwm not underlined), so you see which syllables are read as one word. Same underlines in all PDFs (rebuilt).
 - Look (Cards / Book / Simple, S.fcst) moved off the page into Language & display, next to the soft echo setting. Echo chip removed from the page (the echo setting still applies). The page now has only: parts row, part header, script switch, verses, Next.
+
+## Build 316 (12 Nov 2026) — Dev only
+- Echo on/off chip back on the full chant reader (default on, same S.echo as settings).
+- Names: Learn rows "The full chant, start to end" = the reader (LP 'fc'); the old arrangement page (ARR, LP 'arr') is now "How the full chant is arranged" (te/hi too).
