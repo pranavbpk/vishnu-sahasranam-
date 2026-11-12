@@ -185,3 +185,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 324 (12 Nov 2026) — Dev + Test
 - Owner: Line by line in the player still bled, while Lines in the sound played cleanly. Difference: the player tick (mypTick) redrew words/progress (mypGlow, mypInfo → mfTick may render()) BEFORE checking the stop; the lines page uses the light myPlaySpan. Now mypTick checks the stop first and, when the stop is < 0.25 s away, sets an exact setTimeout for it (MYP.arm; guarded by round key and paused state). myPlaySpan has the same exact timer. Simulated busy screen (120 ms per redraw): stops land on time (learned delay ~0 instead of 0.12). Repeat test (iPhone rules) still finishes every round; nothing ever reaches the file end now.
+
+## Build 325 (12 Nov 2026) — Dev + Test
+- My slokas guide PDF (2 pages, English): docs/pdf/my-slokas-guide.pdf (+ identical -noecho copy, because docUrl adds -noecho when echo is hidden). Source: tools/guide/my-slokas-guide.html, printed with Playwright page.pdf (A4). Sections: A the simple way (record yourself, 1 s pause after each line, one line of words per pause), B a recording by someone else (break lines where the chanter breathes, then Check them › once), C How to learn, If something is not right. No sources named.
+- In the app: My slokas › ⓘ How it works card ends with "📄 Guide: record, add and practise" + docBtn (⬇ Save or share the PDF). Step 3 text of the card updated (Repeat after me, Line by line, whole).
