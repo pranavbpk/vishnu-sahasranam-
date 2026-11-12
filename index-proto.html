@@ -1159,7 +1159,20 @@ html[data-ht="me"] .fth b{font-size:1.15rem}
 .t2-how b{color:#3b2a14}
 .t2-ctl{display:flex;align-items:center;justify-content:center;gap:12px;margin:10px 0 0}
 .t2-cnt{text-align:center;font-size:.85rem;color:#8a6a2a;font-weight:700;margin:2px 0 6px}
-.t2-w{line-height:2.4;padding:12px 12px 14px}
+.t2-w{line-height:2.3}
+.t2-ctl{padding:0 8px;flex-wrap:wrap}.t2-ctl .ow-b{padding:0 12px}
+.t2-pt{background:#fffdf8;border:1px solid #ecdcb6;border-radius:14px;padding:8px 10px 10px;margin:8px 0;transition:border-color .2s,box-shadow .2s}
+.t2-pt.hl{border-color:#0f6b6b;box-shadow:0 0 0 2px rgba(15,107,107,.15)}
+.t2-ph{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.t2-ph>b{width:26px;height:26px;border-radius:50%;background:#0f6b6b;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex:none}
+.t2-hp{flex:1;min-width:0;text-align:left;font:inherit;font-weight:700;font-size:.9rem;color:#0f5c55;background:#eef7f5;border:0;border-radius:16px;padding:7px 10px}
+.t2-hp small{color:#5f7f7a;font-weight:600;margin-left:4px}
+.t2-nd{width:40px;height:34px;border-radius:17px;border:1px solid #e2c27a;background:#fff;font:inherit;color:#5a4a30;flex:none}
+.t2-wd.hl{background:#fde9b8;border-color:#d4a23c}
+.t2-wd.pm{border-color:transparent;background:none;padding:2px 3px;color:#8a6a2a}
+.t2-gp{font:inherit;font-size:.72rem;border:0;background:none;color:#c2a874;padding:6px 3px;margin:0 -2px;vertical-align:middle;cursor:pointer}
+.t2-jn{display:flex;align-items:center;gap:6px;margin:-2px auto;border:1px dashed #d4a23c;background:#fff8e6;color:#8a5a12;border-radius:14px;padding:4px 14px;font:inherit;font-size:.8rem;font-weight:700}
+.t2-k{color:#8a5a12}
 .t2-wd{font:inherit;font-size:1.12rem;border:1px solid #ecdcb6;background:#fffdf8;border-radius:10px;padding:2px 8px;margin:2px 0;cursor:pointer;position:relative;color:#2a2416}
 .t2-wd.st{background:#0f6b6b;color:#fff;border-color:#0f6b6b}
 .t2-wd sup{font-size:.7rem;margin-right:4px;opacity:.9}
@@ -2607,7 +2620,7 @@ function myTimeline(x){var L=myLines(x.text);if(!L.length||!x.dur)return null;va
 function mySnap(x,t){var best=null,aim=t-0.25;(x.vs||[]).forEach(function(v){if(v[0]>=t-0.9&&v[0]<=t+0.3&&(best===null||Math.abs(v[0]-aim)<Math.abs(best-aim)))best=v[0]});return Math.round((best===null?Math.max(0,aim):best)*100)/100}
 /* pieces from tapped line starts: line = cut at each line start; half = also the pause nearest the middle (by syllables) */
 function myCutsFromLines(x){var L=myLines(x.text),lt=x.lt||[],dur=x.dur||0,src=scDetect(x.text),cuts=[];if(x.mode==='whole')return [];
- lt.forEach(function(t,i){if(i>0)cuts.push(Math.round(Math.max(0,t-0.08)*100)/100)});
+ lt.forEach(function(t,i){if(i>0){var g=myGapAt(x,t);cuts.push(g?myGapCut(g):Math.round(Math.max(0,t-0.08)*100)/100)}});/* b319: cut in the middle of the silence */
  if(x.mode==='half')L.forEach(function(l,i){var s=lt[i],e=i+1<lt.length?lt[i+1]:dur,ws=myWords(l),n=ws.length,h=Math.ceil(n/2),a=0,b=0;ws.forEach(function(w,k){var c=mySylN(w,src);b+=c;if(k<h)a+=c});
   var segs=myVIn(x,s,e),mid=myVAt(segs,b?a/b:0.5),gaps=[];for(var k=1;k<segs.length;k++)gaps.push((segs[k-1][1]+segs[k][0])/2);
   var near=gaps.filter(function(g){return Math.abs(g-mid)<=(e-s)*0.2}).sort(function(p,q){return Math.abs(p-mid)-Math.abs(q-mid)})[0];cuts.push(Math.round((near!=null?near:mid)*100)/100)});
@@ -2615,14 +2628,64 @@ function myCutsFromLines(x){var L=myLines(x.text),lt=x.lt||[],dur=x.dur||0,src=s
 /* b292: one-screen setup: listen and tap the first word of each part (cuts the sound and the words together) */
 var MYT2=null;
 function myT2Words(x){var d=rdL(),src=scDetect(x.text),out=[];myLines(x.text).forEach(function(l){var ow=myWords(l),dw=scLine(l,d,src).w;if(dw.length!==ow.length)dw=ow;ow.forEach(function(w,k){out.push({o:w,d:dw[k]})})});return out}
-function myT2Page(x){var W=myT2Words(x),T=MYT2||{taps:[]},a=MYA,pl=a&&!a.paused,mk={};T.taps.forEach(function(t,i){mk[t.k]=i+2});
+/* ===== b319 (batch 3): easier sync. The app finds the pauses; you hear and fix. ===== */
+/* silences between the voiced parts: s,e = silence start/end, len, u = share of the voiced time before it (0..1) */
+function myGaps(x){var V=x.vs||[],G=[],tot=0,acc=0;V.forEach(function(v){tot+=v[1]-v[0]});for(var i=1;i<V.length;i++){acc+=V[i-1][1]-V[i-1][0];G.push({s:V[i-1][1],e:V[i][0],len:Math.round((V[i][0]-V[i-1][1])*100)/100,u:tot?acc/tot:0})}return G}
+/* where to cut inside a silence: the middle, never more than 0.45 s before the voice comes back */
+function myGapCut(g){return Math.round(Math.max((g.s+g.e)/2,g.e-0.45)*100)/100}
+/* the silence that ends right where the voice starts again at t */
+function myGapAt(x,t){var b=null;myGaps(x).forEach(function(g){var d=Math.abs(g.e-t);if(d<=0.2&&(!b||d<Math.abs(b.e-t)))b=g});return b}
+/* every word with its syllables (s), where it starts in the voiced time (f, 0..1), a mark before it (br) and line start (ls) */
+function mySyW(x){var src=scDetect(x.text),W=[],tot=0;myLines(x.text).forEach(function(l,li){var ow=myWords(l),dw=scLine(l,rdL(),src).w;if(dw.length!==ow.length)dw=ow;ow.forEach(function(w,k){W.push({o:w,d:dw[k],li:li,ls:k===0&&li>0?1:0,s:myMora(w,src),p:myIsP(w,src)})})});
+ W.forEach(function(w){tot+=w.s});var acc=0;W.forEach(function(w,k){w.f=tot?acc/tot:0;acc+=w.s;w.br=k>0&&/[|।॥,;.]\s*[0-9०-९]*$/.test(W[k-1].o)?1:0});return W}
+/* a mark like | or ॥ only (never starts a part) */
+function myIsP(w,src){var o=scParse(w,src);return o.length>0&&o.every(function(t){return t.p})}
+/* how long a word takes to say: long syllables (long vowel, or closed by a consonant, ṃ or ḥ) count 1.3, short ones 1 */
+function myMora(w,src){var o=scParse(w,src);if(!o.length||o.every(function(t){return t.p}))return 0.3;var S2=scSyl(o),m=0;S2.forEach(function(sy){var hv=false,seenV=false;sy.forEach(function(t){if(t.v){seenV=true;if(/^(ā|ī|ū|ṝ|e|o|ai|au|aa|ee|oo|ii|uu)$/.test(t.v))hv=true}else if(seenV&&(t.c||t.h||t.m||t.n))hv=true});m+=hv?1.3:1});return Math.max(1,m)}
+/* match items A (in order) to items B (in order, each used once), cheapest total cost */
+function myAlign(nA,nB,cost){if(!nA)return [];if(nB<nA)return null;var INF=1e18,D=[],P=[];for(var i=0;i<nA;i++){D.push(new Array(nB).fill(INF));P.push(new Array(nB).fill(-1))}
+ for(var j=0;j<nB;j++)D[0][j]=cost(0,j);
+ for(var i2=1;i2<nA;i2++){var best=INF,bj=-1;for(var j2=0;j2<nB;j2++){if(j2>0&&D[i2-1][j2-1]<best){best=D[i2-1][j2-1];bj=j2-1}if(bj>=0){D[i2][j2]=best+cost(i2,j2);P[i2][j2]=bj}}}
+ var e=-1,ev=INF;for(var j3=0;j3<nB;j3++)if(D[nA-1][j3]<ev){ev=D[nA-1][j3];e=j3}if(e<0)return null;var out=new Array(nA);for(var i3=nA-1;i3>=0;i3--){out[i3]=e;e=P[i3][e]}return out}
+/* how many parts the app suggests by itself: one per clear breath */
+function myAutoN(x,W){var G=myGaps(x),mx=0;G.forEach(function(g){if(g.len>mx)mx=g.len});var n=G.filter(function(g){return g.len>=Math.max(0.3,mx*0.45)}).length;return Math.max(0,Math.min(n,W.length-1))}
+/* suggested part starts. n = number of cuts (null = by the lines if there are lines, else by the clear breaths) */
+function myAutoT2(x,n){var W=mySyW(x),G=myGaps(x),L=myLines(x.text).length,mx=0.01;G.forEach(function(g){if(g.len>mx)mx=g.len});if(!G.length||W.length<2)return [];
+ var mk=function(k,g){return {k:k,t:g.e,c:myGapCut(g),a:1}};
+ if(n==null&&L>=2){var B=[];W.forEach(function(w,k){if(w.ls)B.push(k)});
+  var al=myAlign(B.length,G.length,function(i,j){var d=(G[j].u-W[B[i]].f)/0.08;return d*d+4*(1-Math.min(1,G[j].len/mx))});
+  if(al)return B.map(function(k,i){return mk(k,G[al[i]])})}
+ if(n==null)n=myAutoN(x,W);n=Math.max(0,Math.min(n,W.length-1,G.length));if(!n)return [];
+ var pick=G.map(function(g,i){return i}).sort(function(a,b){return G[b].len-G[a].len}).slice(0,n).sort(function(a,b){return a-b}),Gp=pick.map(function(i){return G[i]});
+ var al2=myAlign(Gp.length,W.length-1,function(i,j){var w=W[j+1],d=(Gp[i].u-w.f)/0.06;return w.p?1e9:d*d-4*w.br-1.5*w.ls});
+ if(!al2)return [];return Gp.map(function(g,i){return mk(al2[i]+1,g)})}
+/* when each word is said: words of a part spread over the voice of that part, by syllable length */
+function myT2Times(x,W,taps){var V=x.vs||[],s0=V.length?V[0][0]:0,e0=V.length?V[V.length-1][1]:(x.dur||0),st=[{k:0,t:s0}].concat(taps.slice().sort(function(a,b){return a.k-b.k})),out=new Array(W.length);
+ st.forEach(function(p,i){var k1=i+1<st.length?st[i+1].k:W.length,pe=i+1<st.length?st[i+1].t:e0,segs=myVIn(x,p.t,pe),tot=0,acc=0,k;for(k=p.k;k<k1;k++)tot+=W[k].s;
+  for(k=p.k;k<k1;k++){var a=myVAt(segs,tot?acc/tot:0);acc+=W[k].s;out[k]=[a,myVAt(segs,tot?acc/tot:1)]}});return out}
+/* the parts as spans: [{k (first word), t (voice start), c (where the sound is cut), e (next cut)}] */
+function myT2Parts(x,taps){var V=x.vs||[],s0=V.length?Math.max(0,V[0][0]-0.1):0,dur=x.dur||0,T=taps.slice().sort(function(a,b){return a.k-b.k}),P=[{k:0,t:s0,c:0}];
+ T.forEach(function(q){var g=myGapAt(x,q.t);P.push({k:q.k,t:q.t,c:g?myGapCut(g):Math.max(0,q.t-0.08)})});P.forEach(function(p,i){p.e=i+1<P.length?P[i+1].c:dur});return P}
+/* set the suggestion (or keep the parts already saved when the words still match) */
+function myT2Init(x,keep){var W=mySyW(x),L=myLines(x.text);
+ if(keep&&x.lt&&x.lt.length===L.length&&L.length>=2&&!x.auto){var T=[],k=0;L.forEach(function(l,i){if(i)T.push({k:k,t:x.lt[i]});k+=myWords(l).length});MYT2={taps:T,n:T.length,W:W};return}
+ var A=myAutoT2(x,null);MYT2={taps:A,n:A.length,W:W,fresh:1}}
+function myT2Hl(k,p){document.querySelectorAll('.t2-wd.hl,.t2-pt.hl').forEach(function(e){e.classList.remove('hl')});if(k!=null){var e=document.querySelector('.t2-wd[data-v="'+k+'"]');if(e)e.classList.add('hl')}if(p!=null){var f=document.querySelector('.t2-pt[data-p="'+p+'"]');if(f)f.classList.add('hl')}}
+function myT2Stop(){var a=myAud();try{a.pause()}catch(e){}clearInterval(MYW);MYW=null;if(MYT2)MYT2.pl=null;myT2Hl()}
+/* play a span; while it plays light up the word being said */
+function myT2Play(x,sp,tag){if(!MYT2)return;var W=MYT2.W,TT=myT2Times(x,W,MYT2.taps),P=myT2Parts(x,MYT2.taps);MYT2.pl=tag;
+ myPlaySpan(sp,function(){if(MYT2)MYT2.pl=null;myT2Hl();var b=document.getElementById('t2-pa');if(b)b.textContent='▶ Play all'},function(ct){var k=null,p=null;for(var i=0;i<TT.length;i++)if(TT[i]&&ct>=TT[i][0]-0.04&&ct<TT[i][1])k=i;for(var j=0;j<P.length;j++)if(ct>=P[j].c)p=j;myT2Hl(k,p);var e=document.getElementById('ow-mt');if(e)e.textContent=oT(ct)})}
+function myT2Page(x){if(!MYT2)myT2Init(x,1);var T=MYT2,W=T.W||mySyW(x),P=myT2Parts(x,T.taps),G=myGaps(x),pl=T.pl,np=P.length;
  var h='<div class="msk-head"><b>👆 Set up the parts</b><button class="chip" data-act="t2skip" data-v="'+x.id+'">Skip</button></div>'
-  +(MYTAPNEW?'<div class="msk-cov">✅ Saved. One listen to finish.</div>':'')
-  +'<div class="card msk-c t2-how"><b>One listen, that’s all</b><div>1. Tap ▶.<br>2. After each pause, when the next part starts, <b>tap its first word</b>.<br>3. Tap <b>Save</b> at the end.</div><div class="mute" style="margin-top:4px">Each tap starts a new part. You repeat one part at a time when you learn.</div></div>'
-  +'<div class="t2-ctl"><button class="ow-b" data-act="t2undo"'+(T.taps.length?'':' disabled')+'>↶ Undo</button><button class="ow-big" data-act="t2play">'+(pl?'⏸':'▶')+'</button><button class="ow-b" data-act="t2again">↺ Again</button></div><div id="ow-mt" class="ow-tm" style="text-align:center">'+oT(a?a.currentTime:0)+'</div>'
-  +'<div class="t2-cnt">'+(T.taps.length+1)+' part'+(T.taps.length?'s':'')+' so far</div>'
-  +'<div class="card t2-w">'+W.map(function(w,k){var st=k===0?1:mk[k];return (st&&k?'<span class="t2-br"></span>':'')+'<button class="t2-wd'+(st?' st':'')+'" data-act="t2tap" data-v="'+k+'">'+(st?'<sup>'+st+'</sup>':'')+oEsc(w.d)+'</button>'}).join(' ')+'</div>'
-  +'<div class="t2-dock"><button class="btn" data-act="t2save" data-v="'+x.id+'">✓ Save · '+(T.taps.length+1)+' parts</button></div>';
+  +(MYTAPNEW?'<div class="msk-cov">✅ Saved. One quick check to finish.</div>':'')
+  +(T.busy?'<div class="card msk-c">⏳ Finding the pauses…</div>':'<div class="card msk-c t2-how"><b>'+(G.length?'The app found '+np+' part'+(np>1?'s':'')+' from the pauses.':'Couldn’t find the pauses by itself.')+'</b><div>• <b>Tap a word</b> to hear it.<br>• Tap <b class="t2-k">✂</b> between two words to start a new part there. Tap it again to join.<br>• Not quite right? <b>◀ ▶</b> moves a part to the pause before or after.</div></div>')
+  +'<div class="t2-ctl"><button class="ow-b" id="t2-pa" data-act="t2all">'+(pl==='all'?'⏸ Stop':'▶ Play all')+'</button>'+(G.length?'<button class="ow-b" data-act="t2n" data-v="-1"'+(np>1?'':' disabled')+'>－ Fewer</button><button class="ow-b" data-act="t2n" data-v="1"'+(np<Math.min(W.length,G.length+1)?'':' disabled')+'>＋ More</button>':'')+'</div><div id="ow-mt" class="ow-tm">'+oT(MYA?MYA.currentTime:0)+'</div>';
+ P.forEach(function(p,i){var k1=i+1<np?P[i+1].k:W.length;
+  h+='<div class="t2-pt" data-p="'+i+'"><div class="t2-ph"><b>'+(i+1)+'</b><button class="t2-hp" data-act="t2part" data-v="'+i+'">▶ Hear part '+(i+1)+' <small>'+oT(p.c)+'</small></button>'
+   +(i?'<button class="t2-nd" data-act="t2nud" data-v="'+i+':-1" aria-label="Earlier pause">◀</button><button class="t2-nd" data-act="t2nud" data-v="'+i+':1" aria-label="Later pause">▶</button>':'')+'</div><div class="t2-w">';
+  for(var k=p.k;k<k1;k++){h+='<button class="t2-wd'+(W[k].p?' pm':'')+'" data-act="t2hear" data-v="'+k+'">'+oEsc(W[k].d)+'</button>';if(k+1<k1&&!W[k+1].p)h+='<button class="t2-gp" data-act="t2cut" data-v="'+(k+1)+'" aria-label="New part here">✂</button>'}
+  h+='</div></div>';if(i+1<np)h+='<button class="t2-jn" data-act="t2cut" data-v="'+P[i+1].k+'">✂ <span>join '+(i+1)+' and '+(i+2)+'</span></button>'});
+ h+='<div class="t2-dock"><button class="btn" data-act="t2save" data-v="'+x.id+'"'+(T.busy?' disabled':'')+'>✓ Save · '+np+' part'+(np>1?'s':'')+'</button></div>';
  return h}
 function myTapPage(x){var L=myLines(x.text),tp=MYTAP||[],a=MYA,pl=a&&!a.paused,n=tp.length,src=scDetect(x.text),dst=rdL();
  var h='<div class="msk-head"><b>👆 Tap along · '+oEsc(x.name)+'</b><button class="chip" data-act="tapskip" data-v="'+x.id+'">Skip</button></div>'+(MYTAPNEW?'<div class="msk-cov">✅ Saved. Last step, one listen: so the words follow the voice, tap the big button each time a new line starts. Not now? Tap Skip and the app guesses.</div>':'')+'<div class="card msk-c"><div class="mute">Tap ▶, then tap the big button <b>the moment each line starts</b>. One listen is enough. Afterwards the pieces and the lit-up words follow your taps.</div>'
@@ -2764,7 +2827,7 @@ function myEditPage(x){var pc=myPcs(x),L=myLines(x.text),match=!L.length||L.leng
  h+='<div class="mse"><span class="mse-n">🎙</span><div class="mse-b"><b>Sound</b><small>'+oT(x.dur||0)+' long</small>'+(MYV.snd?(MYNEW?'<div class="ow-ok" style="margin-top:6px">✅ New sound ready'+(MYNEW.d?' · '+oT(MYNEW.d):'')+' <button class="chip" data-act="mynewplay">▶ Play</button></div><div class="msk-two" style="margin-top:6px"><button class="btn ow-sm" data-act="myrepl">Use this sound</button><button class="chip" data-act="mysnd">Cancel</button></div><div class="mute" style="font-size:.82rem;margin-top:4px">Your words stay. Then one listen with 👆 Tap along so they follow the new sound.</div>':'<div class="msk-two" style="margin-top:6px"><button class="msk-big'+(MYREC?' on':'')+'" data-act="myrec"><span>'+(MYREC?'⏹':'🎙')+'</span>'+(MYREC?'Stop recording':'Record')+'</button><label class="msk-big"><span>📁</span>Audio file<input type="file" accept="audio/*,.m4a,.mp3,.aac,.wav,video/mp4" hidden data-own="slkfile"></label></div><button class="chip" data-act="mysnd" style="margin-top:6px">Cancel</button>'):'')+'</div>'+(MYV.snd?'':'<button class="mse-g" data-act="mysnd">Change ›</button>')+'</div>';
  h+='<div class="mse"><span class="mse-n">1</span><div class="mse-b"><b>Name</b>'+(MYNM?'<input id="my-nm" class="ow-in" value="'+oEsc(x.name)+'"><div class="msk-two" style="margin-top:6px"><button class="btn ow-sm" data-act="mynmsave">Save</button><button class="chip" data-act="mynm">Cancel</button></div>':'<small>'+oEsc(x.name)+'</small>')+'</div>'+(MYNM?'':'<button class="mse-g" data-act="mynm">Change</button>')+'</div>';
  h+='<div class="mse"><span class="mse-n">2</span><div class="mse-b"><b>Words</b>'+(MYV.ed?'<textarea id="ow-tx2" class="ow-in" rows="6" placeholder="One chanted line per line">'+oEsc(x.text||'')+'</textarea><div class="mute" style="font-size:.82rem;margin-top:4px">Put each chanted line on its own line.</div><div class="msk-two" style="margin-top:6px"><button class="btn ow-sm" data-act="mywsave">Save words</button><button class="chip" data-act="mywedit">Cancel</button></div>':'<small>'+(L.length?L.length+' line'+(L.length>1?'s':''):'No words yet')+'</small>'+(L.length?'<small class="mse-w">'+oEsc(scLine(L[0],d).w.join(' '))+' …</small>':''))+'</div>'+(MYV.ed?'':'<button class="mse-g" data-act="mywedit">'+(L.length?'Fix ›':'Add ›')+'</button>')+'</div>';
- if(L.length)h+='<div class="mse t2-main"><span class="mse-n">👆</span><div class="mse-b"><b>Set up the parts</b><small>One listen: tap the first word of each part after a pause. Fixes words and sound together.</small></div><button class="mse-g" data-act="myt2" data-v="'+x.id+'">Start ›</button></div>';
+ if(L.length)h+='<div class="mse t2-main"><span class="mse-n">👆</span><div class="mse-b"><b>Set up the parts</b><small>The app finds the pauses. Tap a word to hear it, ✂ to split. Fixes words and sound together.</small></div><button class="mse-g" data-act="myt2" data-v="'+x.id+'">Start ›</button></div>';
  h+='<div class="mse"><span class="mse-n">3</span><div class="mse-b"><b>Lines in the sound</b><small class="'+(match?'mse-ok':'mse-bad')+'">'+(match?'✅ ':'⚠️ ')+pc.length+' line'+(pc.length>1?'s':'')+' found · '+oT(0)+' – '+oT(x.dur||0)+(L.length?(match?' · matches the words':' · the words have '+L.length+' lines'):'')+'</small><small>Listen to each line, join two, or leave one out.</small></div><button class="mse-g" data-act="mylines">Check ›</button></div>';
  h+='<details class="mse-more"><summary>More ways to fix</summary><div class="mse-tools">'+(L.length?'<button class="chip" data-act="mytap" data-v="'+x.id+'">👆 Old tap along (by line)</button>':'')+''+(L.length?'<button class="chip" data-act="mytap" data-v="'+x.id+'">👆 Tap along once</button>':'')+'<button class="chip" data-act="myredo" data-v="'+x.id+'">↺ Find the lines again</button><button class="chip" data-act="mymark" data-v="'+x.id+'">✋ Mark by hand</button><button class="chip'+(x.mode==='half'?' on':'')+'" aria-pressed="'+(x.mode==='half')+'" data-act="mymode2" data-v="'+(x.mode==='half'?'line':'half')+'">🧩 Split each line in two</button></div><div class="mute" style="font-size:.82rem">Tap along: listen once and tap as each line starts. The words then follow the voice.</div></details>';
  h+='<div class="mse-sp"></div><div class="mse-dock"><button class="btn" data-act="mpopen" data-v="'+x.id+'">✓ Done · back to the player</button></div>';return h}
@@ -2982,15 +3045,23 @@ var OWNA={
  taptap:function(){var a=myAud(),x=myL(MYV.id);if(!x||a.paused)return;MYTAP=(MYTAP||[]).concat([mySnap(x,a.currentTime)]);render()},
  mysnd:function(){if(MYREC)return;MYV.snd=!MYV.snd;MYNEW=null;render()},
  myrepl:function(){var x=myL(MYV.id);if(!x||!MYNEW)return;var b=MYNEW.b,d=MYNEW.d;mySaveSound(x.id,b).then(function(){x.dur=d||0;x.cuts=[];x.lt=null;x.tend=null;x.soft=[];x.skip=[];x.vs=null;x.auto=1;return oPut('slk',x)}).then(function(){MYNEW=null;MYV.snd=false;var a=myAud();try{a.pause();a.dataset.id=''}catch(e){}return myMakePieces(x.id)}).then(function(){if(myWords(x.text).length>1){MYTAPNEW=1;OWNA.myt2(null,x.id)}else{MYMSG='✅ New sound saved.';MYV={m:'play',id:x.id};render(1)}}).catch(function(e){MYMSG='Could not save the new sound ('+(e&&e.name||e)+').';render()})},
- myt2:function(t,v){prClear();var x=myL(v),a=myAud();if(!x)return;try{a.pause()}catch(e){}clearInterval(MYW);MYT2={taps:[]};MYV={m:'tap2',id:v};render(1);myLoadAudio(v).then(function(){try{a=myAud();a.currentTime=0}catch(e){}render()});if(!x.vs)myAnalyse(x)},
- t2play:function(){var a=myAud();if(a.paused){a.playbackRate=1;a.play().catch(function(){});clearInterval(MYW);MYW=setInterval(function(){var e=document.getElementById('ow-mt');if(e)e.textContent=oT(a.currentTime);if(a.paused){clearInterval(MYW);MYW=null;render()}},200);render()}else a.pause()},
- t2tap:function(t,v){var a=myAud(),x=myL(MYV.id),k=+v;if(!x||!MYT2||k<=0)return;var T=MYT2.taps,ex=T.filter(function(q){return q.k===k})[0];if(ex){MYT2.taps=T.filter(function(q){return q!==ex});render();return}
-  if(a.paused&&!T.length&&a.currentTime<0.2){MYMSG='';OMSG='Tap ▶ first, then tap the first word of each part as you hear it.';render();return}
-  var nw={k:k,t:mySnap(x,a.currentTime)};T.push(nw);T.sort(function(p,q){return p.k-q.k});OMSG='';for(var i=1;i<T.length;i++)if(T[i].t<=T[i-1].t+0.3){MYT2.taps=T.filter(function(q){return q!==nw});OMSG='Words must be tapped in order, as you hear them. Tap ↺ Again to start over.';break}render()},
- t2undo:function(){if(MYT2&&MYT2.taps.length){var last=MYT2.taps.reduce(function(p,q){return q.t>p.t?q:p});MYT2.taps=MYT2.taps.filter(function(q){return q!==last});render()}},
- t2again:function(){var a=myAud();a.pause();try{a.currentTime=0}catch(e){}MYT2={taps:[]};OMSG='';render()},
- t2skip:function(t,v){var a=myAud();try{a.pause()}catch(e){}clearInterval(MYW);MYT2=null;MYTAPNEW=0;MYMSG='Tap ▶ to play. To set the parts later: ⚙️ → Edit sloka → 👆 Set up the parts.';MYV={m:'play',id:v};render(1)},
- t2save:function(t,v){var x=myL(v),a=myAud();if(!x||!MYT2)return;a.pause();clearInterval(MYW);var W=myT2Words(x).map(function(w){return w.o}),T=MYT2.taps.slice().sort(function(p,q){return p.k-q.k}),L=[],st=0;
+ myt2:function(t,v){prClear();var x=myL(v),a=myAud();if(!x)return;try{a.pause()}catch(e){}clearInterval(MYW);MYT2={taps:[],busy:1,W:mySyW(x)};MYV={m:'tap2',id:v};render(1);
+  Promise.all([myLoadAudio(v),x.vs?null:myAnalyse(x)]).then(function(){try{a=myAud();a.currentTime=0}catch(e){}if(MYV.m==='tap2'&&MYV.id===v){myT2Init(x,1);render()}}).catch(function(){if(MYT2){MYT2.busy=0;render()}})},
+ t2all:function(){var x=myL(MYV.id);if(!x||!MYT2||MYT2.busy)return;if(MYT2.pl==='all'){myT2Stop();render();return}myT2Play(x,[0,x.dur||1e6],'all');var b=document.getElementById('t2-pa');if(b)b.textContent='⏸ Stop'},
+ t2hear:function(t,v){var x=myL(MYV.id),k=+v;if(!x||!MYT2||MYT2.busy)return;if(MYT2.pl==='w'+k){myT2Stop();return}var TT=myT2Times(x,MYT2.W,MYT2.taps),q=TT[k];if(!q)return;myT2Play(x,[Math.max(0,q[0]-0.06),q[1]+0.15],'w'+k)},
+ t2part:function(t,v){var x=myL(MYV.id),i=+v;if(!x||!MYT2||MYT2.busy)return;if(MYT2.pl==='p'+i){myT2Stop();return}var P=myT2Parts(x,MYT2.taps),p=P[i];if(!p)return;myT2Play(x,[p.c,p.e],'p'+i)},
+ t2cut:function(t,v){var x=myL(MYV.id),k=+v;if(!x||!MYT2||MYT2.busy||k<=0)return;myT2Stop();var T=MYT2.taps,ex=T.filter(function(q){return q.k===k})[0];
+  if(ex){MYT2.taps=T.filter(function(q){return q!==ex})}else{var P=myT2Parts(x,T),i=0;while(i+1<P.length&&P[i+1].k<=k)i++;var lo=P[i].t+0.25,hi=i+1<P.length?P[i+1].t-0.25:(x.dur||1e6),est=myT2Times(x,MYT2.W,T)[k][0],best=null;
+   myGaps(x).forEach(function(g){if(g.e>lo&&g.e<hi&&Math.abs(g.e-est)<=1.5&&(!best||Math.abs(g.e-est)-Math.min(g.len,0.6)<Math.abs(best.e-est)-Math.min(best.len,0.6)))best=g});
+   T.push({k:k,t:Math.round((best?best.e:Math.min(hi,Math.max(lo,est)))*100)/100});T.sort(function(p,q){return p.k-q.k})}
+  MYT2.n=MYT2.taps.length;render()},
+ t2nud:function(t,v){var x=myL(MYV.id),q=String(v).split(':'),i=+q[0],d=+q[1];if(!x||!MYT2||i<1)return;myT2Stop();var T=MYT2.taps.slice().sort(function(a,b){return a.k-b.k}),me=T[i-1];if(!me)return;
+  var lo=i>1?T[i-2].t+0.25:0.25,hi=i<T.length?T[i].t-0.25:(x.dur||1e6)-0.25,G=myGaps(x).filter(function(g){return g.e>lo&&g.e<hi}),nt=null;
+  if(d<0){G.forEach(function(g){if(g.e<me.t-0.05)nt=g.e})}else{for(var j=0;j<G.length;j++)if(G[j].e>me.t+0.05){nt=G[j].e;break}}
+  if(nt==null)nt=Math.max(lo,Math.min(hi,me.t+d*0.25));me.t=Math.round(nt*100)/100;MYT2.taps=T;render();var P=myT2Parts(x,T);myT2Play(x,[P[i].c,P[i].e],'p'+i)},
+ t2n:function(t,v){var x=myL(MYV.id);if(!x||!MYT2||MYT2.busy)return;myT2Stop();var n=Math.max(0,MYT2.taps.length+(+v));MYT2.taps=myAutoT2(x,n);MYT2.n=MYT2.taps.length;render()},
+ t2skip:function(t,v){myT2Stop();MYT2=null;MYTAPNEW=0;MYMSG='Tap ▶ to play. To set the parts later: ⚙️ → Edit sloka → 👆 Set up the parts.';MYV={m:'play',id:v};render(1)},
+ t2save:function(t,v){var x=myL(v);if(!x||!MYT2||MYT2.busy)return;myT2Stop();var W=myT2Words(x).map(function(w){return w.o}),T=MYT2.taps.slice().sort(function(p,q){return p.k-q.k}),L=[],st=0;
   T.forEach(function(q){L.push(W.slice(st,q.k).join(' '));st=q.k});L.push(W.slice(st).join(' '));
   var fin=function(){var v0=(x.vs&&x.vs.length)?Math.max(0,x.vs[0][0]-0.1):0;x.text=L.join('\n');x.lt=[v0].concat(T.map(function(q){return q.t}));x.tend=null;if(x.mode!=='whole')x.mode='line';x.cuts=myCutsFromLines(x);x.skip=[];x.soft=[];x.auto=0;MYT2=null;MYTAPNEW=0;OMSG='';MYMSG='✅ '+L.length+' parts saved. Learn with guru now goes part by part.';oPut('slk',x).then(function(){MYV={m:'play',id:x.id};render(1)})};
   if(x.vs)fin();else myAnalyse(x).then(fin)},
@@ -3858,7 +3929,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=318,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=319,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});

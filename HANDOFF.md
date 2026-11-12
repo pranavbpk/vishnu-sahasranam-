@@ -153,3 +153,10 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 318 (12 Nov 2026) — Dev + Test (builds 312–318 promoted to Test)
 - 🗣 How to say sheet in practice: "All reading rules" (and the sheet outside a verse) now show rd4More() = the 4 steps (without the verse 1 button, rd4(0,1)) + "More rules ›" with the old table. The verse's own tips stay on top.
+
+## Build 319 (12 Nov 2026) — Dev + Test (batch 3: easier My slokas sync)
+- 👆 Set up the parts (myT2Page) no longer needs live tapping. On open it decodes the sound (x.vs) and suggests the parts itself (myAutoT2): with 2+ typed lines, one part per line, each line start matched to the best pause (myAlign, DP); with one long line, one part per clear breath (pause ≥ max(0.3 s, 45% of the longest)), each pause matched to a word boundary by syllable length (mySyW/myMora: long syllables 1.3) with a bonus after | । ॥ and never before a mark.
+- Tap a word = hear it (myT2Times spreads each part's words over its voiced time; myT2Play lights the word and part). ✂ between words = new part there (time = nearest pause to the word); ✂ join = merge. ◀ ▶ on a part = move it to the pause before/after (then plays it). － Fewer / ＋ More = re-suggest with one part less/more. ▶ Play all with word highlight. Re-opening a set-up sloka keeps its saved parts.
+- Cuts now go in the middle of the silence (myGapCut, never more than 0.45 s before the voice): myCutsFromLines uses myGapAt for every line start, so piece ends no longer clip the soft echo. Old Tap along unchanged.
+- Tested on the 108 guide recordings (audio/cuts.json): typed in 2 lines, the split lands in the right pause for 108/108 (106 within 0.35 s of the known cut, 2 in the same long pause, nearer the voice) in Devanagari, Telugu and English letters. Pasted as one line: the line-2 split is at the right word for 101/108 (Devanagari/Telugu) and 98/108 (English letters); the misses are one word off, fixed with one ✂. Test script: tools/test_sync.py.
+- Help page (help/my-slokas.html) step 2 text updated en/te/hi; its screenshot b_tap still shows the old screen.
