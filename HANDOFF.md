@@ -131,3 +131,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Echo: `echoChips()` (Show/Hide, same S.echo) on Full text and The full chant; echo now shown on Full text, full chant read-aloud lines and the verse meaning page (`echoLn`).
 - Fixed: Full text page was 58 px wider than the phone (long nowrap words).
 - Rebuild the PDFs whenever verse text, dash lines, meanings or tips change.
+
+## Build 313 (12 Nov 2026) — Dev only
+- The full chant · text (fcPage) redesigned: one reader for all 7 parts incl. the 108 verses (FCSEC 'v108', jump row 1·10…100, ids fcv1..108). Numbered part pills (.fc2nav, current one centred by fcNavC), part header card (Part N of 7, title, one line; Dhyānam shows the dhyanam picture), script segmented control + echo on/off chip, verse rows with number badge and green read-aloud line, big Next part button (last part: Save or share). ⬇ PDF chip opens a small sheet (FCPDF): Whole chant in the current script, or Just the 108 verses. Read-along note moved to a folded "About this text" at the bottom. Dhyānam part links to the Dhyanam page (LPBACK 'fc' brings you back).
+- Chant correctly: "Full text of all 108 verses" row removed (now inside the reader); Dhyanam row kept. ftPage still reachable from the home Read panel.
