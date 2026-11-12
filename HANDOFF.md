@@ -135,3 +135,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 313 (12 Nov 2026) — Dev only
 - The full chant · text (fcPage) redesigned: one reader for all 7 parts incl. the 108 verses (FCSEC 'v108', jump row 1·10…100, ids fcv1..108). Numbered part pills (.fc2nav, current one centred by fcNavC), part header card (Part N of 7, title, one line; Dhyānam shows the dhyanam picture), script segmented control + echo on/off chip, verse rows with number badge and green read-aloud line, big Next part button (last part: Save or share). ⬇ PDF chip opens a small sheet (FCPDF): Whole chant in the current script, or Just the 108 verses. Read-along note moved to a folded "About this text" at the bottom. Dhyānam part links to the Dhyanam page (LPBACK 'fc' brings you back).
 - Chant correctly: "Full text of all 108 verses" row removed (now inside the reader); Dhyanam row kept. ftPage still reachable from the home Read panel.
+
+## Build 314 (12 Nov 2026) — Dev only
+- Full chant reader: Opening line is now "Prayers before we begin" (no other deities named). Slimmer part header (title + "N / 7 · range" on one line), smaller Dhyānam picture (16:6). ⬇ PDF opens a compact two-button row (Whole chant · script / 108 verses only). Dashed line between verse and read-aloud lines, stronger line between verses.
+- Test looks (S.fcst, chips "Test · look" at the bottom): a Cards (default), b Book (centred, ॥ n ॥, ❁ between verses, read-aloud on a soft green panel), c Simple (saffron rule on the left, "Verse n" label).
