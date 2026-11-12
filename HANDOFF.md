@@ -121,3 +121,13 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 311 (12 Nov 2026) — Dev + Test
 - Old practice screen's "Take saved / Finish today" page (gcontSheet, shown after recording and after reading the meaning) now has the same top bar as the other old screens: verse title, Old|New switch (gsw), 🗣, gap, Close (gstop). Before, it had no switch, so you could not change to the new screen there.
+
+## Build 312 (12 Nov 2026) — Dev only (batch 2: documents)
+- New reader PDFs in `docs/pdf/` (made by `python3 tools/make_pdfs.py FONTDIR`, which loads index-dev.html and runs `tools/pdf_build.js` on the app's own data; fonts from github.com/google/fonts: TiroDevanagariSanskrit, NotoSerifTelugu, Inter). Each file has an echo copy and a `-noecho` copy:
+  - `fullchant-sa|te|en.pdf`: all parts (opening prayers, Yudhiṣṭhira/Bhīṣma, nyāsa, dhyānam, 108 verses, phala-śruti, ending), How to read page (RB rules + echo card), read-aloud lines, per-verse tips (sa/en only; tips are English).
+  - `meanings-en|te|hi.pdf`: every verse with read-aloud line, meaning, each name, special benefit.
+  - `verses108.pdf`: new copy of the 108-verse PDF (the old root file `vishnu-sahasranamam-108-verses.pdf` stays for live).
+- App: `docBtn(stem,name,sub)` = "⬇ Save or share the PDF" (prefetch `docLoad`, `docShare` → share sheet with the file, else opens the PDF). On Full text (108), The full chant (follows the script chip), Verse meanings (follows the language chip), Dhyanam. `docUrl` picks `-noecho` when S.echo='0'.
+- Echo: `echoChips()` (Show/Hide, same S.echo) on Full text and The full chant; echo now shown on Full text, full chant read-aloud lines and the verse meaning page (`echoLn`).
+- Fixed: Full text page was 58 px wider than the phone (long nowrap words).
+- Rebuild the PDFs whenever verse text, dash lines, meanings or tips change.
