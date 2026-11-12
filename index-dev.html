@@ -2639,6 +2639,13 @@ function myT2Words(x){var d=rdL(),src=scDetect(x.text),out=[];myLines(x.text).fo
 /* silences between the voiced parts: s,e = silence start/end, len, u = share of the voiced time before it (0..1) */
 function myGaps(x){var V=x.vs||[],G=[],tot=0,acc=0;V.forEach(function(v){tot+=v[1]-v[0]});for(var i=1;i<V.length;i++){acc+=V[i-1][1]-V[i-1][0];G.push({s:V[i-1][1],e:V[i][0],len:Math.round((V[i][0]-V[i-1][1])*100)/100,u:tot?acc/tot:0})}return G}
 /* where to cut inside a silence: the middle, never more than 0.45 s before the voice comes back */
+/* b323: the phone stops a little after we ask it to. Learn how late (seconds) and ask earlier, but never cut into the last word */
+var MYLAG=null;function myLag(){if(MYLAG==null)MYLAG=S.mylag!=null?(+S.mylag||0):(/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&/Mac/.test(navigator.platform))?0.15:0.03);return MYLAG}
+function myLagLearn(a,ct0){setTimeout(function(){try{if(!a.paused)return;var o=Math.max(0,a.currentTime-ct0);if(o<1){MYLAG=Math.max(0,Math.min(0.5,myLag()*0.6+o*0.4));S.mylag=Math.round(MYLAG*1000)/1000;sv()}}catch(e){}},350)}
+/* the phone keeps playing for about L seconds after pause(), so asking L earlier still lets the last word finish */
+function myStopAt(x,e,s0){var L=myLag();if(!L)return e;return Math.max(s0!=null?s0+0.3:0,e-L)}
+/* b323: where a part STOPS: just after the voice ends (0.25 s for the fading tail), as far as possible from the next voice, because iPhone stops a little late */
+function myGapEnd(g){return Math.round((g.s+Math.min(0.25,g.len*0.4))*100)/100}
 function myGapCut(g){return Math.round(Math.max((g.s+g.e)/2,g.e-0.45)*100)/100}
 /* the silence that ends right where the voice starts again at t */
 function myGapAt(x,t){var b=null;myGaps(x).forEach(function(g){var d=Math.abs(g.e-t);if(d<=0.2&&(!b||d<Math.abs(b.e-t)))b=g});return b}
@@ -2651,7 +2658,7 @@ function myNewStop(){clearInterval(MYNW);MYNW=null;if(MYA&&MYA.dataset.id==='new
 /* b320: move a part's start and end into the silence around it, so the next line never bleeds in */
 function mySpanFix(x,sp){if(!x||!sp||!(x.vs&&x.vs.length>1))return sp;var G=myGaps(x),s0=sp[0],e0=sp[1],dur=x.dur||1e6;
  if(s0>0.3)G.forEach(function(g){if(s0>=g.s-0.05&&s0<=g.e+0.2)s0=myGapCut(g)});
- if(e0<dur-0.3)G.forEach(function(g){if(e0>=g.s-0.02&&e0<=g.e+0.25)e0=myGapCut(g)});
+ if(e0<dur-0.3)G.forEach(function(g){if(e0>=g.s-0.02&&e0<=g.e+0.25)e0=myGapEnd(g)});
  return e0-s0>0.3?[s0,e0]:sp}
 /* every word with its syllables (s), where it starts in the voiced time (f, 0..1), a mark before it (br) and line start (ls) */
 function mySyW(x){var src=scDetect(x.text),W=[],tot=0;myLines(x.text).forEach(function(l,li){var ow=myWords(l),dw=scLine(l,rdL(),src).w;if(dw.length!==ow.length)dw=ow;ow.forEach(function(w,k){W.push({o:w,d:dw[k],li:li,ls:k===0&&li>0?1:0,s:myMora(w,src),p:myIsP(w,src)})})});
@@ -2776,7 +2783,7 @@ function mypInfo(){try{if(MYP&&document.querySelector('.mfw-wrap')){mfTick(myL(M
 function mypLine(){if(!MYP)return 'Whole sloka · '+mypRep()+(mypRep()>1?' times':' time');var xe=MYP.e!=null?MYP.e:((myL(MYP.id)||{}).dur||0);return (MYP.lbl||'Whole sloka')+' · '+oT(MYP.s)+'–'+oT(xe)+' · '+(MYP.done?'done ✓':MYP.gap?'next round…':'round '+MYP.k+' of '+MYP.n)}
 function mypSet(a){a.playbackRate=mypSp();try{a.preservesPitch=true;a.webkitPreservesPitch=true}catch(e){}}
 function mypMeta(x){try{if('mediaSession' in navigator){navigator.mediaSession.metadata=new MediaMetadata({title:x.name,artist:'My slokas'});navigator.mediaSession.setActionHandler('play',function(){var a=myAud();a.play().catch(function(){});mypTick()});navigator.mediaSession.setActionHandler('pause',function(){myAud().pause()})}}catch(e){}}
-function mypTick(){clearInterval(MYW);var a=myAud();MYW=setInterval(function(){if(!MYP||!MYP.on){clearInterval(MYW);MYW=null;return}var ct=a.currentTime;/* b322: iPhone can ignore the jump back to the start of a round; keep jumping until it really plays there */if(!MYP.gap&&!MYP.ok){var el=Date.now()-(MYP.t0||0),eE=MYP.e!=null?MYP.e:1e9;if(ct>=MYP.s-0.3&&ct<eE-0.05&&!a.paused&&el>60)MYP.ok=true;else if(el<3000){if(el>250&&(ct<MYP.s-0.3||ct>=eE-0.05)){try{a.currentTime=MYP.s}catch(e){}}if(a.paused||a.ended)a.play().catch(function(){});mypInfo();return}else MYP.ok=true}(MYP.holes||[]).forEach(function(hh){if(ct>=hh[0]&&ct<hh[1]-0.05){try{a.currentTime=hh[1]}catch(e){}}});mypGlow(ct);mypInfo();if(MYP.gap)return;if(MYP.e!=null&&((!a.paused&&ct>=MYP.e-0.05)||(a.ended&&ct>MYP.s+0.8)))mypRound()},50)}
+function mypTick(){clearInterval(MYW);var a=myAud();MYW=setInterval(function(){if(!MYP||!MYP.on){clearInterval(MYW);MYW=null;return}var ct=a.currentTime;/* b322: iPhone can ignore the jump back to the start of a round; keep jumping until it really plays there */if(!MYP.gap&&!MYP.ok){var el=Date.now()-(MYP.t0||0),eE=MYP.e!=null?MYP.e:1e9;if(ct>=MYP.s-0.3&&ct<eE-0.05&&!a.paused&&el>60)MYP.ok=true;else if(el<3000){if(el>250&&(ct<MYP.s-0.3||ct>=eE-0.05)){try{a.currentTime=MYP.s}catch(e){}}if(a.paused||a.ended)a.play().catch(function(){});mypInfo();return}else MYP.ok=true}(MYP.holes||[]).forEach(function(hh){if(ct>=hh[0]&&ct<hh[1]-0.05){try{a.currentTime=hh[1]}catch(e){}}});mypGlow(ct);mypInfo();if(MYP.gap)return;if(MYP.e!=null&&((!a.paused&&ct>=myStopAt(myL(MYP.id),MYP.e,MYP.s)-0.05)||(a.ended&&ct>MYP.s+0.8))){if(!a.paused&&!a.ended)myLagLearn(a,ct);mypRound()}},50)}
 function mypGo(){if(!MYP)return;var a=myAud(),x=myL(MYP.id);if(!x)return;MYP.gap=false;MYP.ok=false;MYP.t0=Date.now();mypSet(a);var s0=MYP.st1!=null?MYP.st1:MYP.s;MYP.st1=null;try{a.currentTime=s0}catch(e){}a.play().catch(function(){});mypMeta(x);mypTick();render()}
 function mypRound(){if(!MYP||MYP.gap)return;var a=myAud();a.pause();var xr=myL(MYP.id);if(MYP.k<MYP.n){MYP.k++;if(document.hidden){mypGo();return}MYP.gap=true;clearTimeout(MYP.gt);MYP.gt=setTimeout(mypGo,1200);render()}else if(MYP.q&&MYP.qi<MYP.q.length-1){MYP.qi++;var nq=MYP.q[MYP.qi];MYP.s=nq[0];MYP.e=nq[1];MYP.k=1;MYP.lbl=MYP.ql?MYP.ql[MYP.qi]:MYP.qlbl+' · piece '+(MYP.qi+1)+' of '+MYP.q.length;if(document.hidden){mypGo();return}MYP.gap=true;clearTimeout(MYP.gt);MYP.gt=setTimeout(mypGo,1500);render()}else{if(xr){xr.plays=(xr.plays||0)+1;xr.lastp=tdy();oPut('slk',xr)}MYP.on=false;MYP.done=true;clearInterval(MYW);MYW=null;render()}}
 function mypQ(x,span){var pc=myPcs(x),d=x.dur||0,s0=span?span[0]:-1,e0=span?span[1]:1e9;return pc.filter(function(p){var m=(p[0]+Math.min(p[1],d||p[1]))/2;return m>=s0&&m<e0}).map(function(p){return [p[0],Math.min(p[1],d||p[1])]})}
@@ -2784,8 +2791,8 @@ function mypQ(x,span){var pc=myPcs(x),d=x.dur||0,s0=span?span[0]:-1,e0=span?span
 /* b322: line by line = for each line, its small pieces (cut at the tiny pauses inside it) and then the whole line; each one plays N times */
 function mypLineQ(x){var L=myLines(x.text),Q={q:[],ql:[],qli:[]},dE=x.dur?x.dur-0.12:1e9,G=myGaps(x);
  for(var i=0;i<L.length;i++){var sp=mypLineSpan(x,i);if(!sp)continue;sp=mySpanFix(x,sp);sp=[sp[0],Math.min(sp[1],dE)];
-  var inn=G.filter(function(g){return g.s>sp[0]+0.5&&g.e<sp[1]-0.5&&g.len>=0.15}),cuts=[],prev=sp[0];inn.forEach(function(g){var c=myGapCut(g);if(c-prev>=0.8&&sp[1]-c>=0.8){cuts.push(c);prev=c}});
-  if(cuts.length&&cuts.length<=5){var pts=[sp[0]].concat(cuts,[sp[1]]);for(var k=0;k+1<pts.length;k++){Q.q.push([pts[k],pts[k+1]]);Q.ql.push('Line '+(i+1)+' · piece '+(k+1)+' of '+(pts.length-1));Q.qli.push(i)}Q.q.push(sp);Q.ql.push('Line '+(i+1)+' · whole line');Q.qli.push(i)}
+  var inn=G.filter(function(g){return g.s>sp[0]+0.5&&g.e<sp[1]-0.5&&g.len>=0.25}),cuts=[],prev=sp[0];inn.forEach(function(g){var c=myGapCut(g);if(c-prev>=0.8&&sp[1]-c>=0.8){cuts.push([myGapEnd(g),c]);prev=c}});
+  if(cuts.length&&cuts.length<=5){var st=[sp[0]].concat(cuts.map(function(c){return c[1]})),en=cuts.map(function(c){return c[0]}).concat([sp[1]]);for(var k=0;k<st.length;k++){Q.q.push([st[k],en[k]]);Q.ql.push('Line '+(i+1)+' · piece '+(k+1)+' of '+st.length);Q.qli.push(i)}Q.q.push(sp);Q.ql.push('Line '+(i+1)+' · whole line');Q.qli.push(i)}
   else{Q.q.push(sp);Q.ql.push('Line '+(i+1));Q.qli.push(i)}}
  return Q}
 function mypStart(id,span,lbl,bp,LQ){var a=myAud(),x=myL(id);if(!x)return;clearInterval(MYW);if(MYP)clearTimeout(MYP.gt);
@@ -2887,7 +2894,7 @@ function mypPage270(x){var a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused,L=myLin
  return '<div class="mpw2 mpw3">'+h+'</div>'+dock+mypSheet2(x)}
 function mypSheet2(x){if(!MYPSH)return '';var m=mypM();return '<div class="mpsh-dim" data-act="mpsh"></div><div class="mpsh"><div class="mpsh-g"></div><div class="mpsh-top"><b class="mpsh-h">'+oEsc(x.name)+'</b><button class="mpsh-x" data-act="mpsh">Done</button></div>'
  +'<div class="mp-lab">VIEW</div><div>'+mypChips('mpv',[['focus','Focus'],['karaoke','Karaoke'],['mini','Minimal'],['full','Full']],mpView())+'</div>'+'<div class="mp-lab">PLAY</div><div>'+mypChips('mpmode',[['w','🔁 Whole sloka'],['l','🪜 Line by line']],m==='o'?'':m)+'</div>'
- +'<div class="mp-lab">TIMES</div><div>'+mypTimes()+'</div><div class="mp-lab">SPEED</div><div>'+mypSpeeds()+'</div><div class="mp-lab">LIGHT UP</div><div>'+mypFollow()+'</div>'
+ +'<div class="mp-lab">TIMES</div><div>'+mypTimes()+'</div><div class="mp-lab">SPEED</div><div>'+mypSpeeds()+'</div><div class="mp-lab">LIGHT UP</div><div>'+mypFollow()+'</div><div class="mute" style="font-size:.75rem;margin-top:8px">Phone stop delay: '+myLag().toFixed(2)+' s (the app stops this much earlier)</div>'
  +'<div class="mp-lab">SCRIPT</div><div class="mp-scr2">'+rdChips()+'</div>'
  +'<div class="mpsh-l"><button data-act="mypr" data-v="'+x.id+'"><span>🗣</span><span><b>Learn with guru</b><small>Listen, then your turn, line by line</small></span></button><button data-act="myrev" data-v="'+x.id+'"><span>✏️</span><span><b>Edit sloka</b><small>Name, words, lines in the sound</small></span></button><button data-act="mpab"><span>🔂</span><span><b>'+(MYPAB?'Tap where the bit ends':'Loop a bit')+'</b><small>'+(MYPAB?'Started at '+oT(MYPAB.s):'While it plays: tap here at the start of a tricky bit, then at its end')+'</small></span></button></div>'
  +'<button class="btn" data-act="mpsh" style="margin-top:10px">Done</button></div>'}
@@ -3023,9 +3030,9 @@ function prBuild(x){var pc=myPcs(x),st=[],rg=myRange(x);if(!pc.length)pc=[[rg.s,
 function prSpan(stp){var x=PR&&myL(PR.id),r;if(stp.g)r=[PR.pc[stp.g[0]][0],PR.pc[stp.g[1]][1]];else if(stp.w)r=[PR.pc[0][0],PR.pc[PR.pc.length-1][1]];else r=PR.pc[stp.p];return mySpanFix(x,r)}
 function prClear(){if(typeof mypStop==='function')mypStop();clearInterval(MYW);MYW=null;clearTimeout(PR&&PR.to);if(MYA)MYA.pause()}
 /* play one span of the recording; stops at its end. Guards against iPhone's stale position after a jump back */
-function myPlaySpan(sp,done,onTick){var a=myAud();a.playbackRate=1;a=myAud();var dur=isFinite(a.duration)?a.duration:1e6,end=sp[1]>=dur-0.3?dur+5:Math.min(sp[1],dur-0.12),ok=false,t0=Date.now();clearInterval(MYW);a.pause();try{a.currentTime=sp[0]}catch(e){}a.play().catch(function(){});
+function myPlaySpan(sp,done,onTick){var a=myAud();a.playbackRate=1;a=myAud();var dur=isFinite(a.duration)?a.duration:1e6,end=sp[1]>=dur-0.3?dur+5:myStopAt(myL(a.dataset.id),Math.min(sp[1],dur-0.12),sp[0]),ok=false,t0=Date.now();clearInterval(MYW);a.pause();try{a.currentTime=sp[0]}catch(e){}a.play().catch(function(){});
  MYW=setInterval(function(){var ct=a.currentTime;if(!ok){if(ct>=sp[0]-0.3&&ct<end-0.05&&!a.paused&&Date.now()-t0>60)ok=true;else{if(Date.now()-t0<3000){if(Date.now()-t0>250&&(ct<sp[0]-0.3||ct>=end-0.05)){try{a.currentTime=sp[0]}catch(e){}}if(a.paused||a.ended)a.play().catch(function(){});return}ok=true}}
-  if(onTick)onTick(ct);if(ct>=end-0.06||((a.ended||(a.paused&&ct>=dur-0.1))&&Date.now()-t0>800)){a.pause();clearInterval(MYW);MYW=null;done()}},40)}
+  if(onTick)onTick(ct);if(ct>=end-0.06||((a.ended||(a.paused&&ct>=dur-0.1))&&Date.now()-t0>800)){if(ct>=end-0.06&&!a.paused&&!a.ended)myLagLearn(a,ct);a.pause();clearInterval(MYW);MYW=null;done()}},40)}
 function prGo(){if(!PR)return;prClear();var stp=PR.steps[PR.k];if(!stp){prFinish();return}PR.ph=stp.ph;PR.paused=false;var sp=prSpan(stp),x=myL(PR.id);
  if(!PR.T)PR.T=myTimeline(x);
  var gl=null;if(stp.g&&PR.T){gl=[];PR.T.forEach(function(o){if(o.p>=stp.g[0]&&o.p<=stp.g[1]&&gl.indexOf(o.li)<0)gl.push(o.li)})}
@@ -3120,7 +3127,7 @@ var OWNA={
   Promise.all([myLoadAudio(v),x.vs?null:myAnalyse(x)]).then(function(){try{a=myAud();a.currentTime=0}catch(e){}if(MYV.m==='tap2'&&MYV.id===v){myT2Init(x,1);render()}}).catch(function(){if(MYT2){MYT2.busy=0;render()}})},
  t2all:function(){var x=myL(MYV.id);if(!x||!MYT2||MYT2.busy)return;if(MYT2.pl==='all'){myT2Stop();render();return}myT2Play(x,[0,x.dur||1e6],'all');var b=document.getElementById('t2-pa');if(b)b.textContent='⏸ Stop'},
  t2hear:function(t,v){var x=myL(MYV.id),k=+v;if(!x||!MYT2||MYT2.busy)return;if(MYT2.pl==='w'+k){myT2Stop();return}var TT=myT2Times(x,MYT2.W,MYT2.taps),q=TT[k];if(!q)return;myT2Play(x,[Math.max(0,q[0]-0.06),q[1]+0.15],'w'+k)},
- t2part:function(t,v){var x=myL(MYV.id),i=+v;if(!x||!MYT2||MYT2.busy)return;if(MYT2.pl==='p'+i){myT2Stop();return}var P=myT2Parts(x,MYT2.taps),p=P[i];if(!p)return;myT2Play(x,[p.c,p.e],'p'+i)},
+ t2part:function(t,v){var x=myL(MYV.id),i=+v;if(!x||!MYT2||MYT2.busy)return;if(MYT2.pl==='p'+i){myT2Stop();return}var P=myT2Parts(x,MYT2.taps),p=P[i];if(!p)return;myT2Play(x,mySpanFix(x,[p.c,p.e]),'p'+i)},
  t2cut:function(t,v){var x=myL(MYV.id),k=+v;if(!x||!MYT2||MYT2.busy||k<=0)return;myT2Stop();var T=MYT2.taps,ex=T.filter(function(q){return q.k===k})[0];
   if(ex){MYT2.taps=T.filter(function(q){return q!==ex})}else{var P=myT2Parts(x,T),i=0;while(i+1<P.length&&P[i+1].k<=k)i++;var lo=P[i].t+0.25,hi=i+1<P.length?P[i+1].t-0.25:(x.dur||1e6),est=myT2Times(x,MYT2.W,T)[k][0],best=null;
    myGaps(x).forEach(function(g){if(g.e>lo&&g.e<hi&&Math.abs(g.e-est)<=1.5&&(!best||Math.abs(g.e-est)-Math.min(g.len,0.6)<Math.abs(best.e-est)-Math.min(best.len,0.6)))best=g});
@@ -3129,7 +3136,7 @@ var OWNA={
  t2nud:function(t,v){var x=myL(MYV.id),q=String(v).split(':'),i=+q[0],d=+q[1];if(!x||!MYT2||i<1)return;myT2Stop();var T=MYT2.taps.slice().sort(function(a,b){return a.k-b.k}),me=T[i-1];if(!me)return;
   var lo=i>1?T[i-2].t+0.25:0.25,hi=i<T.length?T[i].t-0.25:(x.dur||1e6)-0.25,G=myGaps(x).filter(function(g){return g.e>lo&&g.e<hi}),nt=null;
   if(d<0){G.forEach(function(g){if(g.e<me.t-0.05)nt=g.e})}else{for(var j=0;j<G.length;j++)if(G[j].e>me.t+0.05){nt=G[j].e;break}}
-  if(nt==null)nt=Math.max(lo,Math.min(hi,me.t+d*0.25));me.t=Math.round(nt*100)/100;MYT2.taps=T;render();var P=myT2Parts(x,T);myT2Play(x,[P[i].c,P[i].e],'p'+i)},
+  if(nt==null)nt=Math.max(lo,Math.min(hi,me.t+d*0.25));me.t=Math.round(nt*100)/100;MYT2.taps=T;render();var P=myT2Parts(x,T);myT2Play(x,mySpanFix(x,[P[i].c,P[i].e]),'p'+i)},
  t2n:function(t,v){var x=myL(MYV.id);if(!x||!MYT2||MYT2.busy)return;myT2Stop();var n=Math.max(0,MYT2.taps.length+(+v));MYT2.taps=myAutoT2(x,n);MYT2.n=MYT2.taps.length;render()},
  t2skip:function(t,v){myT2Stop();MYT2=null;MYTAPNEW=0;MYMSG='Tap ▶ to play. To set the parts later: ⚙️ → Edit sloka → 👆 Set up the parts.';MYV={m:'play',id:v};render(1)},
  t2save:function(t,v){var x=myL(v);if(!x||!MYT2||MYT2.busy)return;myT2Stop();var W=myT2Words(x).map(function(w){return w.o}),T=MYT2.taps.slice().sort(function(p,q){return p.k-q.k}),L=[],st=0;
@@ -4003,7 +4010,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=322,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=323,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
