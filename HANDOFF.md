@@ -139,3 +139,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 314 (12 Nov 2026) — Dev only
 - Full chant reader: Opening line is now "Prayers before we begin" (no other deities named). Slimmer part header (title + "N / 7 · range" on one line), smaller Dhyānam picture (16:6). ⬇ PDF opens a compact two-button row (Whole chant · script / 108 verses only). Dashed line between verse and read-aloud lines, stronger line between verses.
 - Test looks (S.fcst, chips "Test · look" at the bottom): a Cards (default), b Book (centred, ॥ n ॥, ❁ between verses, read-aloud on a soft green panel), c Simple (saffron rule on the left, "Verse n" label).
+
+## Build 315 (12 Nov 2026) — Dev only
+- Full chant reader: each read-aloud word is underlined (fcLn: span.fw, marks like | ||1|| span.fwm not underlined), so you see which syllables are read as one word. Same underlines in all PDFs (rebuilt).
+- Look (Cards / Book / Simple, S.fcst) moved off the page into Language & display, next to the soft echo setting. Echo chip removed from the page (the echo setting still applies). The page now has only: parts row, part header, script switch, verses, Next.

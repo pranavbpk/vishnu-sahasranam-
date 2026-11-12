@@ -25,7 +25,7 @@ var TT={
 function esc(s){return String(s)}
 function teL(l){return toTe(l).replace(/౐/g,'ఓం')}
 /* one read-aloud line, echo on its last word (wordsHTML honours S.echo) */
-function dl(line){return '<div class="dl">'+wordsHTML(line,0,0)+'</div>'}
+function dl(line){return '<div class="dl">'+fcLn(line)+'</div>'}
 function vt(lines,cls){return '<div class="vt '+cls+'">'+lines.map(function(l){return '<div>'+ndn(l)+'</div>'}).join('')+'</div>'}
 function css(){return ''}
 function cover(t,sub,lang,list){var T=TT[lang]||TT.en;return '<section class="cover"><div class="om">ॐ</div><h1 class="'+(lang==='te'?'te':lang==='hi'?'sa':'')+'">'+t+'</h1><div class="sub">'+sub+'</div>'+(list?'<ol class="parts">'+list.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol>':'')+'<div class="draft">'+T.draft+'</div><div class="brand">Sahasranama Guru</div></section>'}

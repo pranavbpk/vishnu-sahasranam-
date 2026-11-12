@@ -59,7 +59,9 @@ h2{color:#7a1f1f;font-size:16pt;margin:0 0 8px;font-weight:600}
 .vt{font-size:13.5pt;line-height:1.55}.vt.te{font-size:12.5pt}.vt.enb{font-size:11.5pt}.vt.sm{font-size:10.5pt;color:#4a3420;margin-top:3px}
 .ra{margin-top:4px;color:#0f5c55;font-weight:600;font-size:10.5pt}
 .ra .lab{display:block;font-weight:400;font-size:8pt;color:#8a6a3a;letter-spacing:.04em;text-transform:uppercase}
-.ra .dl .wd{margin-right:.15em}
+.ra .dl{line-height:1.9}
+.ra .dl .fw{display:inline-block;border-bottom:1.3px solid rgba(15,92,85,.45);line-height:1.3;margin:0 .14em .12em 0;padding:0 1px}
+.ra .dl .fwm{color:#8a6a3a;font-weight:400}
 .te .dl,.ra .dl{font-family:Ui,Tel,Deva,sans-serif}
 .tip{margin-top:4px;font-size:9pt;color:#5a4630;background:#fbf4e4;border-radius:6px;padding:3px 7px}
 .rf .vt{color:#6b4a1a;font-size:12pt}
