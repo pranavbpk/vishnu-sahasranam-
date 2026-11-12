@@ -151,5 +151,5 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 317 (12 Nov 2026) — Dev only
 - How to read (rbBody) starts with rd4(): "Read in 4 steps" (RD4 en/te/hi drafts): underlined = one word (▶ audio/ex/dash), aa/ee/oo longer (▶ long), h at the end = soft echo (▶ h), | and ॥ pauses; then "▶ Hear it all together: verse 1" (audio/v001.m4a via rdplay '../v001') with verse 1's underlined read-aloud lines. Old tables, chanting rules and 8 rules fold under "More rules ›" (details.rd4m). The first-day card on Today (S.rdSeen) is now rd4(1) with Got it. The in-practice 🗣 sheet still uses rdTable.
 
-## Build 318 (12 Nov 2026) — Dev only
+## Build 318 (12 Nov 2026) — Dev + Test (builds 312–318 promoted to Test)
 - 🗣 How to say sheet in practice: "All reading rules" (and the sheet outside a verse) now show rd4More() = the 4 steps (without the verse 1 button, rd4(0,1)) + "More rules ›" with the old table. The verse's own tips stay on top.
