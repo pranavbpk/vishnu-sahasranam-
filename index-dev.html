@@ -1173,6 +1173,8 @@ html[data-ht="me"] .fth b{font-size:1.15rem}
 .t2-gp{font:inherit;font-size:.72rem;border:0;background:none;color:#c2a874;padding:6px 3px;margin:0 -2px;vertical-align:middle;cursor:pointer}
 .t2-jn{display:flex;align-items:center;gap:6px;margin:-2px auto;border:1px dashed #d4a23c;background:#fff8e6;color:#8a5a12;border-radius:14px;padding:4px 14px;font:inherit;font-size:.8rem;font-weight:700}
 .t2-k{color:#8a5a12}
+.mf-hl{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 4px}.mf-hl .chip,.mf-chk .chip{font-size:.84rem;padding:5px 10px;min-height:0;margin:0}.mf-hl>span{font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#8a6a2a;width:100%}
+.mf-chk{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;background:#eef7f1;border:1px solid #cfe6d6;color:#245c3a;border-radius:12px;padding:6px 10px;margin:4px 0 6px;font-size:.86rem}.mf-chk .chip{margin:0}.mf-chx{margin-left:auto;border:0;background:none;color:#5f7f6a;font-size:1rem}
 .mnp{display:flex;align-items:center;gap:12px;margin:8px 0 2px;background:#fffdf8;border:1px solid #ecdcb6;border-radius:14px;padding:10px 12px}
 .mnp-pp{width:48px;height:48px;border-radius:50%;border:0;background:var(--acc);color:#fff;font-size:1.25rem;flex:none}
 .mnp-m{flex:1;min-width:0}.mnp-m .mf-pb{margin:8px 0 6px;border-radius:3px}.mnp-m .mf-pb i{background:var(--acc)}
@@ -2675,17 +2677,44 @@ function myAlignL(x,W,B,G,mx){var V=x.vs||[],nB=B.length,nG=G.length;if(!nB||nG<
  var e=-1,ev=INF;for(j=nB-1;j<nG;j++){if(D[nB-1][j]>=INF)continue;var c2=D[nB-1][j]+seg(nB,j,nG);if(c2<ev){ev=c2;e=j}}if(e<0)return null;
  var out=new Array(nB);for(i=nB-1;i>=0;i--){out[i]=e;e=P[i][e]}return out}
 /* how many parts the app suggests by itself: one per clear breath */
-function myAutoN(x,W){var G=myGaps(x),mx=0;G.forEach(function(g){if(g.len>mx)mx=g.len});var n=G.filter(function(g){return g.len>=Math.max(0.3,mx*0.45)}).length;return Math.max(0,Math.min(n,W.length-1))}
+function myAutoN(x,W){var G=myGaps(x),t=myBreathThr(G);return Math.max(0,Math.min(G.filter(function(g){return g.len>=t}).length,W.length-1))}
+/* b322: what counts as a breath: split the pause lengths into short (inside a phrase) and long (a breath), on a log scale */
+function myBreathThr(G){var L=G.map(function(g){return g.len}).filter(function(l){return l>=0.12}).sort(function(a,b){return a-b}),mx=L.length?L[L.length-1]:0,fb=Math.max(0.3,mx*0.45);if(L.length<3)return fb;
+ var lg=L.map(Math.log),best=-1,bi=-1,n=lg.length,tot=lg.reduce(function(a,b){return a+b},0),acc=0;for(var i=0;i<n-1;i++){acc+=lg[i];if(lg[i+1]-lg[i]<1e-6)continue;var w0=(i+1)/n,m0=acc/(i+1),m1=(tot-acc)/(n-i-1),v=w0*(1-w0)*(m0-m1)*(m0-m1);if(v>best){best=v;bi=i}}
+ if(bi<0)return fb;var lo=L[bi],hi=L[bi+1],mlo=Math.exp(lg.slice(0,bi+1).reduce(function(a,b){return a+b},0)/(bi+1)),mhi=Math.exp(lg.slice(bi+1).reduce(function(a,b){return a+b},0)/(n-bi-1));if(mhi/mlo<1.8)return fb;return Math.max(0.3,Math.sqrt(lo*hi))}
+/* b322: breaths → word boundaries; checks each part's length in sound fits its syllables */
+function myAlignB(x,W,Gp,Am){var n=Gp.length,N=W.length;if(!n||N<2)return [];var V=x.vs||[],tv=0,ts=0;V.forEach(function(v){tv+=v[1]-v[0]});W.forEach(function(w){ts+=w.s});if(!tv||!ts)return null;
+ /* each breath is matched to a word start, or skipped (then no cut there); a typed line break is almost never skipped */
+ var cv=Gp.map(function(g){return g.u*tv}),sk=function(k){return k>=N?ts:W[k].f*ts},mx=0;Gp.forEach(function(g){if(g.len>mx)mx=g.len});
+ var seg=function(ta,tb,ka,kb){var d=tb-ta,e=(sk(kb)-sk(ka))*tv/ts,z=(d-e)/(0.3*e+0.6);return z*z};
+ var skip=function(j){return Am&&Am[Gp[j].gi]!=null?200:2+4*Math.min(1,Gp[j].len/mx)};
+ var C=Gp.map(function(g,j){var out=[];for(var k=1;k<N;k++){var w=W[k],am=Am&&Am[g.gi];if(w.p)continue;if(am!=null&&am!==k)continue;if(am==null&&Math.abs(g.u-w.f)>0.15)continue;var d=(g.u-w.f)/0.06;out.push([k,d*d-4*w.br-3*w.ls])}return out});
+ var E=[];/* E[j] = list of {k,c,pj,pk} */
+ var sumSkip=function(a,b){var t=0;for(var j=a;j<b;j++)t+=skip(j);return t};
+ for(var j=0;j<n;j++){E.push([]);C[j].forEach(function(ck){var k=ck[0],best=sumSkip(0,j)+seg(0,cv[j],0,k),bp=null;
+   for(var j2=0;j2<j;j2++)E[j2].forEach(function(st){if(st.k>=k)return;var c=st.c+sumSkip(j2+1,j)+seg(cv[j2],cv[j],st.k,k);if(c<best){best=c;bp=st}});
+   E[j].push({j:j,k:k,c:best+ck[1],bp:bp})})}
+ var fin=null,fc=sumSkip(0,n)+seg(0,tv,0,N);for(var j3=0;j3<n;j3++)E[j3].forEach(function(st){var c=st.c+sumSkip(j3+1,n)+seg(cv[j3],tv,st.k,N);if(c<fc){fc=c;fin=st}});
+ var out=new Array(n).fill(-1);for(var st=fin;st;st=st.bp)out[st.j]=st.k;return out}
 /* suggested part starts. n = number of cuts (null = by the lines if there are lines, else by the clear breaths) */
-function myAutoT2(x,n){var W=mySyW(x),G=myGaps(x),L=myLines(x.text).length,mx=0.01;G.forEach(function(g){if(g.len>mx)mx=g.len});if(!G.length||W.length<2)return [];
+/* b322: a short sound (under 1.5 s) after a long silence (2.5 s+) at the very start or end is not part of the chant (a bell, a click, a breath) */
+function myTrimVs(x){var V=x.vs||[];if(V.length<3)return x;var a=0,b=V.length,vt=function(i,j){var t=0;for(var k=i;k<j;k++)t+=V[k][1]-V[k][0];return t};
+ for(var i=1;i<V.length;i++){if(V[i][0]-V[i-1][1]>=2.5&&vt(0,i)<1.5){a=i;break}if(vt(0,i)>=1.5)break}
+ for(var j=V.length-1;j>a;j--){if(V[j][0]-V[j-1][1]>=2.5&&vt(j,V.length)<1.5){b=j;break}if(vt(j,V.length)>=1.5)break}
+ if(a===0&&b===V.length)return x;var y={};for(var q in x)y[q]=x[q];y.vs=V.slice(a,b);y.trimEnd=b<V.length?V[b-1][1]:null;return y}
+function myAutoT2(x,n){x=myTrimVs(x);var W=mySyW(x),G=myGaps(x),L=myLines(x.text).length,mx=0.01;G.forEach(function(g){if(g.len>mx)mx=g.len});if(!G.length||W.length<2)return [];
  var mk=function(k,g){return {k:k,t:g.e,c:myGapCut(g),a:1}};
- if(n==null&&L>=2){var B=[];W.forEach(function(w,k){if(w.ls)B.push(k)});
+ if(n===-1&&L>=2){var B=[];W.forEach(function(w,k){if(w.ls)B.push(k)});
   var al=myAlignL(x,W,B,G,mx);
   if(al)return B.map(function(k,i){return mk(k,G[al[i]])})}
- if(n==null)n=myAutoN(x,W);n=Math.max(0,Math.min(n,W.length-1,G.length));if(!n)return [];
- var pick=G.map(function(g,i){return i}).sort(function(a,b){return G[b].len-G[a].len}).slice(0,n).sort(function(a,b){return a-b}),Gp=pick.map(function(i){return G[i]});
- var al2=myAlign(Gp.length,W.length-1,function(i,j){var w=W[j+1],d=(Gp[i].u-w.f)/0.06;return w.p?1e9:d*d-4*w.br-1.5*w.ls});
- if(!al2)return [];return Gp.map(function(g,i){return mk(al2[i]+1,g)})}
+ var dflt=n==null||n===-1;if(dflt)n=myAutoN(x,W);n=Math.max(0,Math.min(n,W.length-1,G.length));
+ var Am=null;if(L>=2){var B2=[];W.forEach(function(w,k){if(w.ls)B2.push(k)});var la=myAlignL(x,W,B2,G,mx);if(la){Am={};la.forEach(function(gi,i){Am[gi]=B2[i]})}}
+ var pick=G.map(function(g,i){return i}).sort(function(a,b){return G[b].len-G[a].len}).slice(0,n);
+ /* by default every typed line break is a part start too */if(dflt&&Am)Object.keys(Am).forEach(function(gi){gi=+gi;if(pick.indexOf(gi)<0)pick.push(gi)});if(pick.length>W.length-1)pick=pick.slice(0,W.length-1);if(!pick.length)return [];
+ pick.sort(function(a,b){return a-b});var Gp=pick.map(function(i){return G[i]});
+ Gp.forEach(function(g,i){g.gi=pick[i]});
+ var al2=myAlignB(x,W,Gp,Am);
+ if(!al2)return [];var res=[];Gp.forEach(function(g,i){if(al2[i]>0)res.push(mk(al2[i],g))});return res}
 /* when each word is said: words of a part spread over the voice of that part, by syllable length */
 function myT2Times(x,W,taps){var V=x.vs||[],s0=V.length?V[0][0]:0,e0=V.length?V[V.length-1][1]:(x.dur||0),st=[{k:0,t:s0}].concat(taps.slice().sort(function(a,b){return a.k-b.k})),out=new Array(W.length);
  st.forEach(function(p,i){var k1=i+1<st.length?st[i+1].k:W.length,pe=i+1<st.length?st[i+1].t:e0,segs=myVIn(x,p.t,pe),tot=0,acc=0,k;for(k=p.k;k<k1;k++)tot+=W[k].s;
@@ -2698,6 +2727,11 @@ function myT2Init(x,keep){var W=mySyW(x),L=myLines(x.text);
  if(keep&&x.lt&&x.lt.length===L.length&&L.length>=2&&!x.auto){var T=[],k=0;L.forEach(function(l,i){if(i)T.push({k:k,t:x.lt[i]});k+=myWords(l).length});MYT2={taps:T,n:T.length,W:W};return}
  var A=myAutoT2(x,null);MYT2={taps:A,n:A.length,W:W,fresh:1}}
 function myT2Hl(k,p){document.querySelectorAll('.t2-wd.hl,.t2-pt.hl').forEach(function(e){e.classList.remove('hl')});if(k!=null){var e=document.querySelector('.t2-wd[data-v="'+k+'"]');if(e)e.classList.add('hl')}if(p!=null){var f=document.querySelector('.t2-pt[data-p="'+p+'"]');if(f)f.classList.add('hl')}}
+/* b322: save parts (first word k + voice start t of each part after the first): words become one line per part */
+function myApplyParts(x,taps){var W=myT2Words(x).map(function(w){return w.o}),T=taps.slice().sort(function(p,q){return p.k-q.k}),L=[],st=0;T.forEach(function(q){L.push(W.slice(st,q.k).join(' '));st=q.k});L.push(W.slice(st).join(' '));
+ var y=myTrimVs(x),v0=(y.vs&&y.vs.length)?Math.max(0,y.vs[0][0]-0.1):0;x.text=L.join('\n');x.lt=[v0].concat(T.map(function(q){return q.t}));x.tend=y.trimEnd?Math.min(x.dur||1e9,y.trimEnd+0.3):null;if(x.mode!=='whole')x.mode='line';x.cuts=myCutsFromLines(x);x.skip=[];x.soft=[];x.auto=0}
+/* b322: after Save, the app sets the parts by itself; the learner can start straight away */
+function myQuickParts(x0){var x;return oGet('slk',x0.id).then(function(r){x=myL(x0.id)||x0;if(r&&r!==x)Object.assign(x,r);if(x0!==x)Object.assign(x0,x);return x.vs?null:myAnalyse(x)}).then(function(){if(myWords(x.text).length>1&&x.vs&&x.vs.length>1){var T=myAutoT2(x,null);if(T.length){myApplyParts(x,T);x.chk=1}}if(x0!==x)Object.assign(x0,x);return oPut('slk',x)}).catch(function(){})}
 function myT2Stop(){var a=myAud();try{a.pause()}catch(e){}clearInterval(MYW);MYW=null;if(MYT2)MYT2.pl=null;myT2Hl()}
 /* play a span; while it plays light up the word being said */
 function myT2Play(x,sp,tag){if(!MYT2)return;var W=MYT2.W,TT=myT2Times(x,W,MYT2.taps),P=myT2Parts(x,MYT2.taps);MYT2.pl=tag;
@@ -2742,15 +2776,22 @@ function mypInfo(){try{if(MYP&&document.querySelector('.mfw-wrap')){mfTick(myL(M
 function mypLine(){if(!MYP)return 'Whole sloka · '+mypRep()+(mypRep()>1?' times':' time');var xe=MYP.e!=null?MYP.e:((myL(MYP.id)||{}).dur||0);return (MYP.lbl||'Whole sloka')+' · '+oT(MYP.s)+'–'+oT(xe)+' · '+(MYP.done?'done ✓':MYP.gap?'next round…':'round '+MYP.k+' of '+MYP.n)}
 function mypSet(a){a.playbackRate=mypSp();try{a.preservesPitch=true;a.webkitPreservesPitch=true}catch(e){}}
 function mypMeta(x){try{if('mediaSession' in navigator){navigator.mediaSession.metadata=new MediaMetadata({title:x.name,artist:'My slokas'});navigator.mediaSession.setActionHandler('play',function(){var a=myAud();a.play().catch(function(){});mypTick()});navigator.mediaSession.setActionHandler('pause',function(){myAud().pause()})}}catch(e){}}
-function mypTick(){clearInterval(MYW);var a=myAud();MYW=setInterval(function(){if(!MYP||!MYP.on){clearInterval(MYW);MYW=null;return}var ct=a.currentTime;(MYP.holes||[]).forEach(function(hh){if(ct>=hh[0]&&ct<hh[1]-0.05){try{a.currentTime=hh[1]}catch(e){}}});mypGlow(ct);mypInfo();if(MYP.gap)return;if(MYP.e!=null&&((!a.paused&&ct>=MYP.e-0.05)||(a.ended&&ct>MYP.s+0.8)))mypRound()},50)}
-function mypGo(){if(!MYP)return;var a=myAud(),x=myL(MYP.id);if(!x)return;MYP.gap=false;MYP.t0=Date.now();mypSet(a);var s0=MYP.st1!=null?MYP.st1:MYP.s;MYP.st1=null;try{a.currentTime=s0}catch(e){}a.play().catch(function(){});mypMeta(x);mypTick();render()}
-function mypRound(){if(!MYP||MYP.gap)return;var a=myAud();a.pause();var xr=myL(MYP.id);if(MYP.k<MYP.n){MYP.k++;if(document.hidden){mypGo();return}MYP.gap=true;clearTimeout(MYP.gt);MYP.gt=setTimeout(mypGo,1200);render()}else if(MYP.q&&MYP.qi<MYP.q.length-1){MYP.qi++;var nq=MYP.q[MYP.qi];MYP.s=nq[0];MYP.e=nq[1];MYP.k=1;MYP.lbl=MYP.qlbl+' · piece '+(MYP.qi+1)+' of '+MYP.q.length;if(document.hidden){mypGo();return}MYP.gap=true;clearTimeout(MYP.gt);MYP.gt=setTimeout(mypGo,1500);render()}else{if(xr){xr.plays=(xr.plays||0)+1;xr.lastp=tdy();oPut('slk',xr)}MYP.on=false;MYP.done=true;clearInterval(MYW);MYW=null;render()}}
+function mypTick(){clearInterval(MYW);var a=myAud();MYW=setInterval(function(){if(!MYP||!MYP.on){clearInterval(MYW);MYW=null;return}var ct=a.currentTime;/* b322: iPhone can ignore the jump back to the start of a round; keep jumping until it really plays there */if(!MYP.gap&&!MYP.ok){var el=Date.now()-(MYP.t0||0),eE=MYP.e!=null?MYP.e:1e9;if(ct>=MYP.s-0.3&&ct<eE-0.05&&!a.paused&&el>60)MYP.ok=true;else if(el<3000){if(el>250&&(ct<MYP.s-0.3||ct>=eE-0.05)){try{a.currentTime=MYP.s}catch(e){}}if(a.paused||a.ended)a.play().catch(function(){});mypInfo();return}else MYP.ok=true}(MYP.holes||[]).forEach(function(hh){if(ct>=hh[0]&&ct<hh[1]-0.05){try{a.currentTime=hh[1]}catch(e){}}});mypGlow(ct);mypInfo();if(MYP.gap)return;if(MYP.e!=null&&((!a.paused&&ct>=MYP.e-0.05)||(a.ended&&ct>MYP.s+0.8)))mypRound()},50)}
+function mypGo(){if(!MYP)return;var a=myAud(),x=myL(MYP.id);if(!x)return;MYP.gap=false;MYP.ok=false;MYP.t0=Date.now();mypSet(a);var s0=MYP.st1!=null?MYP.st1:MYP.s;MYP.st1=null;try{a.currentTime=s0}catch(e){}a.play().catch(function(){});mypMeta(x);mypTick();render()}
+function mypRound(){if(!MYP||MYP.gap)return;var a=myAud();a.pause();var xr=myL(MYP.id);if(MYP.k<MYP.n){MYP.k++;if(document.hidden){mypGo();return}MYP.gap=true;clearTimeout(MYP.gt);MYP.gt=setTimeout(mypGo,1200);render()}else if(MYP.q&&MYP.qi<MYP.q.length-1){MYP.qi++;var nq=MYP.q[MYP.qi];MYP.s=nq[0];MYP.e=nq[1];MYP.k=1;MYP.lbl=MYP.ql?MYP.ql[MYP.qi]:MYP.qlbl+' · piece '+(MYP.qi+1)+' of '+MYP.q.length;if(document.hidden){mypGo();return}MYP.gap=true;clearTimeout(MYP.gt);MYP.gt=setTimeout(mypGo,1500);render()}else{if(xr){xr.plays=(xr.plays||0)+1;xr.lastp=tdy();oPut('slk',xr)}MYP.on=false;MYP.done=true;clearInterval(MYW);MYW=null;render()}}
 function mypQ(x,span){var pc=myPcs(x),d=x.dur||0,s0=span?span[0]:-1,e0=span?span[1]:1e9;return pc.filter(function(p){var m=(p[0]+Math.min(p[1],d||p[1]))/2;return m>=s0&&m<e0}).map(function(p){return [p[0],Math.min(p[1],d||p[1])]})}
 /* start a round of plays from a tap (iPhone needs play() inside the tap) */
-function mypStart(id,span,lbl,bp){var a=myAud(),x=myL(id);if(!x)return;clearInterval(MYW);if(MYP)clearTimeout(MYP.gt);
+/* b322: line by line = for each line, its small pieces (cut at the tiny pauses inside it) and then the whole line; each one plays N times */
+function mypLineQ(x){var L=myLines(x.text),Q={q:[],ql:[],qli:[]},dE=x.dur?x.dur-0.12:1e9,G=myGaps(x);
+ for(var i=0;i<L.length;i++){var sp=mypLineSpan(x,i);if(!sp)continue;sp=mySpanFix(x,sp);sp=[sp[0],Math.min(sp[1],dE)];
+  var inn=G.filter(function(g){return g.s>sp[0]+0.5&&g.e<sp[1]-0.5&&g.len>=0.15}),cuts=[],prev=sp[0];inn.forEach(function(g){var c=myGapCut(g);if(c-prev>=0.8&&sp[1]-c>=0.8){cuts.push(c);prev=c}});
+  if(cuts.length&&cuts.length<=5){var pts=[sp[0]].concat(cuts,[sp[1]]);for(var k=0;k+1<pts.length;k++){Q.q.push([pts[k],pts[k+1]]);Q.ql.push('Line '+(i+1)+' · piece '+(k+1)+' of '+(pts.length-1));Q.qli.push(i)}Q.q.push(sp);Q.ql.push('Line '+(i+1)+' · whole line');Q.qli.push(i)}
+  else{Q.q.push(sp);Q.ql.push('Line '+(i+1));Q.qli.push(i)}}
+ return Q}
+function mypStart(id,span,lbl,bp,LQ){var a=myAud(),x=myL(id);if(!x)return;clearInterval(MYW);if(MYP)clearTimeout(MYP.gt);
  if(!MYPEV){MYPEV=true;a.addEventListener('ended',function(){if(!(MYP&&MYP.on&&MYP.e==null&&!MYP.gap))return;var d=a.duration||0;if(Date.now()-(MYP.t0||0)<1500||(d&&isFinite(d)&&a.currentTime<d-0.8)){a.play().catch(function(){});return}mypRound()})}
- if(span)span=mySpanFix(x,span);var rg=myRange(x);MYP={id:id,s:span?span[0]:rg.s,e:span?span[1]:(rg.end?null:rg.e),holes:span?[]:rg.holes,n:mypRep(),k:1,lbl:lbl||null,on:true,T:myTimeline(x),li:-2};
- MYP.span0=span||null;if(bp){var q=mypQ(x,span).map(function(p){return mySpanFix(x,p)});if(q.length>1){MYP.q=q;MYP.qi=0;MYP.qlbl=lbl||'Whole sloka';MYP.s=q[0][0];MYP.e=q[0][1];MYP.holes=[];MYP.lbl=MYP.qlbl+' · piece 1 of '+q.length}}
+ if(span)span=mySpanFix(x,span);var rg=myRange(x),dE=x.dur?x.dur-0.12:null,cap=function(e){return dE==null?e:e==null?dE:Math.min(e,dE)};MYP={id:id,s:span?span[0]:rg.s,e:cap(span?span[1]:(rg.end?null:rg.e)),holes:span?[]:rg.holes,n:mypRep(),k:1,lbl:lbl||null,on:true,T:myTimeline(x),li:-2};
+ MYP.span0=span||null;if(LQ&&LQ.q.length){MYP.q=LQ.q;MYP.ql=LQ.ql;MYP.qli=LQ.qli;MYP.qi=0;MYP.qlbl=lbl||'Line by line';MYP.s=LQ.q[0][0];MYP.e=LQ.q[0][1];MYP.holes=[];MYP.lbl=LQ.ql[0]}else if(bp){var q=mypQ(x,span).map(function(p){p=mySpanFix(x,p);return [p[0],cap(p[1])]});if(q.length>1){MYP.q=q;MYP.qi=0;MYP.qlbl=lbl||'Whole sloka';MYP.s=q[0][0];MYP.e=q[0][1];MYP.holes=[];MYP.lbl=MYP.qlbl+' · piece 1 of '+q.length}}
  if(a.dataset.id!==id){try{a.src=SWSIL;a.play().catch(function(){})}catch(e){}}
  myLoadAudio(id).then(function(){mypGo()}).catch(function(){OMSG='Audio for this sloka is missing.';MYP=null;render()});
  if(!x.vs)myAnalyse(x).then(function(){if(MYP&&MYP.id===id)MYP.T=myTimeline(x);render()})}
@@ -2760,12 +2801,12 @@ var MYPSH=false;
 function mypM(){return S.mypm==='l'||S.mypm==='o'?S.mypm:'w'}
 function mypLineSpan(x,li){var L=myLines(x.text),sp=myLineSpans(x,L.length);if(sp&&sp.lines[li])return [sp.lines[li][0],Math.min(sp.lines[li][1],x.dur||sp.lines[li][1])];var pc=myPcs(x);if(pc[li])return [pc[li][0],Math.min(pc[li][1],x.dur||pc[li][1])];return null}
 function mypNth(k){return k+(k%10===1&&k%100!==11?'st':k%10===2&&k%100!==12?'nd':k%10===3&&k%100!==13?'rd':'th')}
-function mypGoMode(x){var m=mypM();MYPAB=null;if(m==='l'){mypStart(x.id,null,'Whole sloka',true);return}if(m==='o'){var li=S.myline||0,sp=mypLineSpan(x,li);if(sp){mypStart(x.id,sp,'Line '+(li+1),false);return}}mypStart(x.id,null,null,false)}
+function mypGoMode(x){var m=mypM();MYPAB=null;if(m==='l'){mypStart(x.id,null,'Line by line',true,mypLineQ(x));return}if(m==='o'){var li=S.myline||0,sp=mypLineSpan(x,li);if(sp){mypStart(x.id,sp,'Line '+(li+1),false);return}}mypStart(x.id,null,null,false)}
 function mypSay(x){var n=mypRep(),m=mypM(),tm=n===1?'once':n+' times';
  if(!MYP||(!MYP.on&&!MYP.done))return m==='l'?'Line by line · each line '+tm:m==='o'?'Line '+((S.myline||0)+1)+' · '+tm:'Whole sloka · '+tm;
  if(MYP.done)return '✅ Done · tap ▶ to play again';
  var t=mypNth(MYP.k)+' time of '+MYP.n;
- if(MYP.q)return (MYP.gap&&MYP.k===1?'Next: ':'')+'Line '+(MYP.qi+1)+' of '+MYP.q.length+' · '+t;
+ if(MYP.ql)return (MYP.gap&&MYP.k===1?'Next: ':'')+MYP.ql[MYP.qi]+' · '+t;if(MYP.q)return (MYP.gap&&MYP.k===1?'Next: ':'')+'Line '+(MYP.qi+1)+' of '+MYP.q.length+' · '+t;
  return (MYP.lbl&&MYP.lbl!=='Whole sloka'?MYP.lbl:'Whole sloka')+' · '+(MYP.gap?'next: '+t:t)}
 function mypPct(ct){if(!MYP||!MYP.on)return MYP&&MYP.done?100:0;var x=myL(MYP.id)||{},e=MYP.e!=null?MYP.e:(x.dur||1),f=Math.max(0,Math.min(1,(ct-MYP.s)/Math.max(0.1,e-MYP.s)));if(MYP.q)return ((MYP.qi+((MYP.k-1)+f)/MYP.n)/MYP.q.length)*100;return (((MYP.k-1)+f)/MYP.n)*100}
 function mypBar(x){var a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused;return '<div class="mpbx"><button class="mpb-pp" data-act="mpgo" aria-label="Play or pause">'+(pl?'⏸':'▶')+'</button><div class="mpb-t"><b id="myp-r">'+oEsc(mypSay(x))+'</b><div class="mpb-pg"><i id="myp-pg" style="width:'+mypPct(a.currentTime||0)+'%"></i></div></div></div>'}
@@ -2788,10 +2829,10 @@ function myListHTML(){myStore();var h='<div class="msk-head"><b>Learn any sloka<
    +(op?'<div class="msl-m"><button data-act="mypr" data-v="'+x.id+'">🗣 Learn with guru</button><button data-act="myrev" data-v="'+x.id+'">✏️ Edit sloka</button><button data-act="mytap" data-v="'+x.id+'">⏱ Fix timing (tap along)</button><button data-act="mydup" data-v="'+x.id+'">📑 Duplicate</button><button data-act="myshare" data-v="'+x.id+'">📤 Share or save</button><button class="red" data-act="mydel" data-v="'+x.id+'">'+(MYDEL===x.id?'🗑 Tap again to delete':'🗑 Delete')+'</button></div>':'')+'</div>'}).join('');
  return h+(SLK.length?'<div class="mute" style="text-align:center;margin-top:8px">▶ plays it straight away · ⋯ has everything else</div>':'')+myKeepCard()+myShSheet()}
 /* ---- player ---- */
-function mypCurLi(){if(!MYP)return -1;if(MYP.q)return MYP.qi;if(MYP.lbl&&/^Line (\d+)/.test(MYP.lbl))return +RegExp.$1-1;return MYP.li>=0?MYP.li:-1}
+function mypCurLi(){if(!MYP)return -1;if(MYP.q)return MYP.qli?MYP.qli[MYP.qi]:MYP.qi;if(MYP.lbl&&/^Line (\d+)/.test(MYP.lbl))return +RegExp.$1-1;return MYP.li>=0?MYP.li:-1}
 function mypNow(x){var nL=myPcs(x).length,n=mypRep();if(!MYP||(!MYP.on&&!MYP.done))return mypM()==='l'?'LINE BY LINE · EACH LINE '+n+'×':mypM()==='o'?'LINE '+((S.myline||0)+1)+' · '+n+'×':'WHOLE SLOKA · '+n+'×';
  if(MYP.done)return '✅ DONE · TAP ▶ TO PLAY AGAIN';var t=mypNth(MYP.k).toUpperCase()+' TIME OF '+MYP.n;
- if(MYP.q)return (MYP.gap?'NEXT · ':'NOW · ')+'LINE '+(MYP.qi+1)+' OF '+MYP.q.length+' · '+t;
+ if(MYP.ql)return (MYP.gap?'NEXT · ':'NOW · ')+MYP.ql[MYP.qi].toUpperCase()+' · '+t;if(MYP.q)return (MYP.gap?'NEXT · ':'NOW · ')+'LINE '+(MYP.qi+1)+' OF '+MYP.q.length+' · '+t;
  if(MYP.lbl&&/^Line/.test(MYP.lbl))return (MYP.gap?'NEXT · ':'NOW · ')+MYP.lbl.toUpperCase()+' · '+t;
  var li=MYP.li>=0?MYP.li:0;return (MYP.gap?'NEXT · ':'NOW · ')+'WHOLE SLOKA · '+t+(MYP.li>=0?' · LINE '+(li+1)+' OF '+nL:'')}
 function mypBlocks(x){var n=myPcs(x).length;if(n<2)return '<div class="mpg2"><i id="myp-pg1" style="--f:'+mypPct(myAud().currentTime||0)+'%"></i></div>';var c=mypCurLi(),h='';for(var i=0;i<n;i++)h+='<i class="'+(i<c?'d':i===c?'c':'')+'"></i>';return '<div class="mpg2" id="myp-bl">'+h+'</div>'}
@@ -2807,21 +2848,24 @@ function mfCur(x){var c=mypCurLi();if(c>=0)return c;var a=myAud(),pcs=myPcs(x),t
 function mfW(o,dash){var a=(dash?o.d:o.w).map(function(z){return '<span class="mfw" data-g="'+z[1]+'">'+oEsc(z[0])+'</span>'});return a.join(' ').replace(/ (<span class="mfw" data-g="\d+">[|।॥]+<\/span>)/g,' $1')}
 function mfHL(){if(!MYP||!MYP.T)return;var ct=myAud().currentTime||0,cw=-1;for(var i=0;i<MYP.T.length;i++){if(ct>=MYP.T[i].t0&&ct<MYP.T[i].pe)cw=MYP.T[i].g}var wd=S.myword!==0;document.querySelectorAll('.mfw').forEach(function(e){var g=+e.dataset.g;e.className='mfw'+(wd&&cw>=0&&MYP.on&&!MYP.gap?(g<cw?' mk2':g===cw?' cur':''):'')})}
 function mfDots(n,c){if(n<2)return '';if(n>14)return '<span class="mf-dt">'+(c+1)+' / '+n+'</span>';var h='';for(var i=0;i<n;i++)h+='<i class="'+(i<c?'d':i===c?'c':'')+'" data-act="mfgo" data-v="'+i+'"></i>';return '<span class="mf-dots">'+h+'</span>'}
+function mypHd(c,n){var b='Line '+(c+1)+' of '+n;if(MYP&&MYP.ql&&(MYP.on||MYP.done)&&MYP.qli&&MYP.qli[MYP.qi]===c){var m=/ · (.*)$/.exec(MYP.ql[MYP.qi]);if(m)b+=' · '+m[1]}return b}
 function mfTimes(){if(!MYP||!MYP.on&&!MYP.done)return mypRep()+'×';return MYP.done?'done ✓':mypNth(MYP.k)+' of '+MYP.n}
 function mypPage(x){var v=mpView(),a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused,D=mfLines(x),n=Math.max(1,myPcs(x).length),c=Math.min(mfCur(x),Math.max(0,D.length-1)),nm={sa:'संस्कृत',te:'తెలుగు',en:'English',hi:'हिन्दी'}[rdL()];MYFV=c;
  var h='<div class="mf-tb"><button class="mtb-b" data-act="mylist" aria-label="Back">‹</button><b>'+oEsc(x.name)+'</b><button class="mf-gear" data-act="mpsh" aria-label="Settings">⚙️</button></div>'
-  +'<div class="mf-r2"><button class="mf-sc" data-act="mpsh">'+nm+' ▾</button>'+(v==='karaoke'?'<span class="mf-st">Line '+(c+1)+' of '+n+' · '+mfTimes()+'</span>':'')+'</div>'
+  +'<div class="mf-r2"><button class="mf-sc" data-act="mpsh">'+nm+' ▾</button>'+(v==='karaoke'?'<span class="mf-st">'+mypHd(c,n)+' · '+mfTimes()+'</span>':'')+'</div>'
+  +'<div class="mf-hl"><span>How to learn</span><button class="chip" data-act="mypr" data-v="'+x.id+'">🗣 Repeat after me</button>'+mypChips('mpmode',[['l','🪜 Line by line'],['w','🔁 Whole']],mypM()==='o'?'':mypM())+'</div>'
+  +(x.chk?'<div class="mf-chk">✅ Parts follow the pauses in the sound. <button class="chip" data-act="myt2" data-v="'+x.id+'">Check them ›</button><button class="mf-chx" data-act="mychk" data-v="'+x.id+'" aria-label="Hide">✕</button></div>':'')
   +'<div class="mf-vw"><span>Test · view</span>'+mypChips('mpv',[['focus','Focus'],['karaoke','Karaoke'],['mini','Minimal'],['full','Full']],v)+'</div>';
  if(!D.length)h+='<div class="card mute" style="text-align:center">No words yet. ⚙️ › Edit sloka › Words.</div>';
- else if(v==='focus'){h+='<div class="mf-card"><div class="mf-hd"><span>Line '+(c+1)+' of '+n+'</span><span>'+mfTimes()+'</span></div>'+mfDots(n,c)
+ else if(v==='focus'){h+='<div class="mf-card"><div class="mf-hd"><span>'+mypHd(c,n)+'</span><span>'+mfTimes()+'</span></div>'+mfDots(n,c)
   +(c>0?'<div class="mf-pv" data-act="mfgo" data-v="'+(c-1)+'"><small>Previous line</small><div class="mf-tx">'+mfW(D[c-1])+'</div></div>':'')
   +'<div class="mf-cu"><small>Current line</small><div class="mf-tx">'+mfW(D[c])+'</div><div class="mf-ds">'+mfW(D[c],1)+'</div></div>'
   +(c+1<D.length?'<div class="mf-nx" data-act="mfgo" data-v="'+(c+1)+'"><small>Next line</small><div class="mf-tx">'+mfW(D[c+1])+'</div></div>':'')+'</div>'}
- else if(v==='mini'){h+='<div class="mf-card mf-m"><div class="mf-hd"><span>Line '+(c+1)+' of '+n+'</span>'+mfDots(n,c)+'<span>'+mfTimes()+'</span></div><div class="mf-cu"><div class="mf-tx">'+mfW(D[c])+'</div><div class="mf-ds">'+mfW(D[c],1)+'</div></div>'+(c+1<D.length?'<div class="mf-nx" data-act="mfgo" data-v="'+(c+1)+'"><small>Next</small><div class="mf-tx">'+mfW(D[c+1])+'</div></div>':'')+'</div>'}
+ else if(v==='mini'){h+='<div class="mf-card mf-m"><div class="mf-hd"><span>'+mypHd(c,n)+'</span>'+mfDots(n,c)+'<span>'+mfTimes()+'</span></div><div class="mf-cu"><div class="mf-tx">'+mfW(D[c])+'</div><div class="mf-ds">'+mfW(D[c],1)+'</div></div>'+(c+1<D.length?'<div class="mf-nx" data-act="mfgo" data-v="'+(c+1)+'"><small>Next</small><div class="mf-tx">'+mfW(D[c+1])+'</div></div>':'')+'</div>'}
  else if(v==='karaoke'){h+='<div class="mf-card mf-k">'+D.map(function(o,i){return '<div class="mf-kl'+(i===c?' on':i<c?' past':'')+'" data-act="mfgo" data-v="'+i+'"><div class="mf-tx">'+mfW(o)+'</div>'+(i===c?'<div class="mf-ds">'+mfW(o,1)+'</div>':'')+'</div>'}).join('')+'</div>'}
  else{return mypPage270(x)}
  var dock;
- if(v==='mini'&&!MYMINI)dock='<div class="mf-pill"><button class="mf-pi" data-act="mpsh">☰</button><div class="mf-pt"><b>Line '+(c+1)+' of '+n+' · '+mfTimes()+'</b><div class="mf-pb" data-seek="my"><i id="mf-pg" style="width:'+mfPos(x)+'%"></i></div></div><span class="mf-tm" id="mf-tm">'+oT(a.currentTime||0)+' / '+oT(x.dur||0)+'</span><button class="mf-pp" data-act="mpgo">'+(pl?'⏸':'▶')+'</button><button class="mf-up" data-act="mfmini">⌃</button></div>';
+ if(v==='mini'&&!MYMINI)dock='<div class="mf-pill"><button class="mf-pi" data-act="mpsh">☰</button><div class="mf-pt"><b>'+mypHd(c,n)+' · '+mfTimes()+'</b><div class="mf-pb" data-seek="my"><i id="mf-pg" style="width:'+mfPos(x)+'%"></i></div></div><span class="mf-tm" id="mf-tm">'+oT(a.currentTime||0)+' / '+oT(x.dur||0)+'</span><button class="mf-pp" data-act="mpgo">'+(pl?'⏸':'▶')+'</button><button class="mf-up" data-act="mfmini">⌃</button></div>';
  else dock='<div class="mf-dock">'+(v==='mini'?'<button class="mf-dn" data-act="mfmini">⌄</button>':'')+'<div class="mf-pb" data-seek="my"><i id="mf-pg" style="width:'+mfPos(x)+'%"></i></div><div class="mf-tms"><span id="mf-tm">'+oT(a.currentTime||0)+'</span><span>'+oT(x.dur||0)+'</span></div>'
   +'<div class="mf-btn"><button data-act="mpskip" data-v="-1"><span>⏮</span>Previous</button><button class="p" data-act="mpgo"><span>'+(pl?'⏸':'▶')+'</span>'+(pl?'Pause':'Play')+'</button><button data-act="mpskip" data-v="1"><span>⏭</span>Next</button><button data-act="mpsh"><span>'+mypRep()+'×</span>Repeat</button></div></div>';
  return '<div class="mfw-wrap mf-'+v+'">'+h+'</div>'+dock+mypSheet2(x)}
@@ -3071,7 +3115,7 @@ var OWNA={
  taptend:function(){var a=myAud();if(a.paused)return;MYTAPE=Math.round((a.currentTime+0.2)*100)/100;render()},
  taptap:function(){var a=myAud(),x=myL(MYV.id);if(!x||a.paused)return;MYTAP=(MYTAP||[]).concat([mySnap(x,a.currentTime)]);render()},
  mysnd:function(){if(MYREC)return;MYV.snd=!MYV.snd;MYNEW=null;render()},
- myrepl:function(){var x=myL(MYV.id);if(!x||!MYNEW)return;var b=MYNEW.b,d=MYNEW.d;mySaveSound(x.id,b).then(function(){x.dur=d||0;x.cuts=[];x.lt=null;x.tend=null;x.soft=[];x.skip=[];x.vs=null;x.auto=1;return oPut('slk',x)}).then(function(){MYNEW=null;MYV.snd=false;var a=myAud();try{a.pause();a.dataset.id=''}catch(e){}return myMakePieces(x.id)}).then(function(){if(myWords(x.text).length>1){MYTAPNEW=1;OWNA.myt2(null,x.id)}else{MYMSG='✅ New sound saved.';MYV={m:'play',id:x.id};render(1)}}).catch(function(e){MYMSG='Could not save the new sound ('+(e&&e.name||e)+').';render()})},
+ myrepl:function(){var x=myL(MYV.id);if(!x||!MYNEW)return;var b=MYNEW.b,d=MYNEW.d;mySaveSound(x.id,b).then(function(){x.dur=d||0;x.cuts=[];x.lt=null;x.tend=null;x.soft=[];x.skip=[];x.vs=null;x.auto=1;return oPut('slk',x)}).then(function(){MYNEW=null;MYV.snd=false;var a=myAud();try{a.pause();a.dataset.id=''}catch(e){}return myMakePieces(x.id)}).then(function(){if(myWords(x.text).length>1){myQuickParts(x).then(function(){MYMSG='✅ New sound saved. Ready to practise.';MYV={m:'play',id:x.id};render(1)})}else{MYMSG='✅ New sound saved.';MYV={m:'play',id:x.id};render(1)}}).catch(function(e){MYMSG='Could not save the new sound ('+(e&&e.name||e)+').';render()})},
  myt2:function(t,v){prClear();var x=myL(v),a=myAud();if(!x)return;try{a.pause()}catch(e){}clearInterval(MYW);MYT2={taps:[],busy:1,W:mySyW(x)};MYV={m:'tap2',id:v};render(1);
   Promise.all([myLoadAudio(v),x.vs?null:myAnalyse(x)]).then(function(){try{a=myAud();a.currentTime=0}catch(e){}if(MYV.m==='tap2'&&MYV.id===v){myT2Init(x,1);render()}}).catch(function(){if(MYT2){MYT2.busy=0;render()}})},
  t2all:function(){var x=myL(MYV.id);if(!x||!MYT2||MYT2.busy)return;if(MYT2.pl==='all'){myT2Stop();render();return}myT2Play(x,[0,x.dur||1e6],'all');var b=document.getElementById('t2-pa');if(b)b.textContent='⏸ Stop'},
@@ -3090,7 +3134,7 @@ var OWNA={
  t2skip:function(t,v){myT2Stop();MYT2=null;MYTAPNEW=0;MYMSG='Tap ▶ to play. To set the parts later: ⚙️ → Edit sloka → 👆 Set up the parts.';MYV={m:'play',id:v};render(1)},
  t2save:function(t,v){var x=myL(v);if(!x||!MYT2||MYT2.busy)return;myT2Stop();var W=myT2Words(x).map(function(w){return w.o}),T=MYT2.taps.slice().sort(function(p,q){return p.k-q.k}),L=[],st=0;
   T.forEach(function(q){L.push(W.slice(st,q.k).join(' '));st=q.k});L.push(W.slice(st).join(' '));
-  var fin=function(){var v0=(x.vs&&x.vs.length)?Math.max(0,x.vs[0][0]-0.1):0;x.text=L.join('\n');x.lt=[v0].concat(T.map(function(q){return q.t}));x.tend=null;if(x.mode!=='whole')x.mode='line';x.cuts=myCutsFromLines(x);x.skip=[];x.soft=[];x.auto=0;MYT2=null;MYTAPNEW=0;OMSG='';MYMSG='✅ '+L.length+' parts saved. Learn with guru now goes part by part.';oPut('slk',x).then(function(){MYV={m:'play',id:x.id};render(1)})};
+  var fin=function(){myApplyParts(x,T);x.chk=0;MYT2=null;MYTAPNEW=0;OMSG='';MYMSG='✅ '+L.length+' parts saved. Learn with guru now goes part by part.';oPut('slk',x).then(function(){MYV={m:'play',id:x.id};render(1)})};
   if(x.vs)fin();else myAnalyse(x).then(fin)},
  tapskip:function(t,v){var a=myAud();try{a.pause()}catch(e){}clearInterval(MYW);MYTAPNEW=0;MYMSG='Tap ▶ to play. Words not in time? ⚙️ → Edit sloka → 👆 Tap along.';MYV={m:'play',id:v};render(1)},
  tapundo:function(){if(MYTAP&&MYTAP.length){MYTAP.pop();render()}},
@@ -3123,15 +3167,16 @@ var OWNA={
  mylines:function(){var a=myAud();try{a.pause()}catch(e){}MYPC=null;MYLM=null;MYV.lines=!MYV.lines;render(1);scrollTo(0,0)},
  mynud:function(t,v){var x=myL(MYV.id);if(!x)return;var a=v.split(':'),i=+a[0],d=+a[1],c=(x.cuts||[]).slice();if(i<1||i>c.length)return;var lo=(i>=2?c[i-2]:0)+0.3,hi=(i<c.length?c[i]:(x.dur||1e6))-0.3,nv=Math.round(Math.min(hi,Math.max(lo,c[i-1]+d))*10)/10;var old=c[i-1];c[i-1]=nv;x.cuts=c;if(mySoft(x,old))x.soft=(x.soft||[]).map(function(v){return Math.abs(v-old)<0.06?nv:v});x.auto=0;if(x.lt&&x.lt.length){var k=-1,best=9;x.lt.forEach(function(t2,j){if(Math.abs(t2-old)<best){best=Math.abs(t2-old);k=j}});if(k>=0&&best<1.2)x.lt[k]=nv}oPut('slk',x);MYPC=i;myPlaySpan(myPieces(x)[i],function(){MYPC=null;render()});render()},
  mylm:function(t,v){MYLM=MYLM===+v?null:+v;render()},
- mpskip:function(t,v){var x=myL(MYV.id);if(!x)return;var d=+v,pcs=myPcs(x),a=myAud();if(MYP&&MYP.q){var qi=Math.max(0,Math.min(MYP.q.length-1,MYP.qi+d));clearTimeout(MYP.gt);MYP.qi=qi;MYP.s=MYP.q[qi][0];MYP.e=MYP.q[qi][1];MYP.k=1;MYP.on=true;MYP.done=false;MYP.lbl=MYP.qlbl+' · piece '+(qi+1)+' of '+MYP.q.length;mypGo();return}var li=mypCurLi();if(li<0){li=0;for(var i=0;i<pcs.length;i++)if((a.currentTime||0)>=pcs[i][0]-0.05)li=i}var n=Math.max(0,Math.min(pcs.length-1,li+d));if(MYP&&MYP.lbl&&/^Line/.test(MYP.lbl)){var sp=mypLineSpan(x,n);if(sp){S.myline=n;sv();mypStop();mypStart(x.id,sp,'Line '+(n+1),false)}return}if(MYP&&MYP.on){try{a.currentTime=pcs[n][0]}catch(e){}if(a.paused){mypSet(a);a.play().catch(function(){});mypTick()}render()}else{var sp2=mypLineSpan(x,n);if(sp2){mypStart(x.id,[sp2[0],MYP&&MYP.e!=null?MYP.e:(x.dur||sp2[1])],null,false)}}},
+ mpskip:function(t,v){var x=myL(MYV.id);if(!x)return;var d=+v,pcs=myPcs(x),a=myAud();if(MYP&&MYP.qli){var cl=MYP.qli[MYP.qi],tl=Math.max(0,Math.min(MYP.qli[MYP.qli.length-1],cl+d)),ti=MYP.qli.indexOf(tl);if(ti<0)return;clearTimeout(MYP.gt);MYP.qi=ti;MYP.s=MYP.q[ti][0];MYP.e=MYP.q[ti][1];MYP.k=1;MYP.on=true;MYP.done=false;MYP.lbl=MYP.ql[ti];mypGo();return}if(MYP&&MYP.q){var qi=Math.max(0,Math.min(MYP.q.length-1,MYP.qi+d));clearTimeout(MYP.gt);MYP.qi=qi;MYP.s=MYP.q[qi][0];MYP.e=MYP.q[qi][1];MYP.k=1;MYP.on=true;MYP.done=false;MYP.lbl=MYP.qlbl+' · piece '+(qi+1)+' of '+MYP.q.length;mypGo();return}var li=mypCurLi();if(li<0){li=0;for(var i=0;i<pcs.length;i++)if((a.currentTime||0)>=pcs[i][0]-0.05)li=i}var n=Math.max(0,Math.min(pcs.length-1,li+d));if(MYP&&MYP.lbl&&/^Line/.test(MYP.lbl)){var sp=mypLineSpan(x,n);if(sp){S.myline=n;sv();mypStop();mypStart(x.id,sp,'Line '+(n+1),false)}return}if(MYP&&MYP.on){try{a.currentTime=pcs[n][0]}catch(e){}if(a.paused){mypSet(a);a.play().catch(function(){});mypTick()}render()}else{var sp2=mypLineSpan(x,n);if(sp2){mypStart(x.id,[sp2[0],MYP&&MYP.e!=null?MYP.e:(x.dur||sp2[1])],null,false)}}},
  mppp:function(){var a=myAud();if(MYP&&MYP.on&&!MYP.gap&&!a.paused){a.pause();render();return}if(MYP&&MYP.on&&MYP.gap){clearTimeout(MYP.gt);mypGo();return}if(MYP&&MYP.on){mypSet(a);a.play().catch(function(){});mypTick();render();return}var o=MYP;if(o&&o.q){mypStart(MYV.id,o.span0||null,o.qlbl==='Whole sloka'?null:o.qlbl,!!S.mypbp);return}mypStart(MYV.id,o&&o.lbl&&o.e!=null?[o.s,o.e]:null,o&&o.e!=null?o.lbl:null,!!S.mypbp&&!(o&&o.lbl&&/^(Line|Your bit)/.test(o.lbl)))},
  mprep:function(t,v){S.myrep=+v;sv();if(MYP){MYP.n=Math.max(+v,MYP.on?MYP.k:1);if(MYP.done){MYP.done=false}}render()},
  mpgo:function(){var a=myAud(),x=myL(MYV.id);if(!x)return;if(MYP&&MYP.on&&!MYP.gap&&!a.paused){a.pause();render();return}if(MYP&&MYP.on&&MYP.gap){clearTimeout(MYP.gt);mypGo();return}if(MYP&&MYP.on){mypSet(a);a.play().catch(function(){});mypTick();render();return}mypGoMode(x)},
+ mychk:function(t,v){var x=myL(v);if(!x)return;x.chk=0;oPut('slk',x);render()},
  mpmode:function(t,v){var x=myL(MYV.id);S.mypm=v;sv();var a=myAud();if(MYP&&MYP.on){mypStop();a.pause();if(x)mypGoMode(x);return}render()},
  mpln:function(t){var x=myL(MYV.id);if(!x)return;var li=+t.dataset.l;S.myline=li;if((S.mypsty||'B')==='A')S.mypm='o';sv();var sp=mypLineSpan(x,li);if(!sp)return;mypStop();mypStart(x.id,sp,'Line '+(li+1),false)},
  mpv:function(t,v){S.mpv=v;sv();MYMINI=false;MYPSH=false;render(1)},
  mfmini:function(){MYMINI=!MYMINI;render()},
- mfgo:function(t,v){var x=myL(MYV.id);if(!x)return;var i=+v,pcs=myPcs(x);S.myline=i;sv();if(MYP&&MYP.q){clearTimeout(MYP.gt);MYP.qi=i;MYP.s=MYP.q[i][0];MYP.e=MYP.q[i][1];MYP.k=1;MYP.on=true;MYP.done=false;mypGo();return}var sp=mypLineSpan(x,i)||pcs[i];if(!sp)return;mypStop();mypStart(x.id,[sp[0],Math.min(sp[1],x.dur||sp[1])],'Line '+(i+1),false)},
+ mfgo:function(t,v){var x=myL(MYV.id);if(!x)return;var i=+v,pcs=myPcs(x);S.myline=i;sv();if(MYP&&MYP.qli){var ti=MYP.qli.indexOf(i);if(ti<0)return;clearTimeout(MYP.gt);MYP.qi=ti;MYP.s=MYP.q[ti][0];MYP.e=MYP.q[ti][1];MYP.k=1;MYP.on=true;MYP.done=false;MYP.lbl=MYP.ql[ti];mypGo();return}if(MYP&&MYP.q){clearTimeout(MYP.gt);MYP.qi=i;MYP.s=MYP.q[i][0];MYP.e=MYP.q[i][1];MYP.k=1;MYP.on=true;MYP.done=false;mypGo();return}var sp=mypLineSpan(x,i)||pcs[i];if(!sp)return;mypStop();mypStart(x.id,[sp[0],Math.min(sp[1],x.dur||sp[1])],'Line '+(i+1),false)},
  mpsh:function(){MYPSH=!MYPSH;render()},
  mpsty:function(t,v){S.mypsty=v;sv();MYPSH=false;render(1)},
  mpbp:function(t,v){S.mypbp=v==='1'?1:0;sv();render()},
@@ -3150,7 +3195,7 @@ var OWNA={
  mynewclr:function(){myKeep();myNewStop();MYNEW=null;render()},
  myocrl:function(t,v){myKeep();S.ocrl=v;sv();render()},
  mysave:function(){myKeep();if(!MYNEW)return;var id='s'+Date.now(),x={id:id,name:(MYV.nm||'').trim()||('My sloka '+(SLK.length+1)),text:(MYV.tx||'').trim(),cuts:[],mode:MYV.mode||'line',added:Date.now(),dur:MYNEW.d||0,prac:[]};
-  mySaveSound(id,MYNEW.b).then(function(){return oPut('slk',x)}).then(function(){SLK.unshift(x);MYNEW=null;MYMSG='✅ Saved. Tap ▶ to play. Lines or words not right? Use ⚙️ Adjust at the bottom.';MYV={m:'play',id:id};render(1);myLoadAudio(id);return myMakePieces(id).then(function(){if(MYV.m==='play'&&MYV.id===id&&!/Couldn/.test(MYMSG))MYMSG='✅ Saved. Tap ▶ to play. Lines or words not right? Use ⚙️ Adjust at the bottom.';if(MYV.m==='play'&&MYV.id===id&&myWords(x.text).length>1){MYTAPNEW=1;OWNA.myt2(null,id)}render()})}).catch(function(e){OMSG=(e&&e.name==='QuotaExceededError')?'Phone storage is full, so the sound could not be saved. Free some space and try again.':'Could not save ('+(e&&e.name||e)+'). Tap ✂ Make the pieces again; if it keeps failing, close the app fully and reopen it.';render()})},
+  mySaveSound(id,MYNEW.b).then(function(){return oPut('slk',x)}).then(function(){SLK.unshift(x);MYNEW=null;MYMSG='✅ Saved. Tap ▶ to play. Lines or words not right? Use ⚙️ Adjust at the bottom.';MYV={m:'play',id:id};render(1);myLoadAudio(id);return myMakePieces(id).then(function(){if(MYV.m==='play'&&MYV.id===id&&!/Couldn/.test(MYMSG))MYMSG='✅ Saved. Tap ▶ to play. Lines or words not right? Use ⚙️ Adjust at the bottom.';if(MYV.m==='play'&&MYV.id===id&&myWords(x.text).length>1){myQuickParts(x).then(function(){if(MYV.m==='play'&&MYV.id===id){MYMSG='✅ Saved. Ready to practise: pick How to learn, then ▶.';render(1)}});return}render()})}).catch(function(e){OMSG=(e&&e.name==='QuotaExceededError')?'Phone storage is full, so the sound could not be saved. Free some space and try again.':'Could not save ('+(e&&e.name||e)+'). Tap ✂ Make the pieces again; if it keeps failing, close the app fully and reopen it.';render()})},
  mymark:function(t,v){MYV={m:'mark',id:v};myLoadAudio(v).then(function(){render(1)})},
  mkplay:function(){var a=myAud();if(a.paused){a.play().catch(function(){});clearInterval(MYW);MYW=setInterval(function(){var e=document.getElementById('ow-mt');if(e)e.textContent=oT(a.currentTime);if(a.paused){clearInterval(MYW);render()}},250)}else a.pause();render()},
  mkback:function(){var a=myAud();a.currentTime=Math.max(0,a.currentTime-5)},
@@ -3958,7 +4003,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=321,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=322,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
