@@ -582,6 +582,20 @@ html.fs1 .scr,html.fs2 .scr{flex-wrap:wrap}html.fs1 .rpctl .chip,html.fs2 .rpctl
 .fc2d .fw{display:inline-block;border-bottom:2px solid rgba(15,92,85,.38);padding:0 1px;line-height:1.35;margin:0 .12em .18em 0}
 .fc2d .fwm{color:#8a6a3a;font-weight:400}
 .fcs-b .fc2d .fw{margin:0 .1em .18em}
+.rd4{background:#fffdf6;border:1px solid #ecdcb6;border-radius:18px;padding:14px 14px 12px;margin:4px 0 12px}
+.rd4c{border-top:5px solid #7a1f1f}
+.rd4h{font-weight:800;color:#7a1f1f;font-size:1.12rem}.rd4s{color:#6b4a1a;font-size:.86rem;margin:2px 0 6px}
+.rd4r{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid #f0e2c4}
+.rd4r>i{flex:0 0 26px;height:26px;border-radius:50%;background:#7a1f1f;color:#fff;font-style:normal;font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.rd4b{flex:1;min-width:0}.rd4b>b{display:block;color:#2b1a0c;font-size:1rem}.rd4b>small{display:block;color:#6b4a1a;font-size:.84rem;line-height:1.4;margin-top:1px}
+.rd4e{margin-top:5px;color:#0f5c55;font-weight:700;font-size:1rem}.rd4e u{text-decoration-color:#a8431a;text-decoration-thickness:2px}
+.rd4u{display:block;border:0;padding:0;margin:0}
+.rd4p{flex:0 0 40px;height:40px;border-radius:50%;border:0;background:#0f5c55;color:#fff;font-size:.95rem;margin-top:2px}.rd4p0{flex:0 0 40px}
+.rd4v{border-top:1px solid #f0e2c4;padding-top:10px;margin-top:2px}
+.rd4all{width:100%;border:1.5px solid #0f5c55;background:#f2f8f6;color:#0f5c55;border-radius:14px;padding:10px;font:inherit;font-weight:700;margin-bottom:6px}
+.rd4v .fc2d{border:0;margin-top:0!important;padding-top:0}
+.rd4m{margin:4px 0 8px}.rd4m>summary{cursor:pointer;font-weight:700;color:#7a1f1f;padding:10px 12px;border:1px solid #ecdcb6;border-radius:14px;background:#fff;list-style:none}
+.rd4m[open]>summary{margin-bottom:10px}
 .ftc{min-width:0}.ftc .prb .nw{white-space:normal!important}
 .pdfl b{display:block;color:var(--acc);font-size:.98rem}.pdfl small{color:#6b4a1a;font-size:.82rem}
 
@@ -2126,8 +2140,17 @@ function echCard(){var e=ECH[S.lang]||ECH.en;return '<div class="echc"><b>'+e.h+
 function rdTable(card){var d=RD[S.lang]||RD.en,sc=S.lang==='te'?'te':S.lang==='hi'?'sa':'';return '<div class="rdc'+(card?' rdcard':'')+'"><div class="rdh">'+d.h+'</div><div class="rds">'+d.s+'</div><table class="rdt"><tr><th>'+d.c[0]+'</th><th>'+d.c[1]+'</th></tr>'+(function(){var f=function(r){return '<tr><td class="rde '+sc+'">'+(r[3]?'<button class="rdpl" data-act="rdplay" data-v="'+r[3]+'" aria-label="Hear it">\u25b6</button>':'<span class="rdpl" style="visibility:hidden"></span>')+r[0]+'</td><td class="rdx">'+r[1]+(r[2]?'<i>'+r[2]+'</i>':'')+'</td></tr>'};return d.rows.map(f).join('')+(d.vrows?'<tr><th colspan="2" class="rdsec">'+d.vh+'</th></tr>'+d.vrows.map(f).join(''):'')})()+'</table>'+echCard()+'<div class="rdr"><b>'+d.r+'</b>'+d.rem+'</div>'+(card?'<button class="btn rdok" data-act="rdok">'+d.ok+'</button>':'')+'</div>'}
 function crTable(){var l=S.lang||'en',sc=l==='te'?'te':'sa';return '<div class="crt"><div class="crh">\ud83d\udcdc '+CR.h[l]+'</div><div class="crtip">'+CR.tip[l]+'</div>'+CR.r.map(function(r,i){return '<div class="crr"><div class="crn">'+(i+1)+'</div><div class="crb"><div class="crg"><div><small>'+CR.c[l][0]+'</small><b>'+r.see[l]+'</b></div><div><small>'+CR.c[l][1]+'</small><b>'+r.say[l]+'</b></div></div><div class="cre"><span class="'+sc+'">'+r.ex[sc]+'</span> \u2192 <span class="crp">'+r.ex.pr+'</span></div></div></div>'}).join('')+'</div><div class="crm">'+CR.more[l]+'</div>'}
 function crVerse(n){var p=CR.pv[n];if(!p)return '';var l=S.lang||'en',o='';['j','a','f'].forEach(function(k){if(p[k])o+='<div class="crv">'+CR.vl[k][l]+' <b>'+p[k]+'</b></div>'});return '<div class="crvw">'+o+'<button class="lnkb" data-act="rbopen" style="padding:4px 0">'+CR.vl.see[l]+'</button></div>'}
+/* b317: How to read in 4 steps, each with the owner's own audio example; the old tables fold under More rules */
+var RD4={en:{h:'📖 Read in 4 steps',s:'Tap ▶ to hear each one.',st:[['Underlined = one word','Say each underlined word in one smooth go. The dashes only show the beats.','U','dash'],['aa, ee, oo = hold it longer','Long letters, long sound.','R<b>aa</b>-mo','long'],['h at the end = soft echo','At the end of a line: a soft puff with the same vowel. The small raised letters show it.','Ga-ti<u>h</u> → Ga-ti<sup class="ech">hi</sup>','h'],['| short breath · ॥ longer pause','Don’t stop inside a line. Follow the guru’s speed.','… <b>|</b> … <b>॥</b>','']],all:'Hear it all together: verse 1',more:'More rules',ok:'Got it 🙏'},
+ te:{h:'📖 4 అడుగుల్లో చదవండి',s:'ప్రతిదాన్ని వినడానికి ▶ నొక్కండి.',st:[['అడుగున గీత = ఒకే పదం','గీత ఉన్న ప్రతి పదాన్ని ఆగకుండా ఒకేసారి పలకండి. డాష్‌లు భాగాలను మాత్రమే చూపిస్తాయి.','U','dash'],['ఆ, ఈ, ఊ = ఎక్కువసేపు','దీర్ఘ అక్షరం, దీర్ఘ ధ్వని.','రా-మో','long'],['చివర ః = మృదువైన ప్రతిధ్వని','పంక్తి చివర అదే అచ్చుతో మెల్లని శ్వాస. చిన్న పై అక్షరాలు దాన్ని చూపిస్తాయి.','గ-తిః → గ-తి<sup class="ech">హి</sup>','h'],['| చిన్న శ్వాస · ॥ ఎక్కువ విరామం','పంక్తి మధ్యలో ఆగవద్దు. గురువుగారి వేగాన్ని అనుసరించండి.','… <b>|</b> … <b>॥</b>','']],all:'అన్నీ కలిపి వినండి: శ్లోకం 1',more:'మరిన్ని నియమాలు',ok:'అర్థమైంది 🙏'},
+ hi:{h:'📖 4 कदमों में पढ़ें',s:'हर एक सुनने के लिए ▶ दबाएँ।',st:[['रेखांकित = एक शब्द','हर रेखांकित शब्द को बिना रुके एक बार में बोलें। डैश सिर्फ़ हिस्से दिखाते हैं।','U','dash'],['आ, ई, ऊ = ज़्यादा देर','लंबा अक्षर, लंबी आवाज़।','रा-मो','long'],['अंत में ः = हल्की गूँज','पंक्ति के अंत में वही स्वर हल्की साँस के साथ। छोटे ऊपर के अक्षर यही दिखाते हैं।','ग-तिः → ग-ति<sup class="ech">हि</sup>','h'],['| छोटी साँस · ॥ लंबा विराम','पंक्ति के बीच न रुकें। गुरुजी की गति के साथ चलें।','… <b>|</b> … <b>॥</b>','']],all:'सब एक साथ सुनें: श्लोक 1',more:'और नियम',ok:'समझ गया 🙏'}};
+function rd4(card){var l=cL(),d=RD4[l]||RD4.en,v=V[vIdx(1)],dl=v?dP(v):[];
+ return '<div class="rd4'+(card?' rd4c':'')+'"><div class="rd4h">'+d.h+'</div><div class="rd4s">'+d.s+'</div>'+d.st.map(function(x,i){var ex=x[2]==='U'?'<span class="fc2d rd4u">'+fcLn('Bhoo-ta-krid Bhoo-ta-bhrid')+'</span>':x[2];
+  return '<div class="rd4r"><i>'+(i+1)+'</i><div class="rd4b"><b>'+x[0]+'</b><small>'+x[1]+'</small><div class="rd4e">'+ex+'</div></div>'+(x[3]?'<button class="rd4p" data-act="rdplay" data-v="'+x[3]+'" aria-label="Hear it">▶</button>':'<span class="rd4p0"></span>')+'</div>'}).join('')
+ +(v?'<div class="rd4v"><button class="rd4all" data-act="rdplay" data-v="../v001">▶ '+d.all+'</button><div class="fc2d">'+dl.map(function(q){return '<div class="fc2dl">'+fcLn(q)+'</div>'}).join('')+'</div></div>':'')
+ +(card?'<button class="btn rdok" data-act="rdok">'+d.ok+'</button>':'')+'</div>'}
 function rbBody(){var l=cL()||'en';var ex='<div class="exv"><div>Su-dhan-vaa Khan-da-pa-ra-shur Daa-ru-no Dra-vi-na-pra-dah <span class="mk">\u0964</span></div><div>Di-vas-prik Sar-va-drig Vyaa-so Vaa-chas-pa-ti-ra-yo-ni-jah <span class="mk">\u0965 61 \u0965</span></div></div>';
- return chipsLang()+rdTable(0)+crTable()+ex+RB.map(function(r,i){return '<div class="rbc rbc'+(i%5)+'"><div class="rbi">'+r.ic+'</div><div><b>'+(i+1)+'. '+r.t[l]+'</b><div class="rbd">'+r.d[l]+'</div></div></div>'}).join('')+'<div class="mute" style="margin-top:12px">'+BT.rbn[l]+'</div>'}
+ return chipsLang()+rd4(0)+'<details class="rd4m"><summary>'+(RD4[l]||RD4.en).more+' ›</summary>'+rdTable(0)+crTable()+ex+RB.map(function(r,i){return '<div class="rbc rbc'+(i%5)+'"><div class="rbi">'+r.ic+'</div><div><b>'+(i+1)+'. '+r.t[l]+'</b><div class="rbd">'+r.d[l]+'</div></div></div>'}).join('')+'<div class="mute" style="margin-top:12px">'+BT.rbn[l]+'</div></details>'}
 function rbCard(){return '<div class="card">'+rbBody()+'</div>'}
 function rbSheet(){var l=S.lang||'en';return '<div class="rbsheet"><div class="row" style="margin-bottom:10px"><b style="font-size:1.15rem">\ud83d\udcd6 '+BT.rbh[l]+'</b><button class="chip" data-act="rbclose">'+BT.cl[l]+' \u2715</button></div>'+rbBody()+'<button class="btn" data-act="rbclose" style="margin-top:14px">'+BT.cl[l]+'</button></div>'}
 function purposeCard(){var l=S.lang||'en';return '<div class="card"><div class="ph">\ud83c\udf3f '+BT.bp[l]+'</div><div class="mute" style="margin-bottom:8px">'+BT.bpd[l]+'</div>'+BENG.map(function(g){return '<div class="pur"><div class="pri">'+g.ic+'</div><div class="prt"><b>'+g.s[l]+'</b><div class="mute">'+g.t[l]+'</div><div class="chips" style="margin-top:6px">'+g.v.map(function(n){var has=vIdx(n)>=0;return '<button class="chip vb'+(has?'':' dis')+'" data-act="gov" data-v="'+n+'"'+(has?'':' aria-disabled="true"')+'>Verse '+n+'</button>'}).join('')+'</div></div></div>'}).join('')+'</div>'}
@@ -3410,7 +3433,7 @@ if(panel==='again'){h+='<div class="card"><h2>Start from which verse?</h2><div c
  if(panel)h+='</div>';h+='<!--#NOTE-->';
  if(notice){h+='<div class="plain">'+notice+'</div>';notice=''}
  
- h+=(S.setupDone&&!S.rdSeen?rdTable(1):'');h+='<!--#TODAY-->';var rvL=mkList().filter(function(x){return x.r}),nwL=mkList().filter(function(x){return !x.r});
+ h+=(S.setupDone&&!S.rdSeen?rd4(1):'');h+='<!--#TODAY-->';var rvL=mkList().filter(function(x){return x.r}),nwL=mkList().filter(function(x){return !x.r});
  h+=S.doneDay===tdy()?'<div class="tcard tdone">'+(tdL()==='D'?tdDone():S.gem!=='0'?(function(sk){return '<div class="tdn gemr"><span class="lf">🪴</span><b class="tt">Practice done<br>for today</b><span class="ring" style="--p:'+Math.min(100,sk/7*100)+'%"><i><b>'+sk+'</b><small>'+(sk===1?'DAY':'DAYS')+'</small></i></span></div>'})(streak()):'<div class="tdn">\u2705 <b>Practice done for today</b><span>\ud83d\udd25 '+streak()+' day'+(streak()===1?'':'s')+'</span></div>')+(tdL()==='D'?'':tdMsg()):'<div class="tcard"><div class="thead th2"><h2>Today\'s practice</h2>'+(tdL()==='D'&&!(rvL.length+nwL.length)?'':'<span class="mins">\u23f1 '+(tdL()==='D'?(rvL.length*2+nwL.length*6):10)+' min</span>')+'</div>';
  if(fin)h+='<div class="mute">All added verses are finished</div>';
  else if(S.doneDay!==tdy()&&tdL()==='D'){h+=tdCompact(rvL,nwL)}
@@ -3834,7 +3857,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=316,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=317,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});

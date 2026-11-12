@@ -147,3 +147,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 316 (12 Nov 2026) — Dev only
 - Echo on/off chip back on the full chant reader (default on, same S.echo as settings).
 - Names: Learn rows "The full chant, start to end" = the reader (LP 'fc'); the old arrangement page (ARR, LP 'arr') is now "How the full chant is arranged" (te/hi too).
+
+## Build 317 (12 Nov 2026) — Dev only
+- How to read (rbBody) starts with rd4(): "Read in 4 steps" (RD4 en/te/hi drafts): underlined = one word (▶ audio/ex/dash), aa/ee/oo longer (▶ long), h at the end = soft echo (▶ h), | and ॥ pauses; then "▶ Hear it all together: verse 1" (audio/v001.m4a via rdplay '../v001') with verse 1's underlined read-aloud lines. Old tables, chanting rules and 8 rules fold under "More rules ›" (details.rd4m). The first-day card on Today (S.rdSeen) is now rd4(1) with Got it. The in-practice 🗣 sheet still uses rdTable.
