@@ -201,3 +201,4 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - New text is English only (te/hi drafts not made).
 - 328: Siri steps clearer (owner added "Ask for URL" by mistake): step 3 says search "Open URLs", not "Ask for URL", insert Provided Input after play=; step 4 shows what the finished shortcut reads.
 - 329: Siri steps now 3 actions: Ask for Input (Number) → URL action (link + Provided Input) → Open URLs. Owner's 328 attempt failed ("couldn't convert from Rich text to URL"): the link had been typed as the Provided Input variable's name.
+- 330: ?play link: the language picker (first visit in Safari) no longer covers the player; an empty or bad ?play= goes to Revise › Play a verse with a message ("no verse number after play=") instead of silently showing Today.
