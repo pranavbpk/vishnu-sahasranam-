@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><title>My slokas guide</title>
 <style>
-@page{size:A4;margin:14mm 15mm 14mm}
+@page{size:A4;margin:11mm 13mm 11mm}
 *{box-sizing:border-box}
-body{font-family:Inter,'DejaVu Sans',sans-serif;color:#2b2418;font-size:10.6pt;line-height:1.45;margin:0}
+body{font-family:Inter,'DejaVu Sans',sans-serif;color:#2b2418;font-size:10pt;line-height:1.4;margin:0}
 h1{font-size:20pt;color:#0f5c55;margin:0 0 2px;letter-spacing:-.01em}
 .sub{color:#7a6a4a;font-size:10pt;margin-bottom:10px}
 .key{background:#fff8e6;border:1px solid #ecd39a;border-radius:10px;padding:8px 12px;margin:8px 0 14px;font-size:10.4pt}
 .key b{color:#8a4a12}
-h2{font-size:13.5pt;margin:14px 0 6px;color:#fff;background:#2f6b6b;border-radius:8px;padding:6px 12px;display:flex;justify-content:space-between;align-items:center}
+h2{break-after:avoid;font-size:13.5pt;margin:14px 0 6px;color:#fff;background:#2f6b6b;border-radius:8px;padding:6px 12px;display:flex;justify-content:space-between;align-items:center}
 h2 small{font-weight:600;font-size:9.5pt;opacity:.9}
 h2.b{background:#8a5a12}h2.c{background:#5a4a30}
-.st{display:flex;gap:10px;margin:8px 0;break-inside:avoid}
+.st{display:flex;gap:10px;margin:6px 0;break-inside:avoid}
 .n{flex:none;width:24px;height:24px;border-radius:50%;background:#0f6b6b;color:#fff;font-weight:800;font-size:10.5pt;display:flex;align-items:center;justify-content:center;margin-top:1px}
 .b .n,.n.b{background:#8a5a12}
 .st b.t{display:block;font-size:11pt}
@@ -26,6 +26,19 @@ ul{margin:3px 0 0;padding-left:18px}li{margin:1px 0}
 table{width:100%;border-collapse:collapse;font-size:9.8pt;margin-top:4px}
 td{border-top:1px solid #eadfc6;padding:5px 6px;vertical-align:top}td:first-child{width:38%;font-weight:700;color:#5a4a30}
 .pb{break-before:page}
+.fig{display:flex;gap:12px;align-items:flex-start;margin:6px 0;break-inside:avoid}
+.fig img.ph{width:54mm;border:1px solid #d9c9a3;border-radius:10px;flex:none}
+.fig .cap2{font-size:9.6pt;color:#4a3d28}.fig .cap2 b{color:#a8431a}
+img.wv{width:100%;max-height:28mm;object-fit:contain;border:1px solid #eadfc6;border-radius:8px;margin:4px 0 0;display:block}
+.wcap{font-size:8.8pt;color:#7a6a4a;margin-top:2px}
+.eg{border:1px dashed #c9b48a;border-radius:8px;padding:5px 9px;margin:5px 0 2px;background:#fffef9;font-size:9.8pt;break-inside:avoid}
+.eg>i{font-style:normal;font-weight:800;color:#8a5a12;font-size:8.8pt;letter-spacing:.05em;display:block;margin-bottom:2px}
+.flow{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:3px 0}
+.fb{border-radius:6px;padding:2px 7px;font-size:9pt;font-weight:600;background:#eef7f5;color:#0f5c55;border:1px solid #cfe6e1}
+.fb.y{background:#fff3e0;color:#8a4a12;border-color:#ecd39a}.fb.w{background:#f3eee4;color:#5a4a30;border-color:#e2d6bc}
+.ar{color:#9a8a6a;font-size:9pt}
+.mono{font-family:'DejaVu Sans Mono',monospace;font-size:9.4pt}
+.cut{color:#a8431a;font-weight:800}
 .foot{margin-top:12px;color:#9a8a6a;font-size:8.4pt;text-align:center}
 </style></head><body>
 
@@ -37,7 +50,7 @@ td{border-top:1px solid #eadfc6;padding:5px 6px;vertical-align:top}td:first-chil
 
 <div class="st"><span class="n">1</span><div><b class="t">Write the words, one line per breath</b>
 Keep lines short: about half a line of the sloka, what you can chant in one breath.
-<div class="ex"><span class="cap">Example: 4 short lines, 4 breaths</span>pra:thar nithya:nusandhe:yam<br>parama:rttham mumukshubhihi<br>slo:ka dvaye:na sankshiptham<br>suvyaktham varado:bravi:th ||</div></div></div>
+<div class="fig"><img class="ph" src="img/add.png"><div class="cap2"><b>In the app (step 3):</b> type line 1, press <b>Enter ↵</b>, type line 2, press <b>Enter ↵</b> … No Enter after the last line.<br><br>Each line = one breath = one pause in your recording. 4 lines here, so the recording needs 3 pauses.<br><br>Commas and | marks can stay; only <b>Enter</b> makes a new line.</div></div></div></div>
 
 <div class="st"><span class="n">2</span><div><b class="t">Record it in one go, with a pause after every line</b>
 <ul><li>Quiet room. Phone 20–30 cm away.</li>
@@ -45,29 +58,38 @@ Keep lines short: about half a line of the sloka, what you can chant in one brea
 <li>Take your breath <b>in the silence</b>, not at the start of the next line.</li>
 <li>Leave <b>2–3 seconds</b> of silence between two ślokas.</li>
 <li>Don't stop the recording between lines. One recording for the whole sloka.</li></ul>
-<div class="ex"><span class="cap">What it sounds like</span>pra:thar nithya:nusandhe:yam <span class="ps">… 1 s …</span> parama:rttham mumukshubhihi <span class="ps">… 1 s …</span><br>slo:ka dvaye:na sankshiptham <span class="ps">… 1 s …</span> suvyaktham varado:bravi:th ||</div></div></div>
+<div class="ex"><span class="cap">What it sounds like</span>pra:thar nithya:nusandhe:yam <span class="ps">… 1 s …</span> parama:rttham mumukshubhihi <span class="ps">… 1 s …</span><br>slo:ka dvaye:na sankshiptham <span class="ps">… 1 s …</span> suvyaktham varado:bravi:th ||</div>
+<img class="wv" src="img/wave_good.png"><div class="wcap">A good recording: each line is a block of sound, with a clear 1-second gap (yellow) after it. Every gap matches an Enter in your words.</div></div></div>
 
 <div class="st"><span class="n">3</span><div><b class="t">Add it to the app</b>
 <ul><li>Open <b>🎵 My slokas</b> → <span class="k">＋ Add a sloka</span>.</li>
 <li>Record, or choose your audio file. Check it with <span class="k">▶</span> (you can drag the bar).</li>
 <li>Paste or type the words, the same lines as step 1.</li>
-<li>Tap <span class="k">Save</span>. The app finds the pauses and opens the player.</li></ul></div></div>
+<li>Tap <span class="k">Save</span>. The app finds the pauses and opens the player.</li></ul>
+<div class="eg"><i>EXAMPLE</i>Name: <b>Dvayam – last sloka</b> · Sound: <b>my-recording.m4a</b> (17 s) · Words: the 4 lines from step 1 → <span class="k">Save</span><br>The player opens with <b>4 parts</b>: Line 1 of 4 … Line 4 of 4, and the words light up as you play.</div></div></div>
 
-<div class="st"><span class="n">4</span><div><b class="t">Practise</b>Choose <b>How to learn</b> on the player (see C) and tap <span class="k">▶</span>.</div></div>
+<div class="st"><span class="n">4</span><div><b class="t">Practise</b>Choose <b>How to learn</b> on the player (see C) and tap <span class="k">▶</span>.
+<div class="eg"><i>EXAMPLE</i>Day 1: <span class="k">🗣 Repeat after me</span> once. Day 2 onwards: <span class="k">🪜 Line by line</span> with <span class="k">⚙️</span> → 3 times. When you can say it: <span class="k">🔁 Whole</span>.</div></div></div>
 
 <h2 class="c">C · How to learn (on the player) <small>same for A and B</small></h2>
 <div class="grid">
 <div class="cell"><b>🗣 Repeat after me</b>The guru's way: hear a part, then your turn to say it.</div>
 <div class="cell"><b>🪜 Line by line</b>Each small piece, then the whole line, then the next line.</div>
 <div class="cell"><b>🔁 Whole</b>The whole sloka from start to end.</div></div>
-<div>In <span class="k">⚙️</span> on the player: how many times (1, 3, 5 …) and speed. Tap any line to jump to it.</div>
+<div class="fig"><img class="ph" src="img/play.png"><div class="cap2"><b>The player after Save:</b><br>• <b>How to learn</b> row: tap one (box).<br>• "Parts follow the pauses" → <b>Check them ›</b> only if something sounds off (B, step 4).<br>• <b>Line 1 of 4</b>: the line playing now, with the next line below.<br>• <span class="k">⚙️</span> (top right): how many times (1, 3, 5 …) and speed.<br>• Tap any line to jump to it.</div></div>
+<div class="eg"><i>EXAMPLE · 🗣 REPEAT AFTER ME</i><div class="flow"><span class="fb">Guru: pra:thar nithya:nusandhe:yam</span><span class="ar">→</span><span class="fb y">You say it</span><span class="ar">→</span><span class="fb">Guru: parama:rttham mumukshubhihi</span><span class="ar">→</span><span class="fb y">You say it</span><span class="ar">→ … → whole sloka</span></div></div>
+<div class="eg"><i>EXAMPLE · 🪜 LINE BY LINE, 3 TIMES</i>A long line with a small pause inside is played in pieces first:
+<div class="flow"><span class="fb">sathsanga:d bhava</span><span class="ar">×3</span><span class="ar">→</span><span class="fb">nisspruho: gurumukha:th</span><span class="ar">×3</span><span class="ar">→</span><span class="fb w">whole line 1</span><span class="ar">×3</span><span class="ar">→</span><span class="fb w">line 2 …</span></div>
+The card shows where you are: <b>Line 1 of 4 · piece 2 of 2 · 2nd of 3</b>. A short line with no pause inside is simply played 3 times.</div>
+<div class="eg"><i>EXAMPLE · 🔁 WHOLE, 3 TIMES</i><div class="flow"><span class="fb w">lines 1 → 4</span><span class="ar">short break</span><span class="fb w">lines 1 → 4</span><span class="ar">short break</span><span class="fb w">lines 1 → 4</span></div></div>
 
-<div class="pb"></div>
-<h2 class="b">B · A recording made by someone else <small>teacher, class, audio file</small></h2>
+<h2 class="b" style="break-before:page">B · A recording made by someone else <small>teacher, class, audio file</small></h2>
 <div>You can't add pauses to it, so make your <b>words follow the chanter's breaths</b>.</div>
 
 <div class="st b"><span class="n b">1</span><div><b class="t">Listen once and mark the breaths</b>
-Play it with the text in front of you. Put a mark ( / ) wherever the chanter stops to breathe. This is often <b>not</b> at the commas in the book.</div></div>
+Play it with the text in front of you. Put a mark ( / ) wherever the chanter stops to breathe. This is often <b>not</b> at the commas in the book.
+<div class="eg"><i>EXAMPLE</i>In the book: <span class="mono">sathsanga:d bhava nisspruho: gurumukha:th, sri:sam prapadya:thmava:n,</span><br>What you hear: "sathsanga:d bhava nisspruho: gurumukha:th" <i style="display:inline;color:#a8431a">(breath)</i> "sri:sam prapadya:thmava:n" <i style="display:inline;color:#a8431a">(breath)</i><br>Your marks: <span class="mono">sathsanga:d bhava nisspruho: gurumukha:th <span class="cut">/</span> sri:sam prapadya:thmava:n <span class="cut">/</span></span></div>
+<img class="wv" src="img/wave_other.png"><div class="wcap">The same idea in someone else's recording: the chanter breathes after "gurumukha:th" and after "prapadya:thmava:n", in the middle of the book's line. Each breath = an Enter in your words.</div></div></div>
 
 <div class="st b"><span class="n b">2</span><div><b class="t">Type the words with a new line at every mark</b>
 <div class="ex"><span class="cap">Example: each line from the book, split where the chanter breathes</span>sathsanga:d bhava nisspruho: gurumukha:th<br>sri:sam prapadya:thmava:n<br>pra:rabdham paribhujya karma sakalam<br>prakshi:na karma:ntharaha</div></div></div>
@@ -79,13 +101,16 @@ Play it with the text in front of you. Put a mark ( / ) wherever the chanter sto
 <li><span class="k">▶ Hear part 1</span>, 2, 3 … Tap a single word to hear just that word.</li>
 <li>A part starts one word early or late? Tap <span class="k">✂</span> between two words to start a new part there. <span class="k">✂ join</span> puts two parts together.</li>
 <li>Words right, but the sound starts a little off? <span class="k">◀</span> <span class="k">▶</span> moves the part to the pause before or after.</li>
-<li>Tap <span class="k">Save</span>. Done.</li></ul></div></div>
+<li>Tap <span class="k">Save</span>. Done.</li></ul>
+<div class="fig"><img class="ph" src="img/check.png"><div class="cap2"><b>Real example (this Dvayam):</b> the app made part 3 just one word, "pra:rabdham", because the chanter paused briefly after it.<br><br>Tap <b>▶ Hear part 3</b> and <b>▶ Hear part 4</b>: they belong together.<br><br>Fix: tap <b>✂ join 3 and 4</b> (box). Part 3 becomes "pra:rabdham paribhujya karma sakalam".<br><br>Then <b>✓ Save</b> at the bottom.</div></div>
+<div class="eg"><i>EXAMPLE · WORDS RIGHT, SOUND A LITTLE EARLY</i>Part 5 starts with the right word but you hear the end of part 4 first → tap <span class="k">▶</span> on part 5 once (moves it to the next pause) → it plays again so you can check.</div></div></div>
 
-<h2 class="c">If something is not right</h2>
+<h2 class="c" style="margin-top:18px">If something is not right</h2>
 <table>
 <tr><td>The next line slips in at the end of a part</td><td>Update the app when the <b>New version</b> bar shows. Play a few lines: the app learns how late your phone stops (⚙️ shows "Phone stop delay"). If it still slips in, the pause in the recording is very short: add a line break at a longer pause, or record it again with 1-second pauses.</td></tr>
 <tr><td>Words light up one word early or late</td><td><span class="k">Check them ›</span> → <span class="k">✂</span> or <span class="k">✂ join</span> (B, step 4).</td></tr>
 <tr><td>Sound stops after the first repeat</td><td>Update the app (New version bar).</td></tr>
+<tr><td>Recorded without pauses by mistake</td><td>Example: you chanted all 4 lines in one breath → the app finds only 1 part. Record again with 1 s after each line (A, step 2), then ⚙️ → Edit sloka → change the sound. Your words stay.</td></tr>
 <tr><td>Too many tiny parts / too few</td><td><span class="k">Check them ›</span> → <span class="k">－ Fewer</span> or <span class="k">＋ More</span>.</td></tr>
 <tr><td>No words, just the sound</td><td>That's fine: it still plays and repeats part by part. Words can be added later (⚙️ → Edit sloka).</td></tr>
 </table>
