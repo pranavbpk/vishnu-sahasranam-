@@ -1,5 +1,5 @@
 {
-  "note": "Edit this file to add parayanam dates. Times use your own time zone offset (+11:00 is Melbourne summer time). Leave a link empty if you do not have it yet.",
+  "note": "Edit this file to add parayanam dates. Times use your own time zone offset (+11:00 is Melbourne summer time). Leave a link empty if you do not have it yet. 'days' = special days shown in Satsang (date YYYY-MM-DD, name, what).",
   "whatsapp": "https://chat.whatsapp.com/LT4IWLSy4M15vYb7hbFAFV",
   "events": [
     {
@@ -12,6 +12,32 @@
       "join": "",
       "book": "",
       "sample": false
+    }
+  ],
+  "days": [
+    {
+      "id": "ek-2026-11-20",
+      "date": "2026-11-20",
+      "name": "Prabodhini Ekadashi",
+      "what": "The Lord wakes from His yoga sleep"
+    },
+    {
+      "id": "ek-2026-12-04",
+      "date": "2026-12-04",
+      "name": "Utpanna Ekadashi",
+      "what": "Ekadashi"
+    },
+    {
+      "id": "vk-2026-12-20",
+      "date": "2026-12-20",
+      "name": "Vaikunta Ekadashi · Gita Jayanti",
+      "what": "The most special Ekadashi of the year"
+    },
+    {
+      "id": "ek-2027-01-03",
+      "date": "2027-01-03",
+      "name": "Saphala Ekadashi",
+      "what": "Ekadashi"
     }
   ]
 }
