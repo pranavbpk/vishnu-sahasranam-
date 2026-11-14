@@ -299,3 +299,9 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 365 (14 Nov 2026) — Dev + Test + NEW Preview
 - New 4th copy: index-pre.html "Guru Preview" (ENV=pre, storage prefix pre_, purple PREVIEW tag, manifest-pre.webmanifest so it can be its own Home Screen icon). Prod-like: owner's chosen look fixed in code when ENV===pre: Today layout D (tdL), circle header (dhS), bottom tabs (HS=B); test switches hidden (hsBar, tdlBar, dhStyleBar, mypStyleBar, full chant player-style switch). Full chant player = style A until owner picks.
 - tools/promote.py dev pre — run it together with dev test after every build.
+
+## Build 366 (14 Nov 2026) — new app order, Dev + Preview only (NEWORG(): ENV dev or pre)
+- Learn: search, Today verse, LISTEN & READ (The full chant, Meanings), CHANT CORRECTLY (How to read the dash lines, Dhyānam, Full text and PDF), GO DEEPER (Stories, Verses for life's needs, Why we chant), Coming later folded in a <details>.
+- You: progress card, My journey, MY THINGS (recordings, Back up my progress), SETTINGS (Language & display, Reminders, Start again last), HELP (How to use, Play by voice), ONLY YOU (ownYou) + Guru tools, Swadhyayam time card, Works offline as a small line at the end.
+- Revise "Chant all 108 with me" (allBtn, data-act fc108) opens the full chant player at Part 5 with This part only (carries on in the 108 if stopped there). Old Chant all 108 player kept for Test/Live.
+- When owner approves: make NEWORG() return true everywhere.
