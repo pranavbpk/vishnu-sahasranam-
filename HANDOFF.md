@@ -254,3 +254,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 352 (14 Nov 2026) — Dev + Test, not live
 - One sound at a time: HTMLMediaElement.prototype.play is wrapped (medHook). Any verse/guide/player/full-chant sound pauses Swadhyayam audio (swTick + swStop(1)) and the Swadhyayam YouTube player (postMessage pauseVideo). Starting Swadhyayam pauses the last verse sound (guided practice via rpPause). Muted plays ignored. Sound change: owner to test on iPhone.
 - Swadhyayam card on Today: round gold ▶ on the right, same look as the Tomorrow's verse strip (.dt-plr); the wide button from 351 is gone.
+
+## Build 353 (14 Nov 2026) — Dev + Test
+- Swadhyayam ▶ on Today: green (2e9b57 radial) and 42 px, same size as the Tomorrow's verse button.

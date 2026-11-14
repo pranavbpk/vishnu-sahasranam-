@@ -572,7 +572,7 @@ html.fs0 body{font-size:15px}html.fs2 body{font-size:22px}
 .hasrib.dh-por .dh-rt,.hasrib.dh-arch .dh-rt{padding-right:62px}.hasrib.dh-por .dh-t,.hasrib.dh-arch .dh-t{font-size:1.6rem}.hasrib.dh-por .dh-slk2,.hasrib.dh-arch .dh-slk2{padding:6px 10px!important}
 .hasrib.dh-por .slk-p,.hasrib.dh-arch .slk-p{font-size:.72rem}.hasrib.dh-por .slk-n,.hasrib.dh-arch .slk-n{font-size:.92rem}.hasrib.dh-por .dh-row,.hasrib.dh-arch .dh-row{padding-right:64px}.hasrib.dh-por>.dh-ess{margin-top:10px}.hasrib.dh-por .dh-rt,.hasrib.dh-arch .dh-rt{padding-right:0}.hasrib .dh-slk2{max-width:100%;box-sizing:border-box}
 .dt.dt-sw{display:flex!important;align-items:center}.dt.dt-sw .dt-b{flex:1;min-width:0;padding:10px 8px 10px 12px}
-.dt-plr{flex:none;width:56px;height:56px;margin:0 12px 0 4px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;font-size:1.15rem;padding-left:3px;color:#0f5f5f;background:radial-gradient(circle at 35% 30%,#ffe9a8,#d9a530 60%,#a8781a);box-shadow:0 0 0 4px rgba(255,255,255,.7),0 3px 8px rgba(0,0,0,.25)}
+.dt-plr{flex:none;width:42px;height:42px;margin:0 12px 0 4px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;font-size:.95rem;padding-left:2px;color:#fff;background:radial-gradient(circle at 35% 30%,#7fd49a,#2e9b57 60%,#1d6e3c);box-shadow:0 0 0 3px rgba(255,255,255,.6),0 3px 8px rgba(0,0,0,.25)}
 .dt-plr.on{padding-left:0}
 .dt-plw{display:flex;align-items:center;justify-content:center;gap:12px;width:calc(100% - 24px);margin:6px 12px 12px;min-height:52px;border:0;border-radius:26px;background:linear-gradient(135deg,#8a3b12,#c8661c);color:#fff;font:inherit;cursor:pointer;box-shadow:0 4px 12px rgba(168,67,26,.25)}
 .dt-plw.on{background:linear-gradient(135deg,#0f5c55,#0f6b6b)}
@@ -4326,7 +4326,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=352,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=353,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
