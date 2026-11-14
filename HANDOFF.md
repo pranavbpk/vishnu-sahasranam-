@@ -216,3 +216,10 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Meanings: each name follows the meaning language (nmS: te → Telugu via toTe, en → English letters from the dash form, hi → Devanagari); Library verse meaning shows the verse in Telugu when the language is Telugu.
 - Today: "Paused midway…" replaced by a small pill "⏸ Paused | N to revise · M new" (.tpz2).
 - Full chant reader: "▶ Play the whole chant" (fcWholeBtn, FCORD, fcWholeKeys, FCA.whole): Opening → The question → Nyāsa → Dhyānam → 108 verses as one queue, switches part and scrolls as it goes; ✕ stops; "Play all from this part" on later parts. Phala-śruti/Ending have no audio yet. v108 keys always use audio/vNNN.m4a.
+
+## Build 347 (14 Nov 2026) — Dev + Test
+- Chant together (S.tog, default on; setting "Chant together at the end" in Repeat after me): one extra whole-verse round appended to the normal steps (RP.togR = its round). Guru audio plays, banner "Chant together" (teal, .g2-st.tog / old screen "🙏 Chant together"), words highlight; when the audio ends rpTurn() skips the turn and calls rpNext(). Counts exclude that round (stCnt()).
+- One counting style: "time N of M" + dots (.g2-dots) on the new screen; old screen rpLabel "Whole verse · time 2 of 3"; dock "N to go".
+- Parayanam on Today: full banner only on the day/live; 1–2 days before a slim strip (.satsl) with ✕ (S.satx = date|id hides it for today); earlier only the 🔔 badge and Satsang tab (satDays()).
+- Layout D: learned / verses a day / parayanam tiles moved into a side tab on the right edge (.sdtab, SDO) that slides out a "My progress" drawer (.sdrw.dts) with the same tiles (Learned → all verses sheet, Change → pace sheet). Owner's Swadhyayam tile stays in the panel. S.sdt='0' brings the old tiles back.
+- Name pill: "🪷 Vishnu Sahasranamam" (big) + "Part N of 6 · name ▾"; "Sloka Guru" title kept.
