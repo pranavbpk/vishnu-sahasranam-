@@ -230,3 +230,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Side tab → maroon/saffron ribbon bookmark (.rib, dhRib) hanging beside the picture inside .dh (scrolls with the page, doesn't cover the card): %, learned of total, verses a day, ⋯. Drawer header in the ribbon colours.
 - Chant together: before the round a 3 s intro (togIntro/togCue: hand bell + spoken "Now, all together" in the app language, purple banner with 3-2-1, pause/skip work), then the guru plays; banner purple (.g2-st.tog) so it differs from Listen/Whole verse.
 - Button sweep (work/sweep.py: every visible data-act on 13 screens, touch taps, Chromium): 207 taps, no errors.
+
+## Build 349 (14 Nov 2026) — Dev + Test
+- Today "Practice done" card (tdDone, layout D) = style A3 chosen by owner: header "✅ Practice done today · 🙏 time" (duplicate streak pill removed), row "📗 Learned" and row "🔁 Revised", at most 3 number chips each, then "+N ›" (data-act tdmore, TDM='l'|'r') opening a bottom sheet with all numbers; every chip opens its verse meaning (mvopen). CSS .tdD3*.
+- Ribbon unchanged; first-time hint bubble "👆 Tap for your progress" (.ribh) until the ribbon is tapped once (S.ribSeen).
