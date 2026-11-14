@@ -305,3 +305,8 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - You: progress card, My journey, MY THINGS (recordings, Back up my progress), SETTINGS (Language & display, Reminders, Start again last), HELP (How to use, Play by voice), ONLY YOU (ownYou) + Guru tools, Swadhyayam time card, Works offline as a small line at the end.
 - Revise "Chant all 108 with me" (allBtn, data-act fc108) opens the full chant player at Part 5 with This part only (carries on in the 108 if stopped there). Old Chant all 108 player kept for Test/Live.
 - When owner approves: make NEWORG() return true everywhere.
+
+## Build 367 (15 Nov 2026) — Dev + Preview only (not Test, not live). All behind NEWORG()
+- Full chant reader: part tabs, Pūrvāṅgam map, part header card and the big "Listen to this part" button replaced by one journey card (fcJourney): three columns Pūrvāṅgam / Sahasranāma / Uttarāṅgam with numbered dots 1–4 · 5 · 6–7 (tap = open part; current group tinted), then "Part N of 7 · verses …", part name, one line, and a small "▶ Listen · this part" pill (fcPartBtn, same fcall action); Dhyānam shows a round picture; link "ⓘ How the full chant is arranged ›" opens LP 'arr'. Play the whole chant row stays on top.
+- Revise: Weekly recap and Listen to all moved to two labelled buttons in the Revise title bar (.rvq). "Your verses" card now only the Revise today / Coming back lists; new card "🎧 Practise any verse" (status boxes, range tabs, number grid, 🔍) with vsSelNew(): chosen verse number + first line, "How many times 1× 3× 5×", big Play, 🎤. Legend line dropped.
+- Today: sloka chooser is a full-width card (.dh-slk3): lotus icon, LEARNING NOW + "Change ▾" pill, Vishnu Sahasranamam, Part N of 6 · name.
