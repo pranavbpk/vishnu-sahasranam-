@@ -234,3 +234,11 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 349 (14 Nov 2026) — Dev + Test
 - Today "Practice done" card (tdDone, layout D) = style A3 chosen by owner: header "✅ Practice done today · 🙏 time" (duplicate streak pill removed), row "📗 Learned" and row "🔁 Revised", at most 3 number chips each, then "+N ›" (data-act tdmore, TDM='l'|'r') opening a bottom sheet with all numbers; every chip opens its verse meaning (mvopen). CSS .tdD3*.
 - Ribbon unchanged; first-time hint bubble "👆 Tap for your progress" (.ribh) until the ribbon is tapped once (S.ribSeen).
+
+## Build 350 (14 Nov 2026) — Dev + Test, not live
+- Practice banner (new screen): sub line is now just the part ("Line 1 · time 1 of 2", "Whole verse", recap "Verse N"); "Guru says / Say" removed. Big word stays Listen / Your turn / Chant together.
+- Read-aloud lines in Telugu/Hindi (DASH.te / DASH.sa, 108 verses) now follow the same chanting sounds as English: final visarga → స్/स् (s), శ్/श् (sh, ష్/ष् before ట/ఠ), ఫ్/फ़् (soft f before p), dropped where English drops it (v13). 220 words. How to read 'f' row in te/hi updated. Draft for guru check.
+- Full chant reader: dash words light up while a verse plays (fcHL every 110 ms, syllable-weighted, line split from audio/cuts.json for the 108 or TCUT for parts; TRIM gives speech start/end). In 'Play the whole chant' the next 108 verse starts 0.25 s after the last sound (fcEarly on timeupdate); gap after 'ended' 700 → 150 ms.
+- 📤 Send to guru: on both Take saved screens and on every take in a verse's takes list and My recordings. Uses the share sheet with the audio file and a short note (en/te/hi); falls back to a download. recSend/recFind/recLatest, data-act recsend ('n:N' = latest take of verse N).
+- Swadhyayam: each item is a Guru's class (od folder or phone file) or Other listening (YouTube/links), swGuru(l), change with ⋯ › "🪔 Guru's class · change" (l.cat g/o). Only guru minutes go to S.swd (daily target/streak); other minutes to S.swo. My listening page: 7-day split card and new first tab "📜 What I heard" (one row per item per day, 🪔/🌼, minutes). By day rows show 🪔/🌼.
+- My plans: added Hear the meaning, Remember the order, Time to learn each verse (Next) and Automatic check of my recording (Later).
