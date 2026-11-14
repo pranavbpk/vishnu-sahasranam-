@@ -280,3 +280,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 359 (14 Nov 2026) — Dev + Test
 - Full chant reader names the two halves: a small map under the part tabs "Pūrvāṅgam (parts 1–4) → Sahasranāma (part 5) → Uttarāṅgam (parts 6–7)" (tap jumps to that group, current one highlighted), and a coloured tag on each part card ("Pūrvāṅgam · the opening, before the names" etc.). te/hi in UIT.
+
+## Build 360 (14 Nov 2026) — Dev + Test
+- Full chant player (ideas from owner's Gemini mock-ups): ⏮ / ⏭ beside play (fcprev: restart verse if >2.5 s in, else previous; fcnext), "Verse i of n · Part N · name", a tappable verse progress strip for the current part (fcgo), a "Whole chant | This part only (n)" switch (S.fcsc; This part stops at the end of the part, FCA.part), a 4th box FOLLOW On/Off (S.fcfol; Off = page does not scroll or switch part), Speed gets Slow (0.85). Also in Settings. Rejected from the mock-ups: dark karaoke bar, verse-loop button, 1.5x.
