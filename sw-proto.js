@@ -53,7 +53,7 @@ self.addEventListener('fetch',function(e){
   }
   /* audio: saved copy first, then network (and save it) */
   /* the big 108 file streams straight from the internet (never stored here) */
-  if(/^audio\/all108\./.test(p))return;
+  if(/^audio\/(all108|full)\./.test(p))return;
   if(/^audio\/.*\.(m4a|mp3)$/.test(p)){
     e.respondWith(caches.open(AUD).then(function(c){
       return c.match(p).then(function(hit){

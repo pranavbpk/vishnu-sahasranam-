@@ -257,3 +257,10 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 353 (14 Nov 2026) — Dev + Test
 - Swadhyayam ▶ on Today: green (2e9b57 radial) and 42 px, same size as the Tomorrow's verse button.
+
+## Build 354 (14 Nov 2026) — Dev + Test, not live
+- Whole chant now plays ONE file: audio/full.m4a (146 pieces: opening 1–6 + om, question 7–22, nyāsa 1–7, dhyānam 1–8, 108 verses; each trimmed to speech, 0.35 s between verses, 1 s between parts; AAC 64k mono, 33.3 min, 16 MB) with audio/full.json {key:[start,dur,cut]}. Built by work/full.py (TRIM for the 108, energy detection for parts). Lets it keep playing when the iPhone locks. sw-proto.js lets full.* bypass the cache like all108.
+- fcPlay(k,true) in whole mode → fcOnePlay (seek in the file); single ▶ per verse and "Listen to this part" still use the per-verse files (fcPlay2). fcOneTick on timeupdate follows the verse (FULL), switches part, scrolls, saves S.fcres every 4 s; highlight uses FULL start/dur/cut.
+- Settings › Full chant: speed (S.fcsp 1 / 1.1 / 1.2, pitch kept), pause between verses (S.fcgap s/m/l = +0, +0.6, +1.2 s; extra pause only while the screen is on), sound (S.fcmute: muted, words still light up, Wake Lock keeps the screen on). Same three as chips in a sticky bar under "Playing the whole chant".
+- Carry on: stopping, closing the reader or pausing remembers the spot (S.fcres); the reader shows "Carry on · whole chant · Part N · verse M" and "↺ Start from the beginning".
+- Sound change: owner to test on iPhone (locked screen, speed, sound off).
