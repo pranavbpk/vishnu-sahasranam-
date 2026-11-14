@@ -591,6 +591,15 @@ html.fs0 body{font-size:15px}html.fs2 body{font-size:22px}
 .fcsc button{flex:1;border:0;background:transparent;font:inherit;font-size:.82rem;color:#4a6352;border-radius:9px;padding:6px 4px;cursor:pointer}
 .fcsc button[aria-pressed=true]{background:#fff;color:#2f5a3e;font-weight:700;box-shadow:0 0 0 1.5px #5f9a73}
 .fcpc-o .fcpc-b small{font-size:.6rem}.fcpc-o .fcpc-b b{font-size:.8rem}
+.fcpsw{display:flex;align-items:center;gap:6px;margin:2px 0 6px;font-size:.74rem;color:#8a7a5a}.fcpsw button{font:inherit;font-size:.78rem;border:1px solid #e2d6b8;background:#fff;border-radius:9px;padding:3px 10px;cursor:pointer}.fcpsw button[aria-pressed=true]{background:#2f5a3e;color:#fff;border-color:#2f5a3e}
+.fcpc-g{flex:none;width:34px;height:34px;border-radius:50%;border:1.5px solid #cfe2cf;background:#fff;color:#2f5a3e;font-size:1rem;cursor:pointer;padding:0}.fcpc-g.on{background:#5f9a73;color:#fff}
+.fcdock{position:fixed;left:8px;right:8px;max-width:560px;margin:0 auto;bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:65;background:#fffdf7;border:1.5px solid #cfe2cf;border-radius:20px;box-shadow:0 -4px 22px rgba(47,90,62,.18);padding:4px 10px 8px}
+.fcdock-pg .fcpg{margin:4px 0 6px}.fcdock-r{display:flex;align-items:center;gap:6px}.fcdock-r .fcpc-t{flex:1;min-width:0}
+.fcdock-sh{border-bottom:1px solid #e3ecdf;padding-bottom:8px;margin-bottom:6px}.fcdock-shh{display:flex;align-items:center;justify-content:space-between;margin:4px 0}.fcdock-shh b{color:#2f5a3e}
+.fcdock-hs{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}.fcdock-sp{height:150px}
+.fct{background:#fffaf0!important;border-color:#e8cf95!important}.fct .fcpc-p{background:#8a2e1e!important}.fct .fcpc-sk{border-color:#ecdcb8}.fct .fcpg button{background:#f0e4c8}.fct .fcpg button.d{background:#d9b878}.fct .fcpg button.c{background:#8a2e1e}
+.fct-ch{display:flex;gap:5px;margin-top:8px;overflow-x:auto}.fct-ch button{flex:none;font:inherit;font-size:.8rem;background:#fff;border:1.5px solid #ecdcb8;border-radius:16px;padding:6px 10px;color:#6b4a1a;cursor:pointer;white-space:nowrap}.fct-ch button.open{border-color:#8a2e1e}.fct-ch button.off{background:#fdf1ec;border-color:#ead2c8;color:#8a4a3a}
+.fcpill{background:#f3f8f2;border:1.5px solid #cfe2cf;border-radius:28px;padding:6px 8px 4px;box-shadow:0 4px 12px rgba(47,90,62,.10)}.fcpill-r{display:flex;align-items:center;gap:6px}.fcpill-r .fcpc-t{flex:1;min-width:0}.fcpill .fcpc-p{width:40px;height:40px}.fcpill .fcpg{margin:6px 10px 2px;height:10px}.fcpill-x{color:#c0604a!important;border-color:#ead2c8!important}.fcpill-more{padding:4px 4px 6px}
 .fcpc{background:#f3f8f2;border:1.5px solid #cfe2cf;border-radius:18px;padding:10px;box-shadow:0 4px 12px rgba(47,90,62,.10)}
 .fcpc-r{display:flex;align-items:center;gap:10px}
 .fcpc-p{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:#5f9a73;color:#fff;font-size:.95rem;cursor:pointer;box-shadow:0 2px 6px rgba(47,90,62,.3)}
@@ -4268,8 +4277,25 @@ function fcWholeBtn(cur){var on=FCA.whole&&!!FCA.k,i=on?FCA.keys.indexOf(FCA.k):
  var fr=!on&&cur&&cur!=='open'&&FCORD.some(function(x){return x[0]===cur})?'<button class="lnkb fcwf" data-act="fcwhole" data-v="'+cur+'">▶ Play all from this part</button>':'';
  if(!on)return hero+fr;
  var pk=fcPartKeys(sec),pi=pk.indexOf(FCA.k),seg='<div class="fcpg">'+pk.map(function(k,j){return '<button data-act="fcgo" data-v="'+k+'" class="'+(j<pi?'d':j===pi?'c':'')+'" aria-label="Verse '+(j+1)+'"></button>'}).join('')+'</div>';
- return '<div class="fcstk"><div class="fcpc"><div class="fcpc-r"><span class="fcpc-tr"><button class="fcpc-sk" data-act="fcprev" aria-label="Previous verse">⏮</button><button class="fcpc-p" data-act="fcwhole" data-v="" aria-label="'+(FCA.pz?'Play':'Pause')+'">'+(FCA.pz?'▶':'❚❚')+'</button><button class="fcpc-sk" data-act="fcnext" aria-label="Next verse">⏭</button></span><span class="fcpc-t"><b>'+(FCA.pz?'Paused':vn&&vn!=='om'?'Verse '+(pi+1)+' of '+pk.length:pnm)+'</b><small>Part '+pn+' · '+pnm+'</small></span><button class="fcpc-m" data-act="fcmin" aria-label="Minimise">⌄<small>Hide</small></button><button class="fcpc-m fcpc-st" data-act="fcwstop" aria-label="Stop">■<small>Stop</small></button></div>'+seg
- +'<div class="fcsc"><button data-act="fcscope" data-v="w" aria-pressed="'+(S.fcsc!=='p')+'">Whole chant</button><button data-act="fcscope" data-v="p" aria-pressed="'+(S.fcsc==='p')+'">This part only ('+pk.length+')</button></div>'+fcCtl()+'</div></div>'}
+ var st=S.fcps||'a',T=FCA.pz?'Paused':vn&&vn!=='om'?'Verse '+(pi+1)+' of '+pk.length:pnm,Sub='Part '+pn+' · '+pnm,
+  PP='<button class="fcpc-p" data-act="fcwhole" data-v="" aria-label="'+(FCA.pz?'Play':'Pause')+'">'+(FCA.pz?'▶':'❚❚')+'</button>',
+  PV='<button class="fcpc-sk" data-act="fcprev" aria-label="Previous verse">⏮</button>',NX='<button class="fcpc-sk" data-act="fcnext" aria-label="Next verse">⏭</button>',
+  HD='<button class="fcpc-m" data-act="fcmin" aria-label="Minimise">⌄<small>Hide</small></button>',SP='<button class="fcpc-m fcpc-st" data-act="fcwstop" aria-label="Stop">■<small>Stop</small></button>',
+  SC='<div class="fcsc"><button data-act="fcscope" data-v="w" aria-pressed="'+(S.fcsc!=='p')+'">Whole chant</button><button data-act="fcscope" data-v="p" aria-pressed="'+(S.fcsc==='p')+'">This part only ('+pk.length+')</button></div>',
+  GR='<button class="fcpc-g'+(FCSET?' on':'')+'" data-act="fcset" aria-label="Settings">⚙︎</button>',
+  SW='<div class="fcpsw"><span>Test · player style</span>'+[['a','A'],['b','B'],['c','C'],['d','D']].map(function(x){return '<button data-act="fcps" data-v="'+x[0]+'" aria-pressed="'+(st===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
+ if(st==='b'){ /* bottom dock, like a music app; settings in a sheet */
+  return SW+'<div class="fcdock"><div class="fcdock-pg">'+seg+'</div>'+(FCSET?'<div class="fcdock-sh"><div class="fcdock-shh"><b>Chant settings</b><button class="chip" data-act="fcset">Done</button></div>'+SC+fcCtl()+'<div class="fcdock-hs">'+HD+SP+'</div></div>':'')+'<div class="fcdock-r"><span class="fcpc-t"><b>'+T+'</b><small>'+Sub+'</small></span>'+PV+PP+NX+GR+'</div></div><div class="fcdock-sp"></div>'}
+ if(st==='c'){ /* temple card, one row of small chips */
+  var sp=fcSp(),g=S.fcgap||'s';
+  return SW+'<div class="fcstk"><div class="fcpc fct"><div class="fcpc-r"><span class="fcpc-tr">'+PV+PP+NX+'</span><span class="fcpc-t"><b>'+T+'</b><small>'+Sub+'</small></span>'+HD+SP+'</div>'+seg
+   +'<div class="fct-ch"><button data-act="fcscope" data-v="'+(S.fcsc==='p'?'w':'p')+'">'+(S.fcsc==='p'?'📍 This part':'📜 Whole')+'</button><button data-act="fcpop" data-v="sp" class="'+(FCPOP==='sp'?'open':'')+'">⏩ '+(sp>=1.2?'Faster':sp>1?'Bit faster':sp<1?'Slow':'Normal')+'</button><button data-act="fcpop" data-v="gap" class="'+(FCPOP==='gap'?'open':'')+'">⏸ '+(g==='l'?'Long':g==='m'?'Medium':'Short')+'</button><button data-act="fcmu" class="'+(fcMu()?'off':'')+'">'+(fcMu()?'🔇':'🔊')+'</button><button data-act="fcfol" class="'+(S.fcfol==='0'?'off':'')+'">🎯 '+(S.fcfol==='0'?'Off':'On')+'</button></div>'+fcPopH()+'</div></div>'}
+ if(st==='d'){ /* one slim pill; ⚙ opens the rest */
+  return SW+'<div class="fcstk"><div class="fcpill"><div class="fcpill-r">'+PP+'<span class="fcpc-t"><b>'+T+'</b><small>'+Sub+'</small></span>'+PV+NX+GR+'<button class="fcpc-sk fcpill-x" data-act="fcwstop" aria-label="Stop">■</button></div>'+seg+(FCSET?'<div class="fcpill-more">'+SC+fcCtl()+'<div class="fcdock-hs">'+HD+'</div></div>':'')+'</div></div>'}
+ return SW+'<div class="fcstk"><div class="fcpc"><div class="fcpc-r"><span class="fcpc-tr">'+PV+PP+NX+'</span><span class="fcpc-t"><b>'+T+'</b><small>'+Sub+'</small></span>'+HD+SP+'</div>'+seg+SC+fcCtl()+'</div></div>'}
+var FCSET=false;
+function fcPopH(){if(!FCPOP)return '';var sp=fcSp(),g=S.fcgap||'s',o=FCPOP==='sp'?[['fcsps',0.85,'Slow'],['fcsps',1,'Normal'],['fcsps',1.1,'Bit faster'],['fcsps',1.2,'Faster']]:[['fcgaps','s','Short'],['fcgaps','m','Medium'],['fcgaps','l','Long']],cur=FCPOP==='sp'?sp:g;
+ return '<div class="fcpc-pop">'+o.map(function(x){var on=String(cur)===String(x[1]);return '<button class="'+(on?'on':'')+'" data-act="'+x[0]+'" data-v="'+x[1]+'">'+(on?'✓ ':'')+x[2]+'</button>'}).join('')+'</div>'}
 function fcPartKeys(sec){if(FULL)return Object.keys(FULL).filter(function(k){return k.split(':')[0]===sec});return (FCA.keys||[]).filter(function(k){return k.split(':')[0]===sec})}
 function fcHero(){var r=S.fcres&&S.fcres.k;
  return '<div class="fch2"><button class="fch2-m" data-act="fcwhole" data-v="'+(r?'res':'')+'"><span class="fch2-p">▶</span><span class="fch2-t"><b>'+(r?'Carry on · whole chant':'Play the whole chant')+'</b><small>'+(r?'Stopped at '+fcResLbl().replace(/ · [^·]+ · verse/,' · verse'):'Opening prayers → 108 verses · 33 min')+'</small></span></button>'+(r?'<button class="fch2-s" data-act="fcwhole" data-v="open" aria-label="Start from the beginning">↺<small>Start again</small></button>':'')+'</div>'}
@@ -4424,7 +4450,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=360,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=361,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -4575,6 +4601,8 @@ app.addEventListener('click',function(e){
  else if(a==='fcgo'){if(!(FCA.one&&FULL&&FULL[v]))return;FCA.hold=false;fcOnePlay(v)}
  else if(a==='fcscope'){S.fcsc=v;sv();FCA.part=v==='p'&&FCA.k?FCA.k.split(':')[0]:'';render()}
  else if(a==='fcfol'){S.fcfol=S.fcfol==='0'?'1':'0';sv();if(S.fcfol!=='0'&&FCA.k){FCA.hold=false;var fk=FCA.k.split(':')[0];if(fk!==FCSEC){FCSEC=fk;FCPDF=false;render(1);fcHLrun()}else render();fcScroll(FCA.k)}else render()}
+ else if(a==='fcset'){FCSET=!FCSET;FCPOP='';render()}
+ else if(a==='fcps'){S.fcps=v;FCSET=false;FCPOP='';sv();render()}
  else if(a==='fcmin'){FCPOP='';LP='';LPBACK='';render(1);scrollTo(0,0);fcBarSync()}
  else if(a==='fcpop'){FCPOP=FCPOP===v?'':v;render()}
  else if(a==='fcmu'){S.fcmute=!fcMu();sv();fcApply();render()}

@@ -283,3 +283,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 360 (14 Nov 2026) — Dev + Test
 - Full chant player (ideas from owner's Gemini mock-ups): ⏮ / ⏭ beside play (fcprev: restart verse if >2.5 s in, else previous; fcnext), "Verse i of n · Part N · name", a tappable verse progress strip for the current part (fcgo), a "Whole chant | This part only (n)" switch (S.fcsc; This part stops at the end of the part, FCA.part), a 4th box FOLLOW On/Off (S.fcfol; Off = page does not scroll or switch part), Speed gets Slow (0.85). Also in Settings. Rejected from the mock-ups: dark karaoke bar, verse-loop button, 1.5x.
+
+## Build 361 (14 Nov 2026) — Dev + Test
+- 4 full chant player styles to choose from, temporary switch "Test · player style A B C D" above the player (S.fcps): A card (current), B bottom dock like a music app with ⚙ opening a settings sheet (FCSET), C warm temple card with one row of small chips (fcPopH for the choice strip), D one slim pill with ⚙ for the rest. Remove the unchosen ones and the switch once owner picks.
