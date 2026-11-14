@@ -569,6 +569,26 @@ html.fs0 body{font-size:15px}html.fs2 body{font-size:22px}
 .fc2t{font-size:1.18rem;line-height:1.75;color:#2b1a0c}.fc2t.enb{font-size:1.02rem}.fc2t.te{font-size:1.12rem}
 .fc2d{margin-top:6px;color:#0f5c55;font-weight:600;font-size:.98rem;line-height:1.6}
 .sndg{margin:6px 0 0 6px}
+.fch{border-radius:20px;padding:14px 14px 12px;margin:4px 0 10px;color:#fff;background:linear-gradient(140deg,#6b1a1a 0%,#9a3412 55%,#c2621c 100%);border:2px solid #e8b44c;box-shadow:0 6px 18px rgba(122,31,31,.25),inset 0 0 0 1px rgba(255,220,150,.35);position:relative;overflow:hidden}
+.fch:after{content:'';position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,130,.35),transparent 70%);pointer-events:none}
+.fch-top{display:flex;align-items:center;gap:10px}.fch-lamp{font-size:1.7rem;filter:drop-shadow(0 0 6px rgba(255,200,90,.8))}
+.fch-t{display:flex;flex-direction:column}.fch-t b{font-size:1.15rem;color:#ffe9b8;font-family:'Tiro Devanagari Sanskrit',Georgia,serif}.fch-t small{font-size:.78rem;color:#ffdcc0}
+.fch-res{margin:10px 0 0;font-size:.85rem;color:#ffe3c8;background:rgba(0,0,0,.15);border-radius:10px;padding:6px 10px}.fch-res b{color:#fff}
+.fch-btns{display:flex;gap:8px;margin-top:12px;position:relative;z-index:1}
+.fch-p,.fch-s{flex:1;display:flex;align-items:center;gap:10px;text-align:left;font:inherit;border-radius:16px;padding:9px 10px;cursor:pointer}
+.fch-p{border:0;background:linear-gradient(135deg,#ffe9a8,#f2c25a 55%,#d9962a);color:#4a1a08;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+.fch-s{border:1.5px solid rgba(255,230,180,.8);background:rgba(255,255,255,.1);color:#fff}
+.fch-p b,.fch-s b{display:block;font-size:.98rem}.fch-p small,.fch-s small{display:block;font-size:.72rem;opacity:.85}
+.fch-pi{flex:none;width:38px;height:38px;border-radius:50%;background:#7a1f1f;color:#ffe9b8;display:grid;place-items:center;font-size:1rem;padding-left:2px}
+.fch-si{flex:none;width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(255,230,180,.8);display:grid;place-items:center;font-size:1.1rem}
+.fch-p.wide{justify-content:center}
+.fch-set{margin-top:10px;font-size:.75rem;color:#ffd9b8;text-align:center}
+.fcctl2{display:flex;flex-direction:column;gap:6px;margin:6px 0 2px}
+.fcsr{display:flex;align-items:center;gap:8px}.fcsl{flex:0 0 66px;font-size:.8rem;font-weight:700;color:#6b4a1a}
+.fcsb{flex:1;display:flex;background:#f1e6cc;border-radius:12px;padding:3px;gap:3px}
+.fcsb button{flex:1;min-width:0;min-height:0;height:auto;line-height:1.2;border:0;background:transparent;font:inherit;font-size:.8rem;padding:6px 2px;border-radius:9px;color:#5a4628;cursor:pointer;white-space:nowrap}
+.fcsr .fcsb button[aria-pressed=true]{background:#fff;color:#7a1f1f;font-weight:700;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.fcmu{font-size:1.15rem}.fcmu.off{background:#fde8e2;border-color:#e0957a}
 .fcctl{display:flex;flex-wrap:nowrap;gap:6px;margin:6px 0 2px;overflow-x:auto}.fcctl .chip{font-size:.8rem;padding:6px 9px;white-space:nowrap;flex:none}.fcstk{position:sticky;top:0;z-index:20;background:#faf5ea;padding:6px 0 6px;margin:0 -2px;box-shadow:0 6px 10px -8px rgba(0,0,0,.25)}.fcmuh{font-size:.8rem;color:#6b5a3a;margin:4px 2px 0}
 
 .hasrib.dh-por .dh-rt,.hasrib.dh-arch .dh-rt{padding-right:62px}.hasrib.dh-por .dh-t,.hasrib.dh-arch .dh-t{font-size:1.6rem}.hasrib.dh-por .dh-slk2,.hasrib.dh-arch .dh-slk2{padding:6px 10px!important}
@@ -4201,9 +4221,14 @@ function fcKeys(sec){if(sec==='dhy')return DHY.map(function(d,i){return 'dhy:'+(
 var FCORD=[['open','Opening prayers'],['dial','The question'],['nyasa','Nyāsa'],['dhy','Dhyānam'],['v108','1000 names']];
 function fcWholeKeys(from){var ks=[],on=!from;FCORD.forEach(function(x){if(x[0]===from)on=true;if(!on)return;if(x[0]==='v108'){for(var n=1;n<=108;n++)ks.push('v108:'+n)}else ks=ks.concat(fcKeys(x[0]))});return ks}
 function fcWholeBtn(cur){var on=FCA.whole&&!!FCA.k,i=on?FCA.keys.indexOf(FCA.k):-1,sec=on?FCA.k.split(':')[0]:'',pn=0,pnm='';FCORD.forEach(function(x,j){if(x[0]===sec){pn=j+1;pnm=x[1]}});var vn=on?FCA.k.split(':')[1]:'';
- var inner=on?'<button class="fcw on" data-act="fcwhole" data-v=""><span class="fcwi">'+(FCA.pz?'▶':'⏸')+'</span><span class="fcwt"><b>'+(FCA.pz?'Carry on · whole chant':'Playing the whole chant')+'</b><small>Part '+pn+' · '+pnm+(vn&&vn!=='om'?' · verse '+vn:'')+'</small></span></button><button class="fcwx" data-act="fcwstop" aria-label="Stop">✕</button>':(S.fcres&&S.fcres.k?'<button class="fcw" data-act="fcwhole" data-v="res"><span class="fcwi">▶</span><span class="fcwt"><b>Carry on · whole chant</b><small>'+fcResLbl()+'</small></span></button>':'<button class="fcw" data-act="fcwhole" data-v=""><span class="fcwi">▶</span><span class="fcwt"><b>Play the whole chant</b><small>Opening prayers → Dhyānam → 108 verses · about 35 min</small></span></button>');
+ var inner=on?'<button class="fcw on" data-act="fcwhole" data-v=""><span class="fcwi">'+(FCA.pz?'▶':'⏸')+'</span><span class="fcwt"><b>'+(FCA.pz?'Paused · tap to carry on':'Whole chant · playing')+'</b><small>Part '+pn+' · '+pnm+(vn&&vn!=='om'?' · verse '+vn:'')+'</small></span></button><button class="fcwx" data-act="fcwstop" aria-label="Stop">✕</button>':'';var hero=on?'':fcHero();
  var fr=!on&&cur&&cur!=='open'&&FCORD.some(function(x){return x[0]===cur})?'<button class="lnkb fcwf" data-act="fcwhole" data-v="'+cur+'">▶ Play all from this part</button>':'';
- return (on?'<div class="fcstk">':'')+'<div class="fcwr">'+inner+'</div>'+(on?fcCtl()+'</div>':'')+(!on&&S.fcres&&S.fcres.k?'<button class="lnkb fcwf" data-act="fcwhole" data-v="open">↺ Start from the beginning</button>':'')+fr}
+ return on?'<div class="fcstk"><div class="fcwr">'+inner+'<button class="fcwx fcmu'+(fcMu()?' off':'')+'" data-act="fcmu" aria-label="'+(fcMu()?'Sound off':'Sound on')+'">'+(fcMu()?'🔇':'🔊')+'</button></div>'+fcCtl()+'</div>':hero+fr}
+function fcHero(){var r=S.fcres&&S.fcres.k,sp=fcSp(),g=S.fcgap||'s';
+ return '<div class="fch"><div class="fch-top"><span class="fch-lamp">🪔</span><span class="fch-t"><b>The whole chant</b><small>Opening prayers → Dhyānam → 108 verses · about 33 min</small></span></div>'
+ +(r?'<div class="fch-res">⏸ You stopped at <b>'+fcResLbl()+'</b></div>':'')
+ +'<div class="fch-btns">'+(r?'<button class="fch-p" data-act="fcwhole" data-v="res"><span class="fch-pi">▶</span><span><b>Carry on</b><small>from where you stopped</small></span></button><button class="fch-s" data-act="fcwhole" data-v="open"><span class="fch-si">↺</span><span><b>Start again</b><small>from the beginning</small></span></button>':'<button class="fch-p wide" data-act="fcwhole" data-v=""><span class="fch-pi">▶</span><span><b>Play the whole chant</b><small>from the opening prayers</small></span></button>')+'</div>'
+ +'<div class="fch-set">'+(sp>=1.2?'Faster':sp>1?'Bit faster':'Normal speed')+' · '+(g==='l'?'long':g==='m'?'medium':'short')+' pause · sound '+(fcMu()?'off':'on')+'</div></div>'}
 function fcStop(){if(fcEl){try{if(FCA.one&&FCA.k){S.fcres={k:FCA.k,t:fcEl.currentTime,at:Date.now()};sv()}fcEl.pause()}catch(e){}}try{if(FCWL){FCWL.release();FCWL=null}}catch(e){}clearTimeout(FCA.tg);var had=!!FCA.k;FCA={k:'',all:false,keys:[],pz:false};return had}
 function fcPlay(k,all){if(all&&FCA.whole){if(!fcEl)fcPlay2(k,'init');fcOnePlay(k);return}fcPlay2(k,all)}
 function fcPlay2(k,all){var u=fcAu(k);if(!u)return;var ini=all==='init';if(ini)all=false;try{if(gxA&&!gxA.paused){gxA.pause();GXP.st=''}}catch(e){}try{if(plA&&!plA.paused)plA.pause()}catch(e){}
@@ -4232,7 +4257,8 @@ function fcOneTick(){if(!FCA.one||!FULL||!FCA.k)return;var t=fcEl.currentTime;
  var k=fcKeyAt(t);if(k&&k!==FCA.k){FCA.k=k;if(FCA.whole&&LP==='fc'&&!FCA.hold){var sk=k.split(':')[0];if(sk!==FCSEC){FCSEC=sk;FCPDF=false;render(1);fcHLrun()}else render()}else render();fcScroll(k)}
  var cur=FULL[FCA.k];if(cur&&!FCA.gw&&fcGap()>0&&!document.hidden&&FCA.gd!==FCA.k&&t>=cur[0]+cur[1]){var ks=Object.keys(FULL),i=ks.indexOf(FCA.k);if(i>=0&&i<ks.length-1){FCA.gd=FCA.k;FCA.gw=1;fcEl.pause();setTimeout(function(){FCA.gw=0;if(FCA.one&&!FCA.pz&&FCA.k){var nk=ks[i+1];try{fcEl.currentTime=FULL[nk][0]}catch(e){}var q=fcEl.play();if(q&&q.catch)q.catch(function(){})}},fcGap()*1000/fcSp())}}}
 function fcResLbl(){var r=S.fcres;if(!r||!r.k)return '';var sec=r.k.split(':')[0],vn=r.k.split(':')[1],pn=0,pnm='';FCORD.forEach(function(x,j){if(x[0]===sec){pn=j+1;pnm=x[1]}});return 'Part '+pn+' · '+pnm+(vn&&vn!=='om'?' · verse '+vn:'')}
-function fcCtl(){var sp=fcSp(),g=S.fcgap||'s';return '<div class="fcctl"><button class="chip" data-act="fcmu" aria-pressed="'+fcMu()+'">'+(fcMu()?'🔇 Sound off':'🔊 Sound on')+'</button><button class="chip" data-act="fcspc">⏩ '+(sp>=1.2?'Faster':sp>1?'Bit faster':'Normal')+'</button><button class="chip" data-act="fcgapc">⏸ '+(g==='l'?'Long':g==='m'?'Medium':'Short')+' pause</button></div>'+(fcMu()?'<div class="fcmuh">Sound off: the words still light up, so you can read along by yourself.</div>':'')}
+function fcCtl(){var sp=fcSp(),g=S.fcgap||'s';function seg(lab,act,cur,opts){return '<div class="fcsr"><span class="fcsl">'+lab+'</span><span class="fcsb">'+opts.map(function(o){return '<button data-act="'+act+'" data-v="'+o[0]+'" aria-pressed="'+(String(cur)===String(o[0]))+'">'+o[1]+'</button>'}).join('')+'</span></div>'}
+ return '<div class="fcctl2">'+seg('⏩ Speed','fcsps',sp,[[1,'Normal'],[1.1,'Bit faster'],[1.2,'Faster']])+seg('⏸ Pause','fcgaps',g,[['s','Short'],['m','Medium'],['l','Long']])+'</div>'+(fcMu()?'<div class="fcmuh">🔇 Sound off: the words still light up, so you can read along by yourself.</div>':'')}
 function fc108(){return TRK==='vsn'?trkNow():(TRKD.vsn||trkNow())}
 function fcEarly(){if(FCA.one)return;var k=FCA.k;if(!FCA.all||!k||FCA.adv===k||k.indexOf('v108:')!==0||!TRIM)return;var tr=TRIM[k.split(':')[1]];if(!tr||!(fcEl.currentTime>=tr[1]+0.25))return;var i=FCA.keys.indexOf(k);if(i<0||i>=FCA.keys.length-1)return;FCA.adv=k;var nk=FCA.keys[i+1];clearTimeout(FCA.tg);FCA.tg=setTimeout(function(){if(FCA.all&&FCA.k===k)fcPlay(nk,true)},120)}
 function fcHLrun(){clearInterval(FCHT);if(FCCUT===null){FCCUT={};fetch('audio/cuts.json').then(function(r){return r.ok?r.json():{}}).then(function(j){FCCUT=j||{}}).catch(function(){})}FCHT=setInterval(fcHL,110)}
@@ -4350,7 +4376,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=354,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=355,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});

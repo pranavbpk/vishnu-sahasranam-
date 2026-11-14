@@ -264,3 +264,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Settings › Full chant: speed (S.fcsp 1 / 1.1 / 1.2, pitch kept), pause between verses (S.fcgap s/m/l = +0, +0.6, +1.2 s; extra pause only while the screen is on), sound (S.fcmute: muted, words still light up, Wake Lock keeps the screen on). Same three as chips in a sticky bar under "Playing the whole chant".
 - Carry on: stopping, closing the reader or pausing remembers the spot (S.fcres); the reader shows "Carry on · whole chant · Part N · verse M" and "↺ Start from the beginning".
 - Sound change: owner to test on iPhone (locked screen, speed, sound off).
+
+## Build 355 (14 Nov 2026) — Dev + Test
+- Full chant reader, not playing: fcHero() card (maroon→saffron, gold border, 🪔): "Play the whole chant", or after a stop "You stopped at Part N · verse M" + two buttons "▶ Carry on" (gold) and "↺ Start again" (outline); small line with the current speed/pause/sound.
+- Playing: sticky bar "Whole chant · playing" + ✕ + 🔊/🔇 button; two clear choice rows "⏩ Speed: Normal | Bit faster | Faster" and "⏸ Pause: Short | Medium | Long" (classes fcsr/fcsl/fcsb — don't reuse .seg, it is used elsewhere).
