@@ -242,3 +242,11 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - 📤 Send to guru: on both Take saved screens and on every take in a verse's takes list and My recordings. Uses the share sheet with the audio file and a short note (en/te/hi); falls back to a download. recSend/recFind/recLatest, data-act recsend ('n:N' = latest take of verse N).
 - Swadhyayam: each item is a Guru's class (od folder or phone file) or Other listening (YouTube/links), swGuru(l), change with ⋯ › "🪔 Guru's class · change" (l.cat g/o). Only guru minutes go to S.swd (daily target/streak); other minutes to S.swo. My listening page: 7-day split card and new first tab "📜 What I heard" (one row per item per day, 🪔/🌼, minutes). By day rows show 🪔/🌼.
 - My plans: added Hear the meaning, Remember the order, Time to learn each verse (Next) and Automatic check of my recording (Later).
+
+## Build 351 (14 Nov 2026) — Dev + Test, not live
+- Full chant: the 1000 names part always uses the Sahasranamam data (fc108(): TRKD.vsn when another part is being learned). Before, with Dhyānam chosen on Home, the 1000 names page listed the Dhyānam verses.
+- Jumping while "Play the whole chant" plays: tapping a part tab plays from that part, "Jump to N" plays from verse N, ▶ on any verse carries on the whole chant from there. A part without audio (Blessings, Ending) can be opened to read; the audio keeps going and the view stays (FCA.hold).
+- Telugu/Devanagari read-aloud lines (108) re-aligned syllable by syllable with the English line: lone half-letters joined (మా-న్ → మాన్), consonants moved to match (చ-క్ర → చక్-ర, వస్-థా → వ-స్థా, తి ర → తిర్ అ), regrouped into the same words as English, visarga per syllable (భః-శ → భశ్ శ). 162 lines changed; v38 line 2 fixed by hand (ద్ధిర్ ఋద్-ధో).
+- Ribbon: shows on the Big header too (regex missed the style attribute); Portrait/Arch keep 64 px free on the right so the name pill isn't covered (class hasrib).
+- ⚙️ and 🔔 on Today (layout D) open You / Satsang with ✕ Close back to Today (meopen, satgo + MEFROM).
+- Swadhyayam card on Today: wide centred play button (Continue listening / Play the class / Pause, time below).
