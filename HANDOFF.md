@@ -223,3 +223,10 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Parayanam on Today: full banner only on the day/live; 1–2 days before a slim strip (.satsl) with ✕ (S.satx = date|id hides it for today); earlier only the 🔔 badge and Satsang tab (satDays()).
 - Layout D: learned / verses a day / parayanam tiles moved into a side tab on the right edge (.sdtab, SDO) that slides out a "My progress" drawer (.sdrw.dts) with the same tiles (Learned → all verses sheet, Change → pace sheet). Owner's Swadhyayam tile stays in the panel. S.sdt='0' brings the old tiles back.
 - Name pill: "🪷 Vishnu Sahasranamam" (big) + "Part N of 6 · name ▾"; "Sloka Guru" title kept.
+
+## Build 348 (14 Nov 2026) — Dev + Test
+- ROOT BUG of 347: a new helper satDays(x) overwrote the existing satDays() (Satsang special days), so home() → hsSat → satDaysCard threw on every Today render and the Satsang tab: taps on Today (bell, sloka library close, side tab, Done for today) did nothing. Renamed to parDays(). Check for duplicate `function name(` before adding helpers.
+- Any tap other than the side tab closes the My progress drawer (SDO=false in the delegate).
+- Side tab → maroon/saffron ribbon bookmark (.rib, dhRib) hanging beside the picture inside .dh (scrolls with the page, doesn't cover the card): %, learned of total, verses a day, ⋯. Drawer header in the ribbon colours.
+- Chant together: before the round a 3 s intro (togIntro/togCue: hand bell + spoken "Now, all together" in the app language, purple banner with 3-2-1, pause/skip work), then the guru plays; banner purple (.g2-st.tog) so it differs from Listen/Whole verse.
+- Button sweep (work/sweep.py: every visible data-act on 13 screens, touch taps, Chromium): 207 taps, no errors.
