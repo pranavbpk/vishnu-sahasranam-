@@ -250,3 +250,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Ribbon: shows on the Big header too (regex missed the style attribute); Portrait/Arch keep 64 px free on the right so the name pill isn't covered (class hasrib).
 - ⚙️ and 🔔 on Today (layout D) open You / Satsang with ✕ Close back to Today (meopen, satgo + MEFROM).
 - Swadhyayam card on Today: wide centred play button (Continue listening / Play the class / Pause, time below).
+
+## Build 352 (14 Nov 2026) — Dev + Test, not live
+- One sound at a time: HTMLMediaElement.prototype.play is wrapped (medHook). Any verse/guide/player/full-chant sound pauses Swadhyayam audio (swTick + swStop(1)) and the Swadhyayam YouTube player (postMessage pauseVideo). Starting Swadhyayam pauses the last verse sound (guided practice via rpPause). Muted plays ignored. Sound change: owner to test on iPhone.
+- Swadhyayam card on Today: round gold ▶ on the right, same look as the Tomorrow's verse strip (.dt-plr); the wide button from 351 is gone.
