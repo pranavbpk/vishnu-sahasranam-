@@ -289,3 +289,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 362 (14 Nov 2026) — Dev + Test
 - Revise › Your verses: Weekly recap / Listen to all learned moved up, above the "All learned" grid (owner: they were lost under 89 numbers). Grid folds to the latest 16 (+ the chosen verse) when more than 24 are learned, with "Show all N ▾" / "Show fewer ▴" (VSALL).
+
+## Build 363 (14 Nov 2026) — Dev + Test
+- Revise › All learned: range tabs (1–20 · 21–40 · …, only ranges with learned verses; VSR, follows the chosen verse unless a tab was tapped) instead of the long grid / Show all; 🔍 in the header opens the type-a-number box (jsr).
