@@ -271,3 +271,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 356 (14 Nov 2026) — Dev + Test
 - Full chant card made small and calm: one light sage row (fch2: ▶ + "Play the whole chant" / "Carry on · whole chant · Stopped at Part 5 · verse 23") + small "↺ Start again" box. Playing bar and Speed/Pause rows in the same light sage; chosen option white with a green ring. Settings summary line removed.
+
+## Build 357 (14 Nov 2026) — Dev + Test
+- Full chant playing card (fcpc): round play/pause, "Whole chant · Part N · verse M", "■ Stop" pill (no ✕); three small boxes SPEED / PAUSE / SOUND showing the current choice; Speed and Pause open a small choice strip (FCPOP) with the chosen one green with ✓; Sound toggles (box turns soft red when off). Light sage colours.

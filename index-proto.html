@@ -569,6 +569,19 @@ html.fs0 body{font-size:15px}html.fs2 body{font-size:22px}
 .fc2t{font-size:1.18rem;line-height:1.75;color:#2b1a0c}.fc2t.enb{font-size:1.02rem}.fc2t.te{font-size:1.12rem}
 .fc2d{margin-top:6px;color:#0f5c55;font-weight:600;font-size:.98rem;line-height:1.6}
 .sndg{margin:6px 0 0 6px}
+.fcpc{background:#f3f8f2;border:1.5px solid #cfe2cf;border-radius:18px;padding:10px;box-shadow:0 4px 12px rgba(47,90,62,.10)}
+.fcpc-r{display:flex;align-items:center;gap:10px}
+.fcpc-p{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:#5f9a73;color:#fff;font-size:.95rem;cursor:pointer;box-shadow:0 2px 6px rgba(47,90,62,.3)}
+.fcpc-t{flex:1;min-width:0;display:flex;flex-direction:column}.fcpc-t b{font-size:1rem;color:#2f5a3e}.fcpc-t small{font-size:.78rem;color:#5d6e62}
+.fcpc-x{flex:none;display:flex;align-items:center;gap:6px;font:inherit;font-size:.85rem;font-weight:700;color:#8a4a3a;background:#fff;border:1.5px solid #ead2c8;border-radius:20px;padding:7px 12px;cursor:pointer}.fcpc-x i{font-style:normal;font-size:.7rem;color:#c0604a}
+.fcpc-o{display:flex;gap:6px;margin-top:10px}
+.fcpc-b{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;font:inherit;background:#fff;border:1.5px solid #d9e8d8;border-radius:12px;padding:5px 4px;cursor:pointer;color:#2f5a3e}
+.fcpc-b small{font-size:.66rem;color:#7a8c7f;text-transform:uppercase;letter-spacing:.4px}.fcpc-b b{font-size:.86rem}
+.fcpc-b.open{border-color:#5f9a73;box-shadow:0 0 0 2px rgba(95,154,115,.25)}.fcpc-b.mu{background:#fdf1ec;border-color:#ead2c8;color:#8a4a3a}
+.fcpc-pop{display:flex;gap:6px;margin-top:8px;padding:6px;background:#e9f1e8;border-radius:12px}
+.fcpc-pop button{flex:1;font:inherit;font-size:.85rem;border:0;background:transparent;border-radius:9px;padding:7px 2px;color:#4a6352;cursor:pointer}
+.fcpc-pop button.on{background:#5f9a73;color:#fff;font-weight:700}
+.fcstk{background:transparent!important;box-shadow:none!important}
 .fch2{display:flex;align-items:stretch;gap:8px;margin:4px 0 8px}
 .fch2-m{flex:1;min-width:0;display:flex;align-items:center;gap:10px;text-align:left;font:inherit;color:#2f3a33;background:#f3f8f2;border:1.5px solid #cfe2cf;border-radius:14px;padding:8px 10px;cursor:pointer}
 .fch2-p{flex:none;width:36px;height:36px;border-radius:50%;background:#5f9a73;color:#fff;display:grid;place-items:center;font-size:.9rem;padding-left:2px}
@@ -4228,9 +4241,9 @@ function fcKeys(sec){if(sec==='dhy')return DHY.map(function(d,i){return 'dhy:'+(
 var FCORD=[['open','Opening prayers'],['dial','The question'],['nyasa','Nyāsa'],['dhy','Dhyānam'],['v108','1000 names']];
 function fcWholeKeys(from){var ks=[],on=!from;FCORD.forEach(function(x){if(x[0]===from)on=true;if(!on)return;if(x[0]==='v108'){for(var n=1;n<=108;n++)ks.push('v108:'+n)}else ks=ks.concat(fcKeys(x[0]))});return ks}
 function fcWholeBtn(cur){var on=FCA.whole&&!!FCA.k,i=on?FCA.keys.indexOf(FCA.k):-1,sec=on?FCA.k.split(':')[0]:'',pn=0,pnm='';FCORD.forEach(function(x,j){if(x[0]===sec){pn=j+1;pnm=x[1]}});var vn=on?FCA.k.split(':')[1]:'';
- var inner=on?'<button class="fcw on" data-act="fcwhole" data-v=""><span class="fcwi">'+(FCA.pz?'▶':'⏸')+'</span><span class="fcwt"><b>'+(FCA.pz?'Paused · tap to carry on':'Whole chant · playing')+'</b><small>Part '+pn+(vn&&vn!=='om'?' · verse '+vn:' · '+pnm)+'</small></span></button><button class="fcwx" data-act="fcwstop" aria-label="Stop">✕</button>':'';var hero=on?'':fcHero();
+ var inner='';var hero=on?'':fcHero();
  var fr=!on&&cur&&cur!=='open'&&FCORD.some(function(x){return x[0]===cur})?'<button class="lnkb fcwf" data-act="fcwhole" data-v="'+cur+'">▶ Play all from this part</button>':'';
- return on?'<div class="fcstk"><div class="fcwr">'+inner+'<button class="fcwx fcmu'+(fcMu()?' off':'')+'" data-act="fcmu" aria-label="'+(fcMu()?'Sound off':'Sound on')+'">'+(fcMu()?'🔇':'🔊')+'</button></div>'+fcCtl()+'</div>':hero+fr}
+ return on?'<div class="fcstk"><div class="fcpc"><div class="fcpc-r"><button class="fcpc-p" data-act="fcwhole" data-v="" aria-label="'+(FCA.pz?'Play':'Pause')+'">'+(FCA.pz?'▶':'❚❚')+'</button><span class="fcpc-t"><b>'+(FCA.pz?'Paused':'Whole chant')+'</b><small>Part '+pn+(vn&&vn!=='om'?' · verse '+vn:' · '+pnm)+'</small></span><button class="fcpc-x" data-act="fcwstop"><i>■</i> Stop</button></div>'+fcCtl()+'</div></div>':hero+fr}
 function fcHero(){var r=S.fcres&&S.fcres.k;
  return '<div class="fch2"><button class="fch2-m" data-act="fcwhole" data-v="'+(r?'res':'')+'"><span class="fch2-p">▶</span><span class="fch2-t"><b>'+(r?'Carry on · whole chant':'Play the whole chant')+'</b><small>'+(r?'Stopped at '+fcResLbl().replace(/ · [^·]+ · verse/,' · verse'):'Opening prayers → 108 verses · 33 min')+'</small></span></button>'+(r?'<button class="fch2-s" data-act="fcwhole" data-v="open" aria-label="Start from the beginning">↺<small>Start again</small></button>':'')+'</div>'}
 function fcStop(){if(fcEl){try{if(FCA.one&&FCA.k){S.fcres={k:FCA.k,t:fcEl.currentTime,at:Date.now()};sv()}fcEl.pause()}catch(e){}}try{if(FCWL){FCWL.release();FCWL=null}}catch(e){}clearTimeout(FCA.tg);var had=!!FCA.k;FCA={k:'',all:false,keys:[],pz:false};return had}
@@ -4261,8 +4274,12 @@ function fcOneTick(){if(!FCA.one||!FULL||!FCA.k)return;var t=fcEl.currentTime;
  var k=fcKeyAt(t);if(k&&k!==FCA.k){FCA.k=k;if(FCA.whole&&LP==='fc'&&!FCA.hold){var sk=k.split(':')[0];if(sk!==FCSEC){FCSEC=sk;FCPDF=false;render(1);fcHLrun()}else render()}else render();fcScroll(k)}
  var cur=FULL[FCA.k];if(cur&&!FCA.gw&&fcGap()>0&&!document.hidden&&FCA.gd!==FCA.k&&t>=cur[0]+cur[1]){var ks=Object.keys(FULL),i=ks.indexOf(FCA.k);if(i>=0&&i<ks.length-1){FCA.gd=FCA.k;FCA.gw=1;fcEl.pause();setTimeout(function(){FCA.gw=0;if(FCA.one&&!FCA.pz&&FCA.k){var nk=ks[i+1];try{fcEl.currentTime=FULL[nk][0]}catch(e){}var q=fcEl.play();if(q&&q.catch)q.catch(function(){})}},fcGap()*1000/fcSp())}}}
 function fcResLbl(){var r=S.fcres;if(!r||!r.k)return '';var sec=r.k.split(':')[0],vn=r.k.split(':')[1],pn=0,pnm='';FCORD.forEach(function(x,j){if(x[0]===sec){pn=j+1;pnm=x[1]}});return 'Part '+pn+' · '+pnm+(vn&&vn!=='om'?' · verse '+vn:'')}
-function fcCtl(){var sp=fcSp(),g=S.fcgap||'s';function seg(lab,act,cur,opts){return '<div class="fcsr"><span class="fcsl">'+lab+'</span><span class="fcsb">'+opts.map(function(o){return '<button data-act="'+act+'" data-v="'+o[0]+'" aria-pressed="'+(String(cur)===String(o[0]))+'">'+o[1]+'</button>'}).join('')+'</span></div>'}
- return '<div class="fcctl2">'+seg('⏩ Speed','fcsps',sp,[[1,'Normal'],[1.1,'Bit faster'],[1.2,'Faster']])+seg('⏸ Pause','fcgaps',g,[['s','Short'],['m','Medium'],['l','Long']])+'</div>'+(fcMu()?'<div class="fcmuh">🔇 Sound off: the words still light up, so you can read along by yourself.</div>':'')}
+var FCPOP='';
+function fcCtl(){var sp=fcSp(),g=S.fcgap||'s',spl=sp>=1.2?'Faster':sp>1?'Bit faster':'Normal',gl=g==='l'?'Long':g==='m'?'Medium':'Short';
+ var h='<div class="fcpc-o"><button class="fcpc-b'+(FCPOP==='sp'?' open':'')+'" data-act="fcpop" data-v="sp"><small>Speed</small><b>'+spl+' ▾</b></button><button class="fcpc-b'+(FCPOP==='gap'?' open':'')+'" data-act="fcpop" data-v="gap"><small>Pause</small><b>'+gl+' ▾</b></button><button class="fcpc-b'+(fcMu()?' mu':'')+'" data-act="fcmu"><small>Sound</small><b>'+(fcMu()?'🔇 Off':'🔊 On')+'</b></button></div>';
+ if(FCPOP){var o=FCPOP==='sp'?[['fcsps',1,'Normal'],['fcsps',1.1,'Bit faster'],['fcsps',1.2,'Faster']]:[['fcgaps','s','Short'],['fcgaps','m','Medium'],['fcgaps','l','Long']],cur=FCPOP==='sp'?sp:g;
+  h+='<div class="fcpc-pop">'+o.map(function(x){var on=String(cur)===String(x[1]);return '<button class="'+(on?'on':'')+'" data-act="'+x[0]+'" data-v="'+x[1]+'">'+(on?'✓ ':'')+x[2]+'</button>'}).join('')+'</div>'}
+ return h+(fcMu()?'<div class="fcmuh">🔇 Sound off: the words still light up, so you can read along by yourself.</div>':'')}
 function fc108(){return TRK==='vsn'?trkNow():(TRKD.vsn||trkNow())}
 function fcEarly(){if(FCA.one)return;var k=FCA.k;if(!FCA.all||!k||FCA.adv===k||k.indexOf('v108:')!==0||!TRIM)return;var tr=TRIM[k.split(':')[1]];if(!tr||!(fcEl.currentTime>=tr[1]+0.25))return;var i=FCA.keys.indexOf(k);if(i<0||i>=FCA.keys.length-1)return;FCA.adv=k;var nk=FCA.keys[i+1];clearTimeout(FCA.tg);FCA.tg=setTimeout(function(){if(FCA.all&&FCA.k===k)fcPlay(nk,true)},120)}
 function fcHLrun(){clearInterval(FCHT);if(FCCUT===null){FCCUT={};fetch('audio/cuts.json').then(function(r){return r.ok?r.json():{}}).then(function(j){FCCUT=j||{}}).catch(function(){})}FCHT=setInterval(fcHL,110)}
@@ -4380,7 +4397,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=356,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=357,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -4527,11 +4544,12 @@ app.addEventListener('click',function(e){
  if(a==='step'){var k=+t.dataset.k,s=S.steps[tdy()]||[0,0,0,0,0];setStep(k,!s[k]);render()}
  else if(a==='vopen'){VOPEN=!VOPEN;render()}
  else if(a==='fcpl'){fcTap(v)}  else if(a==='fcwhole'){if(FCA.whole&&FCA.k)fcTap(FCA.k);else if(v==='res'&&S.fcres&&S.fcres.k){var rr=S.fcres;FCA={k:'',all:true,whole:true,keys:fcWholeKeys(''),pz:false};if(!fcEl)fcPlay2(rr.k,'init');fcOnePlay(rr.k,Math.max(0,(rr.t||0)-1))}else{var wk=fcWholeKeys(v==='open'?'':(v||''));FCA={k:'',all:true,whole:true,keys:wk,pz:false};if(v==='open'){S.fcres=null;sv()}fcPlay(wk[0],true)}}
+ else if(a==='fcpop'){FCPOP=FCPOP===v?'':v;render()}
  else if(a==='fcmu'){S.fcmute=!fcMu();sv();fcApply();render()}
  else if(a==='fcspc'){var sl=[1,1.1,1.2],ci=sl.indexOf(fcSp());S.fcsp=sl[(ci+1)%3];sv();fcApply();render()}
  else if(a==='fcgapc'){var gl=['s','m','l'],gi=gl.indexOf(S.fcgap||'s');S.fcgap=gl[(gi+1)%3];sv();render()}
- else if(a==='fcsps'){S.fcsp=+v;sv();fcApply();render()}
- else if(a==='fcgaps'){S.fcgap=v;sv();render()}
+ else if(a==='fcsps'){S.fcsp=+v;FCPOP='';sv();fcApply();render()}
+ else if(a==='fcgaps'){S.fcgap=v;FCPOP='';sv();render()}
  else if(a==='fcmus'){S.fcmute=v==='1';sv();fcApply();render()}  else if(a==='fcwstop'){fcStop();render()}  else if(a==='fcall'){var ks2=fcKeys(v);if(FCA.all&&ks2.indexOf(FCA.k)>=0)fcTap(FCA.k);else{FCA={k:'',all:true,keys:ks2,pz:false};fcPlay(ks2[0],true)}}  else if(a==='fcsec'){var wp=FCA.whole&&FCA.k;if(wp){var wj=fcWholeKeys(v);if(wj.length&&FCORD.some(function(x){return x[0]===v})){FCA.keys=fcWholeKeys('');FCA.hold=false;FCSEC=v;fcPlay(wj[0],true);scrollTo(0,0);fcNavC();return}FCA.hold=true}else fcStop();FCSEC=v;FCPDF=false;DOCMSG='';render();scrollTo(0,0);fcNavC()}
  else if(a==='fcst'){S.fcst=v;sv();render()}
  else if(a==='fcpdf'){FCPDF=!FCPDF;DOCMSG='';render();if(FCPDF)scrollTo(0,0)}
