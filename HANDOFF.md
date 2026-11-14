@@ -292,3 +292,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 363 (14 Nov 2026) — Dev + Test
 - Revise › All learned: range tabs (1–20 · 21–40 · …, only ranges with learned verses; VSR, follows the chosen verse unless a tab was tapped) instead of the long grid / Show all; 🔍 in the header opens the type-a-number box (jsr).
+
+## Build 364 (14 Nov 2026) — Dev + Test
+- Revise › All learned: three coloured boxes with counts replace the colour legend: 🔔 N Revise today · ⏳ N Coming back · 🌿 N Strong. Tap one to show only those numbers ("Showing … only · Show all N"); tap again to show all. Range tabs only for the shown list (VSST).

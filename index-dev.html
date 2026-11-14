@@ -592,6 +592,9 @@ html.fs0 body{font-size:15px}html.fs2 body{font-size:22px}
 .fcsc button[aria-pressed=true]{background:#fff;color:#2f5a3e;font-weight:700;box-shadow:0 0 0 1.5px #5f9a73}
 .fcpc-o .fcpc-b small{font-size:.6rem}.fcpc-o .fcpc-b b{font-size:.8rem}
 .vsmt{margin:6px 0 12px!important}.vsq{margin-left:6px;width:32px;height:32px;border-radius:50%;border:1.5px solid #cfe2cf;background:#fff;font-size:.9rem;cursor:pointer;padding:0;flex:none}
+.vsst{display:flex;gap:6px;margin:2px 0 8px}.vsst button{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;font:inherit;border-radius:12px;padding:6px 2px;cursor:pointer;border:1.5px solid transparent}.vsst button b{font-size:.95rem}.vsst button small{font-size:.7rem}
+.vsst-due{background:#fde9cf;color:#a65b0c}.vsst-soon{background:#eef0f2;color:#5a6470}.vsst-ok{background:#e3f2e6;color:#2f7a45}.vsst button[aria-pressed=true]{border-color:currentColor;box-shadow:0 2px 6px rgba(0,0,0,.12)}.vsst button[disabled]{opacity:.45;cursor:default}
+.vsstn{font-size:.78rem;color:#6b5a3a;margin:-2px 0 6px}
 .vsrt{display:flex;gap:5px;overflow-x:auto;margin:2px 0 8px;padding-bottom:2px}.vsrt button{flex:1 0 auto;font:inherit;font-size:.82rem;font-weight:600;border:1.5px solid #dfe9dd;background:#fff;color:#4a6352;border-radius:12px;padding:6px 9px;cursor:pointer;white-space:nowrap}.vsrt button[aria-pressed=true]{background:#2f7a5a;border-color:#2f7a5a;color:#fff}
 .fcpsw{display:flex;align-items:center;gap:6px;margin:2px 0 6px;font-size:.74rem;color:#8a7a5a}.fcpsw button{font:inherit;font-size:.78rem;border:1px solid #e2d6b8;background:#fff;border-radius:9px;padding:3px 10px;cursor:pointer}.fcpsw button[aria-pressed=true]{background:#2f5a3e;color:#fff;border-color:#2f5a3e}
 .fcpc-g{flex:none;width:34px;height:34px;border-radius:50%;border:1.5px solid #cfe2cf;background:#fff;color:#2f5a3e;font-size:1rem;cursor:pointer;padding:0}.fcpc-g.on{background:#5f9a73;color:#fff}
@@ -3840,14 +3843,18 @@ function vsCard(jr){if(!S.learned.length)return '';var L=S.learned.slice().sort(
  if(soon.length)h+='<div class="vsh vh-s"><i>⏳</i><span>Coming back for revision</span><em>'+soon.length+'</em></div>'+soon.slice(0,3).map(row).join('');
  var sel=jDef(),ss=S.learned.indexOf(+sel)>=0&&vIdx(+sel)>=0?vsState(+sel):null;
  h+='<div class="mtiles mrow vsmt"><button class="mtile" data-act="recap"><span>\ud83d\udd01</span>Weekly recap</button><button class="mtile" data-act="plstart"><span>\ud83c\udfa7</span>Listen to all learned</button></div>';
+ var nD=L.filter(function(x){return x.s.c==='vs-due'}).length,nS=L.filter(function(x){return x.s.c==='vs-soon'}).length,nO=L.length-nD-nS;if(VSST&&!{due:nD,soon:nS,ok:nO}[VSST])VSST='';
+ var LA=L;if(VSST)L=L.filter(function(x){return x.s.c==='vs-'+VSST});
  var RG=[];L.forEach(function(x){var r=Math.floor((x.n-1)/20);if(RG.indexOf(r)<0)RG.push(r)});if(VSR!==null&&String(VSRS)!==String(sel))VSR=null;
  var cr=VSR!==null&&RG.indexOf(VSR)>=0?VSR:(sel?Math.floor((+sel-1)/20):RG[RG.length-1]);if(RG.indexOf(cr)<0)cr=RG[RG.length-1];var tabs=L.length>20&&RG.length>1,LS=tabs?L.filter(function(x){return Math.floor((x.n-1)/20)===cr}):L;
- h+='<div class="vsh vh-o"><i>📿</i><span>All learned</span><em>'+L.length+'</em><button class="vsq" data-act="jsr" aria-label="Type a verse number">🔍</button></div>'+(tabs?'<div class="vsrt">'+RG.map(function(r){var a=L.filter(function(x){return Math.floor((x.n-1)/20)===r}),lo=a[0].n,hi=a[a.length-1].n;return '<button data-act="vsrg" data-v="'+r+'" aria-pressed="'+(r===cr)+'">'+lo+(hi!==lo?'–'+hi:'')+'</button>'}).join('')+'</div>':'')+'<div class="vsg">'+LS.map(function(x){return '<button class="'+x.s.c+(String(sel)===String(x.n)?' on':'')+'" data-act="jpick" data-v="'+x.n+'">'+x.n+'</button>'}).join('')+'</div>'
-  +'<div class="vsk"><span class="vk-d">Revise today</span><span class="vk-s">Coming back</span><span class="vk-o">Strong</span></div>'
+ h+='<div class="vsh vh-o"><i>📿</i><span>All learned</span><em>'+LA.length+'</em><button class="vsq" data-act="jsr" aria-label="Type a verse number">🔍</button></div>'
+  +'<div class="vsst">'+[['due','🔔','Revise today',nD],['soon','⏳','Coming back',nS],['ok','🌿','Strong',nO]].map(function(x){return '<button class="vsst-'+x[0]+'" data-act="vsst" data-v="'+x[0]+'" aria-pressed="'+(VSST===x[0])+'"'+(x[3]?'':' disabled')+'><b>'+x[1]+' '+x[3]+'</b><small>'+x[2]+'</small></button>'}).join('')+'</div>'
+  +(VSST?'<div class="vsstn">Showing <b>'+{due:'Revise today',soon:'Coming back',ok:'Strong'}[VSST]+'</b> only · <button class="lnkb" data-act="vsst" data-v="">Show all '+LA.length+'</button></div>':'')+(tabs?'<div class="vsrt">'+RG.map(function(r){var a=L.filter(function(x){return Math.floor((x.n-1)/20)===r}),lo=a[0].n,hi=a[a.length-1].n;return '<button data-act="vsrg" data-v="'+r+'" aria-pressed="'+(r===cr)+'">'+lo+(hi!==lo?'–'+hi:'')+'</button>'}).join('')+'</div>':'')+'<div class="vsg">'+LS.map(function(x){return '<button class="'+x.s.c+(String(sel)===String(x.n)?' on':'')+'" data-act="jpick" data-v="'+x.n+'">'+x.n+'</button>'}).join('')+'</div>'
+  
   +'<div class="vssel">'+(sel?'<b>Verse '+sel+'</b>'+(ss?'<small>'+ss.t+'</small>':''):'')+(jr||'')+'</div>'
   +'<div class="mute" style="font-size:.8rem;margin-top:8px">Strong = revised after 1, 3 and 7 days, or marked as known.</div></div>';
  return h}
-var VSM=0,VSALL=false,VSR=null,VSRS='';
+var VSM=0,VSALL=false,VSR=null,VSRS='',VSST='';
 function revBody(P){var m=P.MORE.replace('<h3>More practice</h3>',''),a=allBtn(),nk=mkNote(),jr='';m=m.replace('<h3 class="mh">All 108 verses</h3>'+a,'');if(nk)m=m.replace(nk,'');if(S.learned.length){var q=/<!--J2R-->([\s\S]*?)<!--\/J2R-->/.exec(m);if(q)jr=q[1];m=m.replace(/<!--J2-->[\s\S]*?<!--\/J2-->/,'').replace(/<!--LV-->[\s\S]*?<!--\/LV-->/,'').replace(/<div class="morec">\s*<\/div>/,'')}return '<div class="revtab">'+revCard()+vsCard(jr)+m+(TRK==='vsn'?'<div class="morec"><h3 class="mh">All 108 verses</h3>'+a+'</div>':'')+nk+'</div>'}
 function revLine(){if(!S.learned.length)return '';var r=mkList().filter(function(x){return x.r}).length,dn=S.doneDay===tdy();
  if(!r&&!dn)return '<div class="revn"><span class="rvi">\ud83d\udd01</span><span>Each new verse you learn comes back after 1, 3 and 7 days</span></div>';if(dn)return '<div class="revn"><span class="rvi">\ud83d\udd01</span><span>Each new verse you learn comes back after 1, 3 and 7 days</span></div><div class="revl d revd">\u2705 <span class="revt"><b>Revision done for today</b> \u00b7 next one tomorrow</span></div>';return '<div class="revn"><span class="rvi">\ud83d\udd01</span><span>Each new verse you learn comes back after 1, 3 and 7 days</span></div><button class="revl'+(dn?' d':'')+'" data-act="revgo" data-v="today"><span>'+(dn?'\u2705':'\ud83d\udcc5')+'</span><span class="revt">'+(dn?'<b>Revision done for today</b>':'<b>Today\u2019s revision: '+r+' verse'+(r>1?'s':'')+'</b> <span class="lte">\u00b7 in Today</span>')+'</span>'+(dn?'':'<span class="revg">Go \u203a</span>')+'</button>'}
@@ -4454,7 +4461,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=363,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=364,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -4605,6 +4612,7 @@ app.addEventListener('click',function(e){
  else if(a==='fcgo'){if(!(FCA.one&&FULL&&FULL[v]))return;FCA.hold=false;fcOnePlay(v)}
  else if(a==='fcscope'){S.fcsc=v;sv();FCA.part=v==='p'&&FCA.k?FCA.k.split(':')[0]:'';render()}
  else if(a==='fcfol'){S.fcfol=S.fcfol==='0'?'1':'0';sv();if(S.fcfol!=='0'&&FCA.k){FCA.hold=false;var fk=FCA.k.split(':')[0];if(fk!==FCSEC){FCSEC=fk;FCPDF=false;render(1);fcHLrun()}else render();fcScroll(FCA.k)}else render()}
+ else if(a==='vsst'){VSST=VSST===v?'':v;VSR=null;render()}
  else if(a==='vsrg'){VSR=+v;VSRS=String(jDef());render()}
  else if(a==='fcset'){FCSET=!FCSET;FCPOP='';render()}
  else if(a==='fcps'){S.fcps=v;FCSET=false;FCPOP='';sv();render()}
