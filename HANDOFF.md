@@ -274,3 +274,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 357 (14 Nov 2026) — Dev + Test
 - Full chant playing card (fcpc): round play/pause, "Whole chant · Part N · verse M", "■ Stop" pill (no ✕); three small boxes SPEED / PAUSE / SOUND showing the current choice; Speed and Pause open a small choice strip (FCPOP) with the chosen one green with ✓; Sound toggles (box turns soft red when off). Light sage colours.
+
+## Build 358 (14 Nov 2026) — Dev + Test
+- Whole chant keeps playing when you leave the reader: "⌄ Hide" button in the player card (fcmin) and Close ✕ of the reader (lpclose) no longer stop it while it plays (paused → still stops and remembers the spot). Mini player #fcbar (fcBarSync every 700 ms, sits above the tab bar and above the Swadhyayam bar): 🪷 Whole chant · Playing · Part N · verse M · "Open ⌃" (back to the reader at the right part), ▶/❚❚, ■ stop. Hidden on the reader, in practice and in Play a verse. fcOneTick re-renders only on the reader.
