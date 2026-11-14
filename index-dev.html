@@ -569,6 +569,13 @@ html.fs0 body{font-size:15px}html.fs2 body{font-size:22px}
 .fc2t{font-size:1.18rem;line-height:1.75;color:#2b1a0c}.fc2t.enb{font-size:1.02rem}.fc2t.te{font-size:1.12rem}
 .fc2d{margin-top:6px;color:#0f5c55;font-weight:600;font-size:.98rem;line-height:1.6}
 .sndg{margin:6px 0 0 6px}
+.fch2{display:flex;align-items:stretch;gap:8px;margin:4px 0 8px}
+.fch2-m{flex:1;min-width:0;display:flex;align-items:center;gap:10px;text-align:left;font:inherit;color:#2f3a33;background:#f3f8f2;border:1.5px solid #cfe2cf;border-radius:14px;padding:8px 10px;cursor:pointer}
+.fch2-p{flex:none;width:36px;height:36px;border-radius:50%;background:#5f9a73;color:#fff;display:grid;place-items:center;font-size:.9rem;padding-left:2px}
+.fch2-t{display:flex;flex-direction:column;min-width:0}.fch2-t b{font-size:.95rem;color:#2f5a3e}.fch2-t small{font-size:.75rem;color:#5d6e62;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fch2-s{flex:none;width:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font:inherit;font-size:1rem;color:#2f5a3e;background:#fff;border:1.5px solid #cfe2cf;border-radius:14px;cursor:pointer}.fch2-s small{font-size:.66rem;color:#5d6e62}
+.fcw.on{background:#f3f8f2!important;border-color:#cfe2cf!important;color:#2f3a33}.fcw.on .fcwi{background:#5f9a73}.fcstk .fcwx{border-color:#cfe2cf}
+.fcsb{background:#e9f1e8!important}.fcsr .fcsb button[aria-pressed=true]{color:#2f5a3e!important;box-shadow:0 0 0 1.5px #5f9a73,0 1px 3px rgba(0,0,0,.12)!important}.fcsl{color:#4a6352!important}
 .fch{border-radius:20px;padding:14px 14px 12px;margin:4px 0 10px;color:#fff;background:linear-gradient(140deg,#6b1a1a 0%,#9a3412 55%,#c2621c 100%);border:2px solid #e8b44c;box-shadow:0 6px 18px rgba(122,31,31,.25),inset 0 0 0 1px rgba(255,220,150,.35);position:relative;overflow:hidden}
 .fch:after{content:'';position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,130,.35),transparent 70%);pointer-events:none}
 .fch-top{display:flex;align-items:center;gap:10px}.fch-lamp{font-size:1.7rem;filter:drop-shadow(0 0 6px rgba(255,200,90,.8))}
@@ -4221,14 +4228,11 @@ function fcKeys(sec){if(sec==='dhy')return DHY.map(function(d,i){return 'dhy:'+(
 var FCORD=[['open','Opening prayers'],['dial','The question'],['nyasa','Nyāsa'],['dhy','Dhyānam'],['v108','1000 names']];
 function fcWholeKeys(from){var ks=[],on=!from;FCORD.forEach(function(x){if(x[0]===from)on=true;if(!on)return;if(x[0]==='v108'){for(var n=1;n<=108;n++)ks.push('v108:'+n)}else ks=ks.concat(fcKeys(x[0]))});return ks}
 function fcWholeBtn(cur){var on=FCA.whole&&!!FCA.k,i=on?FCA.keys.indexOf(FCA.k):-1,sec=on?FCA.k.split(':')[0]:'',pn=0,pnm='';FCORD.forEach(function(x,j){if(x[0]===sec){pn=j+1;pnm=x[1]}});var vn=on?FCA.k.split(':')[1]:'';
- var inner=on?'<button class="fcw on" data-act="fcwhole" data-v=""><span class="fcwi">'+(FCA.pz?'▶':'⏸')+'</span><span class="fcwt"><b>'+(FCA.pz?'Paused · tap to carry on':'Whole chant · playing')+'</b><small>Part '+pn+' · '+pnm+(vn&&vn!=='om'?' · verse '+vn:'')+'</small></span></button><button class="fcwx" data-act="fcwstop" aria-label="Stop">✕</button>':'';var hero=on?'':fcHero();
+ var inner=on?'<button class="fcw on" data-act="fcwhole" data-v=""><span class="fcwi">'+(FCA.pz?'▶':'⏸')+'</span><span class="fcwt"><b>'+(FCA.pz?'Paused · tap to carry on':'Whole chant · playing')+'</b><small>Part '+pn+(vn&&vn!=='om'?' · verse '+vn:' · '+pnm)+'</small></span></button><button class="fcwx" data-act="fcwstop" aria-label="Stop">✕</button>':'';var hero=on?'':fcHero();
  var fr=!on&&cur&&cur!=='open'&&FCORD.some(function(x){return x[0]===cur})?'<button class="lnkb fcwf" data-act="fcwhole" data-v="'+cur+'">▶ Play all from this part</button>':'';
  return on?'<div class="fcstk"><div class="fcwr">'+inner+'<button class="fcwx fcmu'+(fcMu()?' off':'')+'" data-act="fcmu" aria-label="'+(fcMu()?'Sound off':'Sound on')+'">'+(fcMu()?'🔇':'🔊')+'</button></div>'+fcCtl()+'</div>':hero+fr}
-function fcHero(){var r=S.fcres&&S.fcres.k,sp=fcSp(),g=S.fcgap||'s';
- return '<div class="fch"><div class="fch-top"><span class="fch-lamp">🪔</span><span class="fch-t"><b>The whole chant</b><small>Opening prayers → Dhyānam → 108 verses · about 33 min</small></span></div>'
- +(r?'<div class="fch-res">⏸ You stopped at <b>'+fcResLbl()+'</b></div>':'')
- +'<div class="fch-btns">'+(r?'<button class="fch-p" data-act="fcwhole" data-v="res"><span class="fch-pi">▶</span><span><b>Carry on</b><small>from where you stopped</small></span></button><button class="fch-s" data-act="fcwhole" data-v="open"><span class="fch-si">↺</span><span><b>Start again</b><small>from the beginning</small></span></button>':'<button class="fch-p wide" data-act="fcwhole" data-v=""><span class="fch-pi">▶</span><span><b>Play the whole chant</b><small>from the opening prayers</small></span></button>')+'</div>'
- +'<div class="fch-set">'+(sp>=1.2?'Faster':sp>1?'Bit faster':'Normal speed')+' · '+(g==='l'?'long':g==='m'?'medium':'short')+' pause · sound '+(fcMu()?'off':'on')+'</div></div>'}
+function fcHero(){var r=S.fcres&&S.fcres.k;
+ return '<div class="fch2"><button class="fch2-m" data-act="fcwhole" data-v="'+(r?'res':'')+'"><span class="fch2-p">▶</span><span class="fch2-t"><b>'+(r?'Carry on · whole chant':'Play the whole chant')+'</b><small>'+(r?'Stopped at '+fcResLbl().replace(/ · [^·]+ · verse/,' · verse'):'Opening prayers → 108 verses · 33 min')+'</small></span></button>'+(r?'<button class="fch2-s" data-act="fcwhole" data-v="open" aria-label="Start from the beginning">↺<small>Start again</small></button>':'')+'</div>'}
 function fcStop(){if(fcEl){try{if(FCA.one&&FCA.k){S.fcres={k:FCA.k,t:fcEl.currentTime,at:Date.now()};sv()}fcEl.pause()}catch(e){}}try{if(FCWL){FCWL.release();FCWL=null}}catch(e){}clearTimeout(FCA.tg);var had=!!FCA.k;FCA={k:'',all:false,keys:[],pz:false};return had}
 function fcPlay(k,all){if(all&&FCA.whole){if(!fcEl)fcPlay2(k,'init');fcOnePlay(k);return}fcPlay2(k,all)}
 function fcPlay2(k,all){var u=fcAu(k);if(!u)return;var ini=all==='init';if(ini)all=false;try{if(gxA&&!gxA.paused){gxA.pause();GXP.st=''}}catch(e){}try{if(plA&&!plA.paused)plA.pause()}catch(e){}
@@ -4376,7 +4380,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=355,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=356,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});

@@ -268,3 +268,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 355 (14 Nov 2026) — Dev + Test
 - Full chant reader, not playing: fcHero() card (maroon→saffron, gold border, 🪔): "Play the whole chant", or after a stop "You stopped at Part N · verse M" + two buttons "▶ Carry on" (gold) and "↺ Start again" (outline); small line with the current speed/pause/sound.
 - Playing: sticky bar "Whole chant · playing" + ✕ + 🔊/🔇 button; two clear choice rows "⏩ Speed: Normal | Bit faster | Faster" and "⏸ Pause: Short | Medium | Long" (classes fcsr/fcsl/fcsb — don't reuse .seg, it is used elsewhere).
+
+## Build 356 (14 Nov 2026) — Dev + Test
+- Full chant card made small and calm: one light sage row (fch2: ▶ + "Play the whole chant" / "Carry on · whole chant · Stopped at Part 5 · verse 23") + small "↺ Start again" box. Playing bar and Speed/Pause rows in the same light sage; chosen option white with a green ring. Settings summary line removed.
