@@ -1787,7 +1787,7 @@ html[data-vbg="1"] .sa,html[data-vbg="2"] .sa{font-weight:500}
 html[data-vbg="1"] .te,html[data-vbg="2"] .te{font-weight:600}
 html[data-vbg="1"] .prb .wd,html[data-vbg="2"] .prb .wd,html[data-vbg="1"] .prl,html[data-vbg="2"] .prl{color:#0a5354}
 #envtag{position:fixed;top:calc(env(safe-area-inset-top,0px) + 2px);left:50%;transform:translateX(-50%);z-index:9999;pointer-events:none;background:#d98a1a;color:#fff;font:700 10px/1 -apple-system,sans-serif;letter-spacing:.08em;padding:3px 8px;border-radius:8px;opacity:.9}
-#envtag.dev{background:#c0392b}
+#envtag.dev{background:#c0392b}#envtag.pre{background:#6a4c93}
 /* b304: old practice screen header, end screen in one view, keep/share slokas, Swadhyayam log */
 .rpsheet.osc .gtop{flex-wrap:nowrap}
 .rpsheet.osc .gtop .gvt{flex:1 1 auto;min-width:0;white-space:normal;overflow:visible;flex-wrap:wrap;display:flex;align-items:center;row-gap:0;column-gap:4px;line-height:1.25}
@@ -1957,7 +1957,7 @@ html[data-vbg="1"] .prb .wd,html[data-vbg="2"] .prb .wd,html[data-vbg="1"] .prl,
 var ENV='dev';
 (function(){var P=ENV==='prod'?'':ENV+'_';window.ENVP=P;try{document.documentElement.setAttribute('data-env',ENV)}catch(e){}if(!P)return;
  /* DEV / TEST tag: its own element (never body::after, which the verse picture layer uses) */
- var tag=function(){if(document.getElementById('envtag')||!document.body)return;var d=document.createElement('div');d.id='envtag';d.className=ENV;d.textContent=ENV.toUpperCase();document.body.appendChild(d)};if(document.body)tag();else document.addEventListener('DOMContentLoaded',tag);
+ var tag=function(){if(document.getElementById('envtag')||!document.body)return;var d=document.createElement('div');d.id='envtag';d.className=ENV;d.textContent=ENV==='pre'?'PREVIEW':ENV.toUpperCase();document.body.appendChild(d)};if(document.body)tag();else document.addEventListener('DOMContentLoaded',tag);
  var ls=null,G,St,Rm;try{ls=window.localStorage;G=Storage.prototype.getItem;St=Storage.prototype.setItem;Rm=Storage.prototype.removeItem}catch(e){}
  if(ls){try{if(G.call(ls,P+'__init')===null){var ks=[];for(var i=0;i<ls.length;i++){var k=ls.key(i);if(k&&!/^(dev|test)_/.test(k))ks.push(k)}ks.forEach(function(k){if(G.call(ls,P+k)===null)St.call(ls,P+k,G.call(ls,k))});St.call(ls,P+'__init',String(Date.now()))}}catch(e){}
   Storage.prototype.getItem=function(k){return G.call(this,this===ls?P+k:k)};
@@ -2410,7 +2410,7 @@ var HERO=null;
 function hsParts(){var h=homeOld();if(h.indexOf('<!--#TODAY-->')<0)return null;var P={},keys=['PANEL','NOTE','TODAY','MORE','READ','RECS','END'],cur='HERO',rest=h;
  keys.forEach(function(k){var i=rest.indexOf('<!--#'+k+'-->');P[cur]=rest.slice(0,i);rest=rest.slice(i+k.length+8);cur=k});P.END=rest;return P}
 var HSN={A:'A \u00b7 Tiles: today on top, picture tiles below',B:'B \u00b7 Bottom tabs, like most phone apps',C:'C \u00b7 One page, tidy sections',D:'D \u00b7 Guru\u2019s path of verses',E:'E \u00b7 Bottom tabs with the guru\u2019s path',F:'F \u00b7 Focus: one big button, the rest below'};
-function hsBar(){return '<div class="hsbar"><b>Style</b>'+['A','B','C','D','E','F'].map(function(x){return '<button data-act="hs" data-v="'+x+'" aria-pressed="'+(HS===x)+'">'+x+'</button>'}).join('')+'</div><div class="hsnote">'+HSN[HS]+' \u00b7 prototype, live app unchanged</div>'}
+function hsBar(){if(ENV==='pre')return '';return '<div class="hsbar"><b>Style</b>'+['A','B','C','D','E','F'].map(function(x){return '<button data-act="hs" data-v="'+x+'" aria-pressed="'+(HS===x)+'">'+x+'</button>'}).join('')+'</div><div class="hsnote">'+HSN[HS]+' \u00b7 prototype, live app unchanged</div>'}
 function hsSoon(){return '<span class="hsoon">SOON</span>'}
 function hsRow(act,v,e,t,sub,soon){return '<button class="rli'+(soon?' hoff':'')+'"'+(act?' data-act="'+act+'" data-v="'+v+'"':'')+'><span class="rlic">'+e+'</span><span class="rlt"><b>'+t+(soon?' '+hsSoon():'')+'</b><small>'+sub+'</small></span><span class="rla">›</span></button>'}
 
@@ -3098,7 +3098,7 @@ function mypFollow(){return mypChips('mpwd',[['1','Each word'],['0','Whole line'
 function mypLoop(){var a=myAud(),pl=MYP&&MYP.on&&!MYP.gap&&!a.paused;return '<button class="chip" data-act="mpab"'+(pl||MYPAB?'':' disabled')+'>🔂 '+(MYPAB?'Tap where the bit ends':'Loop a bit')+'</button><div class="mute mp-sm">'+(MYPAB?'Started at '+oT(MYPAB.s)+'.':'While it plays: tap here where a tricky bit starts, then again where it ends.')+'</div>'}
 function mypText(x){var h=myTextHTML(x,'big lp mpt');return h.replace(/<div class="msk-ln" data-l="/g,'<div class="msk-ln" data-act="mpln" data-l="')}
 function mypSheet(){if(!MYPSH)return '';return '<div class="mpsh-dim" data-act="mpsh"></div><div class="mpsh"><div class="mpsh-top"><b class="mpsh-h">Player settings</b><button class="mpsh-x" data-act="mpsh">Done</button></div><div class="mp-lab">HOW MANY TIMES</div><div>'+mypTimes()+'</div><div class="mp-lab">SPEED</div><div>'+mypSpeeds()+'</div><div class="mp-lab">LIGHT UP</div><div>'+mypFollow()+'</div><div class="mp-lab">TRICKY BIT</div>'+mypLoop()+'<button class="btn" data-act="mpsh" style="margin-top:14px">Done</button></div>'}
-function mypStyleBar(){var c=S.mypsty||'B';return '<div class="mp-sty"><span>Test · player style</span>'+mypChips('mpsty',[['A','A'],['B','B'],['C','C']],c)+'</div>'}
+function mypStyleBar(){if(ENV==='pre')return '';var c=S.mypsty||'B';return '<div class="mp-sty"><span>Test · player style</span>'+mypChips('mpsty',[['A','A'],['B','B'],['C','C']],c)+'</div>'}
 /* ===== b269: simpler My slokas: list, player, settings sheet, edit, lines, learn with guru ===== */
 var MYMENU=null,MYLM=null,MYNM=false;
 function myHelpU(){return 'help/my-slokas.html?l='+(S.lang||'en')}
@@ -3621,12 +3621,12 @@ function bhSheet(act,t,body){return '<div class="bhs-bg" data-act="'+act+'"></di
 function allGrid(){var nw={};mkList().forEach(function(x){if(!x.r)nw[V[x.i].n]=1});var L=S.learned.length,c='';
  for(var g=0;g<TOTAL;g+=10){c+='<div class="agr"><span class="agl">'+(g+1)+'\u2013'+Math.min(g+10,TOTAL)+'</span><div>';for(var n=g+1;n<=Math.min(g+10,TOTAL);n++){var l=S.learned.indexOf(n)>=0;c+='<button class="agv'+(l?' l':nw[n]?' t':'')+'" data-act="gov" data-v="'+n+'">'+n+'</button>'}c+='</div></div>'}
  return '<div class="agk"><span><i class="l"></i>Learned '+L+'</span><span><i class="t"></i>Today</span><span><i></i>Still to learn '+(TOTAL-L)+'</span></div><div class="mute" style="margin:2px 0 8px">Tap a number to practise that verse. Finish by '+finLabel()+'.</div>'+c}
-function tdL(){var t=S.tdl||'0';return t==='A'||t==='B'||t==='C'||t==='D'?t:''}
+function tdL(){if(ENV==='pre')return 'D';var t=S.tdl||'0';return t==='A'||t==='B'||t==='C'||t==='D'?t:''}
 function bhRow2(){var L=S.learned.length;return '<div class="pg1"><button class="pgL" data-act="vopen"><b><em>'+L+'</em> of '+TOTAL+' learned</b><small>Finish by '+finLabel()+' \u203a</small><span class="pgbar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></span></button><button class="pgR" data-act="popen"><b>'+S.pace+' a day</b><small>Change \u203a</small></button></div>'}
-function tdlBar(){return '<div class="tdlb"><span>Test \u00b7 Today layout</span>'+[['0','Now'],['A','A'],['B','B'],['C','C'],['D','D']].map(function(x){return '<button class="chip" data-act="tdl" data-v="'+x[0]+'" aria-pressed="'+((tdL()||'0')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>'}
+function tdlBar(){if(ENV==='pre')return '';return '<div class="tdlb"><span>Test \u00b7 Today layout</span>'+[['0','Now'],['A','A'],['B','B'],['C','C'],['D','D']].map(function(x){return '<button class="chip" data-act="tdl" data-v="'+x[0]+'" aria-pressed="'+((tdL()||'0')===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>'}
 function bhRow(){if(tdL())return bhRow2();var L=S.learned.length;return '<div class="bh-row"><button data-act="vopen"><span><b>'+L+'</b>/'+TOTAL+' learned</span><i class="bh-mini"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></i><small>Finish '+finLabel()+' \u203a</small></button><button data-act="popen"><span>\ud83d\udcc5 <b>'+S.pace+'</b> a day</span><small>Change \u203a</small></button></div>'}
 /* b294: layout D home: header styles (S.dhs: big / circle / portrait / arch) + glance tiles */
-function dhS(){var v=S.dhs||'circle';return ['big','circle','portrait','arch'].indexOf(v)>=0?v:'circle'}
+function dhS(){if(ENV==='pre')return 'circle';var v=S.dhs||'circle';return ['big','circle','portrait','arch'].indexOf(v)>=0?v:'circle'}
 function dhBell(){var n=0;try{n=satEv().filter(function(x){return !x.past&&x.st-Date.now()<30*864e5}).length}catch(e){}return '<button class="dh-ic" data-act="satgo" aria-label="Satsang and messages">🔔'+(n?'<sup>'+n+'</sup>':'')+'</button>'}
 function dhHead(){var st=dhS(),sk=streak(),pill='<b class="dh-pill">🔥 '+sk+(sk===1?' day':' days')+'</b>',icons='<span class="dh-tr"><button class="dh-ic" data-act="rdopen" aria-label="How to read">📖</button><button class="dh-ic" data-act="meopen" aria-label="Settings">⚙️</button>'+dhBell()+'</span>',
  slk='<button class="dh-slk dh-slk2" data-act="lpopen" data-v="slk"><b class="slk-n">🪷 Vishnu Sahasranamam</b><small class="slk-p"><span>Part '+trkO(TRK).p+' of 6</span> · <span>'+trkO(TRK).name+'</span> ▾</small></button>',ess='<div class="dh-ess"><span>🎧 Listen</span><span>🗣 Chant</span><span>📖 Know the meaning</span></div>',ttl='<h1 class="dh-t">Sloka Guru</h1>',im='url(\''+IMG+'\')';
@@ -3646,7 +3646,7 @@ function dhSide(){var L=S.learned.length,par=dhPar().replace('class="dt dt-par',
  return (SDO?'<div class="sdbg" data-act="sdo"></div><div class="sdrw dts" role="dialog" aria-label="My progress"><div class="sdrw-h"><b>My progress</b><button class="chip" data-act="sdo">✕</button></div><button class="dt dt-ln" data-act="vopen"><small>📈 Learned</small><b><em class="dt-n">'+L+'</em> of '+TOTAL+' verses</b><span class="dt-bar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></span><em>Finish by '+finLabel()+' ›</em></button><button class="dt dt-pc" data-act="popen"><small>📅 Verses a day</small><b class="dt-big">'+S.pace+' a day</b><em class="dt-ch">Change ›</em></button>'+par+'</div>':'')}
 function dhTiles(){var L=S.learned.length,sw=dhSw(),par=dhPar();if(S.sdt!=='0')return sw?'<div class="dts dts1">'+sw+'</div>':'';
  return '<div class="dts">'+(sw?sw+par:par.replace('class="dt dt-par','class="dt dt-par wide'))+'<button class="dt dt-ln" data-act="vopen"><small>📈 Learned</small><b><em class="dt-n">'+L+'</em> of '+TOTAL+' verses</b><span class="dt-bar"><u style="width:'+Math.max(L?3:0,L/TOTAL*100)+'%"></u></span><em>Finish by '+finLabel()+' ›</em></button><button class="dt dt-pc" data-act="popen"><small>📅 Verses a day</small><b class="dt-big">'+S.pace+' a day</b><em class="dt-ch">Change ›</em></button></div>'}
-function dhStyleBar(){return '<div class="tdlb"><span>Test · header</span>'+[['big','Big'],['circle','Circle'],['portrait','Portrait'],['arch','Arch']].map(function(x){return '<button class="chip" data-act="dhs" data-v="'+x[0]+'" aria-pressed="'+(dhS()===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>'}
+function dhStyleBar(){if(ENV==='pre')return '';return '<div class="tdlb"><span>Test · header</span>'+[['big','Big'],['circle','Circle'],['portrait','Portrait'],['arch','Arch']].map(function(x){return '<button class="chip" data-act="dhs" data-v="'+x[0]+'" aria-pressed="'+(dhS()===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>'}
 function bigHome(P){
  if(tdL()==='D'){var tdD=P.TODAY.replace(/<button class="pacel2"[\s\S]*?<\/button>/,''),pbD='',pmD=tdD.match(/<div class="pacebox">[\s\S]*?<button class="btn" data-act="popen">[^<]*<\/button><\/div>/);if(pmD){pbD=pmD[0];tdD=tdD.replace(pbD,'')}var hD=(S.sdt!=='0'?dhHead().replace(/^<div class="dh[^"]*"[^>]*>/,function(m){return m.replace('class="dh','class="hasrib dh')+dhRib()}):dhHead())+'<div class="dh-panel">'+tdD+dhTiles()+'</div>'+(S.sdt!=='0'?dhSide():'')+tdlBar()+dhStyleBar();if(POPEN&&pbD)hD+=bhSheet('popen','\ud83d\udcc5 Verses a day',pbD.replace('<h3>How many verses a day?</h3>',''));if(VOPEN)hD+=bhSheet('vopen','\ud83d\udcff All 108 verses',allGrid());return hD}
  var vr=hmV(),sk=streak(),prog=(P.HERO.match(/<button class="hv-prog"[\s\S]*?<\/button>/)||[''])[0];
@@ -4228,7 +4228,7 @@ function smPlay(i){S.plOpen=Date.now();setTimeout(plCheck,0);i=Math.max(0,Math.m
 function plRate(){var r=PL.all?(S.plsp||1):1;try{plA.muted=!!(PL.all&&S.plmute);plA.preservesPitch=true;plA.webkitPreservesPitch=true;plA.defaultPlaybackRate=r;plA.playbackRate=r}catch(e){}}
 function plPlay(i){if(PL.all&&M108&&!PL.nosm)return smPlay(i);setTimeout(plCheck,0);if(PL.all){S.pl108=Math.max(0,Math.min(PL.list.length-1,i));if(S.pl108>=PL.list.length-1)S.pl108=0;sv()}clearTimeout(PL.gap);PL.k=1;PL.st=Date.now();PL.idx=Math.max(0,Math.min(PL.list.length-1,i));PL.tried=0;PL.err='';PL.paused=false;PL.done=false;PL.T=null;PL.cut=0;PL.adv=0;plA.src=rpUrl(PL.list[PL.idx],'.m4a');plRate();(function(n){getCut(n).then(function(c){if(PL.list&&PL.list[PL.idx]===n){PL.cut=c||0;PL.T=null}})})(PL.list[PL.idx]);var p=plA.play();if(p&&p.catch)p.catch(function(){PL.paused=true;render()});plMeta();render()}
 var JMSG='',JVV='',JSR=false;function jDef(){if(!JVV&&!JSR&&S.learned.length)JVV=String(S.learned[S.learned.length-1]);return JVV}
-var MEFROM='',VLBL='Guru Dev';var HS='B';try{HS=localStorage.getItem('sp_hs2')||'B'}catch(e){}var HP='',HT='today',HSEC='more',MQ='',MV=0,BKP=null,BKMSG='',BKL=null;
+var MEFROM='',VLBL='Guru Dev';var HS='B';try{HS=localStorage.getItem('sp_hs2')||'B'}catch(e){}if(ENV==='pre')HS='B';var HP='',HT='today',HSEC='more',MQ='',MV=0,BKP=null,BKMSG='',BKL=null;
 var LP='',LPBACK='',RLOPEN=false,FT=false,FTBLOB=null,FTMSG='',FTURL='vishnu-sahasranamam-108-verses.pdf';
 function ftLoad(){if(FTBLOB)return;try{fetch(FTURL).then(function(r){return r.ok?r.blob():null}).then(function(b){if(b)FTBLOB=b}).catch(function(){})}catch(e){}}
 function ftShare(){var f=null;try{if(FTBLOB)f=new File([FTBLOB],'Vishnu-Sahasranamam-108-verses.pdf',{type:'application/pdf'})}catch(e){}if(f&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:'Vishnu Sahasranamam'}).catch(function(){});return}var w=null;try{w=window.open(FTURL,'_blank')}catch(e){}if(!w){FTMSG='Could not open the share menu here. Open the app in Safari and try again.';render()}}
@@ -4294,7 +4294,7 @@ function fcWholeBtn(cur){var on=FCA.whole&&!!FCA.k,i=on?FCA.keys.indexOf(FCA.k):
   HD='<button class="fcpc-m" data-act="fcmin" aria-label="Minimise">⌄<small>Hide</small></button>',SP='<button class="fcpc-m fcpc-st" data-act="fcwstop" aria-label="Stop">■<small>Stop</small></button>',
   SC='<div class="fcsc"><button data-act="fcscope" data-v="w" aria-pressed="'+(S.fcsc!=='p')+'">Whole chant</button><button data-act="fcscope" data-v="p" aria-pressed="'+(S.fcsc==='p')+'">This part only ('+pk.length+')</button></div>',
   GR='<button class="fcpc-g'+(FCSET?' on':'')+'" data-act="fcset" aria-label="Settings">⚙︎</button>',
-  SW='<div class="fcpsw"><span>Test · player style</span>'+[['a','A'],['b','B'],['c','C'],['d','D']].map(function(x){return '<button data-act="fcps" data-v="'+x[0]+'" aria-pressed="'+(st===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
+  SW=ENV==='pre'?'':'<div class="fcpsw"><span>Test · player style</span>'+[['a','A'],['b','B'],['c','C'],['d','D']].map(function(x){return '<button data-act="fcps" data-v="'+x[0]+'" aria-pressed="'+(st===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
  if(st==='b'){ /* bottom dock, like a music app; settings in a sheet */
   return SW+'<div class="fcdock"><div class="fcdock-pg">'+seg+'</div>'+(FCSET?'<div class="fcdock-sh"><div class="fcdock-shh"><b>Chant settings</b><button class="chip" data-act="fcset">Done</button></div>'+SC+fcCtl()+'<div class="fcdock-hs">'+HD+SP+'</div></div>':'')+'<div class="fcdock-r"><span class="fcpc-t"><b>'+T+'</b><small>'+Sub+'</small></span>'+PV+PP+NX+GR+'</div></div><div class="fcdock-sp"></div>'}
  if(st==='c'){ /* temple card, one row of small chips */
@@ -4461,7 +4461,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=364,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=365,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});

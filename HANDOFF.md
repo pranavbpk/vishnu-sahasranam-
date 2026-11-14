@@ -295,3 +295,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 364 (14 Nov 2026) — Dev + Test
 - Revise › All learned: three coloured boxes with counts replace the colour legend: 🔔 N Revise today · ⏳ N Coming back · 🌿 N Strong. Tap one to show only those numbers ("Showing … only · Show all N"); tap again to show all. Range tabs only for the shown list (VSST).
+
+## Build 365 (14 Nov 2026) — Dev + Test + NEW Preview
+- New 4th copy: index-pre.html "Guru Preview" (ENV=pre, storage prefix pre_, purple PREVIEW tag, manifest-pre.webmanifest so it can be its own Home Screen icon). Prod-like: owner's chosen look fixed in code when ENV===pre: Today layout D (tdL), circle header (dhS), bottom tabs (HS=B); test switches hidden (hsBar, tdlBar, dhStyleBar, mypStyleBar, full chant player-style switch). Full chant player = style A until owner picks.
+- tools/promote.py dev pre — run it together with dev test after every build.
