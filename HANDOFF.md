@@ -367,3 +367,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - ■ Stop in Parayanam mode closes the player (LP='') instead of showing the old reader page.
 - App Settings › 🪔 Parayanam: "Read-aloud lines (the dash lines)": Show with the verse / Hide · verse only / Read-aloud only (same S.fcshow as अ/అ › Show).
 - Echo letters (sup.ech: ha, hi, hu) in their own colour in the player: --ech saffron #c8641e on Chandan, blue #1565c0 on Haldi/Kesari/Kamala, light blue #7fd8ff on dark colours; bigger and bolder.
+
+## Build 377 (15 Nov 2026) — Dev + Test + Preview. Not live.
+- Learn › "📜 The full chant · Read and listen · every part, verse by verse" is back (action fcread2, flag FCRD=true): the reader page with ▶ on each verse, Listen this part, Play the whole chant as the plain inline card player (old fcWholeBtn path, no Parayanam overlay). Stop there keeps you on the page. "🪔 Parayanam mode" (paray) sets FCRD=false; the mini bar "Open" returns to Parayanam if it was started there.
+- Verse heading badge (fnd-no) colours per theme via --bdg/--bdgc: Chandan saffron/white, Temple·Tulasi·Neela gold/dark, Kumkum gold/red, Kesari maroon/cream, Haldi kumkum red/white, Kamala magenta/white; list badges use the same colour.
