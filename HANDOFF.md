@@ -374,3 +374,8 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 378 (15 Nov 2026) — Dev + Test + Preview. Not live.
 - One verse view, "Verse only" and "Read-aloud only" were huge (auto-fit filled the card). fcFitD now caps the size at 30 px when only one block shows (40 px for the read-aloud lines when both show, script grown up to 34 px); a hidden read-aloud block no longer counts; A+ / A− still scale from there.
+
+## Build 379 (15 Nov 2026) — Dev + Test + Preview. Not live.
+- Default Parayanam colour is Haldi (S.fcth||'hal').
+- Old players A/B/C removed from use (owner): fcPn() always 'nd', fcSw() returns '' (no style switch anywhere). The full chant page always uses the plain card player (style 'a'), no "Test · player style" row. Code for A/B/C still in the file, unused.
+- Owner reported YouTube in Swadhyayam now working (after build 369 referrer fix).
