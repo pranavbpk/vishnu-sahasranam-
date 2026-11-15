@@ -321,3 +321,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - "By heart" → "Kaṇṭhastham" (te కంఠస్థం, hi कण्ठस्थम्).
 - YouTube embed (Swadhyayam): iframe now sends referrerpolicy strict-origin-when-cross-origin + origin/widget_referrer params (YouTube refuses embeds with no referrer: black player, no controls). Needs owner's check.
 - Testing tip: python http.server has no byte ranges, so seeks in full.m4a fail; use a range server (scratch rs.py) to test jumps.
+
+## 15 Nov 2026 — preview page only (not in the app): styles/parayanam.html
+- Light Parayanam mode mock, working (fake timer, no sound): words light up and verses move on by themselves; header ⌄ · ⓘ how to do parayanam · अ/అ language (Sanskrit/Telugu/Hindi/English, show verse+read-aloud / read-aloud only / verse only, text size auto fit A−/A+) · ⚙ settings (whole/this part, speed, pauses, sound, move on by itself / when I tap, quiet time). "Where am I" box (part + verse + ⏱ min left, tap → all 7 parts with "Chant only this"); two styles: top line or side rail. Views: One verse (auto-fit big text) · All verses (scrolls with chant) · Book (PDF-style pages, sound on/off). 💡 Tip and 📖 Meaning on the verse. "Joining a parayanam" Satsang card mock. Real verse text/dash/tips/meanings for 1–4 from the app.

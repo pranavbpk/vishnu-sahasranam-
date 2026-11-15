@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Parayanam mode · light · preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Tiro+Devanagari+Sanskrit&family=Noto+Serif+Telugu:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{--ink:#3a2a18;--mar:#7a1f1f;--saf:#c8641e;--gold:#e0a53a;--cream:#fffaf0;--line:#ecdcb6;--soft:#8a6a3a}
+body{margin:0;background:#efe6d6;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:var(--ink);-webkit-text-size-adjust:100%}
+.top{padding:max(10px,env(safe-area-inset-top)) 12px 6px}
+.top h1{font-size:1.05rem;margin:0 0 2px;color:#0f5f5f}.top p{margin:0 0 8px;font-size:.82rem;color:#6b5a3a;line-height:1.35}
+.ctl{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0}.ctl b{font-size:.72rem;color:#8a6a3a;text-transform:uppercase;letter-spacing:.05em;margin-right:2px}
+.ctl button{border:1.5px solid #cdb98f;background:#fff;border-radius:999px;padding:6px 11px;font:inherit;font-size:.8rem;color:#5a4420}.ctl button.on{background:#0f6b6b;border-color:#0f6b6b;color:#fff}
+.dv{font-family:'Tiro Devanagari Sanskrit',serif}.tel{font-family:'Noto Serif Telugu',serif}
+/* phone */
+.phone{position:relative;max-width:410px;margin:8px auto 18px;height:min(820px,calc(100dvh - 30px));min-height:640px;border-radius:30px;overflow:hidden;border:6px solid #2a1f14;box-shadow:0 10px 30px rgba(60,40,10,.18);
+ background:radial-gradient(120% 60% at 50% 30%,#fffdf6 0%,#fbf1dc 60%,#f5e6c6 100%);display:flex;flex-direction:column}
+.hd{display:flex;align-items:center;gap:6px;padding:12px 12px 4px}
+.ib{width:40px;height:40px;border-radius:50%;border:1.5px solid #ead8ad;background:#fff;font-size:1.05rem;display:flex;align-items:center;justify-content:center;flex:none;color:var(--ink)}
+.ib.t{width:auto;border-radius:999px;padding:0 11px;font-size:.85rem;font-weight:700}
+.hd .tt{flex:1;text-align:center;line-height:1.1}.hd .tt b{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--saf)}.hd .tt small{font-size:.72rem;color:var(--soft)}
+/* where am I: top */
+.where{margin:4px 12px 0;padding:8px 10px;border-radius:14px;background:#fff8e8;border:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.where .wt{flex:1;min-width:0;line-height:1.2}.where .wt b{display:block;font-size:1rem;color:var(--mar)}.where .wt small{font-size:.78rem;color:var(--soft)}
+.where .left{flex:none;font-size:.78rem;font-weight:700;color:#0f5f5f;background:#e3f0ec;border-radius:999px;padding:5px 9px}
+.segs{display:flex;gap:3px;margin:6px 12px 0}.segs i{height:6px;border-radius:3px;background:#ead8ad;position:relative;overflow:hidden}.segs i.d{background:var(--gold)}.segs i.c{background:#f3dcc6}.segs i.c u{position:absolute;left:0;top:0;bottom:0;background:var(--saf)}
+.grp{display:flex;margin:3px 12px 0;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:#a89878}.grp span{text-align:center}.grp span.on{color:var(--saf);font-weight:700}
+/* side rail */
+.body{flex:1;display:flex;min-height:0}
+.rail{display:none;flex:none;width:58px;padding:8px 0 8px 8px;flex-direction:column;gap:4px;overflow:hidden}
+.side .rail{display:flex}.side .segs,.side .grp{display:none}
+.rail .g{font-size:.52rem;letter-spacing:.05em;text-transform:uppercase;color:#a89878;text-align:center;margin-top:4px}.rail .g.on{color:var(--saf);font-weight:700}
+.rail button{border:1.5px solid #ead8ad;background:#fff;border-radius:12px;padding:4px 2px;font:inherit;font-size:.62rem;color:#7a6a4a;line-height:1.1;position:relative}
+.rail button b{display:block;font-size:.85rem;color:var(--ink)}
+.rail button.d{background:#fbecc8;border-color:#f0d593}.rail button.c{background:var(--saf);border-color:var(--saf);color:#fff}.rail button.c b{color:#fff}
+.rail button.c:after{content:'';position:absolute;right:-8px;top:50%;margin-top:-5px;border:5px solid transparent;border-left-color:var(--saf)}
+/* verse */
+.stage{flex:1;min-width:0;display:flex;flex-direction:column;padding:8px 12px 0;min-height:0}
+.peek{font-size:.85rem;color:#b9a684;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:1.3em}
+.vcard{flex:1;min-height:0;position:relative;display:flex;flex-direction:column;justify-content:center;background:#fff;border:1.5px solid #f0dcaa;border-radius:22px;box-shadow:0 6px 18px rgba(170,120,30,.12);padding:34px 12px 14px;margin:4px 0;overflow:hidden}
+.vno{position:absolute;left:10px;top:8px;font-size:.78rem;font-weight:700;color:#fff;background:var(--mar);border-radius:999px;padding:3px 9px}
+.vic{position:absolute;right:8px;top:6px;display:flex;gap:6px}.vic button{border:1.5px solid #f0dcaa;background:#fffaf0;border-radius:999px;font:inherit;font-size:.78rem;padding:4px 9px;color:#6b4a1a}
+.fit{text-align:center}
+.scr{color:#6b3a1a;line-height:1.6;margin-bottom:8px}.scr div{white-space:normal}
+.dash{line-height:1.55;color:#0f5f5f;font-weight:700}
+.dash .w{display:inline-block;white-space:nowrap;border-radius:8px;padding:0 3px;transition:background .15s}.dash .w.on{background:#ffd76a;color:#3a2a18;box-shadow:0 0 0 2px #ffd76a}
+.dash .w.done{color:#5f8f86}
+.scronly .dash{display:none}.dashonly .scr{display:none}
+/* controls */
+.bar{padding:6px 12px 12px}
+.ctr{display:flex;align-items:center;justify-content:center;gap:18px}
+.ctr .s{width:48px;height:48px;border-radius:50%;border:1.5px solid #ead8ad;background:#fff;font-size:1.1rem;color:var(--ink)}
+.ctr .pp{width:70px;height:70px;border-radius:50%;border:0;background:var(--saf);color:#fff;font-size:1.7rem;box-shadow:0 6px 18px rgba(200,100,30,.35)}
+.views{display:flex;background:#f3e6c8;border-radius:12px;padding:3px;margin-top:10px}.views button{flex:1;border:0;background:none;border-radius:9px;padding:8px 2px;font:inherit;font-size:.8rem;font-weight:700;color:#8a7450}.views button.on{background:#fff;color:var(--mar);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+/* all verses */
+.list{display:none;flex:1;overflow-y:auto;padding:4px 2px;scroll-behavior:smooth}
+.list .it{background:#fff;border:1.5px solid #f2e3c0;border-radius:16px;padding:10px 12px;margin:0 0 8px;opacity:.55}
+.list .it.cur{opacity:1;border-color:var(--gold);box-shadow:0 4px 14px rgba(170,120,30,.18)}
+.list .it .n{font-size:.72rem;font-weight:700;color:var(--mar)}.list .scr{font-size:1.02rem;margin:2px 0 4px}.list .dash{font-size:1.05rem}
+.list .ph{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--saf);font-weight:700;margin:10px 4px 6px}
+/* book */
+.book{display:none;flex:1;overflow-y:auto;padding:6px 2px}
+.page{background:#fffef9;border:1px solid #e6dcc6;box-shadow:0 3px 10px rgba(0,0,0,.08);padding:16px 14px;margin-bottom:10px;border-radius:4px}
+.page h4{margin:0 0 8px;text-align:center;font-size:.8rem;color:var(--saf);letter-spacing:.1em;text-transform:uppercase}
+.page .bv{font-size:1rem;line-height:1.7;padding:4px 6px;border-radius:6px;margin-bottom:4px}.page .bv.cur{background:#fff1c4}
+.page .bv small{color:#0f5f5f;display:block;font-family:'Atkinson Hyperlegible';font-size:.85rem;line-height:1.4}
+.bk-t{display:flex;gap:6px;margin-bottom:8px}.bk-t button{flex:1;border:1.5px solid #ead8ad;background:#fff;border-radius:12px;padding:8px;font:inherit;font-size:.8rem}
+.v-list .list,.v-book .book{display:block}.v-list .vcard,.v-list .peek,.v-book .vcard,.v-book .peek{display:none}
+/* sheets */
+.shbg{position:absolute;inset:0;background:rgba(40,25,10,.35);display:none;z-index:8}
+.sheet{position:absolute;left:0;right:0;bottom:0;z-index:9;background:#fff;border-radius:22px 22px 0 0;padding:14px 16px 18px;max-height:78%;overflow-y:auto;display:none;box-shadow:0 -10px 30px rgba(0,0,0,.2);font-size:.92rem;line-height:1.45}
+.sheet.on,.shbg.on{display:block}
+.sheet h3{margin:0 0 8px;display:flex;justify-content:space-between;align-items:center;font-size:1.05rem;color:var(--mar)}.sheet h3 button{border:0;background:#f3e6c8;border-radius:999px;padding:5px 11px;font:inherit;font-size:.8rem}
+.sheet small.l{display:block;font-weight:700;font-size:.7rem;color:var(--soft);text-transform:uppercase;letter-spacing:.06em;margin:12px 0 5px}
+.chs{display:flex;gap:6px;flex-wrap:wrap}.chs button{flex:1;min-width:58px;border:1.5px solid #ead8ad;background:#fff;border-radius:12px;padding:9px 4px;font:inherit;font-size:.85rem}.chs button.on{background:var(--saf);border-color:var(--saf);color:#fff;font-weight:700}
+.steps{margin:0;padding-left:0;list-style:none;counter-reset:s}.steps li{counter-increment:s;display:flex;gap:10px;margin:8px 0}.steps li:before{content:counter(s);flex:none;width:24px;height:24px;border-radius:50%;background:#fbe3c8;color:var(--saf);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.map .pt{display:flex;align-items:center;gap:8px;padding:8px;border-radius:12px;margin:4px 0;border:1.5px solid #f2e3c0}.map .pt.c{border-color:var(--saf);background:#fff6e8}
+.map .pt span{flex:1;line-height:1.2}.map .pt span small{display:block;color:var(--soft);font-size:.75rem}.map .pt button{border:1.5px solid #ead8ad;background:#fff;border-radius:999px;padding:5px 9px;font:inherit;font-size:.75rem}
+.map .gh{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--saf);font-weight:700;margin:10px 0 2px}
+.note{max-width:410px;margin:0 auto 10px;background:#fff;border-radius:14px;padding:10px 12px;font-size:.85rem;line-height:1.45;border:1px solid #e3d3ad}
+.note b{color:#0f5f5f}.note ul{margin:6px 0 0;padding-left:18px}
+.lbl{max-width:410px;margin:18px auto 6px;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a6a3a}
+.join{max-width:410px;margin:0 auto 30px;border-radius:24px;border:6px solid #2a1f14;background:radial-gradient(120% 60% at 50% 30%,#fffdf6 0%,#f5e6c6 100%);padding:16px}
+.join .lv{display:inline-block;background:#d93a2b;color:#fff;font-size:.72rem;font-weight:700;border-radius:999px;padding:3px 9px}
+.join h3{margin:8px 0 2px;color:var(--mar)}.join .now{background:#fff;border:1.5px solid var(--gold);border-radius:16px;padding:12px;margin:12px 0;text-align:center}
+.join .now b{display:block;font-size:1.2rem;color:var(--mar)}.join .big{display:block;width:100%;border:0;border-radius:16px;background:var(--saf);color:#fff;font:inherit;font-weight:700;font-size:1.05rem;padding:14px;margin-top:8px}
+.join .sm{display:flex;gap:6px;margin-top:8px}.join .sm button{flex:1;border:1.5px solid #ead8ad;background:#fff;border-radius:12px;padding:9px;font:inherit;font-size:.82rem}
+</style></head>
+<body>
+<div class="top"><h1>🪔 Parayanam mode (light) · preview</h1>
+<p>A working preview: the words light up by themselves and the verses move on (no sound here). Tap the icons. Try both ways of showing <b>where you are</b>, and the three views.</p>
+<div class="ctl"><b>Where am I</b><button class="on" data-w="top">Top line</button><button data-w="side">Side rail</button></div>
+</div>
+
+<div class="phone" id="ph">
+ <div class="hd">
+  <button class="ib" aria-label="Make small">⌄</button>
+  <div class="tt"><b>Parayanam</b><small>Vishnu Sahasranamam</small></div>
+  <button class="ib" data-sh="how" aria-label="How to do parayanam">ⓘ</button>
+  <button class="ib t" data-sh="lang" aria-label="Language">अ/అ</button>
+  <button class="ib" data-sh="set" aria-label="Settings">⚙</button>
+ </div>
+ <div class="where" data-sh="map"><span class="wt"><b id="wPart">Part 5 · 1000 names</b><small id="wVerse">Verse 1 of 108 · tap to see all parts</small></span><span class="left">⏱ 24 min left</span></div>
+ <div class="segs" id="segs"></div>
+ <div class="grp"><span style="flex:4">Pūrvāṅgam</span><span class="on" style="flex:1.6">Sahasranāma</span><span style="flex:2">Uttarāṅgam</span></div>
+ <div class="body">
+  <div class="rail" id="rail"></div>
+  <div class="stage" id="stage">
+   <div class="peek" id="prev"></div>
+   <div class="vcard"><span class="vno" id="vno">1</span><span class="vic"><button data-sh="tip">💡 Tip</button><button data-sh="mean">📖 Meaning</button></span><div class="fit" id="fit"></div></div>
+   <div class="peek" id="next"></div>
+   <div class="list" id="list"></div>
+   <div class="book" id="book"></div>
+  </div>
+ </div>
+ <div class="bar">
+  <div class="ctr"><button class="s" id="bk">◀︎</button><button class="pp" id="pp">❚❚</button><button class="s" id="fw">▶︎</button></div>
+  <div class="views"><button class="on" data-v="one">One verse</button><button data-v="list">All verses</button><button data-v="book">Book</button></div>
+ </div>
+ <div class="shbg" id="shbg"></div>
+ <div class="sheet" id="sh-how"><h3>🙏 How to do parayanam<button data-x>Close</button></h3>
+  <ol class="steps"><li>Sit comfortably facing the Lord or a lamp. Take a breath and settle.</li><li>The chant goes in order: <b>Pūrvāṅgam</b> (opening prayers, 4 parts) → <b>Sahasranāma</b> (108 verses) → <b>Uttarāṅgam</b> (blessings and ending).</li><li>Chant <b>with the voice</b>: read the big green lines; the yellow word is being said now.</li><li>Lost your place? Look for the yellow word, or tap ◀︎ ▶︎.</li><li>Short of time? Chant one part only (tap the part name at the top).</li><li>In a group call: keep your microphone off and chant along softly with the leader.</li></ol>
+  <small class="l">Reading the green lines</small><div>Dashes split each word into easy sounds. Long sounds are written double (aa, ee, oo). Pause a little at | and a bit longer at ||. 💡 on each verse gives its own tip.</div></div>
+ <div class="sheet" id="sh-lang"><h3>Language<button data-x>Done</button></h3>
+  <small class="l">Verse in</small><div class="chs" data-g="scr"><button class="on" data-val="sa">संस्कृत</button><button data-val="te">తెలుగు</button><button data-val="hi">हिन्दी</button><button data-val="en">English</button></div>
+  <small class="l">Show</small><div class="chs" data-g="show"><button class="on" data-val="both">Verse + read-aloud</button><button data-val="dash">Read-aloud only</button><button data-val="scr">Verse only</button></div>
+  <small class="l">Text size</small><div class="chs" data-g="size"><button data-val="-1">A−</button><button class="on" data-val="0">Auto fit</button><button data-val="1">A+</button></div></div>
+ <div class="sheet" id="sh-set"><h3>Chant settings<button data-x>Done</button></h3>
+  <small class="l">Chant</small><div class="chs" data-g="scope"><button class="on" data-val="w">Whole chant</button><button data-val="p">This part only</button></div>
+  <small class="l">Speed</small><div class="chs" data-g="sp"><button data-val="slow">Slow</button><button class="on" data-val="n">Normal</button><button data-val="bf">Bit faster</button><button data-val="f">Faster</button></div>
+  <small class="l">Pause between verses</small><div class="chs" data-g="gap"><button class="on">Short</button><button>Medium</button><button>Long</button></div>
+  <small class="l">Sound</small><div class="chs" data-g="snd"><button class="on">🔊 Guru's voice</button><button>🔇 Off · I chant, words still move</button></div>
+  <small class="l">Move to the next verse</small><div class="chs" data-g="auto"><button class="on">By itself</button><button>When I tap ▶︎</button></div>
+  <small class="l">Quiet time</small><div class="chs"><button class="on">🌙 On · screen stays on</button><button>Off</button></div></div>
+ <div class="sheet" id="sh-map"><h3>The full chant<button data-x>Close</button></h3><div class="map" id="map"></div></div>
+ <div class="sheet" id="sh-tip"><h3>💡 Reading tip · verse <span id="tipn"></span><button data-x>Close</button></h3><div id="tipt"></div></div>
+ <div class="sheet" id="sh-mean"><h3>📖 Meaning · verse <span id="mn"></span><button data-x>Close</button></h3><div id="mt"></div><div style="margin-top:10px;font-size:.8rem;color:#8a6a3a">The chant keeps going while you read.</div></div>
+</div>
+
+<div class="note"><b>What this does</b><ul>
+<li>Verses move on by themselves; the yellow word follows the voice. <b>All verses</b> shows the full list (it scrolls with the chant). <b>Book</b> shows the PDF-style pages, with the current verse marked; sound can be on or off.</li>
+<li>Big text that always fits: the verse shrinks or grows to fill the card. A− / A+ to change it.</li>
+<li>Top bar keeps only 4 small icons: ⓘ how to do parayanam · अ/అ language · ⚙ settings · ⌄ make small. 💡 tip and 📖 meaning sit on each verse.</li>
+<li>"⏱ 24 min left" and the part name are always visible. Tap them to see all 7 parts and to chant just one.</li></ul></div>
+
+<div class="lbl">Joining a parayanam (Satsang)</div>
+<div class="join"><span class="lv">● LIVE</span><h3>Monthly parayanam</h3><div style="font-size:.85rem;color:#6b5a3a">Sun 15 Nov · 6:30 pm · WhatsApp call</div>
+ <div class="now"><small>Now chanting</small><b>Part 5 · Verse 23</b><small>about 18 min left</small></div>
+ <button class="big">🪔 Follow along from verse 23</button>
+ <div class="sm"><button>Start from the beginning</button><button>📞 Join the call</button></div>
+ <div style="font-size:.78rem;color:#8a6a3a;margin-top:10px;line-height:1.4">Opens straight into Parayanam mode at the verse being chanted. The leader taps the verse once in a while ("we are at 23") and everyone who joins lands there.</div></div>
+
+<script>
+var D={1:{sa:["विश्वं विष्णुर्वषट्कारो भूतभव्यभवत्प्रभुः ।","भूतकृद्भूतभृद्भावो भूतात्मा भूतभावनः ॥१॥"],te:["విశ్వం విష్ణుర్వషట్కారో భూతభవ్యభవత్ప్రభుః ।","భూతకృద్భూతభృద్భావో భూతాత్మా భూతభావనః ॥౧॥"],en:["Vishvam Vishnur Vashatkaro Bhutabhavyabhavatprabhuh |","Bhutakrid Bhutabhrid Bhavo Bhutatma Bhutabhavanah ||1||"],
+ pr:["Vish-vam Vish-nur Va-shat-kaa-ro Bhoo-ta-bhav-ya-bha-vat-pra-bhuh","Bhoo-ta-krid Bhoo-ta-bhrid Bhaa-vo Bhoo-taat-maa Bhoo-ta-bhaa-va-nah"],dte:["విశ్-వం విష్-ణుర్ వ-షట్-కా-రో భూ-త-భవ్-య-భ-వత్-ప్ర-భుః","భూ-త-కృద్ భూ-త-భృద్ భా-వో భూ-తాత్-మా భూ-త-భా-వ-నః"],dsa:null,
+ tip:"Va-shat-kaa-ro: say the sh softly, then a short t. Bhoo is a breathy b with a long oo.",m:"Vishnu is the whole universe and is present everywhere. He is worshipped in every yajna. He is Lord of the past, the future and the present. He creates all beings, looks after them and helps them grow."},
+2:{sa:["पूतात्मा परमात्मा च मुक्तानां परमा गतिः ।","अव्ययः पुरुषः साक्षी क्षेत्रज्ञोऽक्षर एव च ॥२॥"],te:["పూతాత్మా పరమాత్మా చ ముక్తానాం పరమా గతిః ।","అవ్యయః పురుషః సాక్షీ క్షేత్రజ్ఞోఽక్షర ఏవ చ ॥౨॥"],en:["Putatma Paramatma Cha Muktanam Parama Gatih |","Avyayah Purushah Sakshi Kshetrajno Akshara Eva Cha ||2||"],
+ pr:["Poo-taat-maa Pa-ra-maat-maa Cha Muk-taa-naam Pa-ra-maa Ga-tih","Av-ya-yaf Pu-ru-shas Saak-shee Kshet-raj-no Ksha-ra E-va Cha"],dte:["పూ-తాత్-మా ప-ర-మాత్-మా చ ముక్-తా-నాం ప-ర-మా గ-తిః","అవ్-య-యఫ్ పు-రు-షస్ సాక్-షీ క్షేత్-రజ్-ఞో క్ష-ర ఏ-వ చ"],dsa:["पू-तात्-मा प-र-मात्-मा च मुक्-ता-नां प-र-मा ग-तिः","अव्-य-यफ़् पु-रु-षस् साक्-षी क्षेत्-रज्-ञो क्ष-र ए-व च"],
+ tip:"Av-ya-yaf: a soft f before Pu-ru-shas. Kshet-raj-no Ksha-ra: ksh is k and sh together, and the a of Akshara is not said.",m:"Vishnu is completely pure; He is the Supreme Soul and the final goal of freed souls. He never changes or wears away. He lives in every body and sees everything we do."},
+3:{sa:["योगो योगविदां नेता प्रधानपुरुषेश्वरः ।","नारसिंहवपुः श्रीमान् केशवः पुरुषोत्तमः ॥३॥"],te:["యోగో యోగవిదాం నేతా ప్రధానపురుషేశ్వరః ।","నారసింహవపుః శ్రీమాన్ కేశవః పురుషోత్తమః ॥౩॥"],en:["Yogo Yogavidam Neta Pradhanapurusheshvarah |","Narasimhavapuh Shriman Keshavah Purushottamah ||3||"],
+ pr:["Yo-go Yo-ga-vi-daam Ne-taa Pra-dhaa-na-pu-ru-shesh-va-rah","Naa-ra-sim-ha-va-push Shree-maan Ke-sha-vaf Pu-ru-shot-ta-mah"],dte:["యో-గో యో-గ-వి-దాం నే-తా ప్ర-ధా-న-పు-రు-షేశ్-వ-రః","నా-ర-సిం-హ-వ-పుశ్ శ్రీ-మాన్ కే-శ-వఫ్ పు-రు-షోత్-త-మః"],dsa:null,
+ tip:"Sim-ha: keep the h soft. Shree-maan has a long ee and a long aa. Ke-sha-vaf: a soft f before Pu-ru-shot-ta-mah.",m:"He is the yoga that leads to Him, and He leads those who know yoga. He is Lord of nature and of souls. He took the form of Narasimha, He is ever with Lakshmi, He is Keshava, the highest of all beings."},
+4:{sa:["सर्वः शर्वः शिवः स्थाणुर्भूतादिर्निधिरव्ययः ।","सम्भवो भावनो भर्ता प्रभवः प्रभुरीश्वरः ॥४॥"],te:["సర్వః శర్వః శివః స్థాణుర్భూతాదిర్నిధిరవ్యయః ।","సంభవో భావనో భర్తా ప్రభవః ప్రభురీశ్వరః ॥౪॥"],en:["Sarvah Sharvah Shivah Sthanur Bhutadir Nidhiravyayah |","Sambhavo Bhavano Bharta Prabhavah Prabhurishvarah ||4||"],
+ pr:["Sar-vash Shar-vash Shi-vas Sthaa-nur Bhoo-taa-dir Ni-dhi-rav-ya-yah","Sam-bha-vo Bhaa-va-no Bhar-taa Pra-bha-vaf Pra-bhu-reesh-va-rah"],dte:null,dsa:null,
+ tip:"Sar-vash Shar-vash: the h at the end becomes sh before sh. Pra-bha-vaf: a soft f before Pra-bhu.",m:"He is everything, He removes all sins, He is auspicious and never moves. He is the source of beings and the treasure that never runs out. He comes down among us, gives fruits, supports all, and is the Lord."}};
+var ST={n:1,w:0,play:true,scr:'sa',show:'both',size:0,view:'one'};
+function dashFor(v){if(ST.scr==='te'&&v.dte)return v.dte;if(ST.scr==='hi'&&v.dsa)return v.dsa;if((ST.scr==='hi'||ST.scr==='sa')&&v.dsa&&ST.scr==='hi')return v.dsa;return v.pr}
+function scrFor(v){return ST.scr==='te'?v.te:ST.scr==='en'?v.en:v.sa}
+function cls(){return ST.scr==='te'?'tel':ST.scr==='en'?'':'dv'}
+function words(v){var L=dashFor(v),i=0;return L.map(function(l){return l.split(' ').map(function(w){return '<span class="w" data-i="'+(i++)+'">'+w+'</span>'}).join(' ')})}
+function nW(v){return dashFor(v).join(' ').split(' ').length}
+function render(){var v=D[ST.n];document.getElementById('vno').textContent='Verse '+ST.n;
+ document.getElementById('fit').className='fit '+(ST.show==='dash'?'dashonly':ST.show==='scr'?'scronly':'');
+ var dl=dashFor(v),dcls=(ST.scr==='te'&&v.dte)?'tel':((ST.scr==='hi')&&v.dsa)?'dv':'';
+ document.getElementById('fit').innerHTML='<div class="scr '+cls()+'">'+scrFor(v).map(function(l){return '<div>'+l+'</div>'}).join('')+'</div><div class="dash '+dcls+'">'+words(v).map(function(l){return '<div>'+l+'</div>'}).join('')+'</div>';
+ var p=D[ST.n-1],nx=D[ST.n+1];document.getElementById('prev').textContent=p?'↑ '+scrFor(p)[1]:'↑ Part 4 · Dhyānam (done)';document.getElementById('next').textContent=nx?'↓ '+scrFor(nx)[0]:'↓ verse 5 …';
+ document.getElementById('wVerse').textContent='Verse '+ST.n+' of 108 · tap to see all parts';
+ document.querySelector('.left').textContent='⏱ '+(25-ST.n)+' min left';
+ segs();rail();list();book();fit();hl()}
+function fit(){var c=document.querySelector('.vcard'),f=document.getElementById('fit');if(!c||ST.view!=='one')return;var s=ST.size?(ST.size>0?1.25:0.85):1,lo=10,hi=40,best=lo;
+ var sc=f.querySelector('.scr'),da=f.querySelector('.dash');for(var it=0;it<12;it++){var mid=(lo+hi)/2;sc.style.fontSize=(mid*0.92)+'px';da.style.fontSize=mid+'px';var wOk=Array.prototype.every.call(da.querySelectorAll('.w'),function(w){return w.offsetWidth<=f.clientWidth-6});if(wOk&&f.scrollHeight<=c.clientHeight-48)  {best=mid;lo=mid}else hi=mid}
+ best=Math.min(40,best*s);sc.style.fontSize=(best*0.92)+'px';da.style.fontSize=best+'px'}
+function hl(){document.querySelectorAll('.fit .w,.list .it.cur .w').forEach(function(e){var i=+e.dataset.i;e.classList.toggle('on',i===ST.w);e.classList.toggle('done',i<ST.w)})}
+function segs(){var ph=document.getElementById('ph'),h='';[4,4,4,4,0,1,1].forEach(function(k,j){var fl=j<4?1:j===4?1.6*4:1,c=j<4?'d':j===4?'c':'';h+='<i class="'+c+'" style="flex:'+(j===4?6.4:j<4?1:2)+'">'+(j===4?'<u style="width:'+(ST.n/108*100)+'%"></u>':'')+'</i>'});document.getElementById('segs').innerHTML=h}
+function rail(){var P=[['Before',[['1','Opening'],['2','Question'],['3','Nyāsa'],['4','Dhyānam']]],['Names',[['5','Verse '+ST.n]]],['After',[['6','Blessings'],['7','Ending']]]],h='';P.forEach(function(g,gi){h+='<div class="g'+(gi===1?' on':'')+'">'+g[0]+'</div>';g[1].forEach(function(p){var c=+p[0]<5?'d':p[0]==='5'?'c':'';h+='<button class="'+c+'" data-sh="map"><b>'+p[0]+'</b>'+p[1]+'</button>'})});document.getElementById('rail').innerHTML=h}
+function list(){var h='<div class="ph">Part 5 · 1000 names</div>';[1,2,3,4].forEach(function(n){var v=D[n],cur=n===ST.n;h+='<div class="it'+(cur?' cur':'')+'" id="li'+n+'"><div class="n">Verse '+n+'</div>'+(ST.show!=='dash'?'<div class="scr '+cls()+'">'+scrFor(v).join('<br>')+'</div>':'')+(ST.show!=='scr'?'<div class="dash">'+(cur?words(v):dashFor(v)).join('<br>')+'</div>':'')+'</div>'});document.getElementById('list').innerHTML=h;if(ST.view==='list'){var e=document.getElementById('li'+ST.n);if(e)e.scrollIntoView({block:'center'})}}
+function book(){var h='<div class="bk-t"><button>🔊 Sound on</button><button>⬇ Save PDF</button></div><div class="page"><h4>Sahasranāma · page 1</h4>';[1,2,3,4].forEach(function(n){var v=D[n];h+='<div class="bv '+cls()+(n===ST.n?' cur':'')+'">'+scrFor(v).join('<br>')+'<small>'+v.pr.join(' | ')+'</small></div>'});document.getElementById('book').innerHTML=h+'</div>'}
+var tick=setInterval(function(){if(!ST.play)return;ST.w++;if(ST.w>=nW(D[ST.n])){ST.w=0;ST.n=ST.n>=4?1:ST.n+1;render()}else hl()},420);
+document.getElementById('pp').onclick=function(){ST.play=!ST.play;this.textContent=ST.play?'❚❚':'▶'};
+document.getElementById('fw').onclick=function(){ST.n=ST.n>=4?1:ST.n+1;ST.w=0;render()};
+document.getElementById('bk').onclick=function(){ST.n=ST.n<=1?4:ST.n-1;ST.w=0;render()};
+document.querySelectorAll('.views button').forEach(function(b){b.onclick=function(){ST.view=b.dataset.v;document.querySelectorAll('.views button').forEach(function(x){x.classList.toggle('on',x===b)});var s=document.getElementById('stage');s.className='stage v-'+ST.view;render()}});
+function openSh(id){document.querySelectorAll('.sheet').forEach(function(s){s.classList.remove('on')});var s=document.getElementById('sh-'+id);if(!s)return;
+ if(id==='tip'){document.getElementById('tipn').textContent=ST.n;document.getElementById('tipt').textContent=D[ST.n].tip}
+ if(id==='mean'){document.getElementById('mn').textContent=ST.n;document.getElementById('mt').textContent=D[ST.n].m}
+ if(id==='map'){var P=[['Pūrvāṅgam · before the names',[['1','Opening prayers','6 verses · 1 min','d'],['2','The question','16 verses · 3 min','d'],['3','Nyāsa','7 lines · 1 min','d'],['4','Dhyānam','8 verses · 3 min','d']]],['Sahasranāma · the 1000 names',[['5','1000 names','108 verses · 25 min · now at verse '+ST.n,'c']]],['Uttarāṅgam · after the names',[['6','Blessings','coming soon',''],['7','Ending','coming soon','']]]],h='';P.forEach(function(g){h+='<div class="gh">'+g[0]+'</div>';g[1].forEach(function(p){h+='<div class="pt '+p[3]+'"><b>'+p[0]+'</b><span>'+p[1]+'<small>'+p[2]+'</small></span>'+(p[3]==='c'?'<button>You are here</button>':p[2].indexOf('soon')<0?'<button>▶ Chant only this</button>':'')+'</div>'})});document.getElementById('map').innerHTML=h}
+ s.classList.add('on');document.getElementById('shbg').classList.add('on')}
+document.getElementById('ph').addEventListener('click',function(e){var t=e.target.closest('[data-sh]');if(t){openSh(t.dataset.sh);return}
+ if(e.target.closest('[data-x]')||e.target.id==='shbg'){document.querySelectorAll('.sheet').forEach(function(s){s.classList.remove('on')});document.getElementById('shbg').classList.remove('on');return}
+ var c=e.target.closest('.chs button');if(c){var g=c.parentNode;g.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===c)});var k=g.dataset.g;if(k==='scr')ST.scr=c.dataset.val;if(k==='show')ST.show=c.dataset.val;if(k==='size')ST.size=+c.dataset.val;if(k)render()}});
+document.querySelectorAll('[data-w]').forEach(function(b){b.onclick=function(){document.querySelectorAll('[data-w]').forEach(function(x){x.classList.toggle('on',x===b)});document.getElementById('ph').classList.toggle('side',b.dataset.w==='side');render()}});
+addEventListener('resize',fit);document.fonts&&document.fonts.ready.then(render);render();
+</script>
+</body></html>
