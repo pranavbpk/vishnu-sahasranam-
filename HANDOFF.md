@@ -343,3 +343,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Header bigger (46 px icons, title .86rem bold); ⤢ Full moved next to the view switch at the bottom. Full screen bottom: bigger view buttons with icon + word (One / All / Book), bigger ◀ ❚❚ ▶.
 - Words in the read-aloud lines stay whole (inline-block); only a word longer than the line splits at a dash. fcFitD now only checks height/width, so text is bigger.
 - The verse line being said glows softly (fcHL sets .lnon on .fc2t>div, mapped from the read-aloud line). "Verse only" keeps the read-aloud lines hidden in the page (fnd-hide) so the glow still follows the voice.
+
+## Build 373 (15 Nov 2026) — Dev + Preview only, behind NEWORG()
+- Parayanam mode (player D) is follow-only: no ◀ ▶ verse buttons. Bottom = ☰ Parts · ❚❚ · ■ Stop (full screen: ❚❚ only; parts via the top line). Map sheet renamed "Choose a part": rows not tappable; each part has "▶ This part only" (fcall) and "▶ From here to the end" (new action fcfrom: whole chant from that part). "Next verse: Comes by itself / Wait for me (tap ▶ to go on)".
+- All verses / Book: fcFitCur() shrinks the current verse (--fzc down to 0.55) until it fits the scroll area; fcFollowWord() (called from fcHL when the yellow word changes) scrolls so the current verse (or the word, if the verse is taller than the screen) stays in view. Smaller spacing and bottom padding 30vh so the last verse can reach the top.
