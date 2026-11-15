@@ -371,3 +371,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 377 (15 Nov 2026) — Dev + Test + Preview. Not live.
 - Learn › "📜 The full chant · Read and listen · every part, verse by verse" is back (action fcread2, flag FCRD=true): the reader page with ▶ on each verse, Listen this part, Play the whole chant as the plain inline card player (old fcWholeBtn path, no Parayanam overlay). Stop there keeps you on the page. "🪔 Parayanam mode" (paray) sets FCRD=false; the mini bar "Open" returns to Parayanam if it was started there.
 - Verse heading badge (fnd-no) colours per theme via --bdg/--bdgc: Chandan saffron/white, Temple·Tulasi·Neela gold/dark, Kumkum gold/red, Kesari maroon/cream, Haldi kumkum red/white, Kamala magenta/white; list badges use the same colour.
+
+## Build 378 (15 Nov 2026) — Dev + Test + Preview. Not live.
+- One verse view, "Verse only" and "Read-aloud only" were huge (auto-fit filled the card). fcFitD now caps the size at 30 px when only one block shows (40 px for the read-aloud lines when both show, script grown up to 34 px); a hidden read-aloud block no longer counts; A+ / A− still scale from there.
