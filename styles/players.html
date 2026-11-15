@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Full chant player · 3 styles to choose</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#efe6d6;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2a1f14;-webkit-text-size-adjust:100%}
+.top{position:sticky;top:0;z-index:50;background:#efe6d6;padding:max(10px,env(safe-area-inset-top)) 12px 8px;border-bottom:1px solid #dccdb0}
+.top h1{font-size:1.05rem;margin:0 0 2px;color:#0f5f5f}.top p{margin:0 0 8px;font-size:.82rem;color:#6b5a3a}
+.tabs{display:flex;gap:6px}.tabs button{flex:1;border:1.5px solid #cdb98f;background:#fff;border-radius:12px;padding:8px 4px;font:inherit;font-weight:700;font-size:.85rem;color:#5a4420;line-height:1.15}
+.tabs button small{display:block;font-weight:400;font-size:.7rem;color:#8a7a5a}
+.tabs button.on{background:#0f6b6b;border-color:#0f6b6b;color:#fff}.tabs button.on small{color:#d7ecea}
+.opt{display:none;padding:12px}.opt.on{display:block}
+.why{background:#fff;border-radius:14px;padding:10px 12px;font-size:.86rem;line-height:1.4;margin-bottom:12px;border:1px solid #e3d3ad}
+.why b{color:#7a1f1f}.why ul{margin:6px 0 0;padding-left:18px}
+.lbl{font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a6a3a;margin:14px 2px 6px}
+.phone{position:relative;max-width:400px;margin:0 auto;height:780px;border-radius:28px;overflow:hidden;background:#faf5ea;box-shadow:0 10px 30px rgba(60,40,10,.18);border:6px solid #2a1f14}
+.dv{font-family:'Tiro Devanagari Sanskrit',serif}
+/* shared flow */
+.flow{display:grid;grid-template-columns:4fr 2fr 2fr;gap:6px}
+.fg{text-align:center}.fg b{display:block;font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;color:#8a7a5a}
+.fg .bars{display:flex;gap:3px;margin-top:4px}.fg .bars i{flex:1;height:7px;border-radius:4px;background:#e4d6b6}
+.fg .bars i.done{background:#c9a24d}.fg .bars i.cur{background:#7a1f1f;position:relative}
+.fg.on b{color:#7a1f1f}
+/* -------- A: Now playing -------- */
+.A{display:flex;flex-direction:column;height:100%;background:linear-gradient(#fdf6e6,#f6ead0)}
+.A .hd{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 6px}
+.A .hd button{width:44px;height:44px;border-radius:50%;border:1.5px solid #e3cf9f;background:#fff;font-size:1.2rem}
+.A .hd span{font-size:.8rem;font-weight:700;letter-spacing:.08em;color:#8a6a3a;text-transform:uppercase}
+.A .fl{padding:4px 16px 10px}
+.A .where{text-align:center;padding:2px 16px 8px}.A .where b{font-size:1.15rem;color:#7a1f1f}.A .where small{display:block;color:#6b5a3a;font-size:.85rem}
+.A .vs{flex:1;margin:0 14px;border-radius:22px;background:#fff;border:1.5px solid #ecd9a9;padding:14px;display:flex;flex-direction:column;justify-content:center;gap:10px;overflow:hidden;box-shadow:0 4px 14px rgba(150,100,20,.1)}
+.A .ghost{opacity:.35;font-size:.95rem;text-align:center}
+.A .cur{text-align:center}.A .cur .dv{font-size:1.45rem;line-height:1.7;color:#5a2a10}
+.A .dash{font-size:1.05rem;color:#0f5f5f;line-height:1.7;text-align:center}
+.A .dash .w{background:#ffe08a;border-radius:6px;padding:0 4px;color:#3a2e1a;font-weight:700}
+.A .prog{padding:12px 18px 2px}.A .prog .bar{height:6px;border-radius:3px;background:#e4d6b6;position:relative}.A .prog .bar i{position:absolute;left:0;top:0;bottom:0;width:38%;background:#7a1f1f;border-radius:3px}.A .prog .bar i:after{content:'';position:absolute;right:-7px;top:-5px;width:16px;height:16px;border-radius:50%;background:#7a1f1f}
+.A .prog .t{display:flex;justify-content:space-between;font-size:.75rem;color:#8a7a5a;margin-top:6px}
+.A .ctl{display:flex;align-items:center;justify-content:center;gap:8px;padding:6px 0 4px}
+.A .ctl button{border:0;background:none;display:flex;flex-direction:column;align-items:center;font:inherit;font-size:.7rem;color:#5a4420;gap:2px}
+.A .ctl .s{width:46px;height:46px;border-radius:50%;background:#fff;border:1.5px solid #e3cf9f;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.A .ctl .big{width:72px;height:72px;border-radius:50%;background:#7a1f1f;color:#fff;font-size:2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(122,31,31,.35)}
+.A .seg{display:flex;margin:6px 18px;background:#efe3c6;border-radius:12px;padding:3px}.A .seg span{flex:1;text-align:center;padding:8px 4px;border-radius:9px;font-size:.85rem;font-weight:700;color:#7a6a4a}.A .seg span.on{background:#fff;color:#7a1f1f;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.A .opts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:6px 14px 16px}
+.A .opts button{border:1.5px solid #e3cf9f;background:#fff;border-radius:14px;padding:8px 2px;font:inherit;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:.66rem;color:#8a7a5a;text-transform:uppercase;letter-spacing:.04em}
+.A .opts button b{font-size:.9rem;color:#2a1f14;text-transform:none;letter-spacing:0}
+.A .opts button i{font-style:normal;font-size:1.15rem}
+/* -------- B: read along + dock -------- */
+.B{display:flex;flex-direction:column;height:100%}
+.B .hd{display:flex;align-items:center;gap:8px;padding:14px 14px 8px;border-bottom:1px solid #eadcbc;background:#faf5ea}
+.B .hd b{flex:1;font-size:1.2rem;color:#0f5f5f}.B .hd button{border:1.5px solid #e3cf9f;background:#fff;border-radius:12px;padding:8px 10px;font:inherit;font-size:.85rem}
+.B .stick{padding:10px 14px 8px;background:#fffaf0;border-bottom:1px solid #eadcbc}
+.B .stick .now{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:8px}.B .stick .now b{color:#7a1f1f}.B .stick .now small{color:#6b5a3a;font-size:.75rem;white-space:nowrap}.B .stick .now b{white-space:nowrap}
+.B .list{flex:1;overflow:hidden;padding:10px 12px}
+.B .card{border-radius:16px;padding:10px 12px;margin-bottom:10px;background:#fff;border:1px solid #eee2c6;opacity:.6}
+.B .card .n{display:inline-flex;width:26px;height:26px;border-radius:50%;background:#7a1f1f;color:#fff;font-size:.8rem;font-weight:700;align-items:center;justify-content:center;margin-right:6px}
+.B .card .dv{font-size:1.05rem;line-height:1.6}
+.B .card.cur{opacity:1;background:#fff6dc;border:2px solid #e8c56a;box-shadow:0 4px 12px rgba(150,100,20,.15)}
+.B .card.cur .dv{font-size:1.3rem}
+.B .card .dash{font-size:1rem;color:#0f5f5f;line-height:1.7;margin-top:4px}.B .card .dash .w{background:#ffe08a;border-radius:6px;padding:0 4px;color:#3a2e1a;font-weight:700}
+.B .dock{background:#0f5f5f;color:#fff;padding:10px 12px 14px;border-radius:22px 22px 0 0;box-shadow:0 -6px 18px rgba(0,0,0,.18)}
+.B .dock .r1{display:flex;align-items:center;justify-content:space-between}
+.B .dock .r1 button{border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:16px;min-width:56px;height:56px;font:inherit;font-size:.68rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+.B .dock .r1 button i{font-style:normal;font-size:1.3rem}
+.B .dock .r1 .big{width:74px;height:74px;border-radius:50%;background:#f0c24b;color:#3a2e1a;font-size:2rem}
+.B .dock .r2{display:flex;gap:8px;margin-top:10px;font-size:.78rem}.B .dock .r2 span{flex:1;text-align:center;padding:7px;border-radius:10px;background:rgba(255,255,255,.1)}.B .dock .r2 span.on{background:#fff;color:#0f5f5f;font-weight:700}
+.B .sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;padding:14px;box-shadow:0 -10px 30px rgba(0,0,0,.25);display:none;z-index:5}
+.B.sh .sheet{display:block}.B .shbg{position:absolute;inset:0;background:rgba(0,0,0,.35);display:none;z-index:4}.B.sh .shbg{display:block}
+.B .sheet h4{margin:0 0 10px;display:flex;justify-content:space-between}.B .sheet .row{margin:10px 0}.B .sheet .row small{display:block;font-weight:700;font-size:.75rem;color:#8a6a3a;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.B .sheet .ch{display:flex;gap:6px}.B .sheet .ch span{flex:1;text-align:center;border:1.5px solid #e3cf9f;border-radius:12px;padding:9px 2px;font-size:.85rem}.B .sheet .ch span.on{background:#0f6b6b;border-color:#0f6b6b;color:#fff;font-weight:700}
+/* -------- C: parayanam mode -------- */
+.C{height:100%;display:flex;flex-direction:column;background:radial-gradient(120% 70% at 50% 35%,#4a1a2a 0%,#24121c 60%,#160b12 100%);color:#f6ead0}
+.C .hd{display:flex;justify-content:space-between;align-items:center;padding:14px}
+.C .hd button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;font-size:1.1rem}
+.C .hd span{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:#e8c56a}
+.C .fl{padding:0 18px}.C .fg b{color:rgba(246,234,208,.55)}.C .fg.on b{color:#f0c24b}.C .fg .bars i{background:rgba(255,255,255,.15)}.C .fg .bars i.done{background:rgba(240,194,75,.55)}.C .fg .bars i.cur{background:#f0c24b}
+.C .lamp{text-align:center;font-size:2rem;margin:10px 0 0;filter:drop-shadow(0 0 14px rgba(255,190,80,.8))}
+.C .where{text-align:center;font-size:.85rem;color:rgba(246,234,208,.7);margin-top:4px}
+.C .mid{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 20px;gap:12px;text-align:center}
+.C .dim{opacity:.3;font-size:1rem}
+.C .cur .dv{font-size:1.55rem;line-height:1.75;color:#fff}
+.C .dash{font-size:1.1rem;line-height:1.8;color:#e9dcc0}.C .dash .w{color:#24121c;background:#f0c24b;border-radius:6px;padding:0 4px;font-weight:700}
+.C .ctl{display:flex;justify-content:center;align-items:center;gap:22px;padding:6px 0}
+.C .ctl button{border:0;background:none;color:#f6ead0;display:flex;flex-direction:column;align-items:center;font:inherit;font-size:.7rem;gap:3px}
+.C .ctl .s{width:54px;height:54px;border-radius:50%;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.C .ctl .big{width:82px;height:82px;border-radius:50%;background:#f0c24b;color:#24121c;font-size:2.1rem;display:flex;align-items:center;justify-content:center;box-shadow:0 0 30px rgba(240,194,75,.5)}
+.C .bot{display:flex;justify-content:space-around;padding:10px 10px 18px;border-top:1px solid rgba(255,255,255,.1);margin-top:8px}
+.C .bot span{display:flex;flex-direction:column;align-items:center;font-size:.68rem;color:rgba(246,234,208,.65);gap:2px}.C .bot span b{color:#fff;font-size:.82rem}.C .bot i{font-style:normal;font-size:1.1rem}
+.C .quiet{margin:0 16px;text-align:center;font-size:.75rem;color:rgba(246,234,208,.6)}
+/* mini player demo */
+.mini{max-width:400px;margin:0 auto;border-radius:20px;overflow:hidden;border:6px solid #2a1f14;background:#faf5ea}
+.mini .pg{padding:14px;font-size:.85rem;color:#8a7a5a;height:120px}
+.mbar{display:flex;align-items:center;gap:10px;margin:0 8px;padding:8px 10px;border-radius:16px;background:#0f5f5f;color:#fff;position:relative;overflow:hidden}
+.mbar .ic{width:40px;height:40px;border-radius:10px;background:#f0c24b;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.mbar .t{flex:1;line-height:1.2}.mbar .t b{display:block;font-size:.9rem}.mbar .t small{font-size:.75rem;opacity:.8}
+.mbar button{width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:1.1rem}
+.mbar:after{content:'';position:absolute;left:0;bottom:0;height:3px;width:38%;background:#f0c24b}
+.tabbar{display:flex;justify-content:space-around;padding:10px 0 12px;font-size:.72rem;color:#8a6a3a;border-top:1px solid #eadcbc;margin-top:8px}
+.note{font-size:.78rem;color:#6b5a3a;text-align:center;margin:8px 0 0}
+.lock{max-width:400px;margin:0 auto;border-radius:20px;border:6px solid #2a1f14;background:linear-gradient(#26324a,#121826);color:#fff;padding:18px}
+.lock .tm{text-align:center;font-size:3rem;font-weight:300}.lock .np{background:rgba(255,255,255,.14);border-radius:18px;padding:12px;margin-top:14px;display:flex;gap:10px;align-items:center}
+.lock .np .ic{width:46px;height:46px;border-radius:10px;background:#f0c24b;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.lock .np b{display:block}.lock .np small{opacity:.75}
+.common{background:#fff;border-radius:14px;padding:10px 12px;font-size:.85rem;line-height:1.45;margin:16px 0;border:1px solid #e3d3ad}
+.common b{color:#0f5f5f}
+</style></head>
+<body>
+<div class="top"><h1>📜 Full chant player · pick a style</h1><p>Mock-ups only (not working buttons). All three do the same things; only the layout differs.</p>
+<div class="tabs"><button class="on" data-o="A">A<small>Now playing</small></button><button data-o="B">B<small>Read + dock</small></button><button data-o="C">C<small>Parayanam mode</small></button></div></div>
+
+<!-- ========== A ========== -->
+<div class="opt on" id="oA">
+<div class="why"><b>A · Now playing</b> (like a music app). Opens as its own full screen. One verse at a time, big and clear, with the verses before and after faded. Big round buttons. Everything on one screen, no scrolling.
+<ul><li>Good for: listening, chanting along without scrolling.</li><li>Less good for: reading many verses at once.</li></ul></div>
+<div class="phone"><div class="A">
+ <div class="hd"><button aria-label="Make small">⌄</button><span>The full chant</span><button aria-label="More">⋯</button></div>
+ <div class="fl"><div class="flow">
+  <div class="fg"><b>Pūrvāṅgam</b><div class="bars"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div></div>
+  <div class="fg on"><b>Sahasranāma</b><div class="bars"><i class="cur"></i></div></div>
+  <div class="fg"><b>Uttarāṅgam</b><div class="bars"><i></i><i></i></div></div></div></div>
+ <div class="where"><b>Part 5 · 1000 names</b><small>Verse 1 of 108</small></div>
+ <div class="vs">
+  <div class="ghost dv">… सर्वविघ्नोपशान्तये ॥</div>
+  <div class="cur"><div class="dv">विश्वं विष्णुर्वषट्कारो भूतभव्यभवत्प्रभुः ।<br>भूतकृद्भूतभृद्भावो भूतात्मा भूतभावनः ॥१॥</div></div>
+  <div class="dash">Vish-vam <span class="w">Vish-nur</span> Va-shat-kaa-ro Bhoo-ta-bhav-ya-bha-vat-pra-bhuh |</div>
+  <div class="ghost dv">पूतात्मा परमात्मा च …</div>
+ </div>
+ <div class="prog"><div class="bar"><i></i></div><div class="t"><span>12:40</span><span>Whole chant · 33 min</span></div></div>
+ <div class="ctl">
+  <button><span class="s">⏮</span>Part</button>
+  <button><span class="s">◀︎</span>Verse</button>
+  <button><span class="big">❚❚</span></button>
+  <button><span class="s">▶︎</span>Verse</button>
+  <button><span class="s">⏭</span>Part</button>
+ </div>
+ <div class="seg"><span class="on">Whole chant</span><span>This part only</span></div>
+ <div class="opts">
+  <button><i>🐢</i>Speed<b>Normal</b></button>
+  <button><i>⏸</i>Pauses<b>Short</b></button>
+  <button><i>🔊</i>Sound<b>On</b></button>
+  <button><i>👁</i>Follow<b>On</b></button>
+ </div>
+</div></div>
+<div class="note">⋯ More = ⬇ PDF · ■ Stop · Jump to a part · 🌙 Quiet time</div>
+</div>
+
+<!-- ========== B ========== -->
+<div class="opt" id="oB">
+<div class="why"><b>B · Read along + big dock</b> (like Repeat after me and My slokas). You see the verses as a list; the one being chanted glows and the page moves with it. A big player dock sits at the bottom; ⚙ opens all the settings in one sheet.
+<ul><li>Good for: reading the whole text while it plays; same feel as the rest of the app.</li><li>Less good for: smaller verse text than A and C.</li></ul></div>
+<div class="phone"><div class="B" id="Bbox">
+ <div class="hd"><b>📜 The full chant</b><button>⬇ PDF</button><button>✕</button></div>
+ <div class="stick"><div class="flow">
+  <div class="fg"><b>Pūrvāṅgam</b><div class="bars"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div></div>
+  <div class="fg on"><b>Sahasranāma</b><div class="bars"><i class="cur"></i></div></div>
+  <div class="fg"><b>Uttarāṅgam</b><div class="bars"><i></i><i></i></div></div></div>
+  <div class="now"><b>Part 5 · 1000 names</b><small>Verse 2 of 108</small></div></div>
+ <div class="list">
+  <div class="card"><span class="n">1</span><span class="dv">विश्वं विष्णुर्वषट्कारो भूतभव्यभवत्प्रभुः ।</span></div>
+  <div class="card cur"><span class="n">2</span><span class="dv">पूतात्मा परमात्मा च मुक्तानां परमा गतिः ।<br>अव्ययः पुरुषः साक्षी क्षेत्रज्ञोऽक्षर एव च ॥२॥</span>
+   <div class="dash">Poo-taat-maa <span class="w">Pa-ra-maat-maa</span> Cha Muk-taa-naam Pa-ra-maa Ga-tih |</div></div>
+  <div class="card"><span class="n">3</span><span class="dv">योगो योगविदां नेता प्रधानपुरुषेश्वरः ।</span></div>
+  <div class="card"><span class="n">4</span><span class="dv">सर्वः शर्वः शिवः स्थाणुर्भूतादिर्निधिरव्ययः ।</span></div>
+ </div>
+ <div class="dock">
+  <div class="r1"><button><i>■</i>Stop</button><button><i>⏮</i>Verse</button><button class="big">❚❚</button><button><i>⏭</i>Verse</button><button onclick="document.getElementById('Bbox').classList.add('sh')"><i>⚙</i>Options</button></div>
+  <div class="r2"><span class="on">Whole chant</span><span>This part only</span><span>⌄ Hide</span></div>
+ </div>
+ <div class="shbg" onclick="document.getElementById('Bbox').classList.remove('sh')"></div>
+ <div class="sheet"><h4><span>Player options</span><span onclick="document.getElementById('Bbox').classList.remove('sh')">✕</span></h4>
+  <div class="row"><small>Speed</small><div class="ch"><span>Slow</span><span class="on">Normal</span><span>Bit faster</span><span>Faster</span></div></div>
+  <div class="row"><small>Pause between verses</small><div class="ch"><span class="on">Short</span><span>Medium</span><span>Long</span></div></div>
+  <div class="row"><small>Sound</small><div class="ch"><span class="on">🔊 On</span><span>🔇 Off · words still light up</span></div></div>
+  <div class="row"><small>Follow the verse</small><div class="ch"><span class="on">On</span><span>Off</span></div></div>
+  <div class="row"><small>Jump to a part</small><div class="ch"><span>1</span><span>2</span><span>3</span><span>4</span><span class="on">5</span><span>6</span><span>7</span></div></div>
+ </div>
+</div></div>
+<div class="note">Tap ⚙ Options in the dock to see the settings sheet.</div>
+</div>
+
+<!-- ========== C ========== -->
+<div class="opt" id="oC">
+<div class="why"><b>C · Parayanam mode</b> (calm, for focused chanting). Dark, temple-like screen with a lamp. One verse large in the middle, the read-aloud line lights up word by word. Few buttons; settings as a row of icons at the bottom. Screen stays on.
+<ul><li>Good for: a quiet daily parayanam, evening chanting, groups.</li><li>Less good for: looking up text quickly; dark style is different from the rest of the app.</li></ul></div>
+<div class="phone"><div class="C">
+ <div class="hd"><button>⌄</button><span>Parayanam</span><button>⋯</button></div>
+ <div class="fl"><div class="flow">
+  <div class="fg"><b>Pūrvāṅgam</b><div class="bars"><i class="done"></i><i class="done"></i><i class="done"></i><i class="cur"></i></div></div>
+  <div class="fg"><b>Sahasranāma</b><div class="bars"><i></i></div></div>
+  <div class="fg"><b>Uttarāṅgam</b><div class="bars"><i></i><i></i></div></div></div></div>
+ <div class="lamp">🪔</div>
+ <div class="where">Part 4 · Dhyānam · verse 1 of 8</div>
+ <div class="mid">
+  <div class="dim dv">… ॐ नमो भगवते वासुदेवाय</div>
+  <div class="cur"><div class="dv">क्षीरोदन्वत्प्रदेशे शुचिमणिविलसत्सैकते मौक्तिकानां<br>मालाकॢप्तासनस्थः स्फटिकमणिनिभैर्मौक्तिकैर्मण्डिताङ्गः ।</div></div>
+  <div class="dash">Ksee-ro-dan-vat-pra-de-she <span class="w">Shu-chi-ma-ni</span>-vi-la-sat-sai-ka-te</div>
+  <div class="dim dv">शुभ्रैरभ्रैरदभ्रैः …</div>
+ </div>
+ <div class="ctl"><button><span class="s">◀︎</span>Verse</button><button><span class="big">❚❚</span></button><button><span class="s">▶︎</span>Verse</button></div>
+ <div class="quiet">🌙 Quiet time on · screen stays on</div>
+ <div class="bot"><span><i>🐢</i><b>Normal</b>Speed</span><span><i>⏸</i><b>Short</b>Pauses</span><span><i>🔊</i><b>On</b>Sound</span><span><i>👁</i><b>On</b>Follow</span><span><i>⏭</i><b>Part 5</b>Next part</span></div>
+</div></div>
+</div>
+
+<div style="padding:0 12px 30px">
+<div class="lbl">Same in all three: when you make it small</div>
+<div class="mini"><div class="pg">…any screen of the app (Today, Revise, Learn) keeps working…</div>
+ <div class="mbar"><span class="ic">🪷</span><span class="t"><b>Verse 2 · 1000 names</b><small>Whole chant · 13:05 / 33 min</small></span><button>❚❚</button><button>✕</button></div>
+ <div class="tabbar"><span>Today</span><span>Revise</span><span>Satsang</span><span>Learn</span><span>You</span></div></div>
+<div class="note">Tap the bar to open the big player again. ✕ stops.</div>
+<div class="lbl">And on the lock screen</div>
+<div class="lock"><div class="tm">9:41</div><div class="np"><span class="ic">🪷</span><span><b>Verse 2 · Part 5 · 1000 names</b><small>Vishnu Sahasranamam · Sloka Guru</small></span></div><div class="note" style="color:#cfd6e6">⏮ ❚❚ ⏭ work here (one recording, so it keeps playing when locked)</div></div>
+<div class="common"><b>All styles keep:</b> play whole chant or one part · ⏮ ⏭ verse and part · Speed · Pauses · Sound on/off (words still light up) · Follow on/off · ⬇ PDF · carry on where you stopped · play in the background and when locked · small player while you use the rest of the app.</div>
+</div>
+<script>
+document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===b)});document.querySelectorAll('.opt').forEach(function(o){o.classList.toggle('on',o.id==='o'+b.dataset.o)});scrollTo(0,0)}});
+</script>
+</body></html>
