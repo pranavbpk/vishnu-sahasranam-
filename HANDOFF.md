@@ -314,3 +314,10 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 368 (15 Nov 2026) — Dev + Preview only, behind NEWORG()
 - Revise: "Strong" box/label renamed "By heart" (te కంఠస్థం, hi कंठस्थ); Practise any verse header says "All N learned". The "Chant all 108 with me" card on Revise replaced by a slim "📜 Chant along · The full chant, or any part" row that opens the full chant page (one place for all parts).
 - styles/players.html: mock-ups of 3 full chant player styles (A Now playing, B Read along + dock, C Parayanam mode) + mini player and lock screen; not wired into the app. Owner to pick.
+
+## Build 369 (15 Nov 2026) — Dev + Preview only, behind NEWORG()
+- All three full chant players built for the owner to test (S.fcpn: na A Now playing full screen · nb B Read along + teal dock with Options sheet · nc C Parayanam mode, dark). Switch in the ⋯ menu (A/C), in the dock page (B) and on the page under the hero. fcNew() replaces fcWholeBtn in NEWORG. FCOV = big player open; "📖 Read all the verses" closes it to a sticky "Open player" bar; ⌄ = the old mini bar above the tabs (tap Open brings the big player back). New actions fcpn, fcmenu, fcread, fcov, fcpdfo, fcfols, qts, fcpprev/fcpnext (part jumps). "Listen · this part" now uses the one-file player in This part only. Progress bar updated from fcOneTick (fcNpTick). Big verse uses class fc2v with data-fck and is rendered before the list, so the word highlight lands on it.
+- Quiet time (S.qt, on by default; setting in Repeat after me + player menus): screen stays on while the full chant plays; New version bar hidden while practising/chanting (html.qton); one-time tip how to turn on Do Not Disturb (OK / Don't show again, S.qtTip).
+- "By heart" → "Kaṇṭhastham" (te కంఠస్థం, hi कण्ठस्थम्).
+- YouTube embed (Swadhyayam): iframe now sends referrerpolicy strict-origin-when-cross-origin + origin/widget_referrer params (YouTube refuses embeds with no referrer: black player, no controls). Needs owner's check.
+- Testing tip: python http.server has no byte ranges, so seeks in full.m4a fail; use a range server (scratch rs.py) to test jumps.
