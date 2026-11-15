@@ -361,3 +361,9 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Soft picture behind the verse (S.fcbg, ⚙ › Picture behind the verse, on by default): fcPicU() → Dhyānam: img/story/dhyanam.jpg; 108 verse: img/mean/vNNN.jpg if MPIC, else its story picture (STO[x].v + hasPic); everything else: the home Vishnu picture (IMG, via an injected .fnd-bgp.dflt rule). opacity .13 (.2 on dark colours) with a radial mask. Shown in One verse and on the current verse in All verses.
 - Leader can start anywhere: "Where to start" sheet has "Start at a verse": part dropdown + verse number (book numbering, e.g. The question 7–22) + ▶ Start (action fcat; wrong number shows the valid range). Whole chant then continues in order.
 - Picture idea pending: Yudhiṣṭhira asking Bhīṣma (owner to make with AI; would become the background for The question).
+
+## Build 376 (15 Nov 2026) — Dev + Test + Preview. Not live.
+- Learn: "The full chant" row removed (it opened the same Parayanam player); one entry "🪔 Parayanam mode · Chant, listen or read along · whole chant or any part". Revise "Chant along" row now opens Parayanam mode (paray). Reading only: Learn › Full text and PDF. The old reader page (fcPage) is still the page behind the player.
+- ■ Stop in Parayanam mode closes the player (LP='') instead of showing the old reader page.
+- App Settings › 🪔 Parayanam: "Read-aloud lines (the dash lines)": Show with the verse / Hide · verse only / Read-aloud only (same S.fcshow as अ/అ › Show).
+- Echo letters (sup.ech: ha, hi, hu) in their own colour in the player: --ech saffron #c8641e on Chandan, blue #1565c0 on Haldi/Kesari/Kamala, light blue #7fd8ff on dark colours; bigger and bolder.
