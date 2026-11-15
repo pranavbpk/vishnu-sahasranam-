@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · progress ribbon</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#2a2118;color:#f6e7c8}
+.intro{padding:16px;max-width:420px;margin:auto;font-size:.92rem;line-height:1.45}.intro b{color:#ffd76a}
+.wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:0 0 30px}
+.f{width:393px}.f h3{margin:0 0 6px;text-align:center;color:#ffd76a;font-size:.95rem;letter-spacing:.03em}.f p{margin:0 0 8px;text-align:center;font-size:.8rem;opacity:.8}
+.sc{position:relative;width:393px;height:330px;border-radius:26px;overflow:hidden;background:#fbf6ec url(img/preview/home-top.jpg) 0 0/393px 330px no-repeat}
+button{font:inherit;cursor:pointer}
+
+/* NOW */
+.rib{position:absolute;right:30px;top:78px;width:58px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 22px;border:0;color:#fff;background:linear-gradient(180deg,#7a1f1f 0%,#a8431a 60%,#c8661c 100%);clip-path:polygon(0 0,100% 0,100% 100%,50% calc(100% - 14px),0 100%);box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.rib:before{content:'';position:absolute;inset:3px 3px 17px;border:1px solid rgba(255,214,120,.75);border-bottom:0}
+.rib .k{font-size:.62rem;font-weight:700;background:rgba(255,214,120,.95);color:#6b1f12;border-radius:8px;padding:1px 6px}
+.rib .n{display:flex;flex-direction:column;align-items:center;line-height:1}.rib .n b{font-size:1.15rem;color:#ffe9b0}.rib .n i{font-style:normal;font-size:.62rem;color:#ffe2c4;margin-top:2px}
+.rib .l{width:26px;height:1px;background:rgba(255,214,120,.7);margin:2px 0}
+
+/* A RING */
+.ring{position:absolute;right:16px;top:74px;border:0;background:none;padding:0;display:flex;flex-direction:column;align-items:center;gap:6px}
+.ring .r{width:86px;height:86px;border-radius:50%;background:conic-gradient(from -90deg,#e0a02a 0%,#c8661c 40%,#9a2a1a 70%,rgba(160,90,20,.14) 70% 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(170,90,20,.25)}
+.ring .r div{width:70px;height:70px;border-radius:50%;background:#fffaf0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.ring .r b{font-size:1.5rem;color:#7a1f1f;font-weight:900}.ring .r small{font-size:.62rem;color:#8a5a2a;font-weight:700;margin-top:2px}
+.ring .p{background:#7a1f1f;color:#ffe9b0;border-radius:999px;padding:3px 10px;font-size:.7rem;font-weight:800;white-space:nowrap}
+
+/* B MALA */
+.mala{position:absolute;right:12px;top:70px;border:0;background:none;padding:0;width:96px;height:96px}
+.mala svg{position:absolute;inset:0}
+.mala .c{position:absolute;inset:16px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fffdf6,#fff1d0);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;box-shadow:inset 0 0 0 1px rgba(224,160,42,.4)}
+.mala .c b{font-size:1.35rem;color:#7a1f1f;font-weight:900}.mala .c small{font-size:.58rem;color:#8a5a2a;font-weight:700;margin-top:2px}
+.mala .d{position:absolute;left:50%;transform:translateX(-50%);top:100px;background:#fff;border:1.5px solid #e0a02a;color:#7a1f1f;border-radius:999px;padding:2px 9px;font-size:.66rem;font-weight:800;white-space:nowrap}
+
+/* C GLASS */
+.gl{position:absolute;right:22px;top:76px;width:70px;border-radius:22px;padding:10px 6px 9px;border:1px solid rgba(255,255,255,.9);background:linear-gradient(160deg,rgba(255,255,255,.75),rgba(255,240,210,.55));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 10px 24px rgba(160,90,20,.18),inset 0 1px 0 #fff;display:flex;flex-direction:column;align-items:center;gap:5px;color:#4a2a10}
+.gl .t{display:flex;gap:6px;align-items:flex-end}
+.gl .bar{width:8px;height:52px;border-radius:5px;background:rgba(160,90,20,.15);position:relative;overflow:hidden}.gl .bar u{position:absolute;left:0;right:0;bottom:0;height:70%;background:linear-gradient(0deg,#9a2a1a,#e0a02a)}
+.gl .nb{display:flex;flex-direction:column;align-items:center;line-height:1}.gl .nb small{font-size:.58rem;font-weight:800;color:#c8661c}.gl .nb b{font-size:1.45rem;font-weight:900;color:#7a1f1f;margin-top:3px}.gl .nb i{font-style:normal;font-size:.6rem;color:#8a5a2a;margin-top:2px}
+.gl .dv{width:34px;height:1px;background:rgba(160,90,20,.25)}
+.gl .day{font-size:.68rem;font-weight:800;color:#0f5f5f;white-space:nowrap}
+
+/* D FLAG (temple dhvaja) */
+.fl{position:absolute;right:20px;top:68px;border:0;background:none;padding:0;width:78px;height:128px}
+.fl .pole{position:absolute;left:6px;top:0;bottom:0;width:4px;border-radius:2px;background:linear-gradient(180deg,#f0c24b,#b07a10)}
+.fl .pole:before{content:'';position:absolute;left:-4px;top:-6px;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe08a,#c08a10)}
+.fl .flag{position:absolute;left:10px;top:8px;width:66px;padding:8px 10px 10px 8px;color:#fff;background:linear-gradient(135deg,#ff8a1e,#d4400f 70%,#a82a0c);clip-path:polygon(0 0,100% 0,82% 50%,100% 100%,0 100%);display:flex;flex-direction:column;line-height:1;animation:wave 4s ease-in-out infinite;transform-origin:left center}
+.fl .flag b{font-size:1.4rem;font-weight:900}.fl .flag small{font-size:.6rem;opacity:.9;margin-top:2px}.fl .flag em{font-style:normal;font-size:.6rem;font-weight:800;background:rgba(255,255,255,.25);border-radius:6px;padding:2px 4px;margin-top:6px;align-self:flex-start}
+.fl .day{position:absolute;left:12px;top:92px;font-size:.66rem;font-weight:800;color:#7a1f1f;background:#fff;border:1.5px solid #f0c24b;border-radius:999px;padding:2px 8px;white-space:nowrap}
+@keyframes wave{0%,100%{transform:skewY(0)}50%{transform:skewY(-2deg) scaleX(.97)}}
+</style></head><body>
+<div class="intro"><b>Home screen ribbon · 4 new shapes</b><br>Same place, same numbers (70% · 76 of 108 · 1 a day), same tap to open your progress. Example numbers.</div>
+<div class="wrap">
+
+<div class="f"><h3>NOW · hanging ribbon</h3><p>&nbsp;</p><div class="sc">
+<button class="rib"><span class="k">70%</span><span class="n"><b>76</b><i>of 108</i></span><span class="l"></span><span class="n"><b>1</b><i>a day</i></span></button></div></div>
+
+<div class="f"><h3>A · Progress ring</h3><p>Clean and modern, like a fitness ring. The ring fills as you learn.</p><div class="sc">
+<button class="ring"><span class="r"><div><b>76</b><small>of 108</small></div></span><span class="p">1 a day · 70%</span></button></div></div>
+
+<div class="f"><h3>B · Mala of 108 beads</h3><p>A real japa mala: 108 beads, the learned ones glow gold. Meru bead on top.</p><div class="sc">
+<button class="mala"><svg id="malasvg" viewBox="0 0 96 96"></svg><span class="c"><b>76</b><small>of 108</small></span><span class="d">1 a day · 70%</span></button></div></div>
+
+<div class="f"><h3>C · Glass card</h3><p>Soft frosted glass, a slim level bar fills up like oil in a lamp.</p><div class="sc">
+<button class="gl"><span class="t"><span class="bar"><u></u></span><span class="nb"><small>70%</small><b>76</b><i>of 108</i></span></span><span class="dv"></span><span class="day">1 a day</span></button></div></div>
+
+<div class="f"><h3>D · Temple flag (dhvaja)</h3><p>A saffron flag on a golden pole, gently waving.</p><div class="sc">
+<button class="fl"><span class="pole"></span><span class="flag"><b>76</b><small>of 108</small><em>70%</em></span><span class="day">1 a day</span></button></div></div>
+
+</div>
+<script>
+(function(){var s='',n=108,L=76,cx=48,cy=48,R=42;for(var i=0;i<n;i++){var a=-Math.PI/2+(i+.5)*2*Math.PI/n,x=cx+R*Math.cos(a),y=cy+R*Math.sin(a),on=i<L;s+='<circle cx="'+x.toFixed(2)+'" cy="'+y.toFixed(2)+'" r="1.75" fill="'+(on?'#d98a12':'#ecdcb6')+'"'+(on?' stroke="#a8431a" stroke-width=".3"':'')+'/>'}
+s+='<circle cx="48" cy="4" r="3.4" fill="#9a2a1a"/><path d="M45.5 1.5 L48 -3 L50.5 1.5Z" fill="#9a2a1a"/>';document.getElementById('malasvg').innerHTML=s})();
+function fit(){var w=Math.min(innerWidth-16,393),k=w/393;document.querySelectorAll('.f').forEach(function(p){p.style.zoom=k})}fit();addEventListener('resize',fit);
+</script></body></html>

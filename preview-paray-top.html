@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · Parayanam top</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#2a2118;color:#3a2a18}
+.intro{color:#f6e7c8;padding:16px 16px 4px;max-width:420px;margin:auto;font-size:.92rem;line-height:1.45}.intro b{color:#ffd76a}
+.tabs{position:sticky;top:0;z-index:9;display:flex;gap:6px;padding:10px 12px;background:#2a2118;justify-content:center}
+.tabs button{border:0;border-radius:999px;padding:9px 14px;font:inherit;font-weight:700;font-size:.9rem;background:#4a3b2a;color:#f6e7c8}.tabs button.on{background:#ffd76a;color:#2a1500}
+.ph{width:393px;height:852px;margin:0 auto 30px;border-radius:38px;overflow:hidden;position:relative;display:flex;flex-direction:column;padding:54px 12px 22px;
+ background:radial-gradient(120% 70% at 50% 30%,#fffbe0 0%,#fff0a0 55%,#ffd94a 100%);color:#4a3405;box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.sb{position:absolute;top:0;left:0;right:0;height:44px;background:#0f5f5f;color:#fff;font-weight:700;display:flex;align-items:center;padding:0 28px;font-size:.95rem}
+.lbl{color:#ffd76a;text-align:center;font-weight:800;margin:6px 0 8px;letter-spacing:.04em}
+.ib{width:46px;height:46px;border-radius:50%;border:1.5px solid #f0d36a;background:#fffef6;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex:none;color:#4a3405}
+.ib.t{width:auto;padding:0 10px;font-size:.92rem;font-weight:700;border-radius:23px}
+/* verse card + bottom (same in all) */
+.gh{font-size:.84rem;color:#7a5a12;opacity:.75;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:4px 0}
+.card{flex:1;min-height:0;background:#fffef6;border:1.5px solid #f0cf4a;border-radius:22px;padding:12px 10px;display:flex;flex-direction:column;box-shadow:0 6px 18px rgba(170,120,30,.12)}
+.ct{display:flex;justify-content:space-between;align-items:center}.no{white-space:nowrap;background:#c0392b;color:#fff;border-radius:999px;padding:4px 12px;font-weight:800;font-size:.85rem}
+.chip{white-space:nowrap;border:1.5px solid #f0cf4a;border-radius:999px;padding:4px 10px;font-size:.85rem;background:#fff}
+.ln{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;color:#8a1c1c;font-weight:800;font-size:1.55rem;text-align:center;line-height:1.3}
+.ln .on{background:#ffb43a;color:#2a1500;border-radius:10px;padding:0 8px}
+.ctl{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:8px}.s{width:48px;height:48px;border-radius:50%;background:#fffef6;border:1.5px solid #f0d36a;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-direction:column}
+.s small{font-size:.62rem;font-weight:700}.pp{width:68px;height:68px;border-radius:50%;background:#c0392b;color:#2a1500;display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:900}
+.vw{display:flex;gap:6px;margin-top:8px}.vwb{flex:1;display:flex;background:rgba(255,255,255,.5);border-radius:12px;padding:3px}.vwb span{flex:1;text-align:center;padding:9px 0;font-weight:700;font-size:.85rem;color:#7a5a12}.vwb span.on{background:#fff;border-radius:9px;color:#4a3405}
+.fs{width:56px;border-radius:12px;background:#fffef6;border:1.5px solid #f0d36a;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.7rem;font-weight:700}
+
+/* ===== CURRENT ===== */
+.c-hd{display:flex;align-items:center;gap:5px}.c-tt{flex:1;text-align:center;line-height:1.15}.c-tt b{display:block;color:#c0392b;font-size:.82rem;letter-spacing:.12em}.c-tt small{font-weight:700;font-size:.86rem}
+.c-wh{margin-top:6px;background:rgba(255,255,255,.65);border:1.5px solid #f0d36a;border-radius:14px;padding:8px 10px;display:flex;align-items:center;gap:8px}
+.c-wh span{flex:1}.c-wh b{display:block;color:#c0392b;font-size:.95rem}.c-wh small{font-size:.74rem}.c-wh em{font-style:normal;border:1px solid #f0d36a;border-radius:999px;padding:4px 9px;font-size:.75rem;color:#c0392b;font-weight:700}
+.c-sg{display:flex;gap:3px;margin-top:7px}.c-sg i{height:5px;border-radius:3px;background:#e0a02a}.c-sg i.n{background:rgba(160,110,0,.2)}
+.c-gr{display:flex;font-size:.6rem;letter-spacing:.08em;color:#7a5a12;margin-top:3px}.c-gr span{text-align:center}.c-gr .on{color:#c0392b;font-weight:700}
+
+/* ===== OPTION A : big title + one journey card ===== */
+.a-hd{display:flex;align-items:center;gap:6px}
+.a-tt{flex:1;min-width:0;text-align:center;line-height:1}
+.a-tt b{display:block;font-family:Georgia,"Times New Roman",serif;font-size:1.62rem;color:#b3261e;font-weight:700;letter-spacing:.01em}
+.a-tt small{display:block;font-size:.9rem;font-weight:800;margin-top:2px;white-space:nowrap}
+.a-hd .ib{width:40px;height:40px;font-size:1rem}.a-hd .ib.t{width:40px;padding:0;font-size:.7rem;white-space:nowrap}
+.a-ic{display:flex;gap:5px}
+.jc{margin-top:7px;background:linear-gradient(180deg,#fffef6,#fff7d6);border:1.5px solid #f0cf4a;border-radius:18px;padding:7px 10px 6px;box-shadow:0 4px 14px rgba(170,120,30,.12)}
+.jr{display:flex;align-items:center;gap:10px}
+.med{width:46px;height:46px;border-radius:50%;flex:none;background:conic-gradient(#c0392b 0 90.7%,rgba(192,57,43,.15) 90.7% 100%);display:flex;align-items:center;justify-content:center}
+.med div{width:38px;height:38px;border-radius:50%;background:#fffef6;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.med b{font-size:1.05rem;color:#b3261e;font-weight:900}.med small{font-size:.58rem;color:#7a5a12;font-weight:700}
+.jt{flex:1;min-width:0;line-height:1.2}.jt small{display:block;font-size:.66rem;letter-spacing:.11em;color:#a0700a;font-weight:800}
+.jt b{display:block;font-size:1.08rem;color:#4a3405}.jt span{font-size:.78rem;color:#7a5a12}
+.tl{flex:none;text-align:center;border-radius:12px;background:#b3261e;color:#fff;padding:5px 9px;line-height:1.1}.tl b{display:block;font-size:1rem}.tl small{font-size:.6rem;opacity:.85}
+.trk{display:flex;gap:8px;margin-top:7px}.grp{display:flex;flex-direction:column;gap:4px}
+.grp .bar{display:flex;gap:3px;height:7px}.grp .bar i{flex:1;border-radius:4px;background:rgba(160,110,0,.18);position:relative;overflow:hidden}
+.grp .bar i.d{background:#e0a02a}.grp .bar i.c u{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#e0a02a,#c0392b);border-radius:4px}
+.grp em{font-style:normal;font-size:.6rem;letter-spacing:.09em;text-align:center;color:#a08850;font-weight:700}
+.grp.on em{color:#b3261e}.grp.on em:before{content:"◆ ";font-size:.5rem;vertical-align:1px}
+.grp.dn em{color:#a0700a}.grp.dn em:after{content:" ✓"}
+
+/* ===== OPTION B : title in a temple arch + bead mala ===== */
+.b-hd{display:flex;align-items:center;gap:6px}
+.b-tt{flex:1;text-align:center;position:relative;padding:2px 0 0}
+.b-tt .om{display:block;font-size:.8rem;color:#c0392b;letter-spacing:.3em;font-weight:800}
+.b-tt b{display:block;font-family:Georgia,serif;font-size:1.55rem;line-height:1.05;color:#b3261e;white-space:nowrap}.b-tt b i{font-style:normal;font-size:.7rem;color:#e0a02a;vertical-align:5px;margin:0 4px}
+.b-tt small{display:block;font-size:.9rem;font-weight:800;margin-top:2px;white-space:nowrap}
+.b-hd .col{display:flex;gap:5px}.b-hd .ib{width:40px;height:40px;font-size:1rem}.b-hd .ib.t{width:40px;padding:0;font-size:.7rem;white-space:nowrap}
+.mala{margin-top:7px;border-radius:18px;background:rgba(255,255,255,.6);border:1.5px solid #f0cf4a;padding:7px 12px 6px}
+.mr{display:flex;align-items:baseline;justify-content:space-between}
+.mr b{font-size:1.08rem;color:#4a3405}.mr b em{font-style:normal;color:#b3261e}
+.mr span{font-size:.8rem;color:#b3261e;font-weight:800;white-space:nowrap}
+.mr2{font-size:.76rem;color:#7a5a12;margin-top:1px}
+.beads{position:relative;display:flex;align-items:center;margin-top:6px;height:22px}
+.beads:before{content:"";position:absolute;left:4px;right:4px;top:50%;height:2px;background:linear-gradient(90deg,#e0a02a 0 78%,rgba(160,110,0,.25) 78%);transform:translateY(-1px)}
+.bd{position:relative;width:12px;height:12px;border-radius:50%;background:#e0a02a;border:2px solid #fffbe0;flex:none}
+.bd.n{background:#fffbe0;border-color:rgba(160,110,0,.35)}
+.bd.big{width:20px;height:20px;background:radial-gradient(circle at 35% 35%,#ffd76a,#c0392b);box-shadow:0 0 0 4px rgba(255,180,58,.45);border:0}
+.bsp{flex:1}
+.bsn{flex:6;position:relative;height:6px;border-radius:3px;margin:0 4px;background:rgba(160,110,0,.18);overflow:hidden}.bsn u{position:absolute;inset:0 auto 0 0;width:91%;background:linear-gradient(90deg,#e0a02a,#c0392b)}
+.bl{display:flex;font-size:.6rem;letter-spacing:.09em;font-weight:700;color:#a08850;margin-top:4px}.bl span{text-align:center}.bl .on{color:#b3261e}
+.ann{background:#fff8e0;border:1px dashed #c0392b;color:#7a1f1f;font-size:.72rem;border-radius:8px;padding:2px 6px;position:absolute;right:14px;z-index:3}
+</style></head><body>
+<div class="intro"><b>Parayanam top area · preview</b><br>Same verse card, same buttons, same height for the verse. Only the top changes. Tap the tabs to compare.</div>
+<div class="tabs"><button data-o="cur">Now</button><button data-o="a" class="on">Option A</button><button data-o="b">Option B</button></div>
+
+<!-- CURRENT -->
+<section id="cur" style="display:none"><div class="lbl">NOW (build 380)</div><div class="ph"><div class="sb">11:05</div>
+ <div class="c-hd"><div class="ib">⌄</div><div class="c-tt"><b>PARAYANAM</b><small>Vishnu Sahasranamam</small></div><div class="ib">ⓘ</div><div class="ib t">अ/అ</div><div class="ib">⚙︎</div></div>
+ <div class="c-wh"><span><b>Part 5 · 1000 names</b><small>Verse 98 of 108 · tap to choose a part</small></span><em>⏱ 3 min left</em></div>
+ <div class="c-sg"><i style="flex:1"></i><i style="flex:1"></i><i style="flex:1"></i><i style="flex:1"></i><i style="flex:6;background:linear-gradient(90deg,#c0392b 91%,rgba(160,110,0,.2) 91%)"></i><i class="n" style="flex:1.4"></i><i class="n" style="flex:1.4"></i></div>
+ <div class="c-gr"><span style="flex:4">PŪRVĀṄGAM</span><span style="flex:6" class="on">SAHASRANĀMA</span><span style="flex:2.8">UTTARĀṄGAM</span></div>
+ VERSE</div></section>
+
+<!-- OPTION A -->
+<section id="a"><div class="lbl">OPTION A · big title + one “journey” card</div><div class="ph"><div class="sb">11:05</div>
+ <div class="a-hd"><div class="a-ic"><div class="ib">⌄</div><div class="ib">ⓘ</div></div><div class="a-tt"><b>Parayanam</b><small>Vishnu Sahasranamam</small></div><div class="a-ic"><div class="ib t">अ/అ</div><div class="ib">⚙︎</div></div></div>
+ <div class="jc">
+  <div class="jr"><div class="med"><div><b>98</b><small>of 108</small></div></div>
+   <div class="jt"><small>PART 5 · SAHASRANĀMA</small><b>The 1000 names</b><span>☰ Tap to choose a part ›</span></div>
+   <div class="tl"><b>3</b><small>min left</small></div></div>
+  <div class="trk">
+   <div class="grp dn" style="flex:4"><div class="bar"><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i></div><em>PŪRVĀṄGAM</em></div>
+   <div class="grp on" style="flex:6"><div class="bar"><i class="c"><u style="width:91%"></u></i></div><em>SAHASRANĀMA</em></div>
+   <div class="grp" style="flex:2.8"><div class="bar"><i></i><i></i></div><em>UTTARĀṄGAM</em></div>
+  </div>
+ </div>
+ VERSE</div></section>
+
+<!-- OPTION B -->
+<section id="b" style="display:none"><div class="lbl">OPTION B · title centred + mala of beads</div><div class="ph"><div class="sb">11:05</div>
+ <div class="b-hd"><div class="col"><div class="ib">⌄</div><div class="ib">ⓘ</div></div><div class="b-tt"><b><i>❁</i>Parayanam<i>❁</i></b><small>Vishnu Sahasranamam</small></div><div class="col"><div class="ib t">अ/అ</div><div class="ib">⚙︎</div></div></div>
+ <div class="mala">
+  <div class="mr"><b>Verse <em>98</em> of 108 · 1000 names</b><span>⏱ 3 min left</span></div>
+  <div class="mr2">Part 5 · Sahasranāma · tap to choose a part ›</div>
+  <div class="beads"><span class="bd"></span><span class="bsp"></span><span class="bd"></span><span class="bsp"></span><span class="bd"></span><span class="bsp"></span><span class="bd"></span><span class="bsn"><u></u></span><span class="bd big"></span><span class="bsp" style="flex:1.4"></span><span class="bd n"></span><span class="bsp" style="flex:1.4"></span><span class="bd n"></span></div>
+  <div class="bl"><span style="flex:4">PŪRVĀṄGAM ✓</span><span style="flex:6" class="on">SAHASRANĀMA</span><span style="flex:2.8">UTTARĀṄGAM</span></div>
+ </div>
+ VERSE</div></section>
+
+<template id="verse"><div class="gh">↑ అరౌద్రః కుణ్డలీ చక్రీ విక్రమ్యూర్జితశాసనః …</div>
+ <div class="card"><div class="ct"><span class="no">Sahasranāma · verse 98</span><span style="display:flex;gap:4px"><span class="chip">💡 Tip</span><span class="chip">📖 Meaning</span></span></div>
+ <div class="ln"><div>అక్-రూ-రఫ్ పే-శ-లో దక్-షో</div><div>దక్-షి-ణః క్ష-మి-ణాం వ-రహ</div><div class="on">విద్-వత్-త-మో</div><div>వీ-త-భ-యఫ్</div><div>పుణ్-య-శ్ర-వ-ణ-కీర్-త-నహ</div></div></div>
+ <div class="gh">↓ ఉత్తారణో దుష్కృతిహా పుణ్యో దుఃస్వప్ననాశనః …</div>
+ <div class="ctl"><div class="s" style="border-radius:16px;width:58px;height:58px">☰<small>Parts</small></div><div class="s">◀︎</div><div class="pp">❚❚</div><div class="s">▶︎</div><div class="s" style="border-radius:16px;width:58px;height:58px">■<small>Stop</small></div></div>
+ <div class="vw"><div class="vwb"><span class="on">One verse</span><span>All verses</span><span>Book</span></div><div class="fs">⤢<span>Full</span></div></div></template>
+<script>
+var T=document.getElementById('verse').innerHTML;
+document.querySelectorAll('.ph').forEach(function(p){p.innerHTML=p.innerHTML.replace('VERSE',T)});
+function fit(){var w=Math.min(window.innerWidth-16,393),k=w/393;document.querySelectorAll('.ph').forEach(function(p){p.style.zoom=k})}fit();addEventListener('resize',fit);
+document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===b)});['cur','a','b'].forEach(function(id){document.getElementById(id).style.display=id===b.dataset.o?'':'none'})}});
+if(innerWidth>1200){document.querySelector('.tabs').style.display='none';document.body.style.display='flex';document.body.style.flexWrap='wrap';document.body.style.justifyContent='center';document.querySelector('.intro').style.width='100%';document.querySelectorAll('section').forEach(function(s){s.style.display='';s.style.margin='0 12px'})}
+</script></body></html>
