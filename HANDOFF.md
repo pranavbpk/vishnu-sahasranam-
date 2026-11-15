@@ -379,3 +379,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Default Parayanam colour is Haldi (S.fcth||'hal').
 - Old players A/B/C removed from use (owner): fcPn() always 'nd', fcSw() returns '' (no style switch anywhere). The full chant page always uses the plain card player (style 'a'), no "Test · player style" row. Code for A/B/C still in the file, unused.
 - Owner reported YouTube in Swadhyayam now working (after build 369 referrer fix).
+
+## Build 380 (15 Nov 2026) — Dev + Test + Preview. Not live.
+- Parayanam mode: tap the verse area (data-act fcqk on .fnd-st) to show a quick bar at the top (fcQkH, FCQK, fcQk timer 5 s): 🔊/🔇 Sound (fcmu), Speed cycles Slow→Normal→Bit faster→Faster (fcqsp), A− / A+ (fcqfs, S.fcfs −1..1), 🎨 Colour cycles FCTH (fcqth), ⚙ More (opens settings). A tap never pauses or skips. Works in normal and full screen.
+- Bell fix: the bell + "parayanam completed" count rang when iPhone fired 'ended' early. fcOneTick now keeps FCA.ok (last position reached by smooth playback, jumps over 6 s ignored). The 'ended' handler only finishes if FCA.ok is within 6 s of the end of v108:108; otherwise it carries on from FCA.ok (up to 3 times, then pauses and saves the spot).
