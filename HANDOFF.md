@@ -336,3 +336,10 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Player D colours (S.fcth, ⚙ › Colour, 8 swatches): lt Chandan (default, light), mr Temple (dark maroon), kum Kumkum (red), kes Kesari (saffron), hal Haldi (turmeric yellow), tul Tulasi (green), nil Neela (Vishnu blue), kam Kamala (lotus pink). All colours are CSS variables on .fnd (.fnd.th-xx).
 - Big text in All verses (current verse larger, others dimmed) and Book (current verse marked with a coloured edge); size follows A−/A+ via --fz. Current verse scrolls to the top of the list so the next verses follow below.
 - Full screen (S.fcfull, ⤢ in the header or ⚙): one slim line on top (part · verse · minutes left · ⚙), verse area fills the screen, small ◀ ❚❚ ▶ and view switch 1 / ☰ / 📖 at the bottom; ⤡ leaves full screen.
+
+## Build 372 (15 Nov 2026) — Dev + Preview only, behind NEWORG()
+- Verse codes on every verse in all 3 views (fcCode): Op Opening, Qn The question, Ny Nyāsa, Dh Dhyānam, SN Sahasranāma (108), Ph Phala-śruti, End Ending (e.g. "SN 18", "Op ॐ"). Explained in ⓘ.
+- Ornament between the verse and the read-aloud lines (fcOrn: line · ❁ · line in the colour's accent) when both are shown.
+- Header bigger (46 px icons, title .86rem bold); ⤢ Full moved next to the view switch at the bottom. Full screen bottom: bigger view buttons with icon + word (One / All / Book), bigger ◀ ❚❚ ▶.
+- Words in the read-aloud lines stay whole (inline-block); only a word longer than the line splits at a dash. fcFitD now only checks height/width, so text is bigger.
+- The verse line being said glows softly (fcHL sets .lnon on .fc2t>div, mapped from the read-aloud line). "Verse only" keeps the read-aloud lines hidden in the page (fnd-hide) so the glow still follows the voice.
