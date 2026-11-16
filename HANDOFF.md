@@ -437,3 +437,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Decision (16 Nov 2026) — no build
 - Show script / dash lines choice: previewed (preview-dash.html), owner asked if it adds confusion. Advice taken: keep script + dash lines for everyone, no new setting. Revisit only if real users ask.
+
+## Build 394 (16 Nov 2026) — Dev + Test only (Preview and Live not changed).
+- Home top from the owner's Gemini mock: new badge style sc "🐚 Shankha & chakra" (now the default when S.ribst is unset; listed first in More looks). Shankha left ("91 / 108 · learned"), chakra right ("84% · 1 a day"), each on a gold arc open at the bottom that fills with progress (scArc). Pictures cut from the owner's Gemini screenshot (SCIMG.s / SCIMG.c, ~5 and 7 KB) — swap for sharper originals if he sends them. Vishnu circle 146→164 px, less zoom (background-size 132%) so more of the figure shows, via .dh:has(.scb). No "Tap for your progress" hint for this style (it covered the title). Both sides open progress (sdo).
