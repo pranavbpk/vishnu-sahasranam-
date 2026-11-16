@@ -422,3 +422,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 389 (16 Nov 2026) — Dev + Test + Preview. Not live.
 - Golden tirumaṇ badge redrawn to match the owner's Gemini picture exactly: wide ivory arms with gold edge and slanted tops, tapered red-orange flame in the middle (fills from the bottom with %; the rest shows faintly), gold lotus under the neck, pills: maroon "75 / 108" with gold border, tan "69%", white "1 a day". Now the default badge for everyone (S.ribst unset → 'gd'); other shapes stay in More looks.
+
+## Build 390 (16 Nov 2026) — Dev + Test + Preview. Not live.
+- Owner: the drawn golden tirumaṇ didn't look like Gemini's. Now the badge uses the Gemini picture itself (GDIMG, cut out of the owner's screenshot with a transparent background, 183×267, 12 KB PNG), shown 56 px wide; pills stay live. The picture's red line is fixed (no fill); progress is in the pills. Swap GDIMG for a cleaner original if the owner sends one.
