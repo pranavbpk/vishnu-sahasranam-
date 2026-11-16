@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Preview · Sri Vaishnava Sankalpa</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f3e6c9;font-family:-apple-system,system-ui,'Inter',sans-serif;color:#3a2210}
+.ph{max-width:420px;margin:0 auto;position:relative;min-height:100vh;background:radial-gradient(circle at 50% 22%,#fffaf0 0,#fbf1dc 45%,#f4e2bd 100%);overflow:hidden;padding-bottom:28px}
+.note{max-width:420px;margin:0 auto;padding:8px 14px;font-size:.8rem;color:#7a5a30;text-align:center;background:#f3e6c9}
+.tor{position:absolute;left:0;right:0;top:0;height:92px;pointer-events:none}
+.top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:46px 12px 0}
+.ic{width:42px;height:42px;border-radius:50%;border:1.5px solid #d9b56a;background:rgba(255,250,238,.95);font-size:1.05rem;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(120,70,10,.15)}
+.ttl{text-align:center;line-height:1.15}.ttl small{display:block;color:#a8431a;font-weight:800;letter-spacing:.16em;font-size:.78rem}.ttl b{font-family:Georgia,serif;font-size:1.05rem;color:#4a2a10}
+.sri{text-align:center;font-family:Georgia,serif;font-style:italic;color:#7a1426;font-size:.92rem;margin:10px 0 2px}
+.emb{display:flex;justify-content:center;align-items:flex-end;gap:12px;margin:2px 0 10px}
+.emb img{height:34px;filter:drop-shadow(0 2px 3px rgba(120,70,10,.25))}.emb img.n{height:40px}
+.acr{position:relative;display:flex;justify-content:center;align-items:flex-start;gap:4px;padding:0 4px}
+.acr:before{content:"";position:absolute;left:0;right:0;top:34px;height:2px;background:repeating-linear-gradient(90deg,#e7a4b8 0 6px,#f6d5de 6px 10px);opacity:.8}
+.ac{position:relative;width:70px;text-align:center}
+.ac img{width:62px;height:62px;border-radius:50%;display:block;margin:0 auto;box-shadow:0 3px 8px rgba(90,50,10,.3)}
+.ac span{display:block;font-size:.62rem;font-weight:700;color:#6a3a10;line-height:1.15;margin-top:3px}
+.ac.c{width:92px}.ac.c img{width:82px;height:auto;border-radius:0;box-shadow:none;margin-top:-4px;filter:drop-shadow(0 4px 6px rgba(150,100,10,.35))}
+.tan{margin:12px 16px 0;padding:10px 12px;border-radius:14px;background:rgba(255,253,246,.85);border:1.5px solid #e2c27a;text-align:center}
+.tan .d{font-family:'Tiro Devanagari Sanskrit','Noto Serif Devanagari',Georgia,serif;font-size:1.05rem;color:#7a1426;line-height:1.5}
+.tan .t{font-size:.76rem;color:#7a5a30;font-style:italic;margin-top:2px}
+.sk{position:relative;margin:14px 16px 0;text-align:center}
+.sk h1{font-family:Georgia,serif;color:#7a1426;font-size:2.1rem;margin:0}
+.sk .lamp{position:absolute;right:-4px;top:-18px;height:118px;filter:drop-shadow(0 0 14px rgba(255,180,60,.55))}
+.date{color:#7a5a30;font-size:.88rem;line-height:1.35}
+.cnt{display:inline-block;margin-top:6px;background:#7a1426;color:#fbe7b0;border:1.5px solid #c9973a;border-radius:999px;padding:3px 12px;font-weight:700;font-size:.82rem}
+.kav{height:6px;margin:14px 16px 0;border-radius:3px;background:repeating-linear-gradient(90deg,#b5361f 0 5px,#fff8ec 5px 10px);box-shadow:0 0 0 1px #c9973a}
+.in{padding:0 16px}
+.lead{text-align:center;font-size:.98rem;margin:12px 4px 12px;line-height:1.4}
+.lbl{font-size:.72rem;font-weight:800;letter-spacing:.1em;color:#7a1426;margin:0 2px 7px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.pill{border:1.5px solid #e2c27a;background:#fffdf6;border-radius:14px;padding:9px 4px;text-align:center;font-size:.88rem;line-height:1.2;min-height:44px;display:flex;align-items:center;justify-content:center;gap:4px}
+.pill.on{background:linear-gradient(135deg,#fdeec4,#f3d58a);border-color:#c9973a;color:#5a2a06;font-weight:700}
+.box{border:1.5px solid #e2c27a;background:#fff;border-radius:14px;padding:11px 14px;font-size:1rem;margin-top:0}
+.say{margin:16px 2px 12px;text-align:center;font-family:Georgia,serif;font-style:italic;color:#7a1426;font-size:1.02rem;line-height:1.45}
+.go{border-radius:18px;background:linear-gradient(180deg,#8e1a2e,#6a0f20);color:#fff3cf;padding:13px 10px;text-align:center;border:2px solid #d4a43a;box-shadow:inset 0 0 0 3px #6a0f20,inset 0 0 0 4px rgba(232,184,74,.7),0 6px 16px rgba(110,15,30,.35)}
+.go b{display:block;font-size:1.22rem}.go small{display:block;color:#f3d58a;font-size:.84rem;margin-top:2px}
+.row{display:flex;gap:8px;margin-top:10px}.row span{flex:1;text-align:center;border:1.5px solid #c9973a;background:#fffaf0;border-radius:14px;padding:10px 4px;font-size:.9rem;color:#5a2a06;box-shadow:inset 0 -3px 0 rgba(181,54,31,.18)}
+.foot{text-align:center;color:#c9973a;margin-top:14px;font-size:1.1rem;letter-spacing:.4em}
+.sec{max-width:420px;margin:0 auto;padding:4px 16px 30px;background:#f3e6c9}.sec h2{font-size:1rem;margin:18px 0 4px}
+.sec ul{margin:0;padding-left:18px;font-size:.86rem;color:#5a4a38}
+</style></head><body>
+<div class="note">Preview only, not in the app yet · Sri Vaishnava style · pictures are Gemini placeholders</div>
+<div class="ph">
+ <svg class="tor" viewBox="0 0 400 92" preserveAspectRatio="none" aria-hidden="true">
+  <defs>
+   <radialGradient id="mg" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffd24a"/><stop offset="1" stop-color="#e88a12"/></radialGradient>
+   <radialGradient id="mo" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffb04a"/><stop offset="1" stop-color="#d9560f"/></radialGradient>
+   <linearGradient id="lf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6aa84f"/><stop offset="1" stop-color="#2f6d2c"/></linearGradient>
+  </defs>
+  <rect x="0" y="0" width="400" height="6" fill="#7a1426"/>
+  <g id="leaves"></g>
+ </svg>
+ <div class="top"><span class="ic">✕</span><span class="ttl"><small>PARAYANAM</small><b>Vishnu Sahasranamam</b></span><span class="ic">⚙️</span></div>
+ <div class="sri">śrīmate rāmānujāya namaḥ</div>
+ <div class="emb"><img src="img/preview/sv-shankha.png" alt=""><img class="n" src="img/preview/sv-namam.png" alt=""><img src="img/preview/sv-chakra.png" alt=""></div>
+ <div class="acr">
+  <div class="ac"><img src="img/preview/sv-ac1.png" alt=""><span>Nammāzhvār</span></div>
+  <div class="ac"><img src="img/preview/sv-ac2.png" alt=""><span>Āḷavandār</span></div>
+  <div class="ac c"><img src="img/preview/sv-sathari.png" alt=""><span>Śrī Śaṭhāri</span></div>
+  <div class="ac"><img src="img/preview/sv-ac3.png" alt=""><span>Rāmānuja</span></div>
+  <div class="ac"><img src="img/preview/sv-ac4.png" alt=""><span>Maṇavāḷa Māmunigaḷ</span></div>
+ </div>
+ <div class="tan"><div class="d">लक्ष्मीनाथसमारम्भां नाथयामुनमध्यमाम् ।<br>अस्मदाचार्यपर्यन्तां वन्दे गुरुपरम्पराम् ॥</div><div class="t">lakṣmīnātha samārambhāṃ nāthayāmuna madhyamām · asmadācārya paryantāṃ vande guruparamparām</div></div>
+ <div class="sk"><img class="lamp" src="img/preview/sv-lamp.png" alt=""><h1>Saṅkalpa</h1><div class="date">Monday, 16 November 2026<br>Śrī Vaiṣṇava sampradāyam</div><span class="cnt">📿 2 parayanams completed</span></div>
+ <div class="kav"></div>
+ <div class="in">
+  <div class="lead">Light the lamp, fold your hands, and keep in mind why you chant today.</div>
+  <div class="lbl">I CHANT FOR</div>
+  <div class="grid">
+   <span class="pill">Myself</span><span class="pill">My family</span><span class="pill">Good health</span>
+   <span class="pill">Studies &amp; work</span><span class="pill">Peace of mind</span><span class="pill on">✓ Gratitude</span>
+  </div>
+  <div class="lbl" style="margin-top:14px">A NAME OR A PRAYER (OPTIONAL)</div>
+  <div class="box">Thank you Narayana</div>
+  <div class="say">“Today I chant for gratitude, as kaiṅkaryam<br>to Śrīman Nārāyaṇa: Thank you Narayana” 🙏</div>
+  <div class="go"><b>🙏 Carry on from verse 8</b><small>Part 2 · The question</small></div>
+  <div class="row"><span>↺ From the beginning</span><span>Choose a part ›</span></div>
+  <div class="foot">✿ ❀ ✿</div>
+ </div>
+</div>
+<div class="sec">
+ <h2>Notes</h2>
+ <ul>
+  <li>Acharyas follow the namam choice already in Settings: Thenkalai shows Maṇavāḷa Māmunigaḷ, Vadakalai shows Vedānta Deśikan in the last place.</li>
+  <li>Centre: Śrī Śaṭhāri (the golden feet), as in your Gemini picture.</li>
+  <li>The faces are Gemini placeholders. Real pictures should come from your guru before anyone else sees this.</li>
+  <li>The guru-parampara taniyan, names and the sankalpa line are drafts for guru review.</li>
+  <li>General tradition keeps the simple version (preview-sankalpa.html).</li>
+ </ul>
+</div>
+<script>
+(function(){var g=document.getElementById('leaves'),h='';
+ for(var i=0;i<26;i++){var x=8+i*15.2,y=10+Math.sin(i/25*Math.PI)*6;h+='<circle cx="'+x+'" cy="'+y+'" r="5.2" fill="url(#'+(i%2?'mo':'mg')+')"/>';
+  if(i%2===0)h+='<path d="M'+(x+7)+' '+(y+3)+' q-5 10 0 22 q5-12 0-22z" fill="url(#lf)" stroke="#25551f" stroke-width=".5"/>'}
+ [6,394].forEach(function(x){for(var j=0;j<6;j++)h+='<circle cx="'+x+'" cy="'+(18+j*10)+'" r="5" fill="url(#'+(j%2?'mo':'mg')+')"/>'});
+ g.innerHTML=h})();
+</script>
+</body></html>
