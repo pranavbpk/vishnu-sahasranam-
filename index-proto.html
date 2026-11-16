@@ -2490,7 +2490,9 @@ html.qton .nvbar{display:none!important}
 
 /* b388: Gemini's three badge styles. Golden tirumaṇ (default for Vaishnava), Temple arch, Medallion. The red line / bars fill as you learn. */
 .rb-gd,.rb-md,.rb-ar{right:10px;top:40px;display:flex;flex-direction:column;align-items:center;gap:2px;width:92px}
-.rb-gd .gdn{width:54px;height:76px;filter:drop-shadow(0 3px 5px rgba(120,70,10,.35))}
+.rb-gd .gdn{width:68px;height:84px;filter:drop-shadow(0 4px 6px rgba(120,70,10,.3))}
+.rb-gd{top:50px!important;width:96px!important;gap:2px!important}
+.rb-gd .gp{min-width:0}.rb-gd .gp.a{font-size:.78rem;padding:1px 10px;line-height:1.3;background:#6e1f1f;border:1.5px solid #c89a3a;color:#fff3dc}.rb-gd .gp.b{background:#e6c58a;color:#4a2a10;font-size:.68rem;padding:0 9px;line-height:1.35}.rb-gd .gp.c{font-size:.66rem;padding:0 9px;line-height:1.35;border:1.5px solid #d4a43a;background:#fffdf8;color:#3a2010}
 .rb-gd .gdl{width:60px;height:16px;margin-top:-6px}
 .gp{display:inline-block;border-radius:999px;padding:2px 9px;font-size:.72rem;font-weight:800;line-height:1.35;white-space:nowrap}
 .gp.a{background:#7a1f1f;color:#ffe9b0;border:1.5px solid #d4a43a}.gp.b{background:linear-gradient(180deg,#f3d27a,#d9a83a);color:#5a2a05;font-size:.66rem}.gp.c{background:#fffaf0;color:#5a2a05;border:1.5px solid #e2b24a;font-size:.66rem}.gp.d{background:#c8661c;color:#fff;font-size:.66rem}
@@ -4249,14 +4251,24 @@ function dhPar(){var x=null;try{x=satEv().filter(function(q){return !q.past})[0]
 var SDO=false;
 var NMP={t:['M9 4 C9 2.5 10 2 11.5 2 L20 2 C21.5 2 22.3 3 22.4 4.3 L26 50 C26.6 56 29 59 32 59 C35 59 37.4 56 38 50 L41.6 4.3 C41.7 3 42.5 2 44 2 L52.5 2 C54 2 55 2.5 55 4 L49.5 54 C48.6 62.5 44.5 67.5 35.4 69.5 L34.6 79 C35.2 80.6 37.6 81.6 37.6 83.6 C37.6 85.6 35 86.8 32 86.8 C29 86.8 26.4 85.6 26.4 83.6 C26.4 81.6 28.8 80.6 29.4 79 L28.6 69.5 C19.5 67.5 15.4 62.5 14.5 54 Z','M29.6 6 C29.6 4.7 30.6 4 32 4 C33.4 4 34.4 4.7 34.4 6 L33.4 50 C33.3 52 32.7 53 32 53 C31.3 53 30.7 52 30.6 50 Z'],v:['M9 4 C9 2.5 10 2 11.5 2 L20 2 C21.5 2 22.3 3 22.4 4.3 L26 58 C26.6 65 29 68 32 68 C35 68 37.4 65 38 58 L41.6 4.3 C41.7 3 42.5 2 44 2 L52.5 2 C54 2 55 2.5 55 4 L49.5 62 C48.4 75 41.5 82 32 82 C22.5 82 15.6 75 14.5 62 Z','M29.6 6 C29.6 4.7 30.6 4 32 4 C33.4 4 34.4 4.7 34.4 6 L33.4 58 C33.3 60 32.7 61 32 61 C31.3 61 30.7 60 30.6 58 Z']};
 var RIBST=[['gd','✨ Golden tirumaṇ'],['ar','🛕 Temple arch'],['md','🏅 Medallion'],['nm','🔱 Tirumaṇ'],['rib','🎗 Ribbon'],['ring','⭕ Ring'],['mala','📿 Mala'],['gl','🪟 Glass'],['fl','🚩 Flag']];
-function ribSt(){var v=S.ribst||(typeof fcTr==='function'&&fcTr()==='vai'?'gd':'rib');return RIBST.some(function(x){return x[0]===v})?v:'rib'}
+function ribSt(){var v=S.ribst||'gd';return RIBST.some(function(x){return x[0]===v})?v:'rib'}
 function ribMala(L){var o='',n=TOTAL,R=42;for(var i=0;i<n;i++){var a=-Math.PI/2+(i+.5)*2*Math.PI/n,x=48+R*Math.cos(a),y=48+R*Math.sin(a),on=i<L;o+='<circle cx="'+x.toFixed(2)+'" cy="'+y.toFixed(2)+'" r="1.75" fill="'+(on?'#d98a12':'#ecdcb6')+'"'+(on?' stroke="#a8431a" stroke-width=".3"':'')+'/>'}return '<svg viewBox="0 -4 96 100" aria-hidden="true">'+o+'<circle cx="48" cy="4" r="3.4" fill="#9a2a1a"/><path d="M45.5 1.5 L48 -3 L50.5 1.5Z" fill="#9a2a1a"/></svg>'}
 function dhRib(){var L=S.learned.length,pc=Math.round(L/TOTAL*100),st=ribSt();
  if(st!=='rib'){var hint=S.ribSeen?'':'<span class="ribh w">👆 Tap for your progress</span>',B='<button class="rb2 rb-'+st+(SDO?' on':'')+'" data-act="sdo" aria-label="My progress: '+L+' of '+TOTAL+' learned">',day=S.pace+' a day';
   if(st==='gd'||st==='md'||st==='ar'){var vd2=S.wdnm==='v',Q=NMP[vd2?'v':'t'],fy2=(vd2?61:53)-((vd2?57:49)*pc/100),cid='nmc'+st;
    var NM=function(fill,stroke){return '<path d="'+Q[0]+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="1.3"/><path d="'+Q[1]+'" fill="rgba(120,20,10,.18)"/><path d="'+Q[1]+'" fill="url(#rbred)" clip-path="url(#'+cid+')"/>'};
    var DF='<defs><clipPath id="'+cid+'"><rect x="0" y="'+fy2.toFixed(1)+'" width="64" height="90"/></clipPath><linearGradient id="rbred" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#b3150f"/><stop offset="1" stop-color="#ff5a3a"/></linearGradient><linearGradient id="rbgold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0b8"/><stop offset=".45" stop-color="#e6b445"/><stop offset="1" stop-color="#a8761c"/></linearGradient></defs>';
-   if(st==='gd')return hint+B+'<svg class="gdn" viewBox="0 0 64 90" aria-hidden="true">'+DF+NM('url(#rbgold)','#8a5e12')+'</svg><svg class="gdl" viewBox="0 0 60 16" aria-hidden="true"><path d="M30 1 C35 5 35 11 30 15 C25 11 25 5 30 1Z" fill="url(#rbgold)" stroke="#a8761c" stroke-width=".6"/><path d="M30 15 C22 14 16 9 15 3 C21 4 27 8 30 15Z M30 15 C38 14 44 9 45 3 C39 4 33 8 30 15Z" fill="url(#rbgold)" stroke="#a8761c" stroke-width=".6"/><path d="M30 15 C20 16 10 13 5 8 C13 8 23 11 30 15Z M30 15 C40 16 50 13 55 8 C47 8 37 11 30 15Z" fill="#f2c96a" stroke="#a8761c" stroke-width=".6"/></svg><span class="gp a">'+L+' / '+TOTAL+'</span><span class="gp b">'+pc+'%</span><span class="gp c">'+day+'</span></button>';
+   if(st==='gd'){var ty=(75-(70*pc/100)).toFixed(1);return hint+B+'<svg class="gdn" viewBox="0 0 100 124" aria-hidden="true"><defs>'
+     +'<linearGradient id="gdiv" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffdf6"/><stop offset=".55" stop-color="#fbf0d6"/><stop offset="1" stop-color="#ecd3a0"/></linearGradient>'
+     +'<linearGradient id="gdgo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7dc8c"/><stop offset=".5" stop-color="#d6a53e"/><stop offset="1" stop-color="#9c6c18"/></linearGradient>'
+     +'<linearGradient id="gdrd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a3a"/><stop offset=".45" stop-color="#ef4a1e"/><stop offset="1" stop-color="#c4261a"/></linearGradient>'
+     +'<clipPath id="gdclip"><rect x="0" y="'+ty+'" width="100" height="124"/></clipPath></defs>'
+     +'<path d="M3 8 L38 14 L43 63 Q50 75 57 63 L62 14 L97 8 C94 40 85 64 66 82 C59 89 57 94 58 101 L42 101 C43 94 41 89 34 82 C15 64 6 40 3 8 Z" fill="url(#gdiv)" stroke="url(#gdgo)" stroke-width="3" stroke-linejoin="round"/>'
+     +'<path d="M8 12 L34.5 16.5 L39.5 64 Q50 82 60.5 64 L65.5 16.5 L92 12" fill="none" stroke="#fff" stroke-width="1.2" opacity=".7"/>'
+     +'<path d="M50 5 C53.5 26 57.5 50 57.5 63 Q50 76 42.5 63 C42.5 50 46.5 26 50 5 Z" fill="rgba(230,90,40,.16)" stroke="rgba(200,60,30,.25)" stroke-width=".6"/>'
+     +'<path d="M50 5 C53.5 26 57.5 50 57.5 63 Q50 76 42.5 63 C42.5 50 46.5 26 50 5 Z" fill="url(#gdrd)" clip-path="url(#gdclip)"/>'
+     +'<g transform="translate(50 112)" stroke="#8a5e12" stroke-width=".7"><path d="M0 -14 C5 -9 5 -3 0 2 C-5 -3 -5 -9 0 -14Z" fill="url(#gdgo)"/><path d="M0 2 C-7 0 -12 -6 -12 -12 C-6 -10 -2 -6 0 2Z M0 2 C7 0 12 -6 12 -12 C6 -10 2 -6 0 2Z" fill="url(#gdgo)"/><path d="M0 3 C-10 4 -18 0 -22 -6 C-14 -6 -6 -3 0 3Z M0 3 C10 4 18 0 22 -6 C14 -6 6 -3 0 3Z" fill="#f2cf7a"/><path d="M-20 4 L20 4 L17 9 L-17 9 Z" fill="url(#gdgo)"/></g></svg>'
+     +'<span class="gp a">'+L+' / '+TOTAL+'</span><span class="gp b">'+pc+'%</span><span class="gp c">'+day+'</span></button>'}
    if(st==='md')return hint+B+'<span class="mdr" style="--p:'+pc+'%"><span class="mdi"><svg viewBox="0 0 64 90" aria-hidden="true">'+DF+NM('#fffdf8','#b89a6a')+'</svg></span></span><span class="gp a">'+L+' / '+TOTAL+' · '+pc+'%</span><span class="gp d">'+day+'</span></button>';
    var bar=function(c){return '<i class="'+c+'"><u style="height:'+pc+'%"></u></i>'};
    return hint+B+'<span class="rbaw"><span class="rbab">'+bar('w')+bar('r')+bar('w')+'</span><b>'+L+' of '+TOTAL+'</b><small>('+pc+'%)</small><em>'+day+'</em></span></button>'}
@@ -5280,7 +5292,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=388,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=389,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
