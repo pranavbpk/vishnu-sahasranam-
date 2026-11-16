@@ -425,3 +425,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 390 (16 Nov 2026) — Dev + Test + Preview. Not live.
 - Owner: the drawn golden tirumaṇ didn't look like Gemini's. Now the badge uses the Gemini picture itself (GDIMG, cut out of the owner's screenshot with a transparent background, 183×267, 12 KB PNG), shown 56 px wide; pills stay live. The picture's red line is fixed (no fill); progress is in the pills. Swap GDIMG for a cleaner original if the owner sends one.
+
+## Build 391 (16 Nov 2026) — Dev + Test + Preview. Not live.
+- Owner sent the clean original Gemini picture. GDIMG now cut from that file (namam + lotus only, transparent, 168×254, 128-colour PNG, ~9.5 KB). Same size on screen (56 px wide); pills stay live; red line fixed (no fill).
