@@ -2490,7 +2490,7 @@ html.qton .nvbar{display:none!important}
 
 /* b388: Gemini's three badge styles. Golden tirumaṇ (default for Vaishnava), Temple arch, Medallion. The red line / bars fill as you learn. */
 .rb-gd,.rb-md,.rb-ar{right:10px;top:40px;display:flex;flex-direction:column;align-items:center;gap:2px;width:92px}
-.rb-gd .gdi{width:56px;height:auto;display:block;filter:drop-shadow(0 3px 5px rgba(120,70,10,.25))}
+.rb-gd .gdi{width:44px;height:auto;display:block;filter:drop-shadow(0 3px 5px rgba(120,70,10,.25))}
 .rb-gd .gdn{width:68px;height:84px;filter:drop-shadow(0 4px 6px rgba(120,70,10,.3))}
 .rb-gd{top:46px!important;width:96px!important;gap:2px!important}
 .rb-gd .gp{min-width:0}.rb-gd .gp.a{font-size:.78rem;padding:1px 10px;line-height:1.3;background:#6e1f1f;border:1.5px solid #c89a3a;color:#fff3dc}.rb-gd .gp.b{background:#e6c58a;color:#4a2a10;font-size:.68rem;padding:0 9px;line-height:1.35}.rb-gd .gp.c{font-size:.66rem;padding:0 9px;line-height:1.35;border:1.5px solid #d4a43a;background:#fffdf8;color:#3a2010}
@@ -5285,7 +5285,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=391,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=392,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});

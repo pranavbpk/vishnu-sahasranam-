@@ -428,3 +428,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 391 (16 Nov 2026) — Dev + Test + Preview. Not live.
 - Owner sent the clean original Gemini picture. GDIMG now cut from that file (namam + lotus only, transparent, 168×254, 128-colour PNG, ~9.5 KB). Same size on screen (56 px wide); pills stay live; red line fixed (no fill).
+
+## Build 392 (16 Nov 2026) — Dev + Test + Preview. Not live.
+- Owner asked for a smaller tirumaṇ: .rb-gd .gdi width 56px → 44px. Pills unchanged.
