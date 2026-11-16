@@ -443,3 +443,9 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 395 (16 Nov 2026) — Dev + Test + Preview. Not live.
 - Owner: in Preview the Home screen style colours did nothing. Cause: they only styled the old Home (bigHome bv1..7); the D · Clean header (dhHead) ignored hmV(), and Classic (0) even switched Preview back to the old Home. Now dhHead adds class dv+hmV() to .dh; CSS .dh.dv0..dv7 colours the top (background, title, pills/icons, Learning now card, Listen/Chant/Meaning, circle ring; dark ones 2 Temple, 4 Festival, 6 Royal get a rounded dark panel with gold). 1 Sunrise = the look it had. The bigHome condition now also runs for Classic when tdL()===D.
+
+## Benchmark 1 (16 Nov 2026) — build 395, commit 20847e5
+- Owner chose D · Clean Home with bottom tabs as the app's look. Whole app as of build 395 (all old Home layouts A/B/C/Now, header styles big/portrait/arch, test switches) saved on GitHub branch benchmark-1-build395 (also archive/all-home-styles-b395, same commit). Tags cannot be pushed through the session proxy, so branches are used. Do not delete these branches.
+
+## Build 396 (16 Nov 2026) — Dev + Test + Preview. Not live.
+- D · Clean is the only Home in every copy: tdL() always D, dhS() always circle, HS always B; test bars (tdlBar, dhStyleBar, hsBar) return empty; Settings rows "New home look (test)" and "Today layout (test)" removed; Gemini look (S.gem) always on. Old code paths are still in the file (not deleted yet) — only switched off. Delete later after a few weeks, once nothing is missed.
