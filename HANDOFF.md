@@ -403,3 +403,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 384 (16 Nov 2026) — Dev + Test + Preview. Not live.
 - Well done: owner liked both the first Sri Vaishnava design and the Gemini-style one → Layout setting S.wdly s Simple (svEndS: stripe, śrīmate line, conch · namam · chakra row, kaiṅkaryam, quote, ācārya line) | g Grand (svEnd, default). Two more colours from the Gemini mock: ch Chandan (sandalwood cream, gold frame) and ra Rātri (night brown, gold). Settings: Classic · Kaavi · Pattu · Neela · Chandan · Rātri, Layout, Namam.
 - Docked Swadhyayam video is now a slim bar across the top (like the owner's example): small video left; ⤢ back to the class, ↺10, ↻10 (flSeek: <video> currentTime or YouTube seekTo with SWYTC from infoDelivery), ▶/❚❚ (flPPIcon), ✕. Tap the small video → back to the page. Fix: inline check uses the slot's own height.
+
+## Build 385 (16 Nov 2026) — Dev + Test + Preview. Not live.
+- Change several verses at once: Revise › Practise any verse › ✎ (unmode) → tap numbers (unpick, UNSEL; works across range tabs, "Select all shown") → 🔔 Needs more practice / ↩ Not learned yet → one confirm (UNASK) → undo2. Same rules as the single-verse ✎ (build 383). S.pos moves back to the earliest verse taken off.
