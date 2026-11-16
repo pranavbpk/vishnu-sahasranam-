@@ -1326,7 +1326,7 @@ html[data-ht="me"] .fth b{font-size:1.15rem}
 .dh-big .dh-t,.dh-circ .dh-t{font-size:1.85rem}
 .dh-big .dh-ess,.dh-circ .dh-ess{margin-top:6px}
 .dh-big .dh-slk,.dh-circ .dh-slk{margin-top:4px;padding:4px 12px}
-.dh-circ .dh-c{width:124px;height:124px;margin:-22px auto 4px}
+.dh-circ .dh-c{width:136px;height:136px;margin:-14px auto 16px;background-size:150% auto;background-position:50% 40%}/* b397: Vishnu centred crown to feet, gap so the rings don't touch the title */
 .dh-big .dh-sp{height:112px}
 .dh-big{background-size:50% auto!important;background-position:center -10px!important}
 .dts .dt{min-height:66px!important;padding:8px 10px}
@@ -5334,7 +5334,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=396,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=397,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});

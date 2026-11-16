@@ -449,3 +449,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 396 (16 Nov 2026) — Dev + Test + Preview. Not live.
 - D · Clean is the only Home in every copy: tdL() always D, dhS() always circle, HS always B; test bars (tdlBar, dhStyleBar, hsBar) return empty; Settings rows "New home look (test)" and "Today layout (test)" removed; Gemini look (S.gem) always on. Old code paths are still in the file (not deleted yet) — only switched off. Delete later after a few weeks, once nothing is missed.
+
+## Build 397 (16 Nov 2026) — Dev + Test + Preview. Not live.
+- Owner picked option A from preview-align.html: .dh-circ .dh-c 124 → 136 px, background-size 150%, position 50% 40% (Vishnu centred crown to feet), margin -14px auto 16px so the colour rings (Royal has 8 px of rings) no longer touch "Sloka Guru". Shankha & chakra style keeps its own size rule.
