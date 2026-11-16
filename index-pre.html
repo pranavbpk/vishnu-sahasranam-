@@ -2481,6 +2481,12 @@ html.qton .nvbar{display:none!important}
 .mlk-h{font-size:1rem;margin:10px 0 6px}.mlk-b .mlk-h:first-child{margin-top:4px}
 .unbtns .unw{background:#7a1f1f;border-color:#7a1f1f;color:#fff}
 .unlk{display:block;margin:10px auto 0;font-size:.84rem;color:#7a4a10}
+
+/* b387: Tirumaṇ progress badge: the red śrīcūrṇam fills up as you learn */
+.rb-nm{right:12px;top:50px;display:flex;flex-direction:column;align-items:center;gap:3px;width:84px}
+.rb-nm .nmb{width:62px;height:88px;filter:drop-shadow(0 3px 6px rgba(120,60,20,.25))}
+.rb-nm .nmc{display:flex;align-items:baseline;gap:3px;line-height:1;background:#fffaf0;border:1.5px solid #e2b24a;border-radius:999px;padding:3px 9px}.rb-nm .nmc b{font-size:1rem;color:#7a1f1f;font-weight:900}.rb-nm .nmc small{font-size:.62rem;color:#8a5a2a;font-weight:700}
+.rb-nm .p{background:#7a1f1f;color:#ffe9b0;border-radius:999px;padding:2px 8px;font-size:.62rem;font-weight:800;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -4210,11 +4216,13 @@ function dhPar(){var x=null;try{x=satEv().filter(function(q){return !q.past})[0]
  var d=new Date(x.st),days=Math.round((new Date(d.toDateString())-new Date(new Date().toDateString()))/864e5);
  return '<button class="dt dt-par'+(x.live?' live':'')+'" data-act="ht" data-v="sat"><small>📿 Parayanam</small><b>'+(x.live?'Live now':days===0?'Today':days===1?'Tomorrow':d.toLocaleDateString([],{weekday:'short',day:'numeric',month:'short'}))+'</b><em>'+d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})+(x.live?'<br>tap to join':days>1?'<br>in '+days+' days':'')+((S.bk||{})[x.e.id]?'<br><span class="dt-bk">✅ Booked</span>':'')+'</em></button>'}
 var SDO=false;
-var RIBST=[['rib','🎗 Ribbon'],['ring','⭕ Ring'],['mala','📿 Mala'],['gl','🪟 Glass'],['fl','🚩 Flag']];
-function ribSt(){var v=S.ribst||'rib';return RIBST.some(function(x){return x[0]===v})?v:'rib'}
+var RIBST=[['nm','🔱 Tirumaṇ'],['rib','🎗 Ribbon'],['ring','⭕ Ring'],['mala','📿 Mala'],['gl','🪟 Glass'],['fl','🚩 Flag']];
+function ribSt(){var v=S.ribst||(typeof fcTr==='function'&&fcTr()==='vai'?'nm':'rib');return RIBST.some(function(x){return x[0]===v})?v:'rib'}
 function ribMala(L){var o='',n=TOTAL,R=42;for(var i=0;i<n;i++){var a=-Math.PI/2+(i+.5)*2*Math.PI/n,x=48+R*Math.cos(a),y=48+R*Math.sin(a),on=i<L;o+='<circle cx="'+x.toFixed(2)+'" cy="'+y.toFixed(2)+'" r="1.75" fill="'+(on?'#d98a12':'#ecdcb6')+'"'+(on?' stroke="#a8431a" stroke-width=".3"':'')+'/>'}return '<svg viewBox="0 -4 96 100" aria-hidden="true">'+o+'<circle cx="48" cy="4" r="3.4" fill="#9a2a1a"/><path d="M45.5 1.5 L48 -3 L50.5 1.5Z" fill="#9a2a1a"/></svg>'}
 function dhRib(){var L=S.learned.length,pc=Math.round(L/TOTAL*100),st=ribSt();
  if(st!=='rib'){var hint=S.ribSeen?'':'<span class="ribh w">👆 Tap for your progress</span>',B='<button class="rb2 rb-'+st+(SDO?' on':'')+'" data-act="sdo" aria-label="My progress: '+L+' of '+TOTAL+' learned">',day=S.pace+' a day';
+  if(st==='nm'){var vd=S.wdnm==='v',P1=vd?'M9 4 C9 2.5 10 2 11.5 2 L20 2 C21.5 2 22.3 3 22.4 4.3 L26 58 C26.6 65 29 68 32 68 C35 68 37.4 65 38 58 L41.6 4.3 C41.7 3 42.5 2 44 2 L52.5 2 C54 2 55 2.5 55 4 L49.5 62 C48.4 75 41.5 82 32 82 C22.5 82 15.6 75 14.5 62 Z':'M9 4 C9 2.5 10 2 11.5 2 L20 2 C21.5 2 22.3 3 22.4 4.3 L26 50 C26.6 56 29 59 32 59 C35 59 37.4 56 38 50 L41.6 4.3 C41.7 3 42.5 2 44 2 L52.5 2 C54 2 55 2.5 55 4 L49.5 54 C48.6 62.5 44.5 67.5 35.4 69.5 L34.6 79 C35.2 80.6 37.6 81.6 37.6 83.6 C37.6 85.6 35 86.8 32 86.8 C29 86.8 26.4 85.6 26.4 83.6 C26.4 81.6 28.8 80.6 29.4 79 L28.6 69.5 C19.5 67.5 15.4 62.5 14.5 54 Z',P2=vd?'M29.6 6 C29.6 4.7 30.6 4 32 4 C33.4 4 34.4 4.7 34.4 6 L33.4 58 C33.3 60 32.7 61 32 61 C31.3 61 30.7 60 30.6 58 Z':'M29.6 6 C29.6 4.7 30.6 4 32 4 C33.4 4 34.4 4.7 34.4 6 L33.4 50 C33.3 52 32.7 53 32 53 C31.3 53 30.7 52 30.6 50 Z',fy=(vd?61:53)-((vd?57:49)*pc/100);
+   return hint+B+'<svg class="nmb" viewBox="0 0 64 90" aria-hidden="true"><defs><clipPath id="nmclip"><rect x="0" y="'+fy.toFixed(1)+'" width="64" height="90"/></clipPath><linearGradient id="nmgr" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#b3150f"/><stop offset="1" stop-color="#ff5a3a"/></linearGradient></defs><path d="'+P1+'" fill="#fffdf8" stroke="#b89a6a" stroke-width="1.4"/><path d="'+P2+'" fill="#f3e3d0"/><path d="'+P2+'" fill="url(#nmgr)" clip-path="url(#nmclip)"/></svg><span class="nmc"><b>'+L+'</b><small>of '+TOTAL+'</small></span><span class="p">'+day+' · '+pc+'%</span></button>'}
   if(st==='ring')return hint+B+'<span class="r" style="--p:'+pc+'%"><span><b>'+L+'</b><small>of '+TOTAL+'</small></span></span><span class="p">'+day+' · '+pc+'%</span></button>';
   if(st==='mala')return hint+B+ribMala(L)+'<span class="c"><b>'+L+'</b><small>of '+TOTAL+'</small></span><span class="d">'+day+' · '+pc+'%</span></button>';
   if(st==='gl')return hint+B+'<span class="t"><span class="bar"><u style="height:'+pc+'%"></u></span><span class="nb"><small>'+pc+'%</small><b>'+L+'</b><i>of '+TOTAL+'</i></span></span><span class="dv"></span><span class="day">'+day+'</span></button>';
@@ -4449,6 +4457,8 @@ function vsSelNew(sel,ss,jr,fm,cl){var v=sel?V[vIdx(+sel)]:null;jr=(jr||'').repl
  return '<div class="vssel vsel2">'+(sel?'<div class="vsel-h"><span class="vsel-n">'+sel+'</span><span class="vsel-t"><b>Verse '+sel+(ss?' <em class="vsb '+ss.c+'">'+ss.t+'</em>':'')+'</b>'+(v&&v[fm]?'<span class="'+cl+'">'+v[fm][0]+'</span>':'')+'</span>'+(S.learned.indexOf(+sel)>=0?'<button class="vsun" data-act="unopen" data-v="'+sel+'" aria-label="Change how this verse is marked">✎</button>':'')+'</div>':'')+jr+'</div>'+(UNV&&+UNV===+sel?unSheet(+sel):'')}
 /* b383: unmark one verse. Needs work = stays learned (progress unchanged), back in Revise today until Kaṇṭhastham again. Not learned yet = leaves the learned list (count goes down) and is taught again as a new verse. Streak, history and recordings stay. */
 var UNV=0,UNMSG='',UNM=false,UNSEL=[],UNASK='';
+/* b387: after marking or unmarking verses, an open or paused practice list could still hold an old new verse (owner: home said 76, tapping opened 2). Drop it so the next start builds a fresh list. */
+function lstFix(){try{if(!LST||!LST.length)return;var bad=LST.some(function(x){var n=V[x.i]&&V[x.i].n;return !x.r&&S.learned.indexOf(n)>=0});if(!bad)return;try{rpKill()}catch(e){}LST=[];vi=0;GPAUSED=false;GRES=null;LOCKP=false;if(view==='verse')view='home'}catch(e){}}
 /* b385: change several verses at once: ✎ in Practise any verse → tap numbers → Needs more practice / Not learned yet (asks once more) */
 function unBar(LS){var n=UNSEL.length,all=LS.every(function(x){return UNSEL.indexOf(x.n)>=0});
  if(UNASK)return '<div class="unbar"><div class="unq"><b>'+(UNASK==='not'?'Take '+n+' verse'+(n>1?'s':'')+' off your learned list?':'Put '+n+' verse'+(n>1?'s':'')+' back in Revise today?')+'</b><small>'+(UNASK==='not'?'Your learned count goes down by '+n+'. They are taught again as new verses, in order. Streak, days and recordings stay.':'They stay learned, so your progress does not change.')+'</small></div><div class="unbtns"><button class="unok" data-act="undo2">Yes, change '+n+'</button><button class="unno" data-act="unask" data-v="">Back</button></div></div>';
@@ -5231,7 +5241,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=386,NEWV=0,VCHK=0;VLBL='Guru Preview \u00b7 build '+APPV;
+var APPV=387,NEWV=0,VCHK=0;VLBL='Guru Preview \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -5557,8 +5567,8 @@ app.addEventListener('click',function(e){
  else if(a==='unwork'){var nw=+v;S.rev=S.rev||{};S.rev[nw]={stage:0,due:tdy()};S.known=(S.known||[]).filter(function(x){return x!==nw});UNV=0;sv();notice='Verse '+nw+' is back in Revise today.';render()}
  else if(a==='unnot'){var nn=+v,ii=vIdx(nn);S.learned=S.learned.filter(function(x){return x!==nn});S.known=(S.known||[]).filter(function(x){return x!==nn});if(S.rev)delete S.rev[nn];if(ii>=0&&ii<S.pos)S.pos=ii;UNV=0;JVV='';sv();notice='Verse '+nn+' will be taught again as your next new verse.';render()}
  else if(a==='mkclose'){MKS=false;MKMSG='';render()}
- else if(a==='mkdo'){var f=+($('mkf')||{}).value,t2=+($('mkt')||{}).value;if(f>t2){var z=f;f=t2;t2=z}var add=V.map(function(x){return x.n}).filter(function(n){return n>=f&&n<=t2&&S.learned.indexOf(n)<0});if(!(S.known||[]).length)S.knownPos=S.pos;S.known=(S.known||[]).concat(add);add.forEach(function(n){S.learned.push(n)});while(S.pos<V.length&&S.learned.indexOf(V[S.pos].n)>=0)S.pos++;sv();MKMSG=add.length?'\u2705 Marked '+add.length+' verse'+(add.length>1?'s':'')+' as learned.':'Those verses were already learned.';render()}
- else if(a==='mkundo'){var kn=S.known||[];S.learned=S.learned.filter(function(n){return kn.indexOf(n)<0});S.known=[];if(S.knownPos!=null){S.pos=Math.min(S.pos,S.knownPos);S.knownPos=null}while(S.pos<V.length&&S.learned.indexOf(V[S.pos].n)>=0)S.pos++;sv();MKMSG='Undone.';render()}
+ else if(a==='mkdo'){var f=+($('mkf')||{}).value,t2=+($('mkt')||{}).value;if(f>t2){var z=f;f=t2;t2=z}var add=V.map(function(x){return x.n}).filter(function(n){return n>=f&&n<=t2&&S.learned.indexOf(n)<0});if(!(S.known||[]).length)S.knownPos=S.pos;S.known=(S.known||[]).concat(add);add.forEach(function(n){S.learned.push(n)});while(S.pos<V.length&&S.learned.indexOf(V[S.pos].n)>=0)S.pos++;lstFix();sv();MKMSG=add.length?'\u2705 Marked '+add.length+' verse'+(add.length>1?'s':'')+' as learned.':'Those verses were already learned.';render()}
+ else if(a==='mkundo'){var kn=S.known||[];S.learned=S.learned.filter(function(n){return kn.indexOf(n)<0});S.known=[];if(S.knownPos!=null){S.pos=Math.min(S.pos,S.knownPos);S.knownPos=null}while(S.pos<V.length&&S.learned.indexOf(V[S.pos].n)>=0)S.pos++;lstFix();sv();MKMSG='Undone.';render()}
  else if(a==='dhgo'){fcStop();DHI=+v;DMS=-1;render(1)}
  else if(a==='dmean'){DMS=+v;render()}
  else if(a==='dhall'){DHALL=!DHALL;DMS=-1;render(1)}
@@ -5598,7 +5608,7 @@ app.addEventListener('click',function(e){
  else if(a==='next'){GPAUSED=false;goNext()}
  else if(a==='gown'){var po=$('poh');if(po){po.scrollIntoView({behavior:'smooth',block:'start'});po.classList.add('glow');setTimeout(function(){po.classList.remove('glow')},1600)}}
  else if(a==='newv'){location.href=location.pathname+'?v='+NEWV}
- else if(a==='gresume'){LOCKP=false;GPAUSED=false;GS={on:true};tab='say';render();rpStart()}
+ else if(a==='gresume'){lstFix();if(!LST.length){beginSession();return}LOCKP=false;GPAUSED=false;GS={on:true};tab='say';render();rpStart()}
  else if(a==='dl'){if(v)S.dl=v;else delete S.dl;sv();render()}  else if(a==='tbell'){S.tbell=v;sv();render();var g0=GS.on;try{chime()}catch(e){}}  else if(a==='peekall'){RP.peekR=RP.n+':'+RP.round;render()}  else if(a==='trcwait'){trcStop();render()}  else if(a==='autoc'){S.autoc=v;sv();render()}  else if(a==='ecol'){S.ecol=v;sv();render()}  else if(a==='contNew'){trcStop();transMsg='';vi++;tab='say';selW=0;render(1);if(GS.on)rpStart()}
  else if(a==='recap'){if(!S.learned.length){return}advSess={};LST=recapList();preCuts();tickReset(LST);vi=0;tab='say';selW=0;transMsg='';view='verse';GS={on:true};skipN=true;render(1);rpStart()}
 });

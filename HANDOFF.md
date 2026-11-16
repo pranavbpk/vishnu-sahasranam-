@@ -411,3 +411,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Owner agreed the app was getting heavy. Language & display: Well done screen and Progress badge folded into "🎨 More looks" (MLK). Default Well done look: Vaishnava tradition (fcTr()==='vai') → Kaavi (Grand); General → Classic; only if S.wdst not set.
 - Unmark: "Needs more practice" is the main choice (single sheet and select bar); "Not learned yet" is a small link "Or start … again from the beginning".
 - Copies explained to owner: Dev = Claude only; Guru Test = every new build, try new things; Guru Preview = owner's daily practice; Live = family and everyone, only on "go live".
+
+## Build 387 (16 Nov 2026) — Dev + Test + Preview. Not live.
+- Bug (owner): did verse 1 in Preview, marked 1–75 as known; Today showed 76 but tapping opened verse 2. Not reproducible from a fresh load; cause: an open/paused practice list in memory (e.g. pace 2 → [1,2]) still held verse 2. Fix lstFix(): after mkdo / mkundo (and on gresume) any list holding a new verse that is now learned is dropped (rpKill, LST=[], GPAUSED/GRES cleared); gresume with no list starts a fresh session.
+- Tirumaṇ progress badge (owner idea): RIBST 'nm' (default for Vaishnava tradition, else Ribbon). Namam shape follows S.wdnm (Thenkalai/Vadakalai); the red śrīcūrṇam fills from the bottom with % learned (clipPath); "76 of 108" pill and "2 a day · 70%".
