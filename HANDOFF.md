@@ -431,3 +431,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 392 (16 Nov 2026) — Dev + Test + Preview. Not live.
 - Owner asked for a smaller tirumaṇ: .rb-gd .gdi width 56px → 44px. Pills unchanged.
+
+## Build 393 (16 Nov 2026) — Dev + Test + Preview. Not live.
+- Bug (owner, Preview): after today's practice, "Continue · verse 76" opened verse 2. Real cause: verse 2 was due for revision, and beginSession() puts due revisions first. Build 387's stale-list guess was not the cause. Fix: when S.doneDay===tdy() (extra-verse button), beginSession keeps only the new verse(s); due revisions stay in Revise. The main "Start today's practice" still does revisions first (its card lists them).
