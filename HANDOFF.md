@@ -406,3 +406,8 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 385 (16 Nov 2026) — Dev + Test + Preview. Not live.
 - Change several verses at once: Revise › Practise any verse › ✎ (unmode) → tap numbers (unpick, UNSEL; works across range tabs, "Select all shown") → 🔔 Needs more practice / ↩ Not learned yet → one confirm (UNASK) → undo2. Same rules as the single-verse ✎ (build 383). S.pos moves back to the earliest verse taken off.
+
+## Build 386 (16 Nov 2026) — Dev + Test + Preview. Not live.
+- Owner agreed the app was getting heavy. Language & display: Well done screen and Progress badge folded into "🎨 More looks" (MLK). Default Well done look: Vaishnava tradition (fcTr()==='vai') → Kaavi (Grand); General → Classic; only if S.wdst not set.
+- Unmark: "Needs more practice" is the main choice (single sheet and select bar); "Not learned yet" is a small link "Or start … again from the beginning".
+- Copies explained to owner: Dev = Claude only; Guru Test = every new build, try new things; Guru Preview = owner's daily practice; Live = family and everyone, only on "go live".
