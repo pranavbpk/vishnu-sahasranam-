@@ -434,3 +434,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 393 (16 Nov 2026) — Dev + Test + Preview. Not live.
 - Bug (owner, Preview): after today's practice, "Continue · verse 76" opened verse 2. Real cause: verse 2 was due for revision, and beginSession() puts due revisions first. Build 387's stale-list guess was not the cause. Fix: when S.doneDay===tdy() (extra-verse button), beginSession keeps only the new verse(s); due revisions stay in Revise. The main "Start today's practice" still does revisions first (its card lists them).
+
+## Decision (16 Nov 2026) — no build
+- Show script / dash lines choice: previewed (preview-dash.html), owner asked if it adds confusion. Advice taken: keep script + dash lines for everyone, no new setting. Revisit only if real users ask.
