@@ -486,3 +486,10 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 405 (17 Nov 2026) — Dev + Test only.
 - Practise any verse: the 🔍 number box was a full-width box. Now one compact line: "Verse number [ 96px box ] ✕" (vsSelNew wraps #jv in .vsjv); ✕ and 🔍 toggle JSR (jsr action now toggles and only focuses when opening).
+
+## Build 406 (17 Nov 2026) — Dev + Test only. To undo: index-proto.html/index-dev.html from commit 1451d68 (build 405).
+- Swadhyayam (from swadhyayam-clickable.html, owner said go ahead):
+  - 📊 / ⚙️ are 58px tiles with labels "My listening" / "Settings".
+  - Listen: swJoin() card "Swamy's class · <when> · Join on Teams/WhatsApp ›" above the player; swWeekBars() (7 days, bar = minutes vs goal, tap a day, "N of 7 days with your full 60 min"); swFromClass(l) (open doubts / notes of the playing class → Notes tab filtered, action swnf2); then Up next.
+  - Class link: swClsCheck() reads class-link*.txt from the ROOT of the guru's OneDrive folder (MSF.path[0]) after each msList, at most every 4 h (↻ Check the file now in ⚙️, owner only). Line with https = link; first other line = when. Stored in S.swcls {u,w,at}. Students see it after signing in; nothing is stored in the app code.
+  - Library: heading "Swamy's classes" (crumb hidden at the root), slim folder rows; swLocal3(): "My other listening · N", filters All / YouTube / Links / Phone (only when >3), 3 rows then Show all, slim rows; one "＋ Add a link or a file" button opens a sheet (SWADD) with the link box and the phone-file picker (sheet closes after adding).
