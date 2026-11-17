@@ -2695,6 +2695,9 @@ html.qton .nvbar{display:none!important}
 
 /* b411 */
 .fl-pipb{background:#e9c46a!important;color:#0b3b3c!important;font-weight:800!important;padding:0 10px!important;white-space:nowrap}
+
+/* b412 */
+.swn-hero [data-act=swwatch]{background:#e9c46a!important;color:#0b3b3c!important;font-weight:800!important;border:0!important}
 </style>
 </head>
 <body>
@@ -3297,7 +3300,7 @@ function ownPage(){if(OWNP==='gate')return gatePage();if(OWNP==='pin')return '<d
 
 /* ---------- Swadhyayam: daily class audio ---------- */
 var SWA=null,SWCUR=null,SWTK=null,SWN=0,SWDEL=null,SWNOTE=null,SWF='todo';
-function swAud(){if(!SWA){SWA=new Audio();SWA.preload='auto';SWA.addEventListener('ended',function(){if(/^data:/.test(SWA.src))return;var l=swL();if(l){if(!l.hcd){l.heard=(l.heard||0)+1;if(l.heard>=swTg())l.done=1}l.hcd=0;l.pos=0;oPut('lec',l)}swStop(1);if(S.swauto!==0&&swNext())return;render()});SWA.addEventListener('error',function(){if(!SWCUR||/^data:/.test(SWA.src))return;var l=swL(),c=SWA.error&&SWA.error.code;OMSG=(l&&swIsVid(l.name)?'This video would not play as sound. Tap 🎬 Watch video below.':'Could not play this class. Check the internet and tap ▶ again.')+(c?' (code '+c+')':'');render()});SWA.addEventListener('seeking',function(){SWB=null});SWA.addEventListener('play',function(){try{navigator.mediaSession.playbackState='playing'}catch(e){}});SWA.addEventListener('pause',function(){try{navigator.mediaSession.playbackState='paused'}catch(e){}});SWA.addEventListener('loadedmetadata',function(){if(/^data:/.test(SWA.src))return;var l=swL();if(l&&isFinite(SWA.duration)&&!l.dur){l.dur=SWA.duration;oPut('lec',l)}swUI()})}return SWA}
+function swAud(){if(!SWA){SWA=new Audio();SWA.preload='auto';SWA.addEventListener('ended',function(){if(/^data:/.test(SWA.src))return;var l=swL();if(l){if(!l.hcd){l.heard=(l.heard||0)+1;if(l.heard>=swTg())l.done=1}l.hcd=0;l.pos=0;oPut('lec',l)}swStop(1);if(S.swauto!==0&&swNext())return;render()});SWA.addEventListener('error',function(){if(!SWCUR||/^data:/.test(SWA.src))return;var l=swL(),c=SWA.error&&SWA.error.code;OMSG=(l&&swLVid(l)?'This video would not play as sound. Tap 🎬 Watch video below.':'Could not play this class. Check the internet and tap ▶ again.')+(c?' (code '+c+')':'');render()});SWA.addEventListener('seeking',function(){SWB=null});SWA.addEventListener('play',function(){try{navigator.mediaSession.playbackState='playing'}catch(e){}});SWA.addEventListener('pause',function(){try{navigator.mediaSession.playbackState='paused'}catch(e){}});SWA.addEventListener('loadedmetadata',function(){if(/^data:/.test(SWA.src))return;var l=swL();if(l&&isFinite(SWA.duration)&&!l.dur){l.dur=SWA.duration;oPut('lec',l)}swUI()})}return SWA}
 function swL(){return LEC.filter(function(x){return x.id===SWCUR})[0]}
 var BKS=null,SWB=null,SWACC=0,SWSIL='data:audio/wav;base64,UklGRkQDAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YSADAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==',MSU={};
 function swTick(){if(!SWA||SWA.paused||/^data:/.test(SWA.src))return;if(SWSLP&&Date.now()>=SWSLP){SWSLP=0;swToggle();OMSG='🌙 Stopped by the timer.';render();return}var now=Date.now(),ct=SWA.currentTime;if(SWB){var d=ct-SWB.t,w=(now-SWB.w)/1000;if(d>0&&d<=w*Math.max(1,SWA.playbackRate)+1.5)SWACC+=d}SWB={t:ct,w:now};var add=Math.floor(SWACC);SWACC-=add;S.swd=S.swd||{};if(add){swAddM(swL(),add);swLog(swL(),add,'a')}SWN++;var l=swL();if(l){l.pos=SWA.currentTime;l.last=Date.now();S.swlast=Date.now();if(l.dur){var r=l.pos/l.dur;if(r>=0.9&&!l.hcd&&(l.acc==null||l.acc>=l.dur*0.5)){l.acc=0;l.heard=(l.heard||0)+1;l.hcd=1;if(l.heard>=swTg())l.done=1;SWN=4}else if(r<0.1&&l.hcd)l.hcd=0}if(SWN%5===0){var c={};for(var k in l)c[k]=l[k];oPut('lec',c);sv()}}swUI()}
@@ -3389,7 +3392,7 @@ function swPlayer(l,pl,o){o=o||{};var nx=swNextItem(),sp=S.swsp||1,ic=!!o.svg;
   +ctl
   +'<div class="sw-mk"><button data-act="swmark"><span>⭐</span>Important</button><button data-act="swnote"><span>📝</span>Note</button><button data-act="swdoubt"><span>❓</span>Doubt</button></div>'
   +(SWNOTE?'<div class="ow-nb"><div class="mute">'+(SWNOTE.k==='doubt'?'Doubt':'Note')+' at '+oT(SWNOTE.t)+'</div><textarea id="ow-nt" class="ow-in" rows="3" placeholder="'+(SWNOTE.k==='doubt'?'What do you want to ask the guru on Sunday?':'Type while it keeps playing. What did the guru say?')+'"></textarea><div class="ow-two"><button class="btn ow-sm" data-act="swnsave">Save</button><button class="chip" data-act="swncan">Cancel</button></div></div>':'')
-  +'<div class="sw-ft">'+(swIsVid(l.name)?'<button class="chip" data-act="swwatch">🎬 Watch video</button>':'')+'<button class="chip" data-act="swspc" aria-label="Speed">⚡ '+sp+'×</button>'+swSlpChip()+'<button class="chip" data-act="swdone">'+(l.done?'↺ Not done':'✅ Mark done')+'</button>'+(nx&&!ic?'<button class="chip" data-act="swnext">Next class ›</button>':'')+'</div>'
+  +'<div class="sw-ft">'+(swLVid(l)?'<button class="chip" data-act="swwatch">🎬 Watch video</button>':'')+'<button class="chip" data-act="swspc" aria-label="Speed">⚡ '+sp+'×</button>'+swSlpChip()+'<button class="chip" data-act="swdone">'+(l.done?'↺ Not done':'✅ Mark done')+'</button>'+(nx&&!ic?'<button class="chip" data-act="swnext">Next class ›</button>':'')+'</div>'
   +((l.notes||[]).length?'<details class="ow-notes"><summary>This class · '+l.notes.length+' note'+(l.notes.length>1?'s':'')+'</summary><button class="chip" data-act="swshare">📤 Share notes</button>'+l.notes.map(function(n,i){return '<div class="ow-n"><button class="ow-nt" data-act="swjump" data-v="'+n.t+'">'+oT(n.t)+'</button><span>'+oEsc(swNx(n)).replace(/\n/g,'<br>')+'</span><button class="ow-x" data-act="swndel" data-v="'+i+'">✕</button></div>'}).join('')+'</details>':'')+'</div>'}
 /* simple big card when nothing is playing: this week's class (or the one to continue) with one big play button */
 function swBigCard(){var w=swWeek(),l=w?swLecOf(w):null,c=null;
@@ -4172,7 +4175,7 @@ var OWNA={
  swst:function(t,v){S.swst=+v;sv();render()},
  stumake:function(){var e=document.getElementById('ow-stu'),v=(e&&e.value||'').trim();S.swstuE=v;sv();var L=v.split(/[\s,;]+/).filter(function(x){return /@/.test(x)});if(!L.length||!S.swlink){OMSG='Type at least one email.';render();return}
   stuMake(L).then(function(j){STUOUT='STUDENTS '+j;try{navigator.clipboard.writeText(STUOUT)}catch(x){}render()}).catch(function(x){OMSG='Could not make the list: '+x;render()})},
- swwatch:function(){var l=swL();if(!l)return;var t=SWA?SWA.currentTime:(l.pos||0);if(SWA)SWA.pause();swStop(1);SWVID={n:l.name,u:null,t:t,lid:l.id};SWVB=null;
+ swwatch:function(){var l=swL();if(!l)return;var t=(SWA&&SWA.src&&!/^data:/.test(SWA.src)&&!SWA.paused)?SWA.currentTime:(l.pos||0);if(SWA)SWA.pause();swStop(1);SWVID={n:l.name,u:null,t:t,lid:l.id};SWVB=null;
   if(SWA&&SWA.src&&!/^(data|blob):/.test(SWA.src)){SWVID.u=SWA.src}FLM=2;flShowVid();render();
   if(!SWVID.u&&l.od){msDl(l).then(function(u){if(SWVID){SWVID.u=u;flShowVid();render()}}).catch(function(e){SWVID=null;OMSG='Could not open the video: '+e;render()})}
   setTimeout(function vs(){var v=document.getElementById('sw-vid');if(!v){if(SWVID&&!SWVID.u)setTimeout(vs,400);return}v.addEventListener('loadedmetadata',function(){try{if(SWVID&&SWVID.t>3)v.currentTime=SWVID.t-3}catch(e){}},{once:true});try{v.play().catch(function(){})}catch(e){}},50)},
@@ -4462,7 +4465,10 @@ function msDl(l){var base='https://graph.microsoft.com/v1.0/drives/'+l.od.d+'/it
    return msAT().then(function(at){return fetch(base+'/content',{headers:{Authorization:'Bearer '+at}})}).then(function(r){if(!r.ok)throw ('Error '+r.status);return r.blob()}).then(function(b){return URL.createObjectURL(b)})})})}
 function msPlay(id){var x=(MSF.items||[]).filter(function(y){return y.id===id})[0];if(!x)return;var lid='od_'+x.id,l=LEC.filter(function(y){return y.id===lid})[0];
  if(!l){l={id:lid,name:x.name.replace(/\.[^.]+$/,''),added:Date.parse(x.createdDateTime)||Date.now(),size:x.size,pos:0,dur:0,od:{d:x.parentReference.driveId,i:x.id}};LEC.unshift(l);LEC.sort(function(a,b){return b.added-a.added});oPut('lec',l)}
+ if(swIsVid(x.name)&&!l.vid){l.vid=1;swLecSave(l)}
+ if(l.vid){if(SWVID&&SWVID.lid===lid)return;if(SWA){try{SWA.pause();SWA.removeAttribute('src');SWA.load()}catch(e){}}SWCUR=lid;S.swl=lid;sv();OWNA.swwatch();return}
  swOpen(lid)}
+function swLVid(l){return !!(l&&(l.vid||swIsVid(l.name)))}
 var STUMSG='',STUOUT='';
 function hx(buf){return Array.prototype.map.call(new Uint8Array(buf),function(b){return ('0'+b.toString(16)).slice(-2)}).join('')}
 function sha(t){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(t))}
@@ -5597,7 +5603,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=411,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=412,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});

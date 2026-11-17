@@ -515,3 +515,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 411 (17 Nov 2026) — Dev + Test only.
 - Picture-in-picture for OneDrive video classes already existed (flPip, ⧉ in the floating video header, <video autopictureinpicture>, only when pipOK()). Made it findable: button now "⧉ Float" in gold, and the hint says it keeps playing while you use other apps. Owner to test on iPhone (a Home Screen app's PiP support varies by iOS version). The whole app cannot float — iOS only lets a video do that.
+
+## Build 412 (17 Nov 2026) — Dev + Test only.
+- Owner: OneDrive video classes played sound only, no picture. Cause: LEC names drop the file extension, so swIsVid(l.name) was false for ".mp4" files without "video" in the name → no "🎬 Watch video" chip, and msplay opened them in the audio player.
+- Fix: msPlay sets l.vid=1 for video files (also for existing entries); video classes now open straight in the video window (floating player with ⧉ Float) instead of the audio player; swLVid(l) used for the Watch video chip and the error message; swwatch starts from l.pos unless audio of that class is actually playing. Watching still counts minutes (SWVB → swAddM).
