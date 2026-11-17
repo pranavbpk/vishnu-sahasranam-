@@ -493,3 +493,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
   - Listen: swJoin() card "Swamy's class · <when> · Join on Teams/WhatsApp ›" above the player; swWeekBars() (7 days, bar = minutes vs goal, tap a day, "N of 7 days with your full 60 min"); swFromClass(l) (open doubts / notes of the playing class → Notes tab filtered, action swnf2); then Up next.
   - Class link: swClsCheck() reads class-link*.txt from the ROOT of the guru's OneDrive folder (MSF.path[0]) after each msList, at most every 4 h (↻ Check the file now in ⚙️, owner only). Line with https = link; first other line = when. Stored in S.swcls {u,w,at}. Students see it after signing in; nothing is stored in the app code.
   - Library: heading "Swamy's classes" (crumb hidden at the root), slim folder rows; swLocal3(): "My other listening · N", filters All / YouTube / Links / Phone (only when >3), 3 rows then Show all, slim rows; one "＋ Add a link or a file" button opens a sheet (SWADD) with the link box and the phone-file picker (sheet closes after adding).
+
+## Build 407 (17 Nov 2026) — Dev + Test only.
+- Bug in 406: an extra </div> after "Check the file now" (owner-only class-link section) closed the ⚙️ sheet early, so Reminder, How to, Account and folder, My students fell outside the sheet (owner saw them missing). Fixed.
+- Join card now shows on the Listen tab even when no class is playing yet (was only added next to the player card).
