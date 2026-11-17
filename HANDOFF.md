@@ -512,3 +512,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 410 (17 Nov 2026) — Dev + Test only.
 - Owner: Close and Back buttons in different colours. A MutationObserver (after msRedirect) tags buttons after each render: text "Close"/"✕ Close" → .btn-close (soft red: #fdeceb bg, #a3352a text); text starting ‹ / ← / Back, and folder crumbs except the current one (msup with a next sibling) → .btn-back (soft teal: #e7f2ef bg, #0d5c58 text). Applies across the whole app.
+
+## Build 411 (17 Nov 2026) — Dev + Test only.
+- Picture-in-picture for OneDrive video classes already existed (flPip, ⧉ in the floating video header, <video autopictureinpicture>, only when pipOK()). Made it findable: button now "⧉ Float" in gold, and the hint says it keeps playing while you use other apps. Owner to test on iPhone (a Home Screen app's PiP support varies by iOS version). The whole app cannot float — iOS only lets a video do that.
