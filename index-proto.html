@@ -2592,6 +2592,31 @@ html.qton .nvbar{display:none!important}
 .swn-sheet{position:fixed;left:0;right:0;bottom:0;max-height:80vh;overflow:auto;background:#fffdf8;border-radius:22px 22px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.25);padding:8px 14px calc(18px + env(safe-area-inset-bottom));z-index:81;max-width:560px;margin:0 auto}
 .swn-grab{width:40px;height:5px;background:#ddd;border-radius:3px;margin:0 auto 8px}.swn-sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}.swn-sh b{font-size:1.05rem}
 .swn-own{font-size:.7rem;background:#e6eef4;color:#2f4a5e;border-radius:8px;padding:2px 7px;margin-left:6px;font-weight:600}
+
+/* b402 Swadhyayam polish */
+.swn-pt{display:flex;flex-direction:column;line-height:1.2;white-space:nowrap}.swn-pt small{font-size:.74rem;color:#7a6a50}
+.swn-hero{padding-bottom:12px}
+.swn-hero .ow-nb{background:#fffaf0;border-radius:16px;padding:10px 12px;margin:8px 0}.swn-hero .ow-nb .mute{color:#7a6a50!important}
+.swn-hero .ow-nb .chip{background:#fff!important;color:#2b2015!important;border:1px solid #d9c9a6!important}
+.swn-hero .ow-notes{background:rgba(255,255,255,.07);border-radius:14px;padding:2px 12px 8px;margin:10px 0 2px}
+.swn-hero .ow-notes summary{font-size:.95rem;padding:10px 0 4px;list-style:none;display:flex;align-items:center}.swn-hero .ow-notes summary::-webkit-details-marker{display:none}
+.swn-hero .ow-notes summary:after{content:'⌄';margin-left:auto;font-size:1.3rem;line-height:1}.swn-hero .ow-notes[open] summary:after{content:'⌃'}
+.swn-hero .ow-n{border-top-color:rgba(255,255,255,.12);align-items:center;padding:8px 0}.swn-hero .ow-n span{flex:1}
+.swn-hero .ow-x,.swn .ow-x{min-width:40px;min-height:40px;font-size:1.05rem;border-radius:50%;color:#a0522d;background:#fff3e6}
+.swn-hero .ow-x{background:rgba(255,255,255,.14);color:#ffd9c2}
+.swn .ow-go{font-size:1.9rem;line-height:1}
+.swn .ow-lb{padding:12px;min-height:60px}.swn .ow-lp{width:40px;height:40px;font-size:1.05rem}.swn .ow-tx b{font-size:1rem}
+.swn details.ow-gd>summary{list-style:none;display:flex;align-items:center;padding:6px 0;font-size:.98rem}.swn details.ow-gd>summary::-webkit-details-marker{display:none}
+.swn details.ow-gd>summary:after{content:'›';margin-left:auto;font-size:1.7rem;line-height:1;color:#8a6a3a;transition:transform .2s}.swn details.ow-gd[open]>summary:after{transform:rotate(90deg)}
+.swn-sheet details.ow-gd>summary{list-style:none;display:flex;align-items:center;padding:6px 0;font-size:.98rem}.swn-sheet details.ow-gd>summary::-webkit-details-marker{display:none}
+.swn-sheet details.ow-gd>summary:after{content:'›';margin-left:auto;font-size:1.7rem;line-height:1;color:#8a6a3a;transition:transform .2s}.swn-sheet details.ow-gd[open]>summary:after{transform:rotate(90deg)}
+.swn-li{display:flex;align-items:center;gap:6px;margin:8px 0}
+.swn-lm{flex:1;display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #ecdcb6;border-radius:16px;padding:12px;font:inherit;color:inherit;text-align:left;min-width:0}
+.swn-li.cur .swn-lm{border-color:#3b5a70;box-shadow:0 0 0 2px rgba(59,90,112,.15)}
+.swn-ty{width:42px;height:42px;flex:none;border-radius:12px;display:grid;place-items:center;font-size:1.15rem}.swn-yt{background:#fde3e0;color:#c4302b}.swn-lk{background:#e3f2ea}.swn-fl{background:#e6eef4}
+.swn-lt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.swn-lt b{font-size:1rem;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.swn-lt small{font-size:.8rem;color:#6b5a3e}.swn-lt .ow-bar{margin-top:4px}
+.swn-pp{width:42px;height:42px;flex:none;border-radius:50%;background:#3b5a70;color:#fff;display:grid;place-items:center;font-size:1rem}
+.swn-more{width:44px;height:44px;flex:none;border-radius:50%;border:1px solid #e3cf9e;background:#fff;font-size:1.4rem;font-weight:700;color:#5a4a30}
 </style>
 </head>
 <body>
@@ -3377,9 +3402,9 @@ function swPage0(){var m=swMin(tdy()),g=swGoal(),ok=m>=g,l=swL(),pl=SWA&&!SWA.pa
 /* b401: Swadhyayam new look (owner chose the mix of Gemini's tabs + the this-week card): progress line + 📊 + ⚙️, tabs Listen · Library · Notes, settings in a bottom sheet. The 6 page styles are no longer shown (old code kept, unused). */
 var SWT2='L',SWNF='all',SWSET=false;
 function swNew(m,g,ok,l,pl,sk){var d=swAllNotes().filter(function(o){return o.n.k==='doubt'&&!o.n.d}).length,h='<div class="swn">';
- h+='<div class="swn-hd"><span class="swn-pr'+(ok?' ok':'')+'">'+(ok?'✅':'⏳')+' <b id="ow-today">'+m+' of '+g+' min</b><i class="ow-bar"><u style="width:'+Math.min(100,m/g*100)+'%"></u></i>'+(sk?'<em>🔥 '+sk+'</em>':'')+'</span><button class="swn-ib" data-act="swhist" aria-label="My listening">📊</button><button class="swn-ib" data-act="swset" aria-label="Swadhyayam settings">⚙️</button></div>';
+ h+='<div class="swn-hd"><span class="swn-pr'+(ok?' ok':'')+'">'+(ok?'✅':'⏳')+' <span class="swn-pt"><b id="ow-today">'+m+' of '+g+' min</b><small>'+(ok?'Today’s study is done':(g-m)+' min to go today')+(sk?' · 🔥 '+sk:'')+'</small></span><i class="ow-bar"><u style="width:'+Math.min(100,m/g*100)+'%"></u></i></span><button class="swn-ib" data-act="swhist" aria-label="My listening">📊</button><button class="swn-ib" data-act="swset" aria-label="Swadhyayam settings">⚙️</button></div>';
  h+='<div class="swn-seg">'+[['L','🎧 Listen'],['B','📚 Library'],['N','📝 Notes'+(d?' <span class="swn-dq">'+d+'❓</span>':'')]].map(function(x){return '<button data-act="swt2" data-v="'+x[0]+'" aria-pressed="'+(SWT2===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
- if(SWT2==='B'){h+=swClasses({noWeek:1})+swLocal(pl)+'<div class="swn-add">'+swLinkBox()+'<details class="ow-gd"><summary>📁 Add a class from phone files</summary><label class="btn ow-add">＋ Add class audio<input type="file" accept="audio/*,.m4a,.mp3,.aac,.wav,video/mp4" multiple hidden data-own="lecfile"></label><div class="mute ow-note">Only if a class is not in the OneDrive folder. This saves the file on this phone and uses its space.</div></details></div>'}
+ if(SWT2==='B'){h+=swClasses({noWeek:1,flat:1})+swLocal2(pl)+'<div class="swn-add">'+swLinkBox()+'<details class="ow-gd"><summary>📁 Add a class from phone files</summary><label class="btn ow-add">＋ Add class audio<input type="file" accept="audio/*,.m4a,.mp3,.aac,.wav,video/mp4" multiple hidden data-own="lecfile"></label><div class="mute ow-note">Only if a class is not in the OneDrive folder. This saves the file on this phone and uses its space.</div></details></div>'}
  else if(SWT2==='N'){h+='<div class="swn-nf">'+[['all','All'],['doubt','❓ Doubts'+(d?' '+d:'')],['notes','📝 Notes'],['line','✍️ One line']].map(function(x){return '<button class="chip" data-act="swnf" data-v="'+x[0]+'" aria-pressed="'+(SWNF===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
   var dc=swDoubtCard()||(SWNF==='doubt'?'<div class="mute" style="padding:8px 4px">No open doubts. While listening, tap ❓ Doubt to keep a question for Sunday.</div>':'');
   if(SWNF==='all')h+=dc+swNotesList()+swLines();else if(SWNF==='doubt')h+=dc;else if(SWNF==='notes')h+=swNotesList();else h+=(swLines()||'<div class="mute" style="padding:8px 4px">After 20 minutes of listening, the app asks for one line to remember.</div>')}
@@ -4241,6 +4266,12 @@ var MSC='88ed2d53-3411-4ba1-ac6c-e29302a61c93',MSAUTH='https://login.microsofton
 var MSRED=location.origin+location.pathname,MSF={path:[],items:null,err:'',busy:false};
 Object.assign(OWNA,{swt2:function(t,v){SWT2=v;render();scrollTo(0,0)},swnf:function(t,v){SWNF=v;render()},swset:function(){SWSET=!SWSET;render()}});
 
+/* b402: On this phone and links, clearer rows: type icon, title, short line, progress, big play and ⋯ */
+function swLocal2(pl){var loc=LEC.filter(function(x){return !x.od});if(!loc.length)return '';loc.forEach(swFixYt);
+ return '<div class="sw-h">On this phone and links</div>'+loc.map(function(x){var p=x.dur?Math.min(100,Math.round((x.done?x.dur:x.pos||0)/x.dur*100)):0,cur=x.id===SWCUR,yt=x.yt||x.ytl||(x.url&&isYt(x.url)),ty=yt?['▶','YouTube','swn-yt']:x.url?['🔗','Link','swn-lk']:['📱','On this phone','swn-fl'];
+  return '<div class="swn-li'+(cur?' cur':'')+'"><button class="swn-lm" data-act="swopen" data-v="'+x.id+'"><span class="swn-ty '+ty[2]+'">'+ty[0]+'</span><span class="swn-lt"><b>'+oEsc(swT(x.name).t)+'</b><small>'+ty[1]+(x.dur?' · '+Math.max(1,Math.round(x.dur/60))+' min':'')+' · '+swHeard(x)+'</small><i class="ow-bar"><u style="width:'+(x.done?100:p)+'%"></u></i></span><span class="swn-pp" aria-hidden="true">'+(cur&&pl?'❚❚':'▶')+'</span></button><button class="swn-more" data-act="swopt" data-v="'+x.id+'" aria-label="Options" aria-expanded="'+(SWOPT===x.id)+'">'+(SWOPT===x.id?'✕':'⋯')+'</button></div>'+(SWOPT===x.id?swOpts(x):'')}).join('')}
+
+
 /* b297: Microsoft asks single-page apps to sign in again every 24 hours. Show a plain message and the sign-in button instead of the raw error. */
 function msExp(e){return /AADSTS70000|AADSTS700082|AADSTS50173|invalid_grant|interaction_required|grant is expired|must sign in again/i.test(String(e&&e.message||e))}
 function msExpMsg(){try{localStorage.removeItem('sg_ms')}catch(x){}return 'Your Microsoft sign-in has ended (Microsoft asks again every day). Tap Sign in with Microsoft below, then play again.'}
@@ -4310,7 +4341,7 @@ function msPanel(o){o=o||{};var t=msTok(),h='<div class="ow-fold ms-p">';
  if(MSF.err)h+='<div class="ow-err">'+oEsc(MSF.err)+'</div>';
  if(!MSF.items&&!MSF.busy&&!MSAUTO&&!MSF.err){MSAUTO=true;setTimeout(function(){if(S.swpath&&S.swpath.length){MSF.path=S.swpath;msList()}else msOpenRoot()},0)}
  if(!MSF.items){h+=MSF.busy||!MSF.err?'<div class="mute">Opening the folder…</div>':'<button class="btn ow-sm" data-act="msroot">📂 Show the guru’s classes</button>';return h+'</div>'}
- var nfi=MSF.items.filter(function(x){return !x.folder}).length,nfo=MSF.items.length-nfi,open=S.swall||!nfi;
+ var nfi=MSF.items.filter(function(x){return !x.folder}).length,nfo=MSF.items.length-nfi,open=o.flat||S.swall||!nfi;
  var crumb='<div class="ms-crumb">'+MSF.path.map(function(p,i){return '<button class="chip" data-act="msup" data-v="'+i+'">'+(i?oEsc(p.n):'🏠 Classes')+'</button>'}).join('<span>›</span>')+(MSF.busy?' <small>loading…</small>':'')+'</div>';
  if(open)h+=crumb;
  var nw=swWeek();
@@ -4318,7 +4349,7 @@ function msPanel(o){o=o||{};var t=msTok(),h='<div class="ow-fold ms-p">';
   h+='<div class="ms-week"><small>THIS WEEK’S CLASS · '+swSun().toUpperCase()+'</small>'+swTH(nw.name)+'<span class="sw-sub">'+swDots(hh)+swHeard(nl)+'</span><button class="btn ow-sm" data-act="msplay" data-v="'+nw.id+'">▶ '+(nl&&nl.pos>5&&nl.pos<(nl.dur||1e9)-5?'Continue':'Play')+'</button></div>'}
  h+=swCatchLine();
  var cur=MSF.path.length?MSF.path[MSF.path.length-1].n:'';
- h+='<button class="sw-fold" data-act="swall"><span>📂 <b>'+(open?'All classes here':oEsc(cur||'All classes'))+'</b><small>'+nfi+' class'+(nfi===1?'':'es')+(nfo?' · '+nfo+' folder'+(nfo===1?'':'s'):'')+'</small></span><em>'+(open?'Hide ▴':'Show ▾')+'</em></button>';
+ if(!o.flat)h+='<button class="sw-fold" data-act="swall"><span>📂 <b>'+(open?'All classes here':oEsc(cur||'All classes'))+'</b><small>'+nfi+' class'+(nfi===1?'':'es')+(nfo?' · '+nfo+' folder'+(nfo===1?'':'s'):'')+'</small></span><em>'+(open?'Hide ▴':'Show ▾')+'</em></button>';
  if(!open)return h+'</div>';
  var fo=MSF.items.filter(function(x){return x.folder}),fi=MSF.items.filter(function(x){return !x.folder}).sort(function(a,b){return b.name.localeCompare(a.name,undefined,{numeric:true})});
  h+=fo.concat(fi).map(function(x){if(x.folder)return '<button class="ow-lb" data-act="msdir" data-v="'+x.id+'"><span class="ow-lp" style="background:#d9a034">📁</span><span class="ow-tx"><b>'+oEsc(x.name)+'</b><small>'+(x.folder.childCount||0)+' items</small></span><span class="ow-go">›</span></button>';
@@ -4335,6 +4366,8 @@ Object.assign(OWNA,{
  msplay:function(t,v){msPlay(v)}
 });
 try{msRedirect()}catch(e){}
+(function(){var a=OWNA.msplay,b=OWNA.swopen;OWNA.msplay=function(t,v){var go=OWNP==='sw'&&SWT2!=='L';if(OWNP==='sw')SWT2='L';a(t,v);if(go){render();scrollTo(0,0)}};OWNA.swopen=function(t,v){var go=OWNP==='sw'&&SWT2!=='L';if(OWNP==='sw')SWT2='L';b(t,v);if(go){render();scrollTo(0,0)}}})();
+
 
 function bhSheet(act,t,body){return '<div class="bhs-bg" data-act="'+act+'"></div><div class="bhs" role="dialog" aria-label="'+t+'"><div class="bhs-h"><b>'+t+'</b><button class="chip" data-act="'+act+'">\u2715 Close</button></div><div class="bhs-b">'+body+'</div></div>'}
 function allGrid(){var nw={};mkList().forEach(function(x){if(!x.r)nw[V[x.i].n]=1});var L=S.learned.length,c='';
@@ -5405,7 +5438,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=401,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=402,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
