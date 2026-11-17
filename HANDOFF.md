@@ -537,3 +537,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 418 (17 Nov 2026) — Dev + Test only.
 - Owner: keep both sizes (40% and 60%) and let users choose. Small video: ＋/－ button among the on-tap buttons switches small (default) / bigger (S.flsz), remembered. First 3 times the video shrinks, its buttons and a hint "Drag to move · ＋ bigger" show for 5 s (S.flhn).
+
+## Build 419 (17 Nov 2026) — Dev + Test only.
+- Owner asked if the buttons on the small video are hard to press (they were ~24 pt). Small size now shows 4 spread-out 40 pt buttons over the video: ⤢ top-left, ✕ top-right, ▶ (46 pt) centre, ＋ bottom-right; ±10 hidden at the small size (still in the bigger size and the class player). Tapping an empty part of the dimmed video hides the buttons.
