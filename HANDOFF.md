@@ -476,3 +476,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Swadhyayam fixes from the owner's iPhone test: note box Cancel was white on white (now dark); "This class · N notes" has its own soft panel with space below and a ⌄/⌃ arrow; ✕ delete buttons 40px circles; top line shows "N min to go today"; bigger › arrows on folders and fold rows (.swn scope).
 - Library: msPanel(o.flat) always shows the list (the Hide/Show fold could not close when a folder held only sub-folders, so Hide did nothing). Tapping a class (msplay) or a phone file/link (swopen) now switches to the Listen tab and scrolls up, so you see the player (before, it started in the background on the Library tab and looked like nothing happened). Wrappers are added after try{msRedirect()} because OWNA.msplay is defined there.
 - On this phone and links: swLocal2() — type icon (YouTube / link / phone), title, "YouTube · 36 min · heard 0 of 3", progress bar, big round play, 44px ⋯.
+
+## Build 403 (17 Nov 2026) — Dev + Test only.
+- Practise any verse: header ✎ is now a "✎ Edit" pill (✕ Done when on), 🔍 42px, per-verse ✎ (.vsun) 44px; headphone icon hidden in that header and subtitle shortened to "N learned · tap a number" so the title fits on one line.

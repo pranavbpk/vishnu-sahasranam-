@@ -2617,6 +2617,12 @@ html.qton .nvbar{display:none!important}
 .swn-lt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.swn-lt b{font-size:1rem;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.swn-lt small{font-size:.8rem;color:#6b5a3e}.swn-lt .ow-bar{margin-top:4px}
 .swn-pp{width:42px;height:42px;flex:none;border-radius:50%;background:#3b5a70;color:#fff;display:grid;place-items:center;font-size:1rem}
 .swn-more{width:44px;height:44px;flex:none;border-radius:50%;border:1px solid #e3cf9e;background:#fff;font-size:1.4rem;font-weight:700;color:#5a4a30}
+
+/* b403: bigger edit buttons in Practise any verse */
+.vsq{width:42px;height:42px;font-size:1.15rem}
+.vsq.vsmk{width:auto;min-width:42px;padding:0 12px;border-radius:21px;font-size:.95rem;font-weight:700;color:#7a4a10;border-color:#e3c27a;white-space:nowrap}
+.vsun{width:44px;height:44px;font-size:1.3rem;border-width:2px}
+.vsph .vspi{display:none}.vsph .vspt{min-width:0;flex:1}.vsph .vspt>b{font-size:1.1rem}
 </style>
 </head>
 <body>
@@ -4636,7 +4642,7 @@ function vsCard(jr){if(!S.learned.length)return '';var L=S.learned.slice().sort(
  var LA=L;if(VSST)L=L.filter(function(x){return x.s.c==='vs-'+VSST});
  var RG=[];L.forEach(function(x){var r=Math.floor((x.n-1)/20);if(RG.indexOf(r)<0)RG.push(r)});if(VSR!==null&&String(VSRS)!==String(sel))VSR=null;
  var cr=VSR!==null&&RG.indexOf(VSR)>=0?VSR:(sel?Math.floor((+sel-1)/20):RG[RG.length-1]);if(RG.indexOf(cr)<0)cr=RG[RG.length-1];var tabs=L.length>20&&RG.length>1,LS=tabs?L.filter(function(x){return Math.floor((x.n-1)/20)===cr}):L;
- if(NEWORG()){h=vsTop(due,soon,nO,row);h+='<div class="card vsc vsnew"><div class="vsph"><span class="vspi">🎧</span><span class="vspt"><b>Practise any verse</b><small>All <b class="vslc">'+LA.length+' learned</b> · tap a number, choose how many times, play</small></span><button class="vsq vsmk'+(UNM?' on':'')+'" data-act="unmode" aria-label="Select verses to change">'+(UNM?'✕':'✎')+'</button><button class="vsq" data-act="jsr" aria-label="Type a verse number">🔍</button></div>'+(UNM?'<div class="unbar0">✎ <b>Select verses to change</b> · tap the numbers, then choose below</div>':'')}h+=(NEWORG()?'':'<div class="vsh vh-o"><i>📿</i><span>All learned</span><em>'+LA.length+'</em><button class="vsq" data-act="jsr" aria-label="Type a verse number">🔍</button></div>')
+ if(NEWORG()){h=vsTop(due,soon,nO,row);h+='<div class="card vsc vsnew"><div class="vsph"><span class="vspi">🎧</span><span class="vspt"><b>Practise any verse</b><small><b class="vslc">'+LA.length+' learned</b> · tap a number</small></span><button class="vsq vsmk'+(UNM?' on':'')+'" data-act="unmode" aria-label="Select verses to change">'+(UNM?'✕ Done':'✎ Edit')+'</button><button class="vsq" data-act="jsr" aria-label="Type a verse number">🔍</button></div>'+(UNM?'<div class="unbar0">✎ <b>Select verses to change</b> · tap the numbers, then choose below</div>':'')}h+=(NEWORG()?'':'<div class="vsh vh-o"><i>📿</i><span>All learned</span><em>'+LA.length+'</em><button class="vsq" data-act="jsr" aria-label="Type a verse number">🔍</button></div>')
   +(NEWORG()?'':'<div class="vsst">'+[['due','🔔','Revise today',nD],['soon','⏳','Coming back',nS],['ok','🌿',NEWORG()?'Kaṇṭhastham':'Strong',nO]].map(function(x){return '<button class="vsst-'+x[0]+'" data-act="vsst" data-v="'+x[0]+'" aria-pressed="'+(VSST===x[0])+'"'+(x[3]?'':' disabled')+'><b>'+x[1]+' '+x[3]+'</b><small>'+x[2]+'</small></button>'}).join('')+'</div>')
   +(VSST?'<div class="vsstn">Showing <b>'+{due:'Revise today',soon:'Coming back',ok:NEWORG()?'Kaṇṭhastham':'Strong'}[VSST]+'</b> only · <button class="lnkb" data-act="vsst" data-v="">Show all '+LA.length+'</button></div>':'')+(tabs?'<div class="vsrt">'+RG.map(function(r){var a=L.filter(function(x){return Math.floor((x.n-1)/20)===r}),lo=a[0].n,hi=a[a.length-1].n;if(NEWORG()){lo=r*20+1;hi=Math.min(r*20+20,108)}return '<button data-act="vsrg" data-v="'+r+'" aria-pressed="'+(r===cr)+'">'+lo+(hi!==lo?'–'+hi:'')+'</button>'}).join('')+'</div>':'')+'<div class="vsg'+(UNM?' unm':'')+'">'+LS.map(function(x){return UNM?'<button class="'+x.s.c+(UNSEL.indexOf(x.n)>=0?' pk':'')+'" data-act="unpick" data-v="'+x.n+'" aria-pressed="'+(UNSEL.indexOf(x.n)>=0)+'">'+x.n+'</button>':'<button class="'+x.s.c+(String(sel)===String(x.n)?' on':'')+'" data-act="jpick" data-v="'+x.n+'">'+x.n+'</button>'}).join('')+'</div>'+(UNM?unBar(LS):'')
   
@@ -5438,7 +5444,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=402,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=403,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
