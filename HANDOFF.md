@@ -534,3 +534,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 417 (17 Nov 2026) — Dev + Test only.
 - Owner: small video too big; wanted the size of the first top-left video. Card width clamp(128px,40vw,178px) (about the old top-left size), smaller on-tap buttons.
+
+## Build 418 (17 Nov 2026) — Dev + Test only.
+- Owner: keep both sizes (40% and 60%) and let users choose. Small video: ＋/－ button among the on-tap buttons switches small (default) / bigger (S.flsz), remembered. First 3 times the video shrinks, its buttons and a hint "Drag to move · ＋ bigger" show for 5 s (S.flhn).
