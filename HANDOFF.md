@@ -522,3 +522,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 413 (17 Nov 2026) — Dev + Test only.
 - Owner: ⧉ Float did nothing on his iPhone (video plays). flPip() errors were swallowed. Now: try webkitSetPresentationMode first (iPhone), check after 0.8 s; else standard requestPictureInPicture; if neither opens a small window, fall back to the iPhone's own full-screen player (v.webkitEnterFullscreen), whose controls have a picture-in-picture button and which goes to a small window when you swipe Home; the hint line under the video explains this (and shows the error name if any). Home Screen web apps on iPhone often block direct PiP — to be confirmed on the owner's phone.
+
+## Build 414 (17 Nov 2026) — Dev + Test only.
+- Owner: the small video player that appears at the top while scrolling Swadhyayam (FLM 2 dock bar) should be draggable. Now: press on the video and drag → it becomes a small floating card (video + ⤢ ↺10 ↻10 ▶ ✕) wherever you drop it; place saved in S.fldp. Drag it back to the very top → it becomes the top bar again. Tap (no drag) on the video still goes back to the class. Click after a drag is ignored (FLNOCLK).
