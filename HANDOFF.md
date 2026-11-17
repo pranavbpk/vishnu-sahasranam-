@@ -459,3 +459,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 399 (17 Nov 2026) — Dev + Test only (Preview and Live not changed).
 - Practice and Parayanam now have separate show choices: S.prshow (practice, sheetVerse) and S.fcshow (Parayanam, unchanged, also set from Parayanam's अ/అ menu). Both in You › Language & display › How I practise › "👁 What to show while chanting" as two rows (Practice / Parayanam), default both. data-act 'prshow'.
+
+## Build 400 (17 Nov 2026) — Dev + Test only (Preview and Live not changed).
+- Revise (NEWORG): the "Your verses" card is gone. vsTop() puts the three counts (🔔 Revise today · ⏳ Coming back · 🌿 Kaṇṭhastham) right under the revision bar. Tap Revise today / Coming back → its list opens just below (tap again closes; VSO, session only; null = auto: Revise today opens by itself when verses are due). Revise today list: up to 6 + "Start revision ›"; Coming back: up to 8 + "+N more". Kaṇṭhastham toggles the old VSST filter on the Practise any verse numbers. The counts row inside Practise any verse is removed in NEWORG.
+- Range tabs in NEWORG show the fixed block (81–100), so a block with one verse no longer shows "81" twice.
