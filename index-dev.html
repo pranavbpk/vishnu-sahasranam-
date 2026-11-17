@@ -2661,6 +2661,33 @@ html.qton .nvbar{display:none!important}
 .swn-rc{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .swn-here{display:inline-block;background:#3b5a70;color:#fff;font-size:.62rem;font-weight:800;letter-spacing:.4px;border-radius:7px;padding:1px 7px;margin-bottom:2px}
 .swn .ow-lb.cur{border:2px solid #3b5a70!important;background:#f3f7fa!important}
+
+/* b409 polished look (Peacock) */
+.svi{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-4px}
+.swn-seg button{display:flex;align-items:center;justify-content:center;gap:6px;font-weight:600}.swn-seg button[aria-pressed=true]{color:#0d5c58}.swn-dq{background:#c0392b;color:#fff;border-radius:9px;font-size:.7rem;padding:0 6px;font-weight:800}
+.swn-big{border:0!important;background:#fff!important;box-shadow:0 2px 10px rgba(13,59,58,.09);color:#0d5c58}.swn-big .svi{width:22px;height:22px}
+.swn-div{display:flex;align-items:center;gap:10px;color:#a0742a;font-size:.95rem;margin:0 0 12px}.swn-div:before,.swn-div:after{content:"";flex:1;height:1px;background:#dcc9a0}
+.swn-join,.swn-plan,.swn-wk,.swn-cls,.swn-lm2,.swn-row,.swn .ms-p .ow-lb{border:0!important;box-shadow:0 6px 20px rgba(13,59,58,.07);border-radius:20px!important;background:#fff}
+.swn-jv{width:40px;height:40px;border-radius:12px;background:#fdecea;color:#c0392b;display:grid;place-items:center;flex:none}.swn-jb{background:#0d5c58!important;border-radius:14px!important}
+.swn-hero{background:linear-gradient(155deg,#0f6b66 0%,#0d4f50 55%,#0b3b3c 100%)!important;box-shadow:0 14px 30px rgba(11,59,60,.3)!important;border-radius:26px!important}
+.swn-lb{color:#e9c46a!important;font-weight:800;letter-spacing:1px}
+.swn-hero .sw-meta,.swn-hero .sw-sub,.swn-hero .ow-tm,.swn-idle small,.swn-idle .mute{color:#bfd6d2!important}
+.swn-hero .ow-big{background:#e9c46a!important;color:#0b3b3c!important}
+.swn-hero .sw-dots i.on,.swn-hero .sw-dots i.d{background:#e9c46a}
+.swn-hero .sw-mk{display:grid!important;grid-template-columns:repeat(3,1fr);gap:8px}.swn-hero .sw-mk button{border:0!important;background:rgba(255,255,255,.1)!important;border-radius:14px!important;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px!important;font-weight:600}.swn-hero .sw-mk .svi{width:22px;height:22px}
+.swn-ring{width:92px;height:92px}.swn-ring b{font-size:1.35rem}.swn-ring b small{font-size:.6rem}
+.swn-h{font-size:1.1rem!important;font-weight:800!important;color:#1f2a2a!important;text-transform:none!important;letter-spacing:-.2px!important;margin:18px 4px 8px!important}
+.swn-ck{border-color:#d8ccb0}.swn-pl.done .swn-ck{background:#2f8f5b;border-color:#2f8f5b}
+.swn-tip{background:#fbf3df!important;border:0!important;color:#5d4a20;border-radius:18px!important}.swn-tip b{color:#a0742a!important;letter-spacing:.8px;font-size:.7rem!important}.swn-tipi{color:#a0742a}
+.swn-wk i.f{background:#0f6b66!important}.swn-wk i.t{background:#e9b949!important}
+.swn-ic{border-radius:13px}.swn-yt{background:#fdecea;color:#c0392b}.swn-lk{background:#e9f3ea;color:#2f7a4a}.swn-fl{background:#e6eef4;color:#3b5a70}.swn-nt{background:#eef0f8;color:#4b5a8a}
+.swn-pp2{background:#0d5c58!important}
+.swn .ms-p .ow-lp.swn-fo{background:#fbf0d6!important;color:#b07d1d}
+.swn .ms-p .ow-lp{background:#0d5c58}
+.swn-here{background:#e7f2ef!important;color:#0d5c58!important}
+.swn .ow-lb.cur{border:0!important;background:#f3f9f7!important}
+.swn-addb{border:0!important;background:#fff!important;box-shadow:0 2px 10px rgba(13,59,58,.07);display:flex!important;align-items:center;justify-content:center;gap:8px;color:#0d5c58!important;border-radius:18px!important}
+.swn-nf .chip[aria-pressed=true]{background:#0d5c58;color:#fff;border-color:#0d5c58}
 </style>
 </head>
 <body>
@@ -3446,18 +3473,18 @@ function swPage0(){var m=swMin(tdy()),g=swGoal(),ok=m>=g,l=swL(),pl=SWA&&!SWA.pa
 /* b401: Swadhyayam new look (owner chose the mix of Gemini's tabs + the this-week card): progress line + 📊 + ⚙️, tabs Listen · Library · Notes, settings in a bottom sheet. The 6 page styles are no longer shown (old code kept, unused). */
 var SWT2='L',SWNF='all',SWSET=false;
 function swNew(m,g,ok,l,pl,sk){var d=swAllNotes().filter(function(o){return o.n.k==='doubt'&&!o.n.d}).length,h='<div class="swn">';
- h+='<div class="swn-hd"><span class="swn-pr'+(ok?' ok':'')+'">'+(ok?'✅':'⏳')+' <span class="swn-pt"><b id="ow-today">'+m+' of '+g+' min</b><small>'+(ok?'Today’s study is done':(g-m)+' min to go today')+(sk?' · 🔥 '+sk:'')+'</small></span></span><button class="swn-ib swn-big" data-act="swhist">📊<small>My listening</small></button><button class="swn-ib swn-big" data-act="swset">⚙️<small>Settings</small></button></div>';
- h+='<div class="swn-seg">'+[['L','🎧 Listen'],['B','📚 Library'],['N','📝 Notes'+(d?' <span class="swn-dq">'+d+'❓</span>':'')]].map(function(x){return '<button data-act="swt2" data-v="'+x[0]+'" aria-pressed="'+(SWT2===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
- if(SWT2==='B'){h+='<div class="swn-h">Swamy’s classes</div>'+swClasses({noWeek:1,flat:1})+swLocal3(pl)+'<button class="swn-addb" data-act="swadd">＋ Add a link or a file</button>'}
+ h+='<div class="swn-hd"><span class="swn-pr'+(ok?' ok':'')+'">'+(ok?'✅':'⏳')+' <span class="swn-pt"><b id="ow-today">'+m+' of '+g+' min</b><small>'+(ok?'Today’s study is done':(g-m)+' min to go today')+(sk?' · 🔥 '+sk:'')+'</small></span></span><button class="swn-ib swn-big" data-act="swhist">'+SVI.chart+'<small>My listening</small></button><button class="swn-ib swn-big" data-act="swset">'+SVI.gear+'<small>Settings</small></button></div>';
+ h+='<div class="swn-seg">'+[['L',SVI.listen+'Listen'],['B',SVI.lib+'Library'],['N',SVI.notes+'Notes'+(d?' <span class="swn-dq">'+d+'</span>':'')]].map(function(x){return '<button data-act="swt2" data-v="'+x[0]+'" aria-pressed="'+(SWT2===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
+ if(SWT2==='B'){h+='<div class="swn-h">Swamy’s classes</div>'+swClasses({noWeek:1,flat:1})+swLocal3(pl)+'<button class="swn-addb" data-act="swadd">'+SVI.plus+'Add a link or a file</button>'}
  else if(SWT2==='N'){h+='<div class="swn-nf">'+[['all','All'],['doubt','❓ Doubts'+(d?' '+d:'')],['notes','📝 Notes'],['line','✍️ One line']].map(function(x){return '<button class="chip" data-act="swnf" data-v="'+x[0]+'" aria-pressed="'+(SWNF===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
   var dc=swDoubtCard()||(SWNF==='doubt'?'<div class="mute" style="padding:8px 4px">No open doubts. While listening, tap ❓ Doubt to keep a question for Sunday.</div>':'');
   if(SWNF==='all')h+=swPtsSec(l)+dc+swNotesList()+swLines();else if(SWNF==='doubt')h+=dc;else if(SWNF==='notes')h+=swNotesList();else h+=(swLines()||'<div class="mute" style="padding:8px 4px">After 20 minutes of listening, the app asks for one line to remember.</div>')}
- else{var w=swWeek(),isW=l&&w&&l.id==='od_'+w.id;h+=swJoin();
+ else{var w=swWeek(),isW=l&&w&&l.id==='od_'+w.id;h+='<div class="swn-div">‖ श्रीमते रामानुजाय नमः ‖</div>'+swJoin();
   if(l)h+='<div class="swn-hero">'+swRing(m,g)+'<small class="swn-lb">'+(isW?'THIS WEEK’S CLASS · NEXT '+swSun().toUpperCase():'NOW PLAYING')+'</small>'+swPlayer(l,pl,{svg:1})+'</div>';
   else{var wc=swWeekCard()||swContinue();h+=wc?'<div class="swn-hero swn-idle">'+swRing(m,g)+wc+'</div>':'<div class="swn-empty">Open <b>📚 Library</b> and choose a class to begin.</div>'}
   h+=swPlan(m,g,l)+swTip(l)
   h+=swLineCard()+swWeekBars()+swFromClass(l)+swUpNext()}
- h+='</div>';
+ h=swPolish(h)+'</div>';
  if(SWADD)h+='<div class="swn-dim" data-act="swadd"></div><div class="swn-sheet" role="dialog" aria-label="Add to my listening"><div class="swn-grab"></div><div class="swn-sh"><b>Add to my listening</b><button class="chip" data-act="swadd">✕ Close</button></div>'+swLinkBox().replace('<details class="ow-gd">','<details class="ow-gd" open>')+'<details class="ow-gd"><summary>📱 Choose a file on this phone</summary><label class="btn ow-add">＋ Add class audio<input type="file" accept="audio/*,.m4a,.mp3,.aac,.wav,video/mp4" multiple hidden data-own="lecfile"></label><div class="mute ow-note">Only if a class is not in the OneDrive folder. This saves the file on this phone and uses its space.</div></details></div>';
  if(SWSET)h+='<div class="swn-dim" data-act="swset"></div><div class="swn-sheet" role="dialog" aria-label="Swadhyayam settings"><div class="swn-grab"></div><div class="swn-sh"><b>⚙️ Swadhyayam settings</b><button class="chip" data-act="swset">✕ Close</button></div>'+swSetBody(g)+'</div>';
  return h}
@@ -4318,9 +4345,30 @@ Object.assign(OWNA,{swt2:function(t,v){SWT2=v;render();scrollTo(0,0)},swnf:funct
 
 
 
+
+/* b409: polished look (Peacock): line icons, japa mala, Ramanuja invocation, soft cards */
+var SVI=(function(){var w=function(d){return '<svg class="svi" viewBox="0 0 24 24" aria-hidden="true">'+d+'</svg>'};return {
+ listen:w('<path d="M3 14v-2a9 9 0 0 1 18 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>'),
+ lib:w('<path d="M4 5h6v15H4zM10 5h4v15h-4zM15 6l4-1 3 14-4 1z"/>'),
+ notes:w('<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>'),
+ chart:w('<path d="M5 20V11M10 20V5M15 20v-8M20 20v-5"/>'),
+ gear:w('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>'),
+ star:w('<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>'),
+ pen:w('<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/>'),
+ q:w('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17.5v.01"/>'),
+ folder:w('<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>'),
+ yt:w('<rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10.5 9.5v5l4-2.5z" fill="currentColor"/>'),
+ link:w('<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'),
+ phone:w('<rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/>'),
+ video:w('<rect x="3" y="6" width="13" height="12" rx="3"/><path d="M16 10l5-3v10l-5-3"/>'),
+ bulb:w('<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/>'),
+ plus:w('<path d="M12 5v14M5 12h14"/>')}})();
+function swPolish(h){return h.replace(/<span>⭐<\/span>Important/g,SVI.star+'Important').replace(/<span>📝<\/span>Note/g,SVI.pen+'Note').replace(/<span>❓<\/span>Doubt/g,SVI.q+'Doubt')
+ .replace(/<span class="ow-lp" style="background:#d9a034">📁<\/span>/g,'<span class="ow-lp swn-fo">'+SVI.folder+'</span>')}
 /* b408: Swadhyayam ring, Today's plan (ticks by itself), one tip, 3 points per class + recall check, You are here */
 var SWLINEF=false,SWRC='';
-function swRing(m,g){var p=Math.min(1,m/g),c=2*Math.PI*30;return '<div class="swn-ring" aria-label="'+m+' of '+g+' minutes today"><svg width="72" height="72" viewBox="0 0 72 72"><circle cx="36" cy="36" r="30" stroke="rgba(255,255,255,.18)" stroke-width="7" fill="none"/><circle cx="36" cy="36" r="30" stroke="'+(p>=1?'#9fd6b4':'#ecc977')+'" stroke-width="7" fill="none" stroke-linecap="round" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+(c*(1-p)).toFixed(1)+'" transform="rotate(-90 36 36)"/></svg><b>'+(p>=1?'✓':m)+'<small>'+(p>=1?'hour done':'of '+g+' min')+'</small></b></div>'}
+function swRing(m,g){var n=Math.max(15,Math.min(45,Math.round(g/2))),f=Math.min(n,Math.floor(m/g*n)),d='',done=m>=g;for(var i=0;i<n;i++){var a=i/n*2*Math.PI-Math.PI/2,x=46+38*Math.cos(a),y=46+38*Math.sin(a);d+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(i===0?4.3:3.3)+'" fill="'+(i<f?(done?'#9fd6b4':'#e9c46a'):'rgba(255,255,255,.2)')+'"/>'}
+ return '<div class="swn-ring" aria-label="'+m+' of '+g+' minutes today"><svg width="92" height="92" viewBox="0 0 92 92">'+d+'</svg><b>'+(done?'✓':m)+'<small>'+(done?'hour done':'of '+g+' min')+'</small></b></div>'}
 function swPA(x){var p=x&&x.pts;if(!p)return [];if(Array.isArray(p))return p.filter(function(y){return y});return String(p).split(/\n+/).map(function(y){return y.replace(/^\s*\d+[.)]\s*/,'').trim()}).filter(function(y){return y})}
 function swPtsLec(){var a=LEC.filter(function(x){return swPA(x).length});a.sort(function(x,y){return (y.ptsd||'').localeCompare(x.ptsd||'')});return a}
 function swRcDue(x){if(!x.rc)return x.ptsd!==tdy();var d=(Date.parse(tdy())-Date.parse(x.rc))/864e5;return d>=3}
@@ -4334,7 +4382,7 @@ function swTip(l){if(S.swtipno===tdy())return '';var t='',w=swWeek(),tg=swTg();
  if(l&&w&&l.id==='od_'+w.id&&(l.heard||0)<tg)t=(l.heard?'You heard this class '+(l.heard===1?'once':l.heard+' times')+'. Hear it once more before Sunday, then tap ⭐ at what you catch.':'Listen once just to take it in. The second time, tap ⭐ at what you catch.');
  else if(l&&(l.heard||0)>=tg&&!swPA(l).length)t='You have heard this class well. Write your 3 points while it is fresh.';
  else{var d=swAllNotes().filter(function(o){return o.n.k==='doubt'&&!o.n.d}).length;if(d&&new Date().getDay()>=5)t='Sunday is near. Read your '+d+' doubt'+(d>1?'s':'')+' once so you can ask Swamy clearly.'}
- if(!t)return '';return '<div class="swn-tip"><span>💡</span><span><b>To learn better</b>'+t+'</span><button data-act="swtipno" aria-label="Hide this tip">✕</button></div>'}
+ if(!t)return '';return '<div class="swn-tip"><span class="swn-tipi">'+SVI.bulb+'</span><span><b>To learn better</b>'+t+'</span><button data-act="swtipno" aria-label="Hide this tip">✕</button></div>'}
 function swPtsSec(l){var pl=swPtsLec().filter(function(x){return !l||x.id!==l.id}).slice(0,3),h='<div class="swn-h">My 3 points per class</div>';
  if(l){var p=swPA(l),ed=!p.length||SWRC==='edit:'+l.id;
   h+='<div class="swn-cls"><b>'+oEsc(swT(l.name).t)+'</b><small>'+swHeard(l)+'</small>'+(ed?[0,1,2].map(function(i){return '<input class="ow-in swn-pin" id="sw-p'+i+'" placeholder="Point '+(i+1)+'" value="'+oEsc(p[i]||'')+'">'}).join('')+'<button class="btn ow-sm" data-act="swpts3">Save my 3 points</button>':swPtsView(l))+'</div>'}
@@ -4345,7 +4393,7 @@ function swLecSave(x){var c={};for(var k in x)c[k]=x[k];oPut('lec',c)}
 /* b406: Swadhyayam: Swamy's class Join card (from class-link.txt in the class folder), This week bars, From this class, compact Other listening, one Add sheet */
 var SWADD=false,SWWK=-1,SWLF='all',SWLALL=false;
 function swClsKind(u){return /teams\.(microsoft|live)\.com/i.test(u)?'Teams':/whatsapp|wa\.me/i.test(u)?'WhatsApp':'link'}
-function swJoin(){var c=S.swcls;if(!c||!c.u)return '';var k=swClsKind(c.u);return '<div class="swn-join"><span class="swn-jd"></span><span class="swn-jt"><b>Swamy’s class</b><small>'+oEsc(c.w||'Join when the class starts')+'</small></span><a class="swn-jb" href="'+oEsc(c.u)+'" target="_blank" rel="noopener">Join'+(k!=='link'?' on '+k:'')+' ›</a></div>'}
+function swJoin(){var c=S.swcls;if(!c||!c.u)return '';var k=swClsKind(c.u);return '<div class="swn-join"><span class="swn-jv">'+SVI.video+'</span><span class="swn-jt"><b>Swamy’s class</b><small>'+oEsc(c.w||'Join when the class starts')+'</small></span><a class="swn-jb" href="'+oEsc(c.u)+'" target="_blank" rel="noopener">Join'+(k!=='link'?' on '+k:'')+'</a></div>'}
 function swClsCheck(force){try{if(!MSF.path||!MSF.path[0]||!MSF.path[0].d)return;if(!force&&S.swcls&&Date.now()-(S.swcls.at||0)<4*3600e3)return;var r=MSF.path[0];
  msGet('https://graph.microsoft.com/v1.0/drives/'+r.d+'/items/'+r.i+'/children?$top=200').then(function(j){var f=(j.value||[]).filter(function(x){return !x.folder&&/^class[-_ ]?link.*\.txt$/i.test(x.name||'')})[0];
   if(!f){S.swcls={u:'',w:'',at:Date.now()};sv();if(force)render();return}var u=msDU(f);if(!u)return;return fetch(u).then(function(x){return x.text()}).then(function(t){var ls=t.split(/\r?\n/).map(function(x){return x.trim()}).filter(Boolean),m=t.match(/https?:\/\/\S+/),w=ls.filter(function(x){return !/https?:\/\//.test(x)})[0]||'';S.swcls={u:m?m[0]:'',w:w,at:Date.now()};sv();render()})}).catch(function(){})}catch(e){}}
@@ -4353,11 +4401,11 @@ function swWeekBars(){var d=new Date(),g=swGoal(),a=[],n=0;for(var i=6;i>=0;i--)
  var sel=SWWK>=0?a[SWWK]:null;
  return '<div class="swn-h">This week <span>tap a day</span></div><div class="swn-wk">'+a.map(function(o,i){return '<button data-act="swwk" data-v="'+i+'" aria-pressed="'+(SWWK===i)+'"><i class="'+(o.m>=g?'f':o.t?'t':'')+'" style="height:'+Math.max(5,Math.min(44,Math.round(o.m/g*40)))+'px"></i>'+o.l+'</button>'}).join('')+'</div><div class="swn-wkn">'+(sel?sel.l+': '+sel.m+' min'+(sel.m>=g?' · full hour ✓':''):n+' of 7 days with your full '+g+' min')+'</div>'}
 function swFromClass(l){if(!l)return '';var ns=l.notes||[],dq=ns.filter(function(n){return n.k==='doubt'&&!n.d}),ot=ns.length-dq.length;if(!ns.length)return '';
- var r='<div class="swn-h">From this class</div>';if(dq.length)r+='<button class="swn-row" data-act="swnf2" data-v="doubt"><span class="swn-ic swn-nt">❓</span><span class="swn-tx"><b>'+dq.length+' doubt'+(dq.length>1?'s':'')+' for Sunday</b><small>“'+oEsc((dq[0].x||'').slice(0,60))+'”</small></span><span class="ow-go">›</span></button>';
- if(ot)r+='<button class="swn-row" data-act="swnf2" data-v="notes"><span class="swn-ic swn-nt">📝</span><span class="swn-tx"><b>'+ot+' note'+(ot>1?'s':'')+' and marks</b><small>Tap to read and hear them</small></span><span class="ow-go">›</span></button>';return r}
+ var r='<div class="swn-h">From this class</div>';if(dq.length)r+='<button class="swn-row" data-act="swnf2" data-v="doubt"><span class="swn-ic swn-nt">'+SVI.q+'</span><span class="swn-tx"><b>'+dq.length+' doubt'+(dq.length>1?'s':'')+' for Sunday</b><small>“'+oEsc((dq[0].x||'').slice(0,60))+'”</small></span><span class="ow-go">›</span></button>';
+ if(ot)r+='<button class="swn-row" data-act="swnf2" data-v="notes"><span class="swn-ic swn-nt">'+SVI.pen+'</span><span class="swn-tx"><b>'+ot+' note'+(ot>1?'s':'')+' and marks</b><small>Tap to read and hear them</small></span><span class="ow-go">›</span></button>';return r}
 function swLocal3(pl){var loc=LEC.filter(function(x){return !x.od});if(!loc.length)return '';loc.forEach(swFixYt);
  var ty=function(x){return (x.yt||x.ytl||(x.url&&isYt(x.url)))?'yt':x.url?'lk':'fl'},c={all:loc.length,yt:0,lk:0,fl:0};loc.forEach(function(x){c[ty(x)]++});
- var a=loc.filter(function(x){return SWLF==='all'||ty(x)===SWLF}),sh=SWLALL?a:a.slice(0,3),IC={yt:['▶','YouTube','swn-yt'],lk:['🔗','Link','swn-lk'],fl:['📱','On this phone','swn-fl']};
+ var a=loc.filter(function(x){return SWLF==='all'||ty(x)===SWLF}),sh=SWLALL?a:a.slice(0,3),IC={yt:[SVI.yt,'YouTube','swn-yt'],lk:[SVI.link,'Link','swn-lk'],fl:[SVI.phone,'On this phone','swn-fl']};
  var h='<div class="swn-h">My other listening · '+loc.length+'</div>';
  if(loc.length>3)h+='<div class="swn-nf">'+[['all','All '+c.all],['yt','▶ YouTube '+c.yt],['lk','🔗 Links '+c.lk],['fl','📱 Phone '+c.fl]].filter(function(x){return x[0]==='all'||c[x[0]]}).map(function(x){return '<button class="chip" data-act="swlf" data-v="'+x[0]+'" aria-pressed="'+(SWLF===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
  h+=sh.map(function(x){var t=ty(x),i=IC[t],cur=x.id===SWCUR,p=x.dur?Math.min(100,Math.round((x.done?x.dur:x.pos||0)/x.dur*100)):0;
@@ -5537,7 +5585,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=408,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=409,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});

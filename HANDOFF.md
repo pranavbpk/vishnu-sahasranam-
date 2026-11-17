@@ -506,3 +506,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
   - Notes › All starts with swPtsSec(l): current class 3 inputs (swpts3) or its points; other classes with points (latest 3) with 🧠 Recall check (SWRC hides the text) → I remembered ✓ (x.rc=today) / Show me; ✎ Edit.
   - l.pts stays the OLD string format ("1. …\n2. …") so the older 3-points textarea keeps working; swPA() reads both string and array. New fields: l.ptsd (date written), l.rc (last recall date). Note: an action named swpts already existed (old textarea) — new one is swpts3.
   - Library: "YOU ARE HERE" tag on the class that is playing; that row gets a blue border.
+
+## Build 409 (17 Nov 2026) — Dev + Test only. To undo the look only: commit c1a9e87 (build 408).
+- Swadhyayam polished look (preview swadhyayam-polish-preview.html, Peacock): SVI line icons (tabs, My listening/Settings, Important/Note/Doubt via swPolish() on the swNew output, folders, YouTube/link/phone rows, tip, add); swRing() is now a japa mala (beads = goal/2, 15–45; one bead per 2 min at a 60-min goal; gold, green when done); "‖ श्रीमते रामानुजाय नमः ‖" line at the top of Listen (owner asked for Ramanuja sampradaya wording instead of Sri Gurubhyo namah; draft for guru review); teal Peacock hero with gold; soft borderless cards with shadows; bigger sentence-case section titles; Notes tab badge is a red count.
