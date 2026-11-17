@@ -497,3 +497,12 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 407 (17 Nov 2026) — Dev + Test only.
 - Bug in 406: an extra </div> after "Check the file now" (owner-only class-link section) closed the ⚙️ sheet early, so Reminder, How to, Account and folder, My students fell outside the sheet (owner saw them missing). Fixed.
 - Join card now shows on the Listen tab even when no class is playing yet (was only added next to the player card).
+
+## Build 408 (17 Nov 2026) — Dev + Test only. To undo the 5 ideas: commit c467779 (build 407).
+- From swadhyayam-clickable-2.html (owner said go ahead):
+  - swRing(m,g): minutes ring floated in the hero (top bar removed; header keeps "N of 60 min · to go" text).
+  - swPlan(m,g,l): Today's plan, ticks by itself: Listen (minutes ≥ goal) · Recall your 3 points (a class whose points are due: never recalled and not written today, or last recall ≥3 days; button swrc) or Write 3 points from this class (swnf2) · One line from today (S.swtk[today]; button swline forces the line card via SWLINEF).
+  - swTip(l): one tip, hidden for the day with ✕ (S.swtipno).
+  - Notes › All starts with swPtsSec(l): current class 3 inputs (swpts3) or its points; other classes with points (latest 3) with 🧠 Recall check (SWRC hides the text) → I remembered ✓ (x.rc=today) / Show me; ✎ Edit.
+  - l.pts stays the OLD string format ("1. …\n2. …") so the older 3-points textarea keeps working; swPA() reads both string and array. New fields: l.ptsd (date written), l.rc (last recall date). Note: an action named swpts already existed (old textarea) — new one is swpts3.
+  - Library: "YOU ARE HERE" tag on the class that is playing; that row gets a blue border.
