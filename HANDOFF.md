@@ -519,3 +519,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 412 (17 Nov 2026) — Dev + Test only.
 - Owner: OneDrive video classes played sound only, no picture. Cause: LEC names drop the file extension, so swIsVid(l.name) was false for ".mp4" files without "video" in the name → no "🎬 Watch video" chip, and msplay opened them in the audio player.
 - Fix: msPlay sets l.vid=1 for video files (also for existing entries); video classes now open straight in the video window (floating player with ⧉ Float) instead of the audio player; swLVid(l) used for the Watch video chip and the error message; swwatch starts from l.pos unless audio of that class is actually playing. Watching still counts minutes (SWVB → swAddM).
+
+## Build 413 (17 Nov 2026) — Dev + Test only.
+- Owner: ⧉ Float did nothing on his iPhone (video plays). flPip() errors were swallowed. Now: try webkitSetPresentationMode first (iPhone), check after 0.8 s; else standard requestPictureInPicture; if neither opens a small window, fall back to the iPhone's own full-screen player (v.webkitEnterFullscreen), whose controls have a picture-in-picture button and which goes to a small window when you swipe Home; the hint line under the video explains this (and shows the error name if any). Home Screen web apps on iPhone often block direct PiP — to be confirmed on the owner's phone.
