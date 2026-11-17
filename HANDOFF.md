@@ -479,3 +479,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 403 (17 Nov 2026) — Dev + Test only.
 - Practise any verse: header ✎ is now a "✎ Edit" pill (✕ Done when on), 🔍 42px, per-verse ✎ (.vsun) 44px; headphone icon hidden in that header and subtitle shortened to "N learned · tap a number" so the title fits on one line.
+
+## Build 404 (17 Nov 2026) — Dev + Test only.
+- Read-aloud lines bigger than the verse on EVERY chanting screen, not only the new practice screen: CSS moved from `.g2 .rpverse.sh*` to `.rpverse.sh*` (old practice screen, Weekly recap), and plSheet (Listen to all, Play a verse, Chant all 108) now adds the sh<both|scr|dash> class and follows S.prshow.
+- Revise lists (Revise today / Coming back) show 3 rows, then "Show all N ⌄" / "Show less ⌃" (VSMORE, session only).
