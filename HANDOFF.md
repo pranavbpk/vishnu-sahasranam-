@@ -528,3 +528,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 415 (17 Nov 2026) — Dev + Test only.
 - Owner: the dragged floating card was bigger than the top-bar video. Card now clamp(150px,44vw,190px) wide (same as the top video), smaller controls row.
+
+## Build 416 (17 Nov 2026) — Dev + Test only.
+- Owner: the button row in the top bar kept the video small. Small player (FLM 2 when scrolled) is now always a video-only card (class fre), at the top-left by default or wherever dragged (S.fldp); no snap into a bar. Tap the video → ⤢ ↺10 ↻10 ▶ ✕ over the bottom of the video for 3.5 s (FLSH/flShow; tap handled in pointerup because pointer capture retargets the click). ⤢ goes back to the class. Native video controls are switched off while small (they showed a black frame with ▶ and mute). After the iPhone full-screen player closes, the video resumes if it was paused there.
