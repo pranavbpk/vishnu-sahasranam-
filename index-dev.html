@@ -1987,7 +1987,7 @@ html[data-vbg="1"] .prb .wd,html[data-vbg="2"] .prb .wd,html[data-vbg="1"] .prl,
 .vsel2 .jseg{flex:1;display:flex;gap:6px}.vsel2 .jseg .chip{flex:1;min-height:38px;font-weight:700}
 .vsel2 .jgo{flex:1 1 auto;min-height:48px;font-size:1.05rem;justify-content:center}
 .vsel2 .jmic{width:48px;height:48px;min-height:48px;border-radius:50%;padding:0;justify-content:center}
-.vsel2 #jv{flex:1 1 100%}
+.vsel2 .vsjv{flex:1 1 100%;display:flex;align-items:center;gap:10px}.vsel2 #jv{flex:0 0 96px;width:96px;height:44px;font-size:1.15rem;text-align:center;padding:0 6px;border-radius:12px}.vsjx{margin-left:auto;width:40px;height:40px;border-radius:50%;border:1px solid #e3cf9e;background:#fff;font-size:1rem;color:#7a4a10}
 /* b367 Today: sloka chooser card */
 .dh-slk3{position:relative;z-index:2;display:flex;align-items:center;gap:12px;width:100%;box-sizing:border-box;margin:16px 0 4px;padding:10px 12px;border:1.5px solid #d9a034;border-radius:18px;background:linear-gradient(135deg,#fff8e6,#fbe6b4);font:inherit;color:#3a2e1a;text-align:left;cursor:pointer;box-shadow:0 3px 10px rgba(150,100,20,.15)}
 .dh-slk3:active{transform:translateY(1px)}
@@ -4657,7 +4657,7 @@ function vsCard(jr){if(!S.learned.length)return '';var L=S.learned.slice().sort(
   +'<div class="mute" style="font-size:.8rem;margin-top:8px">Strong = revised after 1, 3 and 7 days, or marked as known.</div>')+'</div>';
  return h}
 /* b367: Revise › Practise any verse on your own: chosen verse with its first line, then "How many times" 1×/3×/5×, then a big Play (NEWORG only). */
-function vsSelNew(sel,ss,jr,fm,cl){var v=sel?V[vIdx(+sel)]:null;jr=(jr||'').replace(/<button class="chip jsr"[^>]*>[^<]*<\/button>/,'').replace('<div class="jseg"','<span class="vsx">How many times</span><div class="jseg"');
+function vsSelNew(sel,ss,jr,fm,cl){var v=sel?V[vIdx(+sel)]:null;jr=(jr||'').replace(/<button class="chip jsr"[^>]*>[^<]*<\/button>/,'').replace('<div class="jseg"','<span class="vsx">How many times</span><div class="jseg"').replace('<input id="jv"','<span class="vsjv"><span class="vsx">Verse number</span><input id="jv"').replace('value="'+(JVV||'')+'">','value="'+(JVV||'')+'"><button class="vsjx" data-act="jsr" aria-label="Close">✕</button></span>');
  return '<div class="vssel vsel2">'+(sel?'<div class="vsel-h"><span class="vsel-n">'+sel+'</span><span class="vsel-t"><b>Verse '+sel+(ss?' <em class="vsb '+ss.c+'">'+ss.t+'</em>':'')+'</b>'+(v&&v[fm]?'<span class="'+cl+'">'+v[fm][0]+'</span>':'')+'</span>'+(S.learned.indexOf(+sel)>=0?'<button class="vsun" data-act="unopen" data-v="'+sel+'" aria-label="Change how this verse is marked">✎</button>':'')+'</div>':'')+jr+'</div>'+(UNV&&+UNV===+sel?unSheet(+sel):'')}
 /* b383: unmark one verse. Needs work = stays learned (progress unchanged), back in Revise today until Kaṇṭhastham again. Not learned yet = leaves the learned list (count goes down) and is taught again as a new verse. Streak, history and recordings stay. */
 var UNV=0,UNMSG='',UNM=false,UNSEL=[],UNASK='';
@@ -5452,7 +5452,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=404,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=405,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -5687,7 +5687,7 @@ app.addEventListener('click',function(e){
  else if(a==='rdclose'){rdClose()}
  else if(a==='rdok'){S.rdSeen=1;sv();render()}
  else if(a==='lx'){S.lx=v;sv();render()}
- else if(a==='jsr'){JSR=true;JVV='';render();setTimeout(function(){var e=$('jv');if(e)e.focus()},50)}
+ else if(a==='jsr'){JSR=!JSR;JVV='';render();if(!JSR)return;setTimeout(function(){var e=$('jv');if(e)e.focus()},50)}
  else if(a==='revgo'&&RP&&RP.on&&RP.phase==='revdone'){revGo()}
  else if(a==='revgo'){HT='today';HMS='';panel='';render(1);setTimeout(function(){var g=document.querySelector('.hgo')||document.querySelector('[data-act=start]');if(g){g.scrollIntoView({block:'center',behavior:'smooth'});if(!document.querySelector('.tapb'))g.insertAdjacentHTML('beforebegin','<div class="tapb">\ud83d\udc47 Tap to begin</div>');setTimeout(function(){g.classList.add('glow');setTimeout(function(){g.classList.remove('glow')},9000)},600)}},60)}
  else if(a==='jall'){JALL=!JALL;render()}
