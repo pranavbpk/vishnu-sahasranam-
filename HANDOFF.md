@@ -525,3 +525,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 414 (17 Nov 2026) — Dev + Test only.
 - Owner: the small video player that appears at the top while scrolling Swadhyayam (FLM 2 dock bar) should be draggable. Now: press on the video and drag → it becomes a small floating card (video + ⤢ ↺10 ↻10 ▶ ✕) wherever you drop it; place saved in S.fldp. Drag it back to the very top → it becomes the top bar again. Tap (no drag) on the video still goes back to the class. Click after a drag is ignored (FLNOCLK).
+
+## Build 415 (17 Nov 2026) — Dev + Test only.
+- Owner: the dragged floating card was bigger than the top-bar video. Card now clamp(150px,44vw,190px) wide (same as the top video), smaller controls row.
