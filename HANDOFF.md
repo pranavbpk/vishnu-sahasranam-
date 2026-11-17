@@ -509,3 +509,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 409 (17 Nov 2026) — Dev + Test only. To undo the look only: commit c1a9e87 (build 408).
 - Swadhyayam polished look (preview swadhyayam-polish-preview.html, Peacock): SVI line icons (tabs, My listening/Settings, Important/Note/Doubt via swPolish() on the swNew output, folders, YouTube/link/phone rows, tip, add); swRing() is now a japa mala (beads = goal/2, 15–45; one bead per 2 min at a 60-min goal; gold, green when done); "‖ श्रीमते रामानुजाय नमः ‖" line at the top of Listen (owner asked for Ramanuja sampradaya wording instead of Sri Gurubhyo namah; draft for guru review); teal Peacock hero with gold; soft borderless cards with shadows; bigger sentence-case section titles; Notes tab badge is a red count.
+
+## Build 410 (17 Nov 2026) — Dev + Test only.
+- Owner: Close and Back buttons in different colours. A MutationObserver (after msRedirect) tags buttons after each render: text "Close"/"✕ Close" → .btn-close (soft red: #fdeceb bg, #a3352a text); text starting ‹ / ← / Back, and folder crumbs except the current one (msup with a next sibling) → .btn-back (soft teal: #e7f2ef bg, #0d5c58 text). Applies across the whole app.

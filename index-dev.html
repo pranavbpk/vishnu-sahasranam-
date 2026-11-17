@@ -2688,6 +2688,10 @@ html.qton .nvbar{display:none!important}
 .swn .ow-lb.cur{border:0!important;background:#f3f9f7!important}
 .swn-addb{border:0!important;background:#fff!important;box-shadow:0 2px 10px rgba(13,59,58,.07);display:flex!important;align-items:center;justify-content:center;gap:8px;color:#0d5c58!important;border-radius:18px!important}
 .swn-nf .chip[aria-pressed=true]{background:#0d5c58;color:#fff;border-color:#0d5c58}
+
+/* b410 Close and Back colours */
+.btn-close{background:#fdeceb!important;color:#a3352a!important;border:1px solid #f2c4bd!important;font-weight:700!important}
+.btn-back{background:#e7f2ef!important;color:#0d5c58!important;border:1px solid #bfdcd5!important;font-weight:700!important}
 </style>
 </head>
 <body>
@@ -4511,6 +4515,11 @@ Object.assign(OWNA,{
  msplay:function(t,v){msPlay(v)}
 });
 try{msRedirect()}catch(e){}
+
+/* b410: Close buttons soft red, Back buttons soft teal, everywhere (tagged after each render) */
+(function(){function tag(){try{document.querySelectorAll('button,a.chip').forEach(function(b){if(b.dataset.cbk)return;var t=(b.textContent||'').trim();if(/^(✕\s*)?Close\b/i.test(t)){b.classList.add('btn-close');b.dataset.cbk=1}else if(/^(‹|←|Back\b|◀\s*Back)/.test(t)||(b.dataset.act==='msup'&&b.nextElementSibling)){b.classList.add('btn-back');b.dataset.cbk=1}})}catch(e){}}
+ var q=0;new MutationObserver(function(){if(q)return;q=1;requestAnimationFrame(function(){q=0;tag()})}).observe(document.documentElement,{childList:true,subtree:true});document.addEventListener('DOMContentLoaded',tag);setTimeout(tag,300)})();
+
 (function(){var c=OWNA.swlink;if(c)OWNA.swlink=function(){var r=c.apply(this,arguments);SWADD=false;render();return r}})();
 (function(){var a=OWNA.msplay,b=OWNA.swopen;OWNA.msplay=function(t,v){var go=OWNP==='sw'&&SWT2!=='L';if(OWNP==='sw')SWT2='L';a(t,v);if(go){render();scrollTo(0,0)}};OWNA.swopen=function(t,v){var go=OWNP==='sw'&&SWT2!=='L';if(OWNP==='sw')SWT2='L';b(t,v);if(go){render();scrollTo(0,0)}}})();
 
@@ -5585,7 +5594,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=409,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=410,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
