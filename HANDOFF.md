@@ -456,3 +456,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 398 (17 Nov 2026) — Dev + Test only (Preview and Live not changed).
 - New practice screen (.g2): read-aloud lines bigger (min(1.55rem,5.8vw)), verse smaller and softer on top (sa/enb 1.05rem, te 1.12rem, opacity .8). sheetVerse() adds class sh<both|scr|dash> to .rpverse.
 - One setting S.fcshow (both / scr = verse only / dash = read-aloud only) now used by practice AND Parayanam. Moved to You › Language & display › "👁 What to show while chanting" (removed the duplicate chips under 🪔 Parayanam). In practice, "Verse only" still shows both for a NEW verse (!it.r, not recap). Old practice screen keeps its sizes; only the show/hide rule applies.
+
+## Build 399 (17 Nov 2026) — Dev + Test only (Preview and Live not changed).
+- Practice and Parayanam now have separate show choices: S.prshow (practice, sheetVerse) and S.fcshow (Parayanam, unchanged, also set from Parayanam's अ/అ menu). Both in You › Language & display › How I practise › "👁 What to show while chanting" as two rows (Practice / Parayanam), default both. data-act 'prshow'.
