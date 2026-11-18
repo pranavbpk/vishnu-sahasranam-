@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · Satsang invite</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{font-family:-apple-system,"Atkinson Hyperlegible",system-ui,sans-serif;background:#faf6ee;color:#2b1d14;font-size:17px;line-height:1.4;padding-bottom:90px}
+.wrap{max-width:440px;margin:0 auto;padding:12px 16px}
+.pv{background:#2b1d14;color:#fff;border-radius:14px;padding:10px 12px;margin-bottom:14px;font-size:.86rem}
+.pv b{color:#f3c76b}.pv .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.pv button{flex:1;min-width:90px;border:1px solid #6b5444;background:#3b2a1f;color:#fff;border-radius:10px;padding:8px 6px;font:inherit;font-size:.8rem;font-weight:700}
+.pv button.on{background:#f3c76b;color:#2b1d14;border-color:#f3c76b}
+h1{font-size:1.5rem;color:#0f6b6b;display:flex;gap:8px;align-items:center;padding:6px 0 12px;border-bottom:1px solid #ecdcb6;margin-bottom:12px}
+.card{background:#fffdf8;border:1px solid #ecdcb6;border-radius:20px;padding:16px;margin-bottom:14px}
+.ev{border:0;background:linear-gradient(160deg,#0f6b6b,#0b4f50);color:#fff;padding:18px 16px 16px;box-shadow:0 10px 26px rgba(15,107,107,.25)}
+.ev .tag{display:inline-block;background:#f3c76b;color:#2b1d14;font-weight:800;font-size:.75rem;letter-spacing:1px;padding:4px 10px;border-radius:20px}
+.ev h2{font-size:1.45rem;margin:10px 0 2px;line-height:1.2}
+.ev .cd{color:#f3c76b;font-weight:700}
+.ev .rows{margin-top:12px;display:grid;gap:8px}
+.ev .r{display:flex;gap:10px;align-items:flex-start}.ev .r i{font-style:normal;width:22px;text-align:center}
+.ev .r small{display:block;color:#bfe0dc;font-size:.8rem}
+.ev a{color:#fff}
+.sec{font-weight:800;font-size:1.05rem;margin-bottom:8px;display:flex;gap:8px;align-items:center}
+.mute{color:#7a5a3a;font-size:.92rem}
+.prep{display:flex;gap:12px;align-items:center}
+.ring{width:64px;height:64px;border-radius:50%;background:conic-gradient(#0f6b6b 0 13%,#ecdcb6 0);display:grid;place-items:center;flex:none}
+.ring span{width:50px;height:50px;border-radius:50%;background:#fffdf8;display:grid;place-items:center;font-weight:800;font-size:.85rem;color:#0f6b6b}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:14px;font:inherit;font-weight:800;font-size:1.05rem;background:#0f6b6b;color:#fff;text-align:center;text-decoration:none;margin-top:12px}
+.btn.wa{background:#1f9d55}.btn.gold{background:#e8a33a;color:#2b1d14}.btn.ghost{background:none;border:1.5px solid #ecdcb6;color:#7a5a3a;font-weight:700}
+.rsvp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.rsvp button{border:1.5px solid #ecdcb6;background:#fff;border-radius:14px;padding:12px 4px;font:inherit;font-weight:800;font-size:1rem;color:#2b1d14;min-height:64px}
+.rsvp button small{display:block;font-size:1.3rem}
+.rsvp button.on{background:#0f6b6b;color:#fff;border-color:#0f6b6b}
+.cnt{display:flex;align-items:center;gap:14px;margin-top:14px}
+.cnt button{width:46px;height:46px;border-radius:50%;border:1.5px solid #ecdcb6;background:#fff;font-size:1.4rem;font-weight:700;color:#0f6b6b}
+.cnt b{font-size:1.4rem;min-width:24px;text-align:center}
+.done{display:flex;gap:12px;align-items:center;background:#e8f5ee;border:1px solid #b7dfc6;border-radius:16px;padding:12px}
+.done .ck{width:42px;height:42px;border-radius:50%;background:#1f9d55;color:#fff;display:grid;place-items:center;font-size:1.3rem;flex:none}
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.acts button{border:1px solid #ecdcb6;background:#fff;border-radius:14px;padding:10px 4px;font:inherit;font-size:.82rem;font-weight:700;color:#2b1d14}
+.acts button i{display:block;font-style:normal;font-size:1.4rem}
+.acts button.on{background:#fff3d1;border-color:#e8a33a}
+ul.br{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+ul.br li{background:#fff3d1;border-radius:20px;padding:6px 12px;font-size:.92rem}
+.hide{display:none}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#2b1d14;color:#fff;padding:10px 16px;border-radius:12px;font-size:.9rem;opacity:0;transition:opacity .3s;max-width:90%;text-align:center}
+.toast.on{opacity:1}
+label{display:block;font-weight:700;font-size:.9rem;margin:12px 0 4px}
+input,select,textarea{width:100%;border:1.5px solid #ecdcb6;border-radius:12px;padding:11px;font:inherit;font-size:1rem;background:#fff;color:#2b1d14}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.note{font-size:.82rem;color:#7a5a3a;background:#fff8e8;border-radius:12px;padding:10px;margin-top:12px}
+.wamsg{background:#dcf8c6;border-radius:12px 12px 2px 12px;padding:10px 12px;font-size:.92rem;margin-top:10px;white-space:pre-line}
+.live{background:linear-gradient(160deg,#7a1f1f,#5a1414)}
+.live .tag{background:#fff;color:#7a1f1f}
+</style></head><body><div class="wrap">
+
+<div class="pv"><b>Preview only.</b> Nothing here is saved or sent. Tap the tabs to see each step.
+<div class="tabs">
+<button data-s="a" class="on">1 · Invite</button>
+<button data-s="b">2 · After reply</button>
+<button data-s="c">3 · On the day</button>
+<button data-s="d">Organiser</button>
+</div></div>
+
+<h1>👥 Satsang</h1>
+
+<!-- A + B: guest -->
+<div id="guest">
+ <div class="card ev" id="evcard">
+  <span class="tag" id="evtag">UPCOMING SATSANG</span>
+  <h2>Sahasranama Parayanam &amp; Bhajan</h2>
+  <div class="cd" id="evcd">In 3 days · Saturday</div>
+  <div class="rows">
+   <div class="r"><i>📅</i><div>Sat 21 Nov · 10:00 am – 12:30 pm<small>Shown in your own time zone</small></div></div>
+   <div class="r"><i>📍</i><div><a href="#" onclick="toast('Opens Maps with the address');return false">Truganina (tap for directions)</a></div></div>
+   <div class="r"><i>🙏</i><div>Organised by Diwakar</div></div>
+  </div>
+ </div>
+
+ <div class="card" id="prepcard">
+  <div class="sec">📿 Get ready to chant</div>
+  <div class="prep"><div class="ring"><span>14</span></div>
+   <div><b>We will chant all 108 verses</b><div class="mute">You know 14. Practise a few more before Saturday, or chant along with the big read-aloud lines.</div></div></div>
+  <button class="btn" onclick="toast('Opens Revise › Practise any verse')">▶ Practise now</button>
+ </div>
+
+ <div class="card" id="replycard">
+  <div class="sec">✋ Are you coming?</div>
+  <div class="rsvp">
+   <button data-r="yes"><small>🙏</small>Yes</button>
+   <button data-r="maybe"><small>🤔</small>Maybe</button>
+   <button data-r="no"><small>🙇</small>No</button>
+  </div>
+  <div id="withbox" class="hide">
+   <div class="cnt"><button data-c="-1">−</button><b id="cn">0</b><button data-c="1">＋</button><div class="mute">others coming with you</div></div>
+  </div>
+  <button class="btn wa hide" id="send">Send reply on WhatsApp</button>
+  <div class="wamsg hide" id="wamsg"></div>
+  <div class="note">No form to fill: the app already knows your name. Your reply goes to the organiser on WhatsApp. No phone number is asked or stored.</div>
+ </div>
+
+ <div class="card hide" id="donecard">
+  <div class="done"><div class="ck">✓</div><div><b id="dtx">You're coming · Pranav + 2</b><div class="mute">Reply sent to Diwakar</div></div></div>
+  <div class="acts">
+   <button onclick="this.classList.add('on');toast('Added to your phone calendar')"><i>📅</i>Add to calendar</button>
+   <button class="on" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'Reminder on: the evening before':'Reminder off')"><i>🔔</i>Remind me</button>
+   <button onclick="toast('Opens Maps')"><i>🧭</i>Directions</button>
+  </div>
+  <button class="btn ghost" onclick="show('a')">Change my reply</button>
+ </div>
+
+ <div class="card" id="bringcard">
+  <div class="sec">🌼 Please bring</div>
+  <ul class="br"><li>Flowers</li><li>Prasadam to share</li><li>A mat to sit on</li><li>This app or a book</li></ul>
+  <div class="mute" style="margin-top:8px">Traditional dress if you can.</div>
+ </div>
+
+ <div class="card hide" id="livecard">
+  <div class="sec">🪔 It's today</div>
+  <div class="mute">When everyone is ready, start together. Your phone shows the big read-aloud lines, verse by verse. It counts as a full parayanam on your Today screen.</div>
+  <button class="btn gold" onclick="toast('Opens Parayanam mode with the sankalpa')">🪔 Start the parayanam</button>
+ </div>
+</div>
+
+<!-- D: organiser -->
+<div id="org" class="hide">
+ <div class="card">
+  <div class="sec">➕ Plan a satsang</div>
+  <div class="mute">Fill this in once. You get one link to share in your WhatsApp group.</div>
+  <label>Name</label><input value="Sahasranama Parayanam & Bhajan">
+  <div class="two"><div><label>Date</label><input value="Sat 21 Nov"></div><div><label>Time</label><input value="10:00 – 12:30"></div></div>
+  <label>Place</label><input value="Truganina">
+  <label>What we chant</label><select><option>All 108 verses</option><option>Verses 1–27</option><option>Dhyanam + 108 + Phalashruti</option></select>
+  <label>Please bring (optional)</label><input value="Flowers, prasadam, a mat">
+  <label>Replies go to (your WhatsApp)</label><input value="+61 4xx xxx xxx">
+  <button class="btn wa" id="share">Share invite on WhatsApp</button>
+  <div class="wamsg hide" id="invmsg">🙏 Sahasranama Parayanam & Bhajan
+Sat 21 Nov · 10:00 am · Truganina
+Tap to reply and get ready:
+pranavbpk.github.io/vishnu-sahasranam-/?sat=…</div>
+  <div class="note">How it works without a server: the details travel inside the link. Opening it shows the invite in the app. Replies come back to you as WhatsApp messages, and you count them.</div>
+ </div>
+ <div class="card">
+  <div class="sec">📋 Replies so far</div>
+  <div class="mute">Not in the first version: replies stay in your WhatsApp. A live count (12 coming, 3 maybe) needs a shared list online. Later, with Azure.</div>
+ </div>
+</div>
+
+</div>
+<div class="toast" id="toast"></div>
+<script>
+var R=null,N=0;
+function toast(t){var e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(function(){e.classList.remove('on')},1800)}
+function $(i){return document.getElementById(i)}
+function vis(i,on){$(i).classList.toggle('hide',!on)}
+function show(s){document.querySelectorAll('.pv button').forEach(function(b){b.classList.toggle('on',b.dataset.s===s)});
+ vis('guest',s!=='d');vis('org',s==='d');
+ vis('replycard',s==='a');vis('donecard',s==='b');vis('prepcard',s!=='c');vis('livecard',s==='c');vis('bringcard',s!=='c');
+ $('evcard').classList.toggle('live',s==='c');$('evtag').textContent=s==='c'?'TODAY':'UPCOMING SATSANG';$('evcd').textContent=s==='c'?'Starts at 10:00 am · in 45 min':'In 3 days · Saturday';
+ if(s==='b'){var w=R==='no'?"You can't come this time":R==='maybe'?'Maybe':"You're coming";$('dtx').textContent=w+(R!=='no'?' · Pranav'+(N?' + '+N:''):'')}
+ if(s==='c'&&!R){R='yes'}
+ scrollTo(0,0)}
+document.querySelectorAll('.pv button').forEach(function(b){b.onclick=function(){if(b.dataset.s==='b'&&!R){R='yes';N=2}show(b.dataset.s)}});
+document.querySelectorAll('.rsvp button').forEach(function(b){b.onclick=function(){R=b.dataset.r;document.querySelectorAll('.rsvp button').forEach(function(x){x.classList.toggle('on',x===b)});vis('withbox',R!=='no');vis('send',true);vis('wamsg',false)}});
+document.querySelectorAll('.cnt button').forEach(function(b){b.onclick=function(){N=Math.max(0,Math.min(20,N+(+b.dataset.c)));$('cn').textContent=N}});
+$('send').onclick=function(){var t=R==='yes'?'🙏 Pranav'+(N?' + '+N:'')+' coming':R==='maybe'?'🤔 Pranav'+(N?' + '+N:'')+' maybe':'🙇 Pranav can’t come this time';
+ $('wamsg').textContent=t+'\nSahasranama Parayanam · Sat 21 Nov';vis('wamsg',true);toast('Opens WhatsApp with this message ready');setTimeout(function(){show('b')},1600)};
+$('share').onclick=function(){vis('invmsg',true);toast('Opens WhatsApp to pick your group')};
+</script></body></html>
