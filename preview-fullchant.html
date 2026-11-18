@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · Full chant player</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#2a2118;color:#3a2a18;-webkit-text-size-adjust:100%}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.intro{color:#f6e7c8;padding:14px 16px 2px;max-width:430px;margin:auto;font-size:.92rem;line-height:1.45}.intro b{color:#ffd76a}
+.tabs{position:sticky;top:0;z-index:20;display:flex;gap:6px;padding:10px 8px;background:#2a2118;justify-content:center;flex-wrap:wrap}
+.tabs button{border:0;border-radius:999px;padding:9px 13px;font-weight:700;font-size:.86rem;background:#4a3b2a;color:#f6e7c8}.tabs button.on{background:#ffd76a;color:#2a1500}
+.note{color:#f6e7c8;max-width:430px;margin:0 auto 10px;padding:0 16px;font-size:.88rem;line-height:1.45}.note b{color:#ffd76a}.note ul{margin:6px 0;padding-left:18px}
+.pane{display:none}.pane.on{display:block}
+.ph{width:min(393px,calc(100vw - 16px));height:780px;margin:0 auto 28px;border-radius:34px;overflow:hidden;position:relative;background:#faf6ee;box-shadow:0 20px 50px rgba(0,0,0,.45);display:flex;flex-direction:column}
+.cap{color:#ffd76a;text-align:center;font-weight:800;margin:4px 0 8px;letter-spacing:.03em;font-size:.9rem}
+/* page */
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 10px;border-bottom:1px solid #eadcbc;background:#faf6ee}
+.top b{color:#0f6b66;font-size:1.1rem}.x{width:40px;height:40px;border-radius:12px;border:1px solid #e3d3b0;background:#fff;font-size:1rem}
+.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 14px 20px}
+.pchip{display:inline-flex;gap:6px;align-items:center;margin:12px 0 4px;background:#fff1d6;color:#7a1f1f;border-radius:999px;padding:6px 12px;font-weight:700;font-size:.82rem}
+.v{position:relative;background:#fff;border-left:3px solid #e8b04a;border-radius:0 14px 14px 0;margin:10px 0;padding:12px 52px 12px 14px}
+.v.on{background:#fff6dc;box-shadow:0 0 0 2px #f0c560 inset}
+.vn{color:#a8431a;font-weight:800;font-size:.78rem;margin-bottom:4px}
+.sa{font-size:1.02rem;line-height:1.55;color:#2d1a0c}
+.dl{margin-top:8px;padding-top:8px;border-top:1px dashed #e6d3a6;display:flex;flex-wrap:wrap;gap:5px}
+.w{color:#0f6b66;font-weight:600;font-size:.88rem;border-bottom:2px solid #cfe3df;border-radius:4px;padding:0 2px}.w.hl{background:#ffd97a;color:#3b1d05;border-color:#ffd97a}
+.vp{position:absolute;right:8px;top:10px;width:40px;height:40px;border-radius:50%;border:1.5px solid #e8b04a;background:#fff8e6;color:#7a1f1f;font-size:.95rem}
+.v.on .vp{background:#0f6b66;border-color:#0f6b66;color:#fff}
+.tag{display:inline-block;margin-left:6px;background:#0f6b66;color:#fff;border-radius:999px;padding:1px 8px;font-size:.7rem;vertical-align:1px}
+/* A: bottom dock */
+.dock{background:#fffdf7;border-top:1px solid #e8d8b4;box-shadow:0 -8px 24px rgba(80,50,10,.10);padding:10px 14px 18px}
+.dk-t{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.dk-t b{font-size:1rem;color:#2d1a0c}.dk-t small{color:#7a6a55;font-size:.8rem}
+.bar{height:6px;border-radius:6px;background:#efe3c8;margin:8px 0 10px;position:relative}.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:#e8890c;width:38%}
+.ctl{display:flex;align-items:center;justify-content:center;gap:22px}
+.sk{width:56px;height:56px;border-radius:50%;border:0;background:#f2ead8;color:#5a3a12;font-size:1.25rem}
+.pp{width:74px;height:74px;border-radius:50%;border:0;background:#0f6b66;color:#fff;font-size:1.6rem;box-shadow:0 6px 16px rgba(15,107,102,.35)}
+.row2{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.row2 button{border:1px solid #eadcbc;background:#fff;border-radius:14px;padding:8px 2px;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.78rem;color:#5a4a35;font-weight:600}
+.row2 button i{font-style:normal;font-size:1.15rem}.row2 button.on{background:#e6f2f0;border-color:#0f6b66;color:#0f6b66}.row2 button.stop{color:#a12a1c;border-color:#efc3bb}
+.goto{position:absolute;left:50%;transform:translateX(-50%);border:0;border-radius:999px;background:#2d1a0c;color:#fff;font-weight:700;padding:10px 16px;font-size:.86rem;box-shadow:0 6px 16px rgba(0,0,0,.25);white-space:nowrap}
+/* B: mini bar + sheet */
+.mini{margin:0 10px 14px;background:#0f6b66;color:#fff;border-radius:20px;display:flex;align-items:center;gap:10px;padding:8px 10px;box-shadow:0 8px 20px rgba(15,107,102,.35)}
+.mini .mpp{width:52px;height:52px;border-radius:50%;border:0;background:#fff;color:#0f6b66;font-size:1.25rem;flex:none}
+.mini span{flex:1;min-width:0}.mini b{display:block;font-size:.98rem}.mini small{opacity:.85;font-size:.8rem}
+.mini .mst{width:48px;height:48px;border-radius:14px;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:1.05rem;flex:none}
+.mini .mop{border:0;background:none;color:#fff;font-size:1.3rem;width:36px;flex:none}
+.shbg{position:absolute;inset:0;background:rgba(30,20,8,.35);display:none}.shbg.on{display:block}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fffdf7;border-radius:26px 26px 0 0;padding:10px 18px 24px;transform:translateY(105%);transition:transform .25s}.sheet.on{transform:none}
+.grab{width:44px;height:5px;border-radius:5px;background:#dccbaa;margin:0 auto 12px}
+.sh-h{display:flex;justify-content:space-between;align-items:center}.sh-h b{font-size:1.1rem}
+.sh-h button{border:0;background:#f2ead8;border-radius:12px;padding:10px 14px;font-weight:700;color:#5a3a12}
+.big{display:flex;align-items:center;justify-content:center;gap:16px;margin:16px 0 6px}
+.big .sk{width:62px;height:62px}.big .pp{width:84px;height:84px;font-size:1.9rem}
+.big .lbl{display:block;font-size:.7rem;color:#7a6a55;margin-top:4px;text-align:center}
+.opt{margin-top:12px}.opt small{display:block;color:#7a6a55;font-weight:700;font-size:.78rem;margin:10px 0 6px;text-transform:uppercase;letter-spacing:.04em}
+.seg{display:flex;gap:6px;flex-wrap:wrap}.seg button{flex:1;min-height:46px;border:1px solid #e3d3b0;background:#fff;border-radius:12px;font-weight:700;color:#5a4a35;font-size:.86rem}.seg button.on{background:#0f6b66;color:#fff;border-color:#0f6b66}
+.stopw{width:100%;margin-top:16px;min-height:52px;border-radius:14px;border:1.5px solid #e6a79c;background:#fff4f2;color:#a12a1c;font-weight:800;font-size:1rem}
+/* C: play from a verse */
+.choice{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid #eadcbc;background:#fff;border-radius:16px;padding:12px;margin-top:10px;min-height:64px}
+.choice i{font-style:normal;width:44px;height:44px;border-radius:50%;background:#e6f2f0;color:#0f6b66;display:grid;place-items:center;font-size:1.15rem;flex:none}
+.choice b{display:block;font-size:1rem;color:#2d1a0c}.choice small{color:#7a6a55;font-size:.82rem}
+.choice.main{border:2px solid #0f6b66;background:#f3faf8}.choice.main i{background:#0f6b66;color:#fff}
+.few{border:1px solid #eadcbc;background:#fff;border-radius:16px;padding:12px;margin-top:10px}
+.few .fh{display:flex;gap:12px;align-items:center}.few .fh i{font-style:normal;width:44px;height:44px;border-radius:50%;background:#fff1d6;color:#a8431a;display:grid;place-items:center;font-size:1.15rem;flex:none}
+.rng{display:flex;align-items:center;gap:8px;margin:12px 0 4px;font-weight:700;color:#5a4a35}
+.stp{display:flex;align-items:center;border:1px solid #e3d3b0;border-radius:12px;overflow:hidden;background:#fff}.stp button{width:40px;height:44px;border:0;background:#f7f0e0;font-size:1.1rem;color:#5a3a12}.stp b{min-width:40px;text-align:center;font-size:1.05rem}
+.go{width:100%;margin-top:12px;min-height:50px;border:0;border-radius:14px;background:#e8890c;color:#fff;font-weight:800;font-size:1rem}
+.hero2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.hero2 button{border:0;border-radius:16px;padding:12px;text-align:left;min-height:74px}.hero2 b{display:block;font-size:.98rem}.hero2 small{font-size:.78rem;opacity:.85}
+.hero2 .h1{background:#0f6b66;color:#fff}.hero2 .h2{background:#fff1d6;color:#7a1f1f;border:1.5px solid #f0c560}
+.before{background:#fff8ea;border:1px dashed #d9b980;color:#7a5a2a;border-radius:12px;padding:8px 10px;font-size:.8rem;margin-top:10px}
+/* old (now) */
+.old{position:sticky;top:0;z-index:3;background:#eef6f1;border:1px solid #cfe3d6;border-radius:18px;margin:8px 0;padding:10px;box-shadow:0 6px 16px rgba(0,0,0,.08)}
+.old .r{display:flex;align-items:center;gap:6px}.old .s{width:30px;height:30px;border-radius:50%;border:1px solid #cfe3d6;background:#fff;font-size:.7rem}.old .p{width:46px;height:46px;border-radius:50%;border:0;background:#5f9e7d;color:#fff}
+.old .t{flex:1;font-size:.85rem}.old .t b{display:block}.old .m{width:44px;height:38px;border-radius:12px;border:1px solid #cfe3d6;background:#fff;font-size:.6rem}
+.old .g{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}.old .g span{border:1px solid #cfe3d6;border-radius:10px;background:#fff;font-size:.62rem;text-align:center;padding:5px 0}
+.red{outline:3px solid #e34b3a;outline-offset:2px;border-radius:12px}
+</style></head><body>
+<div class="intro"><b>Full chant · player previews</b> (not the app). Tap the buttons, they work here. Pick one, or mix: tell me "A", "B", "A + verse sheet" etc.</div>
+<div class="tabs"><button class="on" data-t="a">A · Bottom player</button><button data-t="b">B · Mini bar</button><button data-t="c">Play from a verse</button><button data-t="o">Now (before)</button></div>
+
+<!-- A -->
+<div class="pane on" id="p-a">
+<div class="note"><b>A · Big player at the bottom</b> (my pick)<ul><li>Stays at the bottom, never covers the verse you read.</li><li>Big ⏮ ▶ ⏭, and Stop, Repeat, Speed, More with words under them.</li><li>No Hide needed. If you scroll away, a <b>“↓ Back to verse 43”</b> button shows.</li></ul></div>
+<div class="cap">A · playing</div>
+<div class="ph" id="phA">
+ <div class="top"><b>📜 The full chant</b><button class="x">✕</button></div>
+ <div class="scroll" id="scA"></div>
+ <button class="goto" id="gotoA" style="bottom:206px;display:none">↓ Back to verse 43</button>
+ <div class="dock">
+  <div class="dk-t"><b id="aT">Verse 43 of 108</b><small>Part 5 · 1000 names · 21 min left</small></div>
+  <div class="bar"><i></i></div>
+  <div class="ctl"><button class="sk" aria-label="Previous verse">⏮</button><button class="pp" data-pp>❚❚</button><button class="sk" aria-label="Next verse">⏭</button></div>
+  <div class="row2"><button class="stop"><i>■</i>Stop</button><button data-tg><i>🔁</i>Repeat</button><button><i>🐢</i>Normal</button><button><i>⚙︎</i>More</button></div>
+ </div>
+</div>
+</div>
+
+<!-- B -->
+<div class="pane" id="p-b">
+<div class="note"><b>B · Small bar, opens to a big player</b><ul><li>Small bar keeps most of the screen for the words.</li><li>Tap the bar (or ⌃) for the big player with all controls and options.</li><li>Stop is a big red button, easy to hit.</li></ul></div>
+<div class="cap">B · small bar (tap it)</div>
+<div class="ph" id="phB">
+ <div class="top"><b>📜 The full chant</b><button class="x">✕</button></div>
+ <div class="scroll" id="scB"></div>
+ <div class="mini" data-open><button class="mpp" data-pp>❚❚</button><span><b>Verse 43 of 108</b><small>1000 names · 21 min left</small></span><button class="mst" aria-label="Stop">■</button><button class="mop">⌃</button></div>
+ <div class="shbg" data-close></div>
+ <div class="sheet">
+  <div class="grab"></div>
+  <div class="sh-h"><b>Verse 43 of 108</b><button data-close>⌄ Close</button></div>
+  <div style="color:#7a6a55;font-size:.85rem;margin-top:2px">Part 5 · 1000 names · 21 min left</div>
+  <div class="bar"><i></i></div>
+  <div class="big"><div><button class="sk">⏮</button><span class="lbl">Verse</span></div><div><button class="pp" data-pp>❚❚</button></div><div><button class="sk">⏭</button><span class="lbl">Verse</span></div></div>
+  <div class="opt"><small>Play</small><div class="seg" data-seg><button class="on">Whole chant</button><button>This part</button><button>🔁 This verse</button></div>
+  <small>Speed</small><div class="seg" data-seg><button>Slow</button><button class="on">Normal</button><button>Faster</button></div>
+  <small>Pause between verses</small><div class="seg" data-seg><button class="on">Short</button><button>Medium</button><button>Long</button></div></div>
+  <button class="stopw">■ Stop the chant</button>
+ </div>
+</div>
+</div>
+
+<!-- C -->
+<div class="pane" id="p-c">
+<div class="note"><b>Play from a verse</b> (works with A or B)<ul><li>Today ▶ on a verse plays only that one verse, then stops.</li><li>New: ▶ asks once what you want. <b>Play from here</b> is the big first choice.</li><li><b>A few verses</b>: e.g. 40 to 45, 3 times. For practising a small group.</li><li>The “Play all from this part” link goes; the top gets two clear buttons.</li></ul></div>
+<div class="cap">Top of the page (replaces the link)</div>
+<div class="ph" style="height:auto;padding-bottom:16px">
+ <div class="top"><b>📜 The full chant</b><button class="x">✕</button></div>
+ <div style="padding:0 14px">
+  <div class="hero2"><button class="h1"><b>▶ Whole chant</b><small>Opening → end · 33 min</small></button><button class="h2"><b>▶ This part</b><small>1000 names · 108 verses · 25 min</small></button></div>
+  <div class="before">Before: “▶ Play all from this part” as a small blue link.</div>
+ </div>
+</div>
+<div class="cap">Tap ▶ on verse 40</div>
+<div class="ph" id="phC">
+ <div class="top"><b>📜 The full chant</b><button class="x">✕</button></div>
+ <div class="scroll" id="scC"></div>
+ <div class="shbg on" data-close></div>
+ <div class="sheet on" id="shC">
+  <div class="grab"></div>
+  <div class="sh-h"><b>Verse 40</b><button data-close>✕</button></div>
+  <button class="choice main" data-pick="Playing from verse 40 · on to the end"><i>▶</i><span><b>Play from here</b><small>Verse 40, then 41, 42 … to the end</small></span></button>
+  <button class="choice" data-pick="Verse 40 only"><i>①</i><span><b>Just this verse</b><small>Plays verse 40 once</small></span></button>
+  <div class="few"><div class="fh"><i>🔁</i><span><b>A few verses</b><br><small style="color:#7a6a55">Listen and practise a small group</small></span></div>
+   <div class="rng">From 40 to <span class="stp"><button data-to="-1">−</button><b id="toC">45</b><button data-to="1">+</button></span></div>
+   <div class="rng">Times <span class="seg" data-seg style="flex:1"><button>1×</button><button class="on">3×</button><button>5×</button></span></div>
+   <button class="go" data-few>▶ Play verses 40–45, 3 times</button></div>
+ </div>
+ <div id="resC" style="display:none" class="dock"><div class="dk-t"><b id="resT">Verses 40–45 · time 1 of 3</b><small>Verse 40</small></div><div class="bar"><i style="width:8%"></i></div><div class="ctl"><button class="sk">⏮</button><button class="pp" data-pp>❚❚</button><button class="sk">⏭</button></div></div>
+</div>
+</div>
+
+<!-- now -->
+<div class="pane" id="p-o">
+<div class="note"><b>Now (Guru Test, build 429)</b>, for comparison. Red boxes: the small controls you mentioned (⏮ ⏭ 30 px, Hide and Stop 38 px), and the card covers the top of the verses.</div>
+<div class="ph">
+ <div class="top"><b>📜 The full chant</b><button class="x">✕</button></div>
+ <div class="scroll" id="scO"></div>
+</div>
+</div>
+
+<script>
+var VS=[[40,['विक्षरो रोहितो मार्गो हेतुर्दामोदरः सहः ।','महीधरो महाभागो वेगवानमिताशनः ॥४०॥'],'Vik-sha-ro Ro-hi-to Maar-go He-tur Daa-mo-da-ras Sa-hah Ma-hee-dha-ro Ma-haa-bhaa-go Ve-ga-vaa-na-mi-taa-sha-nah'],
+[41,['उद्भवः क्षोभणो देवः श्रीगर्भः परमेश्वरः ।','करणं कारणं कर्ता विकर्ता गहनो गुहः ॥४१॥'],'Ud-bha-vah Ksho-bha-no De-vash Shree-gar-bhah Pa-ra-mesh-va-rah Ka-ra-nam Kaa-ra-nam Kar-taa Vi-kar-taa Ga-ha-no Gu-hah'],
+[42,['व्यवसायो व्यवस्थानः संस्थानः स्थानदो ध्रुवः ।','परर्द्धिः परमस्पष्टस्तुष्टः पुष्टः शुभेक्षणः ॥४२॥'],'Vya-va-saa-yo Vya-va-sthaa-nas Sam-sthaa-nas Sthaa-na-do Dhru-vah Pa-rar-dhif Pa-ra-mas-pash-tas-tush-taf Push-tash Shu-bhek-sha-nah'],
+[43,['रामो विरामो विरजो मार्गो नेयो नयोऽनयः ।','वीरः शक्तिमतां श्रेष्ठो धर्मो धर्मविदुत्तमः ॥४३॥'],'Raa-mo Vi-raa-mo Vi-ra-jo Maar-go Ne-yo Na-yo Na-yah Vee-rash Shak-ti-ma-taam Shresh-tho Dhar-mo Dhar-ma-vi-dut-ta-mah'],
+[44,['वैकुण्ठः पुरुषः प्राणः प्राणदः प्रणवः पृथुः ।','हिरण्यगर्भः शत्रुघ्नो व्याप्तो वायुरधोक्षजः ॥४४॥'],'Vai-kun-thaf Pu-ru-shaf Praa-naf Praa-na-daf Pra-na-vaf Pri-thuh Hi-ran-ya-gar-bhash Sha-trugh-no Vyaap-to Vaa-yu-ra-dhok-sha-jah']];
+function card(v,on){var ws=v[2].split(' ');return '<div class="v'+(on?' on':'')+'" id="'+(on?'cur':'')+'"><div class="vn">VERSE '+v[0]+(on?'<span class="tag">now playing</span>':'')+'</div><div class="sa">'+v[1].join('<br>')+'</div><div class="dl">'+ws.map(function(w,i){return '<span class="w'+(on&&i===4?' hl':'')+'">'+w+'</span>'}).join('')+'</div><button class="vp" data-vp="'+v[0]+'">'+(on?'❚❚':'▶')+'</button></div>'}
+function list(cur){return '<div class="pchip">Part 5 · 1000 names</div>'+VS.map(function(v){return card(v,v[0]===cur)}).join('')}
+document.getElementById('scA').innerHTML=list(43);document.getElementById('scB').innerHTML=list(43);document.getElementById('scC').innerHTML=list(0);
+document.getElementById('scO').innerHTML='<div class="old"><div class="r"><button class="s red">⏮</button><button class="p">❚❚</button><button class="s red">⏭</button><span class="t"><b>Verse 43 of 108</b>Part 5 · 1000 nam…</span><button class="m red">⌄<br>Hide</button><button class="m red">■<br>Stop</button></div><div class="g"><span>SPEED<br>Normal ▾</span><span>PAUSE<br>Short ▾</span><span>SOUND<br>🔊 On</span><span>FOLLOW<br>On</span></div></div>'+list(43);
+// scroll A to the playing verse
+setTimeout(function(){['scA','scB'].forEach(function(id){var sc=document.getElementById(id),c=sc.querySelector('.v.on');if(c)sc.scrollTop=c.offsetTop-90})},50);
+document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===b)});document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('on',p.id==='p-'+b.dataset.t)});scrollTo(0,0);['scA','scB'].forEach(function(id){var sc=document.getElementById(id),c=sc.querySelector('.v.on');if(c&&sc.offsetParent)sc.scrollTop=c.offsetTop-90})}});
+document.addEventListener('click',function(e){var t=e.target.closest('button,[data-open],[data-close]');if(!t)return;var ph=t.closest('.ph');
+ if(t.hasAttribute('data-pp')){var on=t.textContent==='❚❚';(ph||document).querySelectorAll('[data-pp]').forEach(function(x){x.textContent=on?'▶':'❚❚'});e.stopPropagation();return}
+ if(t.hasAttribute('data-tg')){t.classList.toggle('on');var T=document.getElementById('aT');T.textContent=t.classList.contains('on')?'Verse 43 · 🔁 repeating':'Verse 43 of 108';return}
+ if(t.parentNode&&t.parentNode.hasAttribute&&t.parentNode.hasAttribute('data-seg')){t.parentNode.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===t)});updFew();return}
+ if(t.hasAttribute('data-to')){var b=document.getElementById('toC');b.textContent=Math.max(40,Math.min(108,+b.textContent+ +t.dataset.to));updFew();return}
+ if(t.classList.contains('mst')||t.classList.contains('mpp'))return;
+ if(t.hasAttribute('data-open')&&ph){ph.querySelector('.sheet').classList.add('on');ph.querySelector('.shbg').classList.add('on');return}
+ if(t.hasAttribute('data-close')&&ph){ph.querySelector('.sheet').classList.remove('on');ph.querySelector('.shbg').classList.remove('on');return}
+ if(t.hasAttribute('data-pick')||t.hasAttribute('data-few')){var txt=t.hasAttribute('data-few')?fewTxt():t.dataset.pick;ph.querySelector('.sheet').classList.remove('on');ph.querySelector('.shbg').classList.remove('on');var r=document.getElementById('resC');r.style.display='block';document.getElementById('resT').textContent=txt;var sc=document.getElementById('scC');sc.innerHTML=list(40);return}
+ if(t.hasAttribute('data-vp')&&ph&&ph.id==='phC'){ph.querySelector('.sheet').classList.add('on');ph.querySelector('.shbg').classList.add('on');document.getElementById('resC').style.display='none';document.getElementById('scC').innerHTML=list(0);return}
+});
+function fewTxt(){var to=document.getElementById('toC').textContent,x=document.querySelector('#shC .seg .on');return 'Verses 40–'+to+' · time 1 of '+(x?x.textContent.replace('×',''):'3')}
+function updFew(){var to=document.getElementById('toC').textContent,x=document.querySelector('#shC .seg .on'),n=x?x.textContent:'3×';var g=document.querySelector('[data-few]');if(g)g.textContent='▶ Play verses 40–'+to+', '+(n==='1×'?'once':n.replace('×',' times'))}
+// A: show "Back to verse" when scrolled away
+var scA=document.getElementById('scA');scA.addEventListener('scroll',function(){var c=scA.querySelector('.v.on'),g=document.getElementById('gotoA');var r=c.offsetTop-scA.scrollTop;g.style.display=(r<-c.offsetHeight||r>scA.clientHeight)?'block':'none'});
+document.getElementById('gotoA').onclick=function(){var c=scA.querySelector('.v.on');scA.scrollTo({top:c.offsetTop-90,behavior:'smooth'})};
+</script>
+</body></html>
