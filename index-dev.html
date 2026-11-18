@@ -4762,7 +4762,7 @@ function satPlanCard(){if(!SPLAN)return '<button class="btn ghost sev-plan" data
   +f('spn','Name','Sahasranama Parayanam','','e.g. Sahasranama Parayanam & Bhajan')+'<div class="sev-two">'+f('spd','Date','','date')+f('spt','Start','10:00','time')+'</div>'
   +'<label>How long<select id="spm">'+[[30,'30 min'],[60,'1 hour'],[90,'1½ hours'],[120,'2 hours'],[180,'3 hours'],[270,'4½ hours']].map(function(m){return '<option value="'+m[0]+'"'+(m[0]===60?' selected':'')+'>'+m[1]+'</option>'}).join('')+'</select></label>'
   +f('spw','Place','','','Suburb or address, or “Online”')+f('spj','Online call link (optional)','','url','Teams / WhatsApp / Zoom link')
-  +'<label>What we chant<select id="spc">'+['All 108 verses','All 108 verses with dhyanam','Verses 1–27','Bhajan and parayanam'].map(function(s){return '<option>'+s+'</option>'}).join('')+'</select></label>'
+  +'<label>What we chant<select id="spc">'+['All 108 verses','Dhyanam + 108 verses + Phalashruti','Verses 1–27','Verses 28–54','Verses 55–81','Verses 82–108'].map(function(s){return '<option>'+s+'</option>'}).join('')+'</select></label>'
   +f('spb','Please bring (optional)','','','Flowers, prasadam, a mat')+f('sph','Your name (organiser)',o.h)+f('spwa','Your WhatsApp number (replies come here)',o.w,'tel','04xx xxx xxx')
   +(SPMSG&&!SRSV?'<div class="satwarn">'+SPMSG+'</div>':'')+'<button class="btn sev-wa" data-act="satplango">Make the invite</button><button class="chip" data-act="satplanx" style="margin-top:8px">Cancel</button>'
   +'<div class="sev-note">No server: the details travel inside the link. Your number is inside the link so replies reach you, so share it only with your group.</div></div>'}
@@ -5715,7 +5715,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=423,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=424,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
