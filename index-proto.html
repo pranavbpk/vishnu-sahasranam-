@@ -2787,6 +2787,10 @@ html.qton .nvbar{display:none!important}
 .swr-i{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;flex:none;font-size:1rem}.swr-i.f{background:#fbe7b5}.swr-i.v{background:#e3eef8}.swr-i.a{background:#e6f2f0}
 .swr-t{flex:1;min-width:0}.swr-t b{display:block;font-size:.92rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.swr-t small{display:block;color:#8a7a60;font-size:.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.swr-t em{font-style:normal;color:#0f6b66;font-weight:700}
 .swr-s{flex:none;font-size:.75rem;color:#8a7a60;text-align:right;min-width:40px}.swr-s.dn{color:#0f6b66;font-weight:700}.swr-s.go{font-size:1.2rem;color:#b9a888;min-width:16px}.swr-s i{display:block;height:4px;border-radius:4px;background:#efe3c8;margin-top:4px;overflow:hidden;width:40px;margin-left:auto}.swr-s u{display:block;height:100%;background:#e8890c}
+.swr-fd{padding:0!important;gap:0}.swr-fx{flex:1;min-width:0;display:flex;align-items:center;gap:8px;border:0;background:none;padding:9px 4px 9px 6px;font:inherit;color:inherit;text-align:left;min-height:52px}.swr-tg{width:14px;color:#8a7a60;font-size:.75rem;transition:transform .15s;flex:none}.swr-fd.op .swr-tg{transform:rotate(90deg)}.swr-fd.op{background:#fffaf0}
+.swr-op{flex:none;border:1px solid #e3d3b0;background:#fff;border-radius:10px;padding:6px 9px;margin-right:8px;font-size:.75rem;font-weight:700;color:#0f6b66}
+.swr-in{border-left:3px solid #f0dca8;background:#fffdf8}.swr-ld{padding:10px 14px;color:#8a7a60;font-size:.8rem;border-bottom:1px solid #f1e7d2}
+.swr-s.nw{color:#b0782a;font-weight:700;font-size:.7rem}.swl-ca{border:0;background:none;color:#0f6b66;font-weight:700;font-size:.76rem;padding:2px 4px}
 </style>
 </head>
 <body>
@@ -3454,7 +3458,7 @@ function swIsVid(n){return /(_|\s|-)video(\.[^.]+)?$/i.test(n||'')||/\.(mp4|mov|
 /* files of the open folder in class order; a video is skipped when the same class has an audio file */
 function swSeq(){var f=(MSF.items||[]).filter(function(x){return !x.folder});var aud={};f.forEach(function(x){if(!swIsVid(x.name))aud[swStem(x.name)]=1});
  return f.filter(function(x){return !(swIsVid(x.name)&&aud[swStem(x.name)])}).sort(function(a,b){return a.name.localeCompare(b.name,undefined,{numeric:true})})}
-function swNextItem(){if(!SWCUR||!/^od_/.test(SWCUR))return null;var q=swSeq(),id=SWCUR.slice(3);for(var i=0;i<q.length;i++)if(q[i].id===id)return q[i+1]||null;return null}
+function swNextItem(){if(!SWCUR||!/^od_/.test(SWCUR))return null;var q=swSeq(),id=SWCUR.slice(3);if(!q.some(function(x){return x.id===id})){for(var k in SWEXP){var it=SWEXP[k].items||[];if(it.some(function(x){return x.id===id})){q=it.filter(function(x){return !x.folder}).sort(function(a,b){return a.name.localeCompare(b.name,undefined,{numeric:true})});break}}}for(var i=0;i<q.length;i++)if(q[i].id===id)return q[i+1]||null;return null}
 function swNext(){var n=swNextItem();if(n){msPlay(n.id);return true}return false}
 /* this week's class = last class in the open folder by file name number (audio first) */
 function swWeek(){if(SWFX>=0)return null;var f=swSeq();return f.length?f[f.length-1]:null}
@@ -4566,7 +4570,7 @@ function msDl(l){var base='https://graph.microsoft.com/v1.0/drives/'+l.od.d+'/it
    if((j.size||l.size||0)>150*1048576)throw 'OneDrive did not give a play link for this big file';
    OMSG='Downloading the class first (about '+Math.round((j.size||l.size||0)/1048576)+' MB)…';render();
    return msAT().then(function(at){return fetch(base+'/content',{headers:{Authorization:'Bearer '+at}})}).then(function(r){if(!r.ok)throw ('Error '+r.status);return r.blob()}).then(function(b){return URL.createObjectURL(b)})})})}
-function msPlay(id){var x=(MSF.items||[]).concat(MSF.found||[]).filter(function(y){return y.id===id})[0];if(!x)return;var lid='od_'+x.id,l=LEC.filter(function(y){return y.id===lid})[0];
+function msPlay(id){var x=swKnown().filter(function(y){return y.id===id})[0];if(!x)return;var lid='od_'+x.id,l=LEC.filter(function(y){return y.id===lid})[0];
  if(!l){l={id:lid,name:x.name.replace(/\.[^.]+$/,''),added:Date.parse(x.createdDateTime)||Date.now(),size:x.size,pos:0,dur:0,od:{d:x.parentReference.driveId,i:x.id}};LEC.unshift(l);LEC.sort(function(a,b){return b.added-a.added});oPut('lec',l)}
  if(swIsVid(x.name)&&!l.vid){l.vid=1;swLecSave(l)}
  if(l.vid){if(SWVID&&SWVID.lid===lid)return;if(SWA){try{SWA.pause();SWA.removeAttribute('src');SWA.load()}catch(e){}}SWCUR=lid;S.swl=lid;sv();OWNA.swwatch();return}
@@ -4598,11 +4602,20 @@ function stuAfter2(){if(OWN&&!S.swlink){stuCheck().then(function(){OWNP='sw';HT=
 var SWQ='',SWIDX=null,SWIDXB=false,SWQT=0;
 function swDone(l){return !!(l&&(l.done||((l.heard||0)>=swTg())))}
 function swSortF(fi,so){var k=function(a,b){return a.name.localeCompare(b.name,undefined,{numeric:true})};fi=fi.slice();if(so==='old')return fi.sort(k);fi.sort(function(a,b){return k(b,a)});if(so==='un')fi.sort(function(a,b){return swDone(swLecOf(a))-swDone(swLecOf(b))});return fi}
-function swRow(x,where){if(x.folder)return '<button class="swr" data-act="msdir" data-v="'+x.id+'"><span class="swr-i f">📁</span><span class="swr-t"><b>'+oEsc(x.name)+'</b><small>'+(x.folder.childCount||0)+' item'+(x.folder.childCount===1?'':'s')+'</small></span><span class="swr-s go">›</span></button>';
+/* b435: a folder opens under itself (▸ / ▾) and tucks back with one tap, like a file explorer. "Open" goes into the folder as before. */
+var SWEXP={};
+function swExp(x){var e=SWEXP[x.id];if(e){e.open=!e.open;render();return}e=SWEXP[x.id]={open:true,items:null,busy:true};render();
+ msGet('https://graph.microsoft.com/v1.0/drives/'+x.parentReference.driveId+'/items/'+x.id+'/children?$top=200').then(function(j){var tn=Date.now();(j.value||[]).forEach(function(y){var u=msDU(y);if(u)MSU[y.id]={u:u,at:tn}});e.items=(j.value||[]).filter(function(y){return y.folder||msIsAud(y.name)});e.busy=false;render()}).catch(function(er){e.busy=false;e.err=String(er);render()})}
+function swKnown(){var a=(MSF.items||[]).concat(MSF.found||[]);for(var k in SWEXP)if(SWEXP[k].items)a=a.concat(SWEXP[k].items);return a}
+function swRows(L,d){var fo=L.filter(function(x){return x.folder}).sort(function(a,b){return a.name.localeCompare(b.name,undefined,{numeric:true})}),fi=swSortF(L.filter(function(x){return !x.folder}),S.swso||'new');return fo.concat(fi).map(function(x){return swRow(x,'',d)}).join('')}
+function swRow(x,where,d){d=d||0;var ind=d?' style="padding-left:'+(10+d*18)+'px"':'';if(x.folder){var e=SWEXP[x.id],op=e&&e.open,n=x.folder.childCount||0;
+  var h='<div class="swr swr-fd'+(op?' op':'')+'"'+ind+'><button class="swr-fx" data-act="swexp" data-v="'+x.id+'"><span class="swr-tg">▸</span><span class="swr-i f">'+(op?'📂':'📁')+'</span><span class="swr-t"><b>'+oEsc(x.name)+'</b><small>'+n+' item'+(n===1?'':'s')+'</small></span></button><button class="swr-op" data-act="msdir" data-v="'+x.id+'">Open ›</button></div>';
+  if(op)h+=e.busy?'<div class="swr-ld" style="padding-left:'+(28+d*18)+'px">Opening…</div>':e.err?'<div class="swr-ld">Could not open: '+oEsc(e.err)+'</div>':e.items.length?'<div class="swr-in">'+swRows(e.items,d+1)+'</div>':'<div class="swr-ld" style="padding-left:'+(28+d*18)+'px">No audio or video here.</div>';
+  return h}
  var l=swLecOf(x),o=swT(x.name),p=l&&l.dur?Math.min(100,Math.round((l.done?l.dur:l.pos||0)/l.dur*100)):0,cur=SWCUR==='od_'+x.id,pl=cur&&SWA&&!SWA.paused,vid=swIsVid(x.name),dn=swDone(l),nt=(l&&l.notes||[]).length;
  var sub=[where?'📁 '+where:'',o.s||(vid?'Video':'Audio'),l&&l.dur?Math.round(l.dur/60)+' min':x.size?Math.round(x.size/1048576)+' MB':'',nt?'📝 '+nt:''].filter(Boolean).join(' · ');
- var st=dn?'<span class="swr-s dn">✓ heard</span>':p>0?'<span class="swr-s">'+p+'%<i><u style="width:'+p+'%"></u></i></span>':'<span class="swr-s"></span>';
- return '<button class="swr'+(cur?' cur':'')+'" data-act="msplay" data-v="'+x.id+'"><span class="swr-i '+(vid?'v':'a')+'">'+(pl?'⏸':vid?'🎬':'🎧')+'</span><span class="swr-t"><b>'+oEsc(o.t.replace(/[ _-]*(video|audio)$/i,''))+'</b><small>'+(cur?'<em>'+(pl?'Playing':'You are here')+'</em> · ':'')+oEsc(sub)+'</small></span>'+st+'</button>'}
+ var st=dn?'<span class="swr-s dn">✓ heard</span>':p>0?'<span class="swr-s">'+p+'%<i><u style="width:'+p+'%"></u></i></span>':l&&(l.pos>5||l.heard)?'<span class="swr-s">'+(l.heard?'Heard '+l.heard+'×':'Started')+'</span>':'<span class="swr-s nw">New</span>';
+ return '<button class="swr'+(cur?' cur':'')+'" data-act="msplay" data-v="'+x.id+'"'+ind+'><span class="swr-i '+(vid?'v':'a')+'">'+(pl?'⏸':vid?'🎬':'🎧')+'</span><span class="swr-t"><b>'+oEsc(o.t.replace(/[ _-]*(video|audio)$/i,''))+'</b><small>'+(cur?'<em>'+(pl?'Playing':'You are here')+'</em> · ':'')+oEsc(sub)+'</small></span>'+st+'</button>'}
 /* search: this folder straight away; every folder (listed once, up to 60 folders) for the rest */
 function swIdx(){if(SWIDX||SWIDXB||!MSF.path[0])return;SWIDXB=true;var root=MSF.path[0],out=[],q=[{d:root.d,i:root.i,n:''}],seen=0;
  function step(){var f=q.shift();if(!f||seen>=60){SWIDX=out;SWIDXB=false;render();swQFocus();return}seen++;
@@ -4633,7 +4646,8 @@ function msPanel(o){o=o||{};var t=msTok(),h='<div class="ow-fold ms-p">';
  h+='<div class="swl-n">'+(nfo?nfo+' folder'+(nfo===1?'':'s'):'')+(nfo&&nfi?' · ':'')+(nfi?nfi+' class'+(nfi===1?'':'es'):'')+'</div>';
  var fo=MSF.items.filter(function(x){return x.folder}).sort(function(a,b){return a.name.localeCompare(b.name,undefined,{numeric:true})}),fi=MSF.items.filter(function(x){return !x.folder});
  fi=swSortF(fi,so);
- if(fo.length||fi.length)h+='<div class="swl">'+fo.concat(fi).map(function(x){return swRow(x)}).join('')+'</div>';
+ var anyOp=fo.some(function(x){return SWEXP[x.id]&&SWEXP[x.id].open});if(anyOp)h=h.replace(/<div class="swl-n">([^<]*)<\/div>$/,'<div class="swl-n">$1 <button class="swl-ca" data-act="swcoll">▴ Close all folders</button></div>');
+ if(fo.length||fi.length)h+='<div class="swl">'+swRows(MSF.items,0)+'</div>';
  if(!MSF.items.length)h+='<div class="mute">No audio or video here.</div>';
  return h+'</div>'}
 Object.assign(OWNA,{
@@ -4645,7 +4659,9 @@ Object.assign(OWNA,{
  swxsave:function(){var n=((document.getElementById('swx-n')||{}).value||'').trim(),u=((document.getElementById('swx-u')||{}).value||'').trim();if(!/^https:\/\//i.test(u)){SWXMSG='Please paste a link starting with https://';render();return}if(!n)n='Folder '+((S.swx||[]).length+2);S.swx=(S.swx||[]).concat([{n:n.slice(0,40),u:u}]);sv();SWXMSG='';swFxGo(S.swx.length-1)},
  swxdel:function(){if(SWFX<0)return;var x=S.swx[SWFX];if(!confirm('Remove “'+x.n+'” from the app? The folder stays in OneDrive.'))return;S.swx.splice(SWFX,1);sv();swFxGo(-1)},
  swso:function(){var L=['new','old','un'];S.swso=L[(L.indexOf(S.swso||'new')+1)%3];sv();render()},
- msdir:function(t,v){SWQ='';var x=(MSF.items||[]).concat(MSF.found||[]).filter(function(y){return y.id===v})[0];if(!x)return;MSF.path.push({d:x.parentReference.driveId,i:x.id,n:x.name});msList()},
+ swexp:function(t,v){var x=swKnown().filter(function(y){return y.id===v})[0];if(x)swExp(x)},
+ swcoll:function(){for(var k in SWEXP)SWEXP[k].open=false;render()},
+ msdir:function(t,v){SWQ='';var x=swKnown().filter(function(y){return y.id===v})[0];if(!x)return;MSF.path.push({d:x.parentReference.driveId,i:x.id,n:x.name});msList()},
  msup:function(t,v){MSF.path=MSF.path.slice(0,+v+1);msList()},
  msplay:function(t,v){msPlay(v)}
 });
@@ -5822,7 +5838,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=434,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=435,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -6273,6 +6289,9 @@ var SWHO=null;
 /* video sheet: count real watching time */
 document.addEventListener('timeupdate',function(e){var v=e.target;if(!v||v.id!=='sw-vid'||!SWVID)return;var now=Date.now(),ct=v.currentTime;if(SWVB&&!v.paused){var d=ct-SWVB.t,w=(now-SWVB.w)/1000;if(d>0&&d<=w*Math.max(1,v.playbackRate)+1.5){S.swd=S.swd||{};SWVB.acc=(SWVB.acc||0)+d;var add=Math.floor(SWVB.acc);if(add){SWVB.acc-=add;var l=LEC.filter(function(x){return x.id===SWVID.lid})[0];swAddM(l,add);if(l){l.pos=ct;l.last=now;swLog(l,add,'v')}if(Math.random()<0.2)sv()}}}SWVB={t:ct,w:now,acc:SWVB?SWVB.acc:0}},true);
 document.addEventListener('seeking',function(e){if(e.target&&e.target.id==='sw-vid')SWVB=null},true);
+/* b435: videos never saved their length, so the list could not show how much was watched (owner). */
+document.addEventListener('loadedmetadata',function(e){var v=e.target;if(!v||v.id!=='sw-vid'||!SWVID||!isFinite(v.duration)||v.duration<5)return;var l=LEC.filter(function(x){return x.id===SWVID.lid})[0];if(l&&Math.abs((l.dur||0)-v.duration)>1){l.dur=v.duration;var c={};for(var k in l)c[k]=l[k];oPut('lec',c)}},true);
+document.addEventListener('pause',function(e){var v=e.target;if(!v||v.id!=='sw-vid'||!SWVID)return;var l=LEC.filter(function(x){return x.id===SWVID.lid})[0];if(l&&v.currentTime>1){l.pos=v.currentTime;if(l.dur&&v.currentTime>=l.dur-20)l.done=1;var c={};for(var k in l)c[k]=l[k];oPut('lec',c)}},true);
 
 /* --- My slokas: save, share, back up, add from a file --- */
 var MYSH=null,MYEST='';
