@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Preview · You page</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#2a2118;color:#3a2a18;-webkit-text-size-adjust:100%}
+button{font:inherit;cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
+.intro{color:#f6e7c8;padding:14px 16px 2px;max-width:430px;margin:auto;font-size:.92rem;line-height:1.45}.intro b{color:#ffd76a}
+.tabs{position:sticky;top:0;z-index:20;display:flex;gap:6px;padding:10px 8px;background:#2a2118;justify-content:center}
+.tabs button{border:0;border-radius:999px;padding:9px 14px;font-weight:700;font-size:.86rem;background:#4a3b2a;color:#f6e7c8}.tabs button.on{background:#ffd76a;color:#2a1500}
+.note{color:#f6e7c8;max-width:430px;margin:0 auto 10px;padding:0 16px;font-size:.88rem;line-height:1.45}.note b{color:#ffd76a}.note ul{margin:6px 0;padding-left:18px}
+.pane{display:none}.pane.on{display:block}
+.ph{width:min(393px,calc(100vw - 16px));margin:0 auto 26px;border-radius:30px;overflow:hidden;background:#faf6ee;box-shadow:0 20px 50px rgba(0,0,0,.45);padding:16px 14px 0}
+h2{margin:0 0 2px;color:#0f6b66;font-size:1.4rem}.sub{color:#7a6a55;font-size:.85rem;margin-bottom:12px}
+.card{background:#fff;border:1px solid #eadcbc;border-radius:18px;padding:12px 14px}
+.ch{display:flex;justify-content:space-between;align-items:center}.ch b{font-size:1rem}.ch span{color:#8a7a60;font-size:.8rem;font-weight:700}
+.n3{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;margin:10px 0 8px}.n3 b{display:block;font-size:1.35rem;color:#0f6b66}.n3 b span{font-size:.75rem;color:#6a5a40}.n3 small{font-size:.7rem;color:#7a6a55}
+.bar{height:8px;border-radius:6px;background:#f2e3c4;overflow:hidden}.bar i{display:block;height:100%;border-radius:6px}
+.ln{font-size:.8rem;color:#6a5a40;margin-top:7px}.go{color:#0f6b66;font-weight:700;font-size:.8rem;float:right}
+.dv{border-top:1px dashed #e6d3a6;margin:12px 0}
+.gh{font-size:.72rem;font-weight:800;color:#8a7a60;letter-spacing:.05em;text-transform:uppercase;margin:18px 6px 6px;display:flex;justify-content:space-between}.gh span{text-transform:none;letter-spacing:0;font-weight:600;background:#e9e1cf;border-radius:999px;padding:1px 8px}
+.grp{background:#fff;border:1px solid #eadcbc;border-radius:16px;overflow:hidden}
+.it{display:flex;align-items:center;gap:12px;padding:11px 12px;min-height:54px;border-bottom:1px solid #f1e7d2}.it:last-child{border-bottom:0}
+.ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;font-size:1.05rem}
+.tx{flex:1;min-width:0}.tx b{display:block;font-size:.94rem;font-weight:600}.tx small{display:block;color:#8a7a60;font-size:.75rem}
+.vl{color:#8a7a60;font-size:.8rem;white-space:nowrap}.cv{color:#b9a888;font-size:1.2rem}
+.ok{color:#2f7d3b;font-weight:700}
+.foot{text-align:center;color:#8a7a60;font-size:.74rem;margin:16px 0 12px}
+.tb{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #eadcbc;margin:0 -14px;background:#fffdf7;padding:8px 0 14px;font-size:.66rem;text-align:center;color:#7a6a55;font-weight:700}.tb .on{color:#0f6b66}
+/* old */
+.ob{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #eadcbc;border-radius:16px;padding:14px;margin:8px 0}.ob b{display:block}.ob small{color:#7a6a55;font-size:.8rem}.rl{font-size:.72rem;font-weight:800;color:#6a5a40;letter-spacing:.08em;margin:16px 4px 4px}
+</style></head><body>
+<div class="intro"><b>You page</b> (preview, sample numbers). Same features, better order.</div>
+<div class="tabs"><button class="on" data-t="n">New</button><button data-t="o">Now</button></div>
+<div class="pane on" id="p-n"><div class="note"><b>New</b><ul><li>Progress card first. Each half opens its own details (<b>Journey ›</b> / <b>My listening ›</b>), so the separate “My journey” card goes.</li><li><b>My practice</b>: what you use often (Swadhyayam moved up here, recordings).</li><li><b>Settings</b>: one <b>Reminders</b> row for both (the stray “My Swadhyayam time” card joins it), plus <b>Back up</b>.</li><li><b>Only you</b> and <b>Help</b> at the bottom. “Works offline” becomes one small line.</li><li>Slim rows like the new Swadhyayam settings: about half the height.</li></ul></div>
+<div class="ph"><h2>🙂 You</h2><div class="sub">Your practice, progress and settings</div>
+<div class="card"><div class="ch"><b>🪷 Vishnu Sahasranamam</b><span>84 / 108 verses</span></div>
+<div class="n3"><div><b>🔥 14</b><small>day streak</small></div><div><b>84<span>/108</span></b><small>verses learned</small></div><div><b>7<span>/7</span></b><small>days this week</small></div></div>
+<div class="bar"><i style="width:78%;background:#e8890c"></i></div><div class="ln">Finish by Dec 13 at 1 verse a day <span class="go">Journey ›</span></div>
+<div class="dv"></div>
+<div class="ch"><b>📿 Swadhyayam</b><span>60 min a day</span></div>
+<div class="n3"><div><b>🔥 2</b><small>day streak</small></div><div><b>50<span>/60</span></b><small>min today</small></div><div><b>3<span>/7</span></b><small>days this week</small></div></div>
+<div class="bar"><i style="width:83%;background:#3f8f55"></i></div><div class="ln">📚 This week’s class: heard 1 of 3 · class in 3 days <span class="go">My listening ›</span></div></div>
+<div class="gh">My practice</div><div class="grp">
+<div class="it"><span class="ic" style="background:#fff1d6">📿</span><span class="tx"><b>Swadhyayam</b><small>Swamy’s classes, notes and doubts</small></span><span class="cv">›</span></div>
+<div class="it"><span class="ic" style="background:#e3eef8">🎙</span><span class="tx"><b>My recordings</b><small>Hear yourself, compare, send to the guru</small></span><span class="cv">›</span></div>
+<div class="it"><span class="ic" style="background:#f3e6f7">📅</span><span class="tx"><b>My journey</b><small>Calendar of your days</small></span><span class="cv">›</span></div></div>
+<div class="gh">Settings</div><div class="grp">
+<div class="it"><span class="ic" style="background:#e6f2f0">🎨</span><span class="tx"><b>Language and display</b><small>Script, text size, colours, full chant</small></span><span class="cv">›</span></div>
+<div class="it"><span class="ic" style="background:#fde3e0">⏰</span><span class="tx"><b>Reminders</b><small>Sahasranamam 6:00 am · Swadhyayam 6:00 pm</small></span><span class="cv">›</span></div>
+<div class="it"><span class="ic" style="background:#eef3e6">💾</span><span class="tx"><b>Back up my progress</b><small><span class="ok">Last backup 3 days ago</span></small></span><span class="cv">›</span></div>
+<div class="it"><span class="ic" style="background:#f2ead8">🔄</span><span class="tx"><b>Start again</b><small>Pick a starting verse</small></span><span class="cv">›</span></div></div>
+<div class="gh">Only you <span>others don’t see this</span></div><div class="grp">
+<div class="it"><span class="ic" style="background:#fff1d6">🎵</span><span class="tx"><b>My slokas</b><small>Trial · any sloka or song</small></span><span class="cv">›</span></div>
+<div class="it"><span class="ic" style="background:#e3eef8">🎓</span><span class="tx"><b>Guru tools</b><small>Audio and timing</small></span><span class="cv">›</span></div>
+<div class="it"><span class="ic" style="background:#f2ead8">🗒</span><span class="tx"><b>My plans</b><small>Future ideas</small></span><span class="cv">›</span></div>
+<div class="it"><span class="ic" style="background:#f2ead8">🔒</span><span class="tx"><b>Lock this area</b><small>Only if someone else uses this phone</small></span><span class="cv">›</span></div></div>
+<div class="gh">Help</div><div class="grp">
+<div class="it"><span class="ic" style="background:#e6f2f0">📘</span><span class="tx"><b>How to use the app</b><small>About 10 minutes a day</small></span><span class="cv">›</span></div>
+<div class="it"><span class="ic" style="background:#fff1d6">🗣</span><span class="tx"><b>Play by voice</b><small>🎤 in the app, or “Hey Siri, play verse”</small></span><span class="cv">›</span></div></div>
+<div class="foot">✓ Works offline · build 440</div>
+<div class="tb"><span>Today</span><span>Revise</span><span>Satsang</span><span>Learn</span><span class="on">You</span></div></div></div>
+<div class="pane" id="p-o"><div class="note"><b>Now</b>: big cards one after another; Swadhyayam is down in “Only you”; Swadhyayam time is a separate card at the very bottom.</div><div class="ph"><h2>🙂 You</h2><div class="sub">Your practice, progress and settings</div><div class="card" style="height:150px;color:#8a7a60;display:grid;place-items:center">(progress card)</div>
+<div class="ob">📅<span><b>My journey</b><small>Calendar of Sahasranamam and Swadhyayam days</small></span></div><div class="rl">MY THINGS</div><div class="ob">🎙<span><b>My recordings</b><small>Hear yourself, compare with the guru, send to the guru</small></span></div><div class="ob">💾<span><b>Back up my progress</b><small>Keep your streak safe</small></span></div><div class="rl">SETTINGS</div><div class="ob">🎨<span><b>Language &amp; display</b><small>Language, script, text size, colours, full chant</small></span></div><div class="ob">⏰<span><b>Reminders</b><small>Sahasranamam and Swadhyayam</small></span></div><div class="ob">🔄<span><b>Start again</b><small>Pick a starting verse</small></span></div><div class="rl">HELP</div><div class="ob">📘<span><b>How to use the app</b></span></div><div class="ob">🗣<span><b>Play by voice</b></span></div><div class="rl">🔒 ONLY YOU</div><div class="ob">📿<span><b>Swadhyayam</b></span></div><div class="ob">🎵<span><b>My slokas (trial)</b></span></div><div class="ob">🗒<span><b>My plans</b></span></div><div class="ob">🔒<span><b>Lock this area</b></span></div><div class="ob">🎓<span><b>Guru tools</b></span></div><div class="ob">🕕<span><b>My Swadhyayam time</b><small>Pick a daily time</small></span></div><div class="ob">📶<span><b>Works offline</b></span></div><div style="height:16px"></div></div></div>
+<script>document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===b)});document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('on',p.id==='p-'+b.dataset.t)});scrollTo(0,0)}});</script>
+</body></html>
