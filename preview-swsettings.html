@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Preview · Swadhyayam settings</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#2a2118;color:#3a2a18;-webkit-text-size-adjust:100%}
+button{font:inherit;cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
+.intro{color:#f6e7c8;padding:14px 16px 2px;max-width:430px;margin:auto;font-size:.92rem;line-height:1.45}.intro b{color:#ffd76a}
+.tabs{position:sticky;top:0;z-index:20;display:flex;gap:6px;padding:10px 8px;background:#2a2118;justify-content:center;flex-wrap:wrap}
+.tabs button{border:0;border-radius:999px;padding:9px 13px;font-weight:700;font-size:.86rem;background:#4a3b2a;color:#f6e7c8}.tabs button.on{background:#ffd76a;color:#2a1500}
+.note{color:#f6e7c8;max-width:430px;margin:0 auto 10px;padding:0 16px;font-size:.88rem;line-height:1.45}.note b{color:#ffd76a}.note ul{margin:6px 0;padding-left:18px}
+.pane{display:none}.pane.on{display:block}
+.ph{width:min(393px,calc(100vw - 16px));margin:0 auto 26px;border-radius:30px;overflow:hidden;background:#f3ecdc;box-shadow:0 20px 50px rgba(0,0,0,.45);position:relative}
+.sheet{background:#faf6ee;border-radius:26px 26px 0 0;padding:10px 16px 26px;min-height:640px}
+.grab{width:44px;height:5px;border-radius:5px;background:#dccbaa;margin:0 auto 10px}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}.sh b{font-size:1.15rem}
+.done{border:0;background:#0f6b66;color:#fff;border-radius:12px;padding:9px 16px;font-weight:700}
+.bk{border:0;background:#e6f2f0;color:#0f6b66;border-radius:12px;padding:8px 12px;font-weight:700}
+.gh{font-size:.74rem;font-weight:800;color:#8a7a60;letter-spacing:.05em;text-transform:uppercase;margin:16px 6px 6px;display:flex;justify-content:space-between}.gh span{text-transform:none;letter-spacing:0;font-weight:600;background:#e9e1cf;border-radius:999px;padding:1px 8px}
+.grp{background:#fff;border:1px solid #eadcbc;border-radius:16px;overflow:hidden}
+.it{display:flex;align-items:center;gap:12px;padding:12px;min-height:56px;border-bottom:1px solid #f1e7d2;width:100%;background:none;border-left:0;border-right:0;border-top:0;text-align:left}.it:last-child{border-bottom:0}
+.ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;font-size:1.05rem}
+.tx{flex:1;min-width:0}.tx b{display:block;font-size:.95rem;font-weight:600}.tx small{display:block;color:#8a7a60;font-size:.76rem;margin-top:1px}
+.vl{color:#8a7a60;font-size:.85rem;white-space:nowrap}.ch{color:#b9a888;font-size:1.2rem;margin-left:2px}
+.blk{padding:12px;border-bottom:1px solid #f1e7d2}.blk:last-child{border-bottom:0}.blk .top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.seg{display:flex;background:#f1e9d6;border-radius:12px;padding:3px}.seg button{flex:1;border:0;background:none;border-radius:9px;padding:9px 0;font-weight:700;font-size:.88rem;color:#6a5a40}.seg button.on{background:#fff;color:#0f6b66;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.sw{width:52px;height:32px;border-radius:999px;background:#d9cfbb;position:relative;border:0;flex:none;transition:background .2s}.sw::after{content:'';position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:left .2s}.sw.on{background:#0f6b66}.sw.on::after{left:23px}
+.tm{border:1px solid #e3d3b0;background:#fffaf0;border-radius:10px;padding:7px 10px;font-weight:700;color:#0f6b66}
+.av{width:42px;height:42px;border-radius:50%;background:#0f6b66;color:#fff;display:grid;place-items:center;font-weight:800;flex:none}
+.ok{color:#2f7d3b;font-size:.76rem;font-weight:700}
+.so{border:1px solid #efc3bb;background:#fff4f2;color:#a12a1c;border-radius:10px;padding:7px 10px;font-weight:700;font-size:.8rem}
+.ft{text-align:center;color:#8a7a60;font-size:.74rem;margin-top:14px}
+.pg p{line-height:1.5;font-size:.9rem;margin:8px 4px}.pg ol{padding-left:22px;line-height:1.55;font-size:.92rem}.pg li{margin:6px 0}
+.btn{border:0;background:#0f6b66;color:#fff;border-radius:12px;padding:11px 14px;font-weight:700;width:100%;margin-top:10px}
+/* old */
+.old .row{display:flex;align-items:center;border:1px solid #eadcbc;border-radius:14px;background:#fff;padding:14px;margin:8px 0;font-weight:700;font-size:.95rem}.old .row span{margin-left:auto;color:#8a6a2a}.pill{background:#e3eef8;color:#335;border-radius:999px;padding:1px 8px;font-size:.7rem;font-weight:600;margin-left:6px}
+/* parayanam */
+.pr{background:#faf6ee;padding:14px 16px 24px;min-height:520px}.pr h3{margin:4px 0 12px;color:#0f6b66}
+.ban{display:flex;align-items:center;gap:10px;background:#fff6dc;border:1.5px solid #f0c560;border-radius:16px;padding:10px 12px}.ban i{font-style:normal;width:38px;height:38px;border-radius:50%;background:#0f6b66;color:#fff;display:grid;place-items:center;flex:none}.ban b{display:block;font-size:.92rem}.ban small{color:#7a6a55;font-size:.76rem}
+.ban2{display:flex;gap:8px;margin-top:8px}.ban2 button{flex:1;border:1px solid #e3d3b0;background:#fff;border-radius:12px;padding:10px 0;font-weight:700;font-size:.85rem}.ban2 .p{background:#0f6b66;color:#fff;border-color:#0f6b66}
+.card{background:#fff;border:1px solid #eadcbc;border-radius:16px;padding:14px;margin-top:12px;color:#7a6a55;font-size:.88rem}
+</style></head><body>
+<div class="intro"><b>Swadhyayam settings</b> (preview, not the app). Tap the rows and switches.</div>
+<div class="tabs"><button class="on" data-t="n">New settings</button><button data-t="o">Now</button><button data-t="p">Parayanam idea</button></div>
+<div class="pane on" id="p-n"><div class="note"><b>New settings</b><ul><li>Laid out like iPhone Settings: groups with headings.</li><li><b>Your practice</b> is open straight away: goal, times per class, auto-play, reminder.</li><li><b>Account</b> shows who is signed in and if the folder is connected.</li><li>Owner-only items sit in one <b>Only you</b> group. Each row opens its own page with ‹ Back.</li></ul></div><div class="ph"><div class="sheet" id="sn"></div></div></div>
+<div class="pane" id="p-o"><div class="note"><b>Now</b>: five closed boxes, nothing visible until you open each one.</div><div class="ph"><div class="sheet old"><div class="grab"></div><div class="sh"><b>⚙️ Swadhyayam settings</b><button class="so">✕ Close</button></div>
+<div class="row">🔴 Swamy’s class link<em class="pill">only you see this</em><span>›</span></div><div class="row">⏰ Reminder and daily goal<span>›</span></div><div class="row">📜 How to do Swadhyayam<span>›</span></div><div class="row">☁️ Account and folder<span>›</span></div><div class="row">🎓 My students<em class="pill">only you see this</em><span>›</span></div></div></div></div>
+<div class="pane" id="p-p"><div class="note"><b>Parayanam while the Full chant plays</b><ul><li>There is one chant player, so the two never play over each other. That part is right.</li><li>The confusing part: Parayanam takes over and shows the same verse as if you started it there.</li><li>Idea: Parayanam shows a small banner instead, with <b>Stop</b> or <b>Follow here</b>.</li></ul></div><div class="ph"><div class="pr"><h3>📿 Parayanam mode</h3>
+<div class="ban"><i>❚❚</i><span><b>The full chant is playing · verse 43</b><small>Started from The full chant · 21 min left</small></span></div><div class="ban2"><button>■ Stop</button><button class="p">Follow here ›</button></div>
+<div class="card">Below: your usual Parayanam start screen (start, carry on, settings), unchanged.</div></div></div></div>
+<script>
+var G=60,T=3,A=true,RT='06:00',PG='';
+function main(){return '<div class="grab"></div><div class="sh"><b>Settings</b><button class="done" data-x>Done</button></div>'
+ +'<div class="gh">Your practice</div><div class="grp">'
+ +'<div class="blk"><div class="top"><span class="ic" style="background:#fff1d6">🎯</span><span class="tx"><b>Daily goal</b><small>Minutes of Swamy’s classes a day</small></span></div><div class="seg">'+[30,45,60,90].map(function(x){return '<button data-g="'+x+'" class="'+(G===x?'on':'')+'">'+x+' min</button>'}).join('')+'</div></div>'
+ +'<div class="blk"><div class="top"><span class="ic" style="background:#e6f2f0">🔁</span><span class="tx"><b>Listen to each class</b><small>Before the next Sunday</small></span></div><div class="seg">'+[2,3].map(function(x){return '<button data-tt="'+x+'" class="'+(T===x?'on':'')+'">'+x+' times</button>'}).join('')+'</div></div>'
+ +'<div class="it"><span class="ic" style="background:#e3eef8">⏭</span><span class="tx"><b>Next class plays by itself</b><small>When a class ends</small></span><button class="sw'+(A?' on':'')+'" data-a aria-label="Auto play"></button></div>'
+ +'<div class="it"><span class="ic" style="background:#f3e6f7">⏰</span><span class="tx"><b>Daily reminder</b><small>Adds a repeating event to your calendar</small></span><span class="tm">'+RT+'</span></div>'
+ +'</div>'
+ +'<div class="gh">Account</div><div class="grp"><div class="it"><span class="av">P</span><span class="tx"><b>Pranav</b><small>Microsoft account</small><span class="ok">✓ Signed in · Swamy’s classes connected</span></span><button class="so">Sign out</button></div>'
+ +'<button class="it" data-pg="copy"><span class="ic" style="background:#eef3e6">💾</span><span class="tx"><b>Notes and listening backup</b><small>Save or move to a new phone</small></span><span class="ch">›</span></button></div>'
+ +'<div class="gh">Only you <span>students don’t see this</span></div><div class="grp">'
+ +'<button class="it" data-pg="cls"><span class="ic" style="background:#fde3e0">🔴</span><span class="tx"><b>Sunday class link</b><small>Now: Sundays 6:00 pm · Teams</small></span><span class="ch">›</span></button>'
+ +'<button class="it" data-pg="stu"><span class="ic" style="background:#e3eef8">🎓</span><span class="tx"><b>My students</b><small>4 people can see the classes</small></span><span class="ch">›</span></button>'
+ +'<button class="it" data-pg="fold"><span class="ic" style="background:#fbe7b5">📁</span><span class="tx"><b>Folders</b><small>Guru’s classes · Other lectures</small></span><span class="ch">›</span></button></div>'
+ +'<div class="gh">Help</div><div class="grp"><button class="it" data-pg="how"><span class="ic" style="background:#fff1d6">📜</span><span class="tx"><b>How to do Swadhyayam</b><small>7 simple steps</small></span><span class="ch">›</span></button></div>'
+ +'<div class="ft">Sahasranama Guru · build 437</div>'}
+var PGS={how:['How to do Swadhyayam','<ol><li>Same time and place every day. Phone on silent.</li><li>Begin with a short prayer to the guru.</li><li>Listen to last week’s class 2–3 times before Sunday.</li><li>Write 3 points and one thing to practise.</li><li>Busy day? At least 15 minutes.</li><li>Take your ❓ doubts on Sunday.</li><li>End with a prayer of thanks.</li></ol>'],
+cls:['Sunday class link','<p>Now showing: <b>Sundays 6:00 pm</b> · Teams.</p><p>To change it, edit <b>class-link.txt</b> in the class folder in OneDrive (line 1 the link, line 2 the day and time).</p><button class="btn">↻ Check the file now</button>'],
+stu:['My students','<p>4 people on the list. Make a new list when someone joins or the folder link changes.</p><button class="btn">Make the student list</button>'],
+fold:['Folders','<p>📚 Guru’s classes · connected</p><p>📁 Other lectures · connected</p><button class="btn">＋ Add folder</button>'],
+copy:['Notes and listening backup','<p>Save a copy of your notes, doubts and minutes, or bring them to a new phone.</p><button class="btn">Save a copy</button>']};
+function sub(k){return '<div class="grab"></div><div class="sh"><button class="bk" data-bk>‹ Settings</button><button class="done" data-x>Done</button></div><h3 style="margin:10px 4px">'+PGS[k][0]+'</h3><div class="pg">'+PGS[k][1]+'</div>'}
+function draw(){document.getElementById('sn').innerHTML=PG?sub(PG):main()}
+document.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)return;
+ if(t.dataset.t){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===t)});document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('on',p.id==='p-'+t.dataset.t)});return}
+ if(t.dataset.g){G=+t.dataset.g}else if(t.dataset.tt){T=+t.dataset.tt}else if(t.hasAttribute('data-a')){A=!A}else if(t.dataset.pg){PG=t.dataset.pg}else if(t.hasAttribute('data-bk')){PG=''}else return;draw()});
+draw();
+</script></body></html>
