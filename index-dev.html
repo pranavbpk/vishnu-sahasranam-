@@ -2778,6 +2778,15 @@ html.qton .nvbar{display:none!important}
 .rdrg{display:flex;align-items:center;gap:8px;margin:10px 0 2px;font-weight:700;color:#5a4a35}.rdrg .rd-seg{flex:1;margin:0}.rdstp{display:flex;align-items:center;border:1px solid #e3d3b0;border-radius:12px;overflow:hidden;background:#fff}.rdstp button{width:42px;height:44px;border:0;background:#f7f0e0;font-size:1.1rem;color:#5a3a12;cursor:pointer}.rdstp b{min-width:42px;text-align:center;font-size:1.05rem}
 .rdfew-go{width:100%;margin-top:12px;min-height:50px;border:0;border-radius:14px;background:#e8890c;color:#fff;font-weight:800;font-size:1rem;cursor:pointer}
 .swfx{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;margin-bottom:6px;border-bottom:1px solid #eadcbc;-webkit-overflow-scrolling:touch}.swfx .chip{flex:none;min-height:40px}.swfx .chip.on{background:#0f6b66;color:#fff;border-color:#0f6b66}.swfx-add{border-style:dashed!important}.swfx-f{background:#fffaf0;border:1px solid #eadcbc;border-radius:14px;padding:10px;margin-bottom:10px}.swfx-o{display:flex;gap:6px;margin:-2px 0 10px}
+.swl-tool{display:flex;gap:6px;align-items:center;margin:6px 0 4px}.swl-q{flex:1;min-width:0;display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #e3d3b0;border-radius:12px;padding:0 10px;height:42px}.swl-q input{border:0;outline:0;background:none;flex:1;min-width:0;font:inherit;font-size:16px;-webkit-appearance:none}
+.swl-so{flex:none;height:42px;border:1px solid #e3d3b0;background:#fff;border-radius:12px;padding:0 10px;font-size:.8rem;font-weight:700;color:#5a4a35;white-space:nowrap}
+.swl-cr{display:flex;align-items:center;gap:2px;flex-wrap:wrap;font-size:.86rem;margin:6px 0 2px}.swl-cr button{border:0;background:none;padding:6px 4px;color:#0f6b66;font-weight:700;font:inherit;font-weight:700}.swl-cr span{color:#b9a888}.swl-cr b{padding:6px 4px;color:#2d1a0c}.swl-cr .swl-bk{background:#e6f2f0;border-radius:10px;padding:6px 10px;margin-right:4px}
+.swl-n{color:#8a7a60;font-size:.76rem;margin:2px 2px 6px}
+.swl{background:#fff;border:1px solid #eadcbc;border-radius:14px;overflow:hidden;margin-bottom:8px}
+.swr{display:flex;align-items:center;gap:10px;width:100%;border:0;border-bottom:1px solid #f1e7d2;background:none;text-align:left;padding:9px 10px;min-height:52px;font:inherit;color:inherit;margin:0}.swr:last-child{border-bottom:0}.swr.cur{background:#fff6dc}
+.swr-i{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;flex:none;font-size:1rem}.swr-i.f{background:#fbe7b5}.swr-i.v{background:#e3eef8}.swr-i.a{background:#e6f2f0}
+.swr-t{flex:1;min-width:0}.swr-t b{display:block;font-size:.92rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.swr-t small{display:block;color:#8a7a60;font-size:.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.swr-t em{font-style:normal;color:#0f6b66;font-weight:700}
+.swr-s{flex:none;font-size:.75rem;color:#8a7a60;text-align:right;min-width:40px}.swr-s.dn{color:#0f6b66;font-weight:700}.swr-s.go{font-size:1.2rem;color:#b9a888;min-width:16px}.swr-s i{display:block;height:4px;border-radius:4px;background:#efe3c8;margin-top:4px;overflow:hidden;width:40px;margin-left:auto}.swr-s u{display:block;height:100%;background:#e8890c}
 </style>
 </head>
 <body>
@@ -4542,7 +4551,7 @@ function swFoldBar(){var L=S.swx||[];if(!L.length&&!OWN)return '';var h='<div cl
  if(SWXADD)h+='<div class="swfx-f"><label class="ow-lab" style="margin-top:0">Name for this folder</label><input id="swx-n" class="ow-in" placeholder="e.g. Bhagavad Gita classes"><label class="ow-lab">🔗 OneDrive folder link</label><input id="swx-u" class="ow-in" placeholder="Paste the shared link"><div class="ow-two"><button class="btn ow-sm" data-act="swxsave">Save</button><button class="chip" data-act="swxadd">Cancel</button></div><div class="mute">Saved only on this phone, never in the app’s code.</div>'+(SWXMSG?'<div class="ow-err">'+oEsc(SWXMSG)+'</div>':'')+'</div>';
  else if(SWFX>=0&&OWN)h+='<div class="swfx-o"><a class="chip" href="'+oEsc(swCurLink())+'" target="_blank" rel="noopener">Open in OneDrive</a><button class="chip" data-act="swxdel">Remove this folder</button></div>';
  return h}
-function swFxGo(i){SWFX=i;SWXADD=false;MSF={path:[],items:null,err:'',busy:false};MSAUTO=false;render()}
+function swFxGo(i){SWQ='';SWIDX=null;SWIDXB=false;MSF.found=null;SWFX=i;SWXADD=false;MSF={path:[],items:null,err:'',busy:false};MSAUTO=false;render()}
 function msOpenRoot(){var lk=swCurLink();if(!lk){MSF.err='Paste the guru’s OneDrive folder link first.';render();return}MSF.busy=true;MSF.err='';render();
  msGet('https://graph.microsoft.com/v1.0/shares/'+msShareId(lk)+'/driveItem',1).then(function(it){MSF.path=[{d:it.parentReference&&it.parentReference.driveId,i:it.id,n:it.name}];return msList()}).catch(function(e){MSF.busy=false;S.swok=0;sv();var t=msTok()||{};MSF.err=msExp(e)?msExpMsg():/denied|forbidden|not found|403|404|itemNotFound/i.test(String(e))?'This Microsoft account ('+(t.mail||'')+') can’t open the guru’s class folder. Ask for the folder to be shared with this email, then tap Show the guru’s classes.':'Could not open the folder: '+e;if(SWFX>=0)MSF.err=MSF.err.replace('the guru’s class folder','this folder').replace('Show the guru’s classes','the folder again');render()})}
 function msList(){var p=MSF.path[MSF.path.length-1];MSF.busy=true;MSF.err='';render();
@@ -4557,7 +4566,7 @@ function msDl(l){var base='https://graph.microsoft.com/v1.0/drives/'+l.od.d+'/it
    if((j.size||l.size||0)>150*1048576)throw 'OneDrive did not give a play link for this big file';
    OMSG='Downloading the class first (about '+Math.round((j.size||l.size||0)/1048576)+' MB)…';render();
    return msAT().then(function(at){return fetch(base+'/content',{headers:{Authorization:'Bearer '+at}})}).then(function(r){if(!r.ok)throw ('Error '+r.status);return r.blob()}).then(function(b){return URL.createObjectURL(b)})})})}
-function msPlay(id){var x=(MSF.items||[]).filter(function(y){return y.id===id})[0];if(!x)return;var lid='od_'+x.id,l=LEC.filter(function(y){return y.id===lid})[0];
+function msPlay(id){var x=(MSF.items||[]).concat(MSF.found||[]).filter(function(y){return y.id===id})[0];if(!x)return;var lid='od_'+x.id,l=LEC.filter(function(y){return y.id===lid})[0];
  if(!l){l={id:lid,name:x.name.replace(/\.[^.]+$/,''),added:Date.parse(x.createdDateTime)||Date.now(),size:x.size,pos:0,dur:0,od:{d:x.parentReference.driveId,i:x.id}};LEC.unshift(l);LEC.sort(function(a,b){return b.added-a.added});oPut('lec',l)}
  if(swIsVid(x.name)&&!l.vid){l.vid=1;swLecSave(l)}
  if(l.vid){if(SWVID&&SWVID.lid===lid)return;if(SWA){try{SWA.pause();SWA.removeAttribute('src');SWA.load()}catch(e){}}SWCUR=lid;S.swl=lid;sv();OWNA.swwatch();return}
@@ -4586,6 +4595,27 @@ function stuAfterSignIn(){var t=msTok()||{},em=String(t.mail||'').trim().toLower
 function stuAfter2(){if(OWN&&!S.swlink){stuCheck().then(function(){OWNP='sw';HT='me';render(1);if(S.swlink)msOpenRoot()}).catch(function(){OWNP='sw';render(1)});return}if(OWN||S.swinv){OWNP='sw';msOpenRoot();return}
  stuCheck().then(function(ok){var t=msTok()||{};if(ok===true){STUMSG='';OWNP='sw';HT='me';render(1);msOpenRoot();return}
   OWNP='gate';HT='me';STUMSG=ok==='nolink'?'You are on the guru’s student list, but the class folder isn’t set up for you yet. Please tell Pranav.':'Signed in as '+(t.mail||'')+', but this email isn’t on the class list yet. Please check you used the email you gave, or ask Pranav.';render(1);scrollTo(0,0)}).catch(function(e){OWNP='gate';HT='me';STUMSG='Could not check the class list: '+e;render(1)})}
+var SWQ='',SWIDX=null,SWIDXB=false,SWQT=0;
+function swDone(l){return !!(l&&(l.done||((l.heard||0)>=swTg())))}
+function swSortF(fi,so){var k=function(a,b){return a.name.localeCompare(b.name,undefined,{numeric:true})};fi=fi.slice();if(so==='old')return fi.sort(k);fi.sort(function(a,b){return k(b,a)});if(so==='un')fi.sort(function(a,b){return swDone(swLecOf(a))-swDone(swLecOf(b))});return fi}
+function swRow(x,where){if(x.folder)return '<button class="swr" data-act="msdir" data-v="'+x.id+'"><span class="swr-i f">📁</span><span class="swr-t"><b>'+oEsc(x.name)+'</b><small>'+(x.folder.childCount||0)+' item'+(x.folder.childCount===1?'':'s')+'</small></span><span class="swr-s go">›</span></button>';
+ var l=swLecOf(x),o=swT(x.name),p=l&&l.dur?Math.min(100,Math.round((l.done?l.dur:l.pos||0)/l.dur*100)):0,cur=SWCUR==='od_'+x.id,pl=cur&&SWA&&!SWA.paused,vid=swIsVid(x.name),dn=swDone(l),nt=(l&&l.notes||[]).length;
+ var sub=[where?'📁 '+where:'',o.s||(vid?'Video':'Audio'),l&&l.dur?Math.round(l.dur/60)+' min':x.size?Math.round(x.size/1048576)+' MB':'',nt?'📝 '+nt:''].filter(Boolean).join(' · ');
+ var st=dn?'<span class="swr-s dn">✓ heard</span>':p>0?'<span class="swr-s">'+p+'%<i><u style="width:'+p+'%"></u></i></span>':'<span class="swr-s"></span>';
+ return '<button class="swr'+(cur?' cur':'')+'" data-act="msplay" data-v="'+x.id+'"><span class="swr-i '+(vid?'v':'a')+'">'+(pl?'⏸':vid?'🎬':'🎧')+'</span><span class="swr-t"><b>'+oEsc(o.t)+'</b><small>'+(cur?'<em>'+(pl?'Playing':'You are here')+'</em> · ':'')+oEsc(sub)+'</small></span>'+st+'</button>'}
+/* search: this folder straight away; every folder (listed once, up to 60 folders) for the rest */
+function swIdx(){if(SWIDX||SWIDXB||!MSF.path[0])return;SWIDXB=true;var root=MSF.path[0],out=[],q=[{d:root.d,i:root.i,n:''}],seen=0;
+ function step(){var f=q.shift();if(!f||seen>=60){SWIDX=out;SWIDXB=false;render();swQFocus();return}seen++;
+  msGet('https://graph.microsoft.com/v1.0/drives/'+f.d+'/items/'+f.i+'/children?$top=200').then(function(j){(j.value||[]).forEach(function(x){if(x.folder)q.push({d:x.parentReference.driveId,i:x.id,n:x.name});else if(msIsAud(x.name)){x._w=f.n;out.push(x)}});step()}).catch(function(){step()})}
+ step()}
+function swSearchRes(){var t=SWQ.toLowerCase(),m=function(x){return (x.name+' '+swT(x.name).t+' '+swT(x.name).s).toLowerCase().indexOf(t)>=0};
+ var here=MSF.items.filter(m),h='';
+ if(!SWIDX){swIdx();h+='<div class="swl-n">'+here.length+' found in this folder · <small>looking in every folder…</small></div>';if(here.length)h+='<div class="swl">'+swSortF(here.filter(function(x){return !x.folder}),S.swso||'new').concat(here.filter(function(x){return x.folder})).map(function(x){return swRow(x)}).join('')+'</div>';return h}
+ var all=SWIDX.filter(m),fo=here.filter(function(x){return x.folder});MSF.found=all;
+ h+='<div class="swl-n">'+(all.length+fo.length?all.length+' class'+(all.length===1?'':'es')+(fo.length?' · '+fo.length+' folder'+(fo.length===1?'':'s'):'')+' found':'Nothing matches “'+oEsc(SWQ)+'”')+'</div>';
+ if(all.length||fo.length)h+='<div class="swl">'+fo.map(function(x){return swRow(x)}).join('')+swSortF(all,S.swso||'new').map(function(x){return swRow(x,x._w||'')}).join('')+'</div>';return h}
+function swQFocus(){var q=document.getElementById('swq');if(q&&SWQ&&document.activeElement!==q){try{q.focus();q.setSelectionRange(SWQ.length,SWQ.length)}catch(e){}}}
+document.addEventListener('input',function(e){if(!e.target||e.target.id!=='swq')return;SWQ=e.target.value.trim();clearTimeout(SWQT);SWQT=setTimeout(function(){render();swQFocus()},250)});
 function msPanel(o){o=o||{};var t=msTok(),h='<div class="ow-fold ms-p">';
  if(!t||!t.at){h+='<b>☁️ Guru’s classes from OneDrive</b><div class="mute">Sign in once with a Microsoft account (Outlook, Hotmail, or one made with Gmail). The classes then show here with your progress, and play straight from OneDrive.</div><button class="btn ow-sm" data-act="mslogin">Sign in with Microsoft</button>';
   if(MSF.err)h+='<div class="ow-err">'+oEsc(MSF.err)+'</div>';return h+'</div>'}
@@ -4593,20 +4623,17 @@ function msPanel(o){o=o||{};var t=msTok(),h='<div class="ow-fold ms-p">';
  if(MSF.err)h+='<div class="ow-err">'+oEsc(MSF.err)+'</div>';
  if(!MSF.items&&!MSF.busy&&!MSAUTO&&!MSF.err){MSAUTO=true;setTimeout(function(){if(SWFX<0&&S.swpath&&S.swpath.length){MSF.path=S.swpath;msList()}else msOpenRoot()},0)}
  if(!MSF.items){h+=MSF.busy||!MSF.err?'<div class="mute">Opening the folder…</div>':'<button class="btn ow-sm" data-act="msroot">📂 '+(SWFX>=0?'Open the folder':'Show the guru’s classes')+'</button>';return h+'</div>'}
- var nfi=MSF.items.filter(function(x){return !x.folder}).length,nfo=MSF.items.length-nfi,open=o.flat||S.swall||!nfi;
- var crumb='<div class="ms-crumb">'+MSF.path.map(function(p,i){return '<button class="chip" data-act="msup" data-v="'+i+'">'+(i?oEsc(p.n):SWFX>=0?'🏠 '+oEsc(S.swx[SWFX].n):'🏠 Classes')+'</button>'}).join('<span>›</span>')+(MSF.busy?' <small>loading…</small>':'')+'</div>';
- if(open&&!(o.flat&&MSF.path.length<2))h+=crumb;
- var nw=swWeek();
- if(nw&&!o.noWeek){var nl=swLecOf(nw),hh=(nl&&nl.heard)||0;
-  h+='<div class="ms-week"><small>THIS WEEK’S CLASS · '+swSun().toUpperCase()+'</small>'+swTH(nw.name)+'<span class="sw-sub">'+swDots(hh)+swHeard(nl)+'</span><button class="btn ow-sm" data-act="msplay" data-v="'+nw.id+'">▶ '+(nl&&nl.pos>5&&nl.pos<(nl.dur||1e9)-5?'Continue':'Play')+'</button></div>'}
+ /* b434: compact list like OneDrive's list view (owner picked A from preview-swfolders): slim rows, folders first, path with Back, search (this folder at once, then every folder), sort. */
+ var nfi=MSF.items.filter(function(x){return !x.folder}).length,nfo=MSF.items.length-nfi;
  h+=swCatchLine();
- var cur=MSF.path.length?MSF.path[MSF.path.length-1].n:'';
- if(!o.flat)h+='<button class="sw-fold" data-act="swall"><span>📂 <b>'+(open?'All classes here':oEsc(cur||'All classes'))+'</b><small>'+nfi+' class'+(nfi===1?'':'es')+(nfo?' · '+nfo+' folder'+(nfo===1?'':'s'):'')+'</small></span><em>'+(open?'Hide ▴':'Show ▾')+'</em></button>';
- if(!open)return h+'</div>';
- var fo=MSF.items.filter(function(x){return x.folder}),fi=MSF.items.filter(function(x){return !x.folder}).sort(function(a,b){return b.name.localeCompare(a.name,undefined,{numeric:true})});
- h+=fo.concat(fi).map(function(x){if(x.folder)return '<button class="ow-lb" data-act="msdir" data-v="'+x.id+'"><span class="ow-lp" style="background:#d9a034">📁</span><span class="ow-tx"><b>'+oEsc(x.name)+'</b><small>'+(x.folder.childCount||0)+' items</small></span><span class="ow-go">›</span></button>';
-  var l=swLecOf(x),p=l&&l.dur?Math.min(100,Math.round((l.done?l.dur:l.pos||0)/l.dur*100)):0,cur=SWCUR==='od_'+x.id,pl=cur&&SWA&&!SWA.paused,vid=swIsVid(x.name);
-  return '<button class="ow-lb'+(cur?' cur':'')+'" data-act="msplay" data-v="'+x.id+'"><span class="ow-lp"'+(vid?' style="background:#8a7350"':'')+'>'+(pl?'⏸':vid?'🎬':'▶')+'</span><span class="ow-tx">'+(cur?'<span class="swn-here">YOU ARE HERE</span>':'')+swTH(x.name)+'<small>'+(x.size?Math.round(x.size/1048576)+' MB · ':'')+(l?swHeard(l):'not started')+(p&&p<100&&!(l&&l.done)?' · '+p+'%':'')+((l&&l.notes||[]).length?' · 📝 '+l.notes.length:'')+'</small><i class="ow-bar"><u style="width:'+(l&&l.done?100:p)+'%"></u></i></span></button>'}).join('');
+ var so=S.swso||'new';
+ h+='<div class="swl-tool"><label class="swl-q">🔍<input id="swq" type="search" placeholder="'+(SWFX>=0?'Search this folder':'Search all classes')+'" value="'+oEsc(SWQ)+'" autocomplete="off"></label><button class="swl-so" data-act="swso">'+({new:'Newest ↓',old:'Oldest ↑',un:'Not heard'})[so]+'</button></div>';
+ if(SWQ.length>=2)return h+swSearchRes()+'</div>';
+ h+='<div class="swl-cr">'+(MSF.path.length>1?'<button class="swl-bk" data-act="msup" data-v="'+(MSF.path.length-2)+'">‹ Back</button>':'')+MSF.path.map(function(p,i){var nm=i?oEsc(p.n):SWFX>=0?'🏠 '+oEsc(S.swx[SWFX].n):'🏠 Classes';return i<MSF.path.length-1?'<button data-act="msup" data-v="'+i+'">'+nm+'</button><span>›</span>':'<b>'+nm+'</b>'}).join('')+(MSF.busy?' <small>loading…</small>':'')+'</div>';
+ h+='<div class="swl-n">'+(nfo?nfo+' folder'+(nfo===1?'':'s'):'')+(nfo&&nfi?' · ':'')+(nfi?nfi+' class'+(nfi===1?'':'es'):'')+'</div>';
+ var fo=MSF.items.filter(function(x){return x.folder}).sort(function(a,b){return a.name.localeCompare(b.name,undefined,{numeric:true})}),fi=MSF.items.filter(function(x){return !x.folder});
+ fi=swSortF(fi,so);
+ if(fo.length||fi.length)h+='<div class="swl">'+fo.concat(fi).map(function(x){return swRow(x)}).join('')+'</div>';
  if(!MSF.items.length)h+='<div class="mute">No audio or video here.</div>';
  return h+'</div>'}
 Object.assign(OWNA,{
@@ -4617,7 +4644,8 @@ Object.assign(OWNA,{
  swxadd:function(){SWXADD=!SWXADD;SWXMSG='';render()},
  swxsave:function(){var n=((document.getElementById('swx-n')||{}).value||'').trim(),u=((document.getElementById('swx-u')||{}).value||'').trim();if(!/^https:\/\//i.test(u)){SWXMSG='Please paste a link starting with https://';render();return}if(!n)n='Folder '+((S.swx||[]).length+2);S.swx=(S.swx||[]).concat([{n:n.slice(0,40),u:u}]);sv();SWXMSG='';swFxGo(S.swx.length-1)},
  swxdel:function(){if(SWFX<0)return;var x=S.swx[SWFX];if(!confirm('Remove “'+x.n+'” from the app? The folder stays in OneDrive.'))return;S.swx.splice(SWFX,1);sv();swFxGo(-1)},
- msdir:function(t,v){var x=(MSF.items||[]).filter(function(y){return y.id===v})[0];if(!x)return;MSF.path.push({d:x.parentReference.driveId,i:x.id,n:x.name});msList()},
+ swso:function(){var L=['new','old','un'];S.swso=L[(L.indexOf(S.swso||'new')+1)%3];sv();render()},
+ msdir:function(t,v){SWQ='';var x=(MSF.items||[]).concat(MSF.found||[]).filter(function(y){return y.id===v})[0];if(!x)return;MSF.path.push({d:x.parentReference.driveId,i:x.id,n:x.name});msList()},
  msup:function(t,v){MSF.path=MSF.path.slice(0,+v+1);msList()},
  msplay:function(t,v){msPlay(v)}
 });
@@ -5794,7 +5822,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=433,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=434,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
