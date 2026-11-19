@@ -2826,6 +2826,7 @@ html.qton .nvbar{display:none!important}
 .swr-s.dn{margin:0!important;padding:0!important;border:0!important}.swr-i.d{background:#0f6b66;color:#fff;font-weight:800}.swr-i.y{background:#fde3e0;color:#c0392b}.swr-i.l{background:#eef3e6}
 .swr-ol{padding:0!important;gap:0}.swr-mo{flex:none;border:0;background:none;color:#a89878;font-size:1.1rem;padding:8px 10px;cursor:pointer}
 .sw-cu{border-radius:14px!important;padding:9px 10px!important}
+.mssw .msr.msr3{display:grid!important;grid-template-columns:repeat(3,1fr)!important}.mssw-c{margin-top:10px;color:#6a5a40;font-size:.86rem;line-height:1.35}.mssw-h span{color:#8a7a60;font-size:.82rem;font-weight:700}
 </style>
 </head>
 <body>
@@ -3410,7 +3411,10 @@ function swNow(){var f=S.swrt,t=S.swrt2;if(!f||!t)return false;var d=new Date(),
 function swTimeCard(){var sl=swSlot(),pl=S.swplan||'';
  if(SWTE)return '<div class="swtc ed"><div class="swtc-h">🕕 <b>My Swadhyayam time</b></div><div class="swtc-r"><label>From<input type="time" id="sw-f" value="'+(S.swrt||'06:00')+'"></label><label>To<input type="time" id="sw-t" value="'+(S.swrt2||'07:00')+'"></label></div><label class="swtc-l">My plan for this time<textarea id="sw-p" rows="3" placeholder="e.g. Listen to this week’s class, then write my doubts">'+oEsc(pl)+'</textarea></label><div class="chips" style="margin-top:8px"><button class="chip on" data-act="swtsave">💾 Save</button><button class="chip" data-act="swte">Cancel</button></div><div class="mute" style="margin-top:6px">Only you see this. It stays on this phone.</div></div>';
  return '<div class="swtc"><button class="swtc-b" data-act="swte"><span class="swtc-i">🕕</span><span class="swtc-x"><b>My Swadhyayam time'+(swNow()?' <i class="swtc-now">now</i>':'')+'</b><small>'+(sl?'Every day '+sl:'Pick a daily time for your study')+'</small>'+(pl?'<small class="swtc-p">📝 '+oEsc(pl)+'</small>':'')+'</span><span class="swtc-e">'+(sl?'Edit ›':'Set ›')+'</span></button>'+(sl?'<button class="chip swtc-c" data-act="swrem">📅 Add reminder to my calendar</button>':'')+'</div>'}
-function swSumRow(){if(!OWN&&!S.swinv)return '';var w=swDays7(),m=swMin(tdy()),g=swGoal(),st=swStreak();return '<div class="mssw"><div class="mssw-h"><b>'+SWIC+' Swadhyayam</b><span>'+(st?'🔥 '+st+' day'+(st>1?'s':''):'')+'</span></div><div class="msr"><div><b>'+m+'<span>/'+g+'</span></b><small>min today</small></div><div><b>'+w+'<span>/7</span></b><small>days this week</small></div></div><div class="msb sw"><i style="width:'+Math.min(100,Math.max(m?4:0,m/g*100))+'%"></i></div></div>'}
+/* b439: You page Swadhyayam: three numbers like Sahasranamam (streak, min today, days this week) + this week's class line (owner). */
+function swSumRow(){if(!OWN&&!S.swinv)return '';var w=swDays7(),m=swMin(tdy()),g=swGoal(),st=swStreak(),wk=S.swwk,l=wk&&LEC.filter(function(x){return x.id==='od_'+wk.id})[0],hd=l?(l.heard||0):0,tg=swTg(),cl='';
+ if(wk)cl='<div class="mssw-c">📚 This week’s class: '+(hd>=tg?'✅ heard '+tg+' of '+tg:'heard '+hd+' of '+tg)+' · '+swSun()+'</div>';
+ return '<div class="mssw"><div class="mssw-h"><b>'+SWIC+' Swadhyayam</b><span>'+g+' min a day</span></div><div class="msr msr3"><div><b>🔥 '+st+'</b><small>day streak</small></div><div><b>'+m+'<span>/'+g+'</span></b><small>min today</small></div><div><b>'+w+'<span>/7</span></b><small>days this week</small></div></div><div class="msb sw"><i style="width:'+Math.min(100,Math.max(m?4:0,m/g*100))+'%"></i></div>'+cl+'</div>'}
 var SWTE=0;
 function swStreak(){var g=swGoal()*60,n=0,d=new Date();if(((S.swd||{})[tdy()]||0)<g)d.setDate(d.getDate()-1);for(;;){if(((S.swd||{})[dstr(d)]||0)>=g){n++;d.setDate(d.getDate()-1)}else break}return n}
 function ownYou(){if(!OWN&&!S.swinv)return '';
@@ -5931,7 +5935,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=438,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=439,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
