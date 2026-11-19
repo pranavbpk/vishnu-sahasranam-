@@ -4602,7 +4602,7 @@ function swRow(x,where){if(x.folder)return '<button class="swr" data-act="msdir"
  var l=swLecOf(x),o=swT(x.name),p=l&&l.dur?Math.min(100,Math.round((l.done?l.dur:l.pos||0)/l.dur*100)):0,cur=SWCUR==='od_'+x.id,pl=cur&&SWA&&!SWA.paused,vid=swIsVid(x.name),dn=swDone(l),nt=(l&&l.notes||[]).length;
  var sub=[where?'📁 '+where:'',o.s||(vid?'Video':'Audio'),l&&l.dur?Math.round(l.dur/60)+' min':x.size?Math.round(x.size/1048576)+' MB':'',nt?'📝 '+nt:''].filter(Boolean).join(' · ');
  var st=dn?'<span class="swr-s dn">✓ heard</span>':p>0?'<span class="swr-s">'+p+'%<i><u style="width:'+p+'%"></u></i></span>':'<span class="swr-s"></span>';
- return '<button class="swr'+(cur?' cur':'')+'" data-act="msplay" data-v="'+x.id+'"><span class="swr-i '+(vid?'v':'a')+'">'+(pl?'⏸':vid?'🎬':'🎧')+'</span><span class="swr-t"><b>'+oEsc(o.t)+'</b><small>'+(cur?'<em>'+(pl?'Playing':'You are here')+'</em> · ':'')+oEsc(sub)+'</small></span>'+st+'</button>'}
+ return '<button class="swr'+(cur?' cur':'')+'" data-act="msplay" data-v="'+x.id+'"><span class="swr-i '+(vid?'v':'a')+'">'+(pl?'⏸':vid?'🎬':'🎧')+'</span><span class="swr-t"><b>'+oEsc(o.t.replace(/[ _-]*(video|audio)$/i,''))+'</b><small>'+(cur?'<em>'+(pl?'Playing':'You are here')+'</em> · ':'')+oEsc(sub)+'</small></span>'+st+'</button>'}
 /* search: this folder straight away; every folder (listed once, up to 60 folders) for the rest */
 function swIdx(){if(SWIDX||SWIDXB||!MSF.path[0])return;SWIDXB=true;var root=MSF.path[0],out=[],q=[{d:root.d,i:root.i,n:''}],seen=0;
  function step(){var f=q.shift();if(!f||seen>=60){SWIDX=out;SWIDXB=false;render();swQFocus();return}seen++;
