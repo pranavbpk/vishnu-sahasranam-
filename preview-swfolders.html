@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · Swadhyayam folders</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#2a2118;color:#3a2a18;-webkit-text-size-adjust:100%}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;color:inherit}
+.intro{color:#f6e7c8;padding:14px 16px 2px;max-width:430px;margin:auto;font-size:.92rem;line-height:1.45}.intro b{color:#ffd76a}
+.tabs{position:sticky;top:0;z-index:20;display:flex;gap:6px;padding:10px 8px;background:#2a2118;justify-content:center;flex-wrap:wrap}
+.tabs button{border:0;border-radius:999px;padding:9px 13px;font-weight:700;font-size:.86rem;background:#4a3b2a;color:#f6e7c8}.tabs button.on{background:#ffd76a;color:#2a1500}
+.note{color:#f6e7c8;max-width:430px;margin:0 auto 10px;padding:0 16px;font-size:.88rem;line-height:1.45}.note b{color:#ffd76a}.note ul{margin:6px 0;padding-left:18px}
+.ph{width:min(393px,calc(100vw - 16px));height:800px;margin:0 auto 28px;border-radius:34px;overflow:hidden;background:#faf6ee;box-shadow:0 20px 50px rgba(0,0,0,.45);display:flex;flex-direction:column}
+.hd{padding:16px 16px 8px}.hd b{color:#0f6b66;font-size:1.15rem}
+.seg3{display:flex;background:#efe5cf;border-radius:14px;padding:4px;margin:10px 0 0}.seg3 span{flex:1;text-align:center;padding:8px 0;border-radius:10px;font-weight:700;font-size:.88rem;color:#6a5a40}.seg3 .on{background:#fff;color:#0f6b66}
+.body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 14px 20px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:6px 0 8px}.chips span{flex:none;border:1px solid #e3d3b0;background:#fff;border-radius:999px;padding:8px 12px;font-weight:600;font-size:.85rem}.chips .on{background:#0f6b66;color:#fff;border-color:#0f6b66}
+.now{display:flex;align-items:center;gap:10px;background:#fff6dc;border:1px solid #f0c560;border-radius:14px;padding:8px 10px;margin:4px 0 8px}.now i{font-style:normal;width:36px;height:36px;border-radius:50%;background:#0f6b66;color:#fff;display:grid;place-items:center;flex:none}.now b{font-size:.9rem;display:block}.now small{color:#7a6a55;font-size:.75rem}
+.tool{display:flex;gap:6px;align-items:center;margin:4px 0 6px}
+.srch{flex:1;min-width:0;display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #e3d3b0;border-radius:12px;padding:0 10px;height:40px}.srch input{border:0;outline:0;background:none;flex:1;font:inherit;font-size:.92rem;min-width:0}
+.sort{height:40px;border:1px solid #e3d3b0;background:#fff;border-radius:12px;padding:0 10px;font-size:.8rem;font-weight:700;color:#5a4a35;white-space:nowrap}
+.crumb{display:flex;align-items:center;gap:2px;flex-wrap:wrap;font-size:.85rem;margin:4px 0 6px}.crumb button{border:0;background:none;padding:6px 4px;color:#0f6b66;font-weight:700}.crumb span{color:#b9a888}.crumb .cur{color:#2d1a0c;padding:6px 4px;font-weight:700}
+.back{border:0;background:#e6f2f0;color:#0f6b66;border-radius:10px;padding:6px 10px;font-weight:700;font-size:.82rem;margin-right:4px}
+.cnt{color:#8a7a60;font-size:.75rem;margin:2px 2px 4px}
+/* list */
+.lst{background:#fff;border:1px solid #eadcbc;border-radius:14px;overflow:hidden}
+.rw{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;text-align:left;padding:9px 10px;min-height:52px;border-bottom:1px solid #f1e7d2}.rw:last-child{border-bottom:0}
+.ic{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;flex:none;font-size:1rem}.ic.f{background:#fbe7b5}.ic.v{background:#e3eef8}.ic.a{background:#e6f2f0}
+.tx{flex:1;min-width:0}.tx b{display:block;font-size:.92rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tx small{color:#8a7a60;font-size:.75rem}
+.st{flex:none;font-size:.75rem;color:#8a7a60;text-align:right;min-width:44px}.st .dn{color:#0f6b66;font-weight:700}.pb{display:block;height:4px;border-radius:4px;background:#efe3c8;margin-top:4px;overflow:hidden;width:44px;margin-left:auto}.pb i{display:block;height:100%;background:#e8890c}
+.chev{color:#b9a888;flex:none}
+.rw.play{background:#fff6dc}
+/* tree */
+.tr .rw{min-height:44px;padding:6px 8px}.tr .ic{width:26px;height:26px;font-size:.85rem;border-radius:6px}.tr .tx b{font-size:.88rem}
+.tg{width:22px;flex:none;color:#8a7a60;font-size:.8rem;text-align:center;transition:transform .15s}.tg.o{transform:rotate(90deg)}
+/* tiles */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tl{border:1px solid #eadcbc;background:#fff;border-radius:14px;padding:10px 6px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;min-height:104px;text-align:center}
+.tl .ic{width:44px;height:44px;font-size:1.4rem;border-radius:12px}.tl b{font-size:.78rem;font-weight:600;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}.tl small{font-size:.68rem;color:#8a7a60}
+.tl.play{background:#fff6dc;border-color:#f0c560}
+.sh{font-weight:800;font-size:.75rem;color:#8a7a60;text-transform:uppercase;letter-spacing:.04em;margin:10px 2px 6px}
+/* old */
+.ob{display:flex;align-items:center;gap:12px;background:#fff;border-radius:18px;padding:14px;margin:10px 0;box-shadow:0 2px 8px rgba(80,50,10,.06)}.ob .ic{width:44px;height:44px;border-radius:12px}.ob b{font-size:1.02rem}.ob small{color:#7a6a55}.ob .bar{height:5px;background:#efe3c8;border-radius:5px;margin-top:8px}
+.empty{padding:20px;text-align:center;color:#8a7a60;font-size:.88rem}
+</style></head><body>
+<div class="intro"><b>Swadhyayam · folder layouts</b> (preview, not the app; sample names). Tap folders, try search and sort. Tell me A, B or C.</div>
+<div class="tabs"><button class="on" data-t="a">A · Compact list</button><button data-t="b">B · Folder tree</button><button data-t="c">C · Small tiles</button><button data-t="o">Now</button></div>
+<div id="note" class="note"></div>
+<div class="ph"><div class="hd"><b>🎧 Swadhyayam</b><div class="seg3"><span>Listen</span><span class="on">Library</span><span>Notes</span></div></div>
+<div class="body" id="bd"></div></div>
+<script>
+var NOTES={a:'<b>A · Compact list</b> (my pick), like OneDrive’s list view.<ul><li>One slim row each (about 52 px, was about 90). 10–12 items fit on a screen.</li><li>Folders first, then classes. Path at the top, tap to go back.</li><li>Right side: ✓ heard, or how far you got.</li></ul>',
+b:'<b>B · Folder tree</b>, like Windows Explorer.<ul><li>Open folders inside the same list (▸ / ▾), no new page.</li><li>Good to see the whole structure at once.</li><li>Gets long and indented when many folders are open; small rows on a phone.</li></ul>',
+c:'<b>C · Small tiles</b>, like OneDrive’s tiles view.<ul><li>3 per row, nice to look at.</li><li>Long class names get cut to 2 lines, harder to tell similar names apart.</li></ul>',
+o:'<b>Now</b> (Guru Test): one big card per item, about 4–5 on a screen.'};
+// sample tree
+function cls(n,y,m,ds,st){var a=[];for(var i=0;i<n;i++){var d=ds+i*7,mm=m+Math.floor((d-1)/28),dd=((d-1)%28)+1;a.push({n:(i+1<10?'0':'')+(i+1)+'_'+y+'-'+(mm<10?'0':'')+mm+'-'+(dd<10?'0':'')+dd+' Class',k:i%3===2?'v':'a',m:42+i%15,s:st(i)})}return a}
+var T={n:'Classes',c:[
+ {n:'2026 Classes',c:cls(12,2026,8,3,function(i){return i<8?1:i===8?0.4:0})},
+ {n:'2025 Classes',c:[{n:'Term 1',c:cls(6,2025,2,2,function(){return 1})},{n:'Term 2',c:cls(6,2025,6,1,function(i){return i<4?1:0})}]},
+ {n:'Special talks',c:[{n:'Gita Jayanti talk',k:'v',m:65,s:0},{n:'Q and A session',k:'v',m:38,s:0.6},{n:'Guru Purnima',k:'a',m:51,s:1}]},
+ {n:'Chanting practice',c:[{n:'Slow chant, part 1',k:'a',m:24,s:0},{n:'Slow chant, part 2',k:'a',m:26,s:0}]},
+ {n:'00_Read me first',k:'a',m:6,s:1},{n:'Introduction to the course',k:'v',m:18,s:1}]};
+function cnt(f){var a=0,b=0;f.c.forEach(function(x){x.c?a++:b++});return (a?a+' folder'+(a>1?'s':''):'')+(a&&b?' · ':'')+(b?b+' item'+(b>1?'s':''):'')}
+function ico(x){return x.c?'<span class="ic f">📁</span>':x.k==='v'?'<span class="ic v">🎬</span>':'<span class="ic a">🎧</span>'}
+function stat(x){if(x.c)return '<span class="chev">›</span>';if(x.s>=1)return '<span class="st"><span class="dn">✓ heard</span></span>';if(x.s>0)return '<span class="st">'+Math.round(x.s*100)+'%<span class="pb"><i style="width:'+x.s*100+'%"></i></span></span>';return '<span class="st">'+x.m+' min</span>'}
+function nm(x){return x.n.replace(/^(\d+)_(\d{4}-\d{2}-\d{2}) /,'$1 · ')}
+function sub(x){if(x.c)return cnt(x);var d=x.n.match(/_(\d{4})-(\d{2})-(\d{2})/);return (x.k==='v'?'Video':'Audio')+' · '+x.m+' min'+(d?' · '+d[3]+'/'+d[2]+'/'+d[1].slice(2):'')}
+var V='a',P=[T],Q='',SO='new',OPEN={};
+function cur(){return P[P.length-1]}
+function sorted(f){var fo=f.c.filter(function(x){return x.c}),fi=f.c.filter(function(x){return !x.c});fi=fi.slice().sort(function(a,b){return SO==='new'?b.n.localeCompare(a.n,undefined,{numeric:true}):SO==='old'?a.n.localeCompare(b.n,undefined,{numeric:true}):(a.s>=1)-(b.s>=1)||b.n.localeCompare(a.n,undefined,{numeric:true})});return fo.concat(fi)}
+function all(f,path){var r=[];f.c.forEach(function(x){if(x.c)r=r.concat(all(x,path.concat([x.n])));else r.push({x:x,p:path.join(' › ')})});return r}
+function topH(){return '<div class="chips"><span class="on">📚 Guru’s classes</span><span>📁 Other lectures</span><span>＋ Add folder</span></div>'
+ +'<div class="now"><i>❚❚</i><span><b>09 · Class</b><small>Playing · 2026 Classes · 17 min left</small></span></div>'
+ +'<div class="tool"><label class="srch">🔍<input id="q" placeholder="Search all classes" value="'+Q.replace(/"/g,'&quot;')+'"></label><button class="sort" data-sort>'+({new:'Newest ↓',old:'Oldest ↑',un:'Not heard'})[SO]+'</button></div>'}
+function crumb(){return '<div class="crumb">'+(P.length>1?'<button class="back" data-up="'+(P.length-2)+'">‹ Back</button>':'')+P.map(function(f,i){return i<P.length-1?'<button data-up="'+i+'">'+(i?f.n:'🏠 Classes')+'</button><span>›</span>':'<span class="cur">'+(i?f.n:'🏠 Classes')+'</span>'}).join('')+'</div>'}
+function row(x,i,pfx,pl){return '<button class="rw'+(pl?' play':'')+'" '+(x.c?'data-in="'+i+'"':'')+'>'+(pfx||'')+ico(x)+'<span class="tx"><b>'+nm(x)+'</b><small>'+sub(x)+'</small></span>'+stat(x)+'</button>'}
+function search(){var r=all(T,[]).filter(function(o){return o.x.n.toLowerCase().indexOf(Q.toLowerCase())>=0});if(!r.length)return '<div class="empty">Nothing matches “'+Q+'”.</div>';return '<div class="cnt">'+r.length+' found in all folders</div><div class="lst">'+r.map(function(o){return '<button class="rw">'+ico(o.x)+'<span class="tx"><b>'+nm(o.x)+'</b><small>'+o.p+' · '+o.x.m+' min</small></span>'+stat(o.x)+'</button>'}).join('')+'</div>'}
+function draw(){var h='',f=cur();
+ if(V==='o'){h='<div class="chips"><span class="on">📚 Guru’s classes</span><span>📁 Other lectures</span></div>'+T.c.slice(0,3).map(function(x){return '<div class="ob"><span class="ic f" style="font-size:1.3rem">📁</span><span class="tx"><b>'+x.n+'</b><br><small>'+cnt(x)+'</small></span><span class="chev">›</span></div>'}).join('')+T.c[0].c.slice(0,3).map(function(x){return '<div class="ob"><span class="ic a" style="font-size:1.3rem">▶</span><span class="tx"><b>Class</b><br><small>'+sub(x)+'</small><div class="bar"></div></span></div>'}).join('');document.getElementById('bd').innerHTML=h;return}
+ h=topH();
+ if(Q){document.getElementById('bd').innerHTML=h+search();bindQ();return}
+ if(V==='a'){h+=crumb()+'<div class="cnt">'+cnt(f)+'</div><div class="lst">'+sorted(f).map(function(x,i){return row(x,f.c.indexOf(x),'',x.s>0&&x.s<1&&x.n.indexOf('09_')===0)}).join('')+'</div>'}
+ if(V==='b'){var tr=function(n,d,id){return sorted(n).map(function(x){var k=id+'/'+x.n,o=!!OPEN[k],ind='<span style="width:'+(d*16)+'px;flex:none"></span>';var r='<button class="rw'+(x.n.indexOf('09_2026')===0?' play':'')+'" '+(x.c?'data-tg="'+k+'"':'')+'>'+ind+'<span class="tg'+(o?' o':'')+'">'+(x.c?'▸':'')+'</span>'+ico(x)+'<span class="tx"><b>'+nm(x)+'</b>'+(x.c?'':'<small>'+sub(x)+'</small>')+'</span>'+(x.c?'<span class="st">'+x.c.length+'</span>':stat(x))+'</button>';return r+(x.c&&o?tr(x,d+1,k):'')}).join('')};
+  h+='<div class="cnt">🏠 Classes · tap ▸ to open a folder</div><div class="lst tr">'+tr(T,0,'')+'</div>'}
+ if(V==='c'){var L=sorted(f),fo=L.filter(function(x){return x.c}),fi=L.filter(function(x){return !x.c});var tile=function(x){return '<button class="tl'+(x.n.indexOf('09_2026')===0?' play':'')+'" '+(x.c?'data-in="'+f.c.indexOf(x)+'"':'')+'>'+ico(x)+'<b>'+nm(x)+'</b><small>'+(x.c?cnt(x):x.s>=1?'✓ heard':x.s>0?Math.round(x.s*100)+'% heard':x.m+' min')+'</small></button>'};
+  h+=crumb()+(fo.length?'<div class="sh">Folders</div><div class="grid">'+fo.map(tile).join('')+'</div>':'')+(fi.length?'<div class="sh">Classes</div><div class="grid">'+fi.map(tile).join('')+'</div>':'')}
+ document.getElementById('bd').innerHTML=h;bindQ()}
+function bindQ(){var q=document.getElementById('q');if(!q)return;q.oninput=function(){Q=q.value;var p=q.selectionStart;draw();var n=document.getElementById('q');n.focus();try{n.setSelectionRange(p,p)}catch(e){}}}
+document.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)return;
+ if(t.dataset.t){V=t.dataset.t;P=[T];Q='';document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===t)});document.getElementById('note').innerHTML=NOTES[V];draw();return}
+ if(t.dataset.in!=null){P.push(cur().c[+t.dataset.in]);draw();document.getElementById('bd').scrollTop=0;return}
+ if(t.dataset.up!=null){P=P.slice(0,+t.dataset.up+1);draw();return}
+ if(t.dataset.tg){OPEN[t.dataset.tg]=!OPEN[t.dataset.tg];draw();return}
+ if(t.hasAttribute('data-sort')){SO=SO==='new'?'old':SO==='old'?'un':'new';draw();return}});
+OPEN['/2026 Classes']=true;document.getElementById('note').innerHTML=NOTES.a;draw();
+</script></body></html>
