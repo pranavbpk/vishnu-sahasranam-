@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · Record and check</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#faf6ee;color:#3a2a18;-webkit-text-size-adjust:100%;padding:0 0 40px}
+button{font:inherit;cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:440px;margin:0 auto;padding:12px 14px calc(20px + env(safe-area-inset-bottom,0px))}
+.tag{display:block;width:max-content;margin:6px auto 8px;background:#7a4ab0;color:#fff;border-radius:999px;padding:3px 12px;font-size:.72rem;font-weight:800;letter-spacing:.08em}
+h1{font-size:1.15rem;color:#0f6b66;margin:4px 0 2px}.sub{color:#7a6a55;font-size:.85rem;margin-bottom:10px}
+.steps{display:flex;gap:6px;margin:8px 0 14px}.steps button{flex:1;border:1px solid #e3d3b0;background:#fff;border-radius:12px;padding:9px 2px;font-weight:700;font-size:.82rem;color:#6a5a40}.steps button.on{background:#0f6b66;color:#fff;border-color:#0f6b66}.steps button i{font-style:normal;display:block;font-size:.68rem;font-weight:600;opacity:.8}
+.card{background:#fff;border:1px solid #eadcbc;border-radius:18px;padding:14px;margin-bottom:12px}
+.vs{font-size:1.15rem;line-height:1.6;color:#2d1a0c;text-align:center}.pr{color:#0f6b66;font-size:.88rem;text-align:center;margin-top:6px;line-height:1.5}
+.mic{display:block;margin:14px auto 6px;width:92px;height:92px;border-radius:50%;border:0;background:#c0392b;color:#fff;font-size:2rem;box-shadow:0 8px 20px rgba(192,57,43,.35)}.mic.rec{animation:pl 1.2s infinite}@keyframes pl{50%{box-shadow:0 0 0 14px rgba(192,57,43,.15)}}
+.mt{text-align:center;color:#7a6a55;font-size:.88rem}.mt b{color:#2d1a0c;font-size:1rem;display:block}
+.gh{font-size:.72rem;font-weight:800;color:#8a7a60;letter-spacing:.05em;text-transform:uppercase;margin:14px 4px 6px}
+.pb{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pb button{border:1px solid #e3d3b0;background:#fff;border-radius:14px;min-height:50px;font-weight:700;font-size:.9rem}.pb .wide{grid-column:1/-1;background:#0f6b66;color:#fff;border-color:#0f6b66}
+.wv{margin:6px 0 2px}.wv label{display:flex;justify-content:space-between;font-size:.76rem;color:#7a6a55;margin:6px 2px 3px}canvas{width:100%;height:46px;display:block;border-radius:10px;background:#f6efe0}
+.hint{display:flex;gap:10px;align-items:flex-start;background:#eef6f3;border:1px solid #cfe3dc;border-radius:14px;padding:10px 12px;margin-top:10px;font-size:.88rem;line-height:1.4}.hint.w{background:#fff6dc;border-color:#f0dca8}.hint b{display:block}
+.ck{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f1e7d2}.ck:last-child{border-bottom:0}.ck .tx{flex:1}.ck .tx b{display:block;font-size:.95rem}.ck .tx small{color:#8a7a60;font-size:.78rem}
+.yn{display:flex;gap:6px}.yn button{border:1px solid #e3d3b0;background:#fff;border-radius:10px;padding:8px 10px;font-weight:700;font-size:.82rem;min-width:62px}.yn .y.on{background:#0f6b66;color:#fff;border-color:#0f6b66}.yn .n.on{background:#e8890c;color:#fff;border-color:#e8890c}
+.tips{margin:6px 0 0;padding-left:18px;font-size:.86rem;line-height:1.5;color:#5a4a35}
+.btn{display:block;width:100%;border:0;border-radius:14px;background:#0f6b66;color:#fff;font-weight:800;min-height:52px;font-size:1rem;margin-top:10px}.btn.g{background:#fff;color:#0f6b66;border:1.5px solid #0f6b66}
+.res{border-radius:14px;padding:12px;margin-top:10px;font-size:.9rem;line-height:1.45}.res.ok{background:#eaf5ec;border:1px solid #b9dcbf}.res.wk{background:#fff6dc;border:1px solid #f0dca8}
+.row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f1e7d2}.row:last-child{border-bottom:0}.row .n{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-weight:800;flex:none;background:#f2ead8}.row .tx{flex:1}.row .tx b{display:block;font-size:.92rem}.row .tx small{color:#8a7a60;font-size:.76rem}.row .st{font-size:.76rem;font-weight:700}
+.ok{color:#2f7d3b}.wk{color:#b0782a}.gy{color:#8a7a60}
+.who{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.who button{border:1px solid #e3d3b0;background:#fff;border-radius:999px;padding:8px 12px;font-size:.84rem;font-weight:600}.who .on{background:#0f6b66;color:#fff;border-color:#0f6b66}
+.note{font-size:.8rem;color:#8a7a60;margin-top:8px;line-height:1.4}
+.hide{display:none}
+</style></head><body><div class="wrap">
+<span class="tag">PREVIEW · NOT THE APP</span>
+<h1>🎙 Record and check · verse 43</h1>
+<div class="sub">Works for real: your microphone and the guide’s voice. Nothing is saved or sent unless you tap Send.</div>
+<div class="steps"><button class="on" data-s="1">1 · Record<i>say it once</i></button><button data-s="2">2 · Check<i>side by side</i></button><button data-s="3">3 · This week<i>send for review</i></button></div>
+
+<div id="s1">
+ <div class="card"><div class="vs">रामो विरामो विरजो मार्गो नेयो नयोऽनयः ।<br>वीरः शक्तिमतां श्रेष्ठो धर्मो धर्मविदुत्तमः ॥</div><div class="pr">Raa-mo Vi-raa-mo Vi-ra-jo Maar-go Ne-yo Na-yo Na-yah<br>Vee-rash Shak-ti-ma-taam Shresh-tho Dhar-mo Dhar-ma-vi-dut-ta-mah</div></div>
+ <button class="btn g" id="hearG">▶ Hear the guide first</button>
+ <button class="mic" id="mic" aria-label="Record">🎙</button>
+ <div class="mt" id="mt"><b>Tap to record</b>Say the whole verse once, on your own</div>
+</div>
+
+<div id="s2" class="hide">
+ <div class="card">
+  <div class="pb"><button id="pG">▶ Guide</button><button id="pY">▶ You</button><button class="wide" id="pGYG">▶ Guide → You → Guide</button></div>
+  <div class="wv"><label><span>Guide</span><span id="dG"></span></label><canvas id="cG" width="800" height="92"></canvas><label><span>You</span><span id="dY"></span></label><canvas id="cY" width="800" height="92"></canvas></div>
+  <div id="auto"></div>
+ </div>
+ <div class="gh">Your check · 3 taps</div>
+ <div class="card">
+  <div class="ck"><span class="tx"><b>Words</b><small>Every name, none missed or swapped</small></span><span class="yn" data-k="w"><button class="y">Right</button><button class="n">Work</button></span></div>
+  <div class="ck"><span class="tx"><b>Flow</b><small>Same pace, breath after line 1</small></span><span class="yn" data-k="f"><button class="y">Right</button><button class="n">Work</button></span></div>
+  <div class="ck"><span class="tx"><b>Sounds</b><small>Long aa, sh / ṣ, -ah endings</small></span><span class="yn" data-k="s"><button class="y">Right</button><button class="n">Work</button></span></div>
+ </div>
+ <div class="card"><b>👂 Listen for these in verse 43</b><ul class="tips"><li><b>Raa</b>-mo, Vi-<b>raa</b>-mo, <b>Maar</b>-go: hold the long “aa” for two beats</li><li><b>Shresh</b>-tho: “sh” then “th” together, no “a” between</li><li>Na-<b>yah</b>, Dhar-ma-vi-dut-ta-<b>mah</b>: soft “h” at the end, don’t drop it</li></ul></div>
+ <div id="res"></div>
+ <button class="btn hide" id="toWeek">Next · this week’s chanting ›</button>
+ <button class="btn g" id="again">🎙 Record again</button>
+</div>
+
+<div id="s3" class="hide">
+ <div class="card"><b>This week · verses 41–45</b><div class="note" style="margin-top:2px">Your best take of each verse. Sample rows except verse 43, which is your real take.</div>
+  <div class="row"><span class="n">41</span><span class="tx"><b>Udbhavah kshobhano devah</b><small>Best take · 0:21</small></span><span class="st ok">✓ checked</span></div>
+  <div class="row"><span class="n">42</span><span class="tx"><b>Vyavasaayo vyavasthaanah</b><small>Best take · 0:24 · sounds need work</small></span><span class="st wk">Work</span></div>
+  <div class="row"><span class="n">43</span><span class="tx"><b>Raamo viraamo virajo</b><small id="r43">Not recorded yet</small></span><span class="st" id="s43">–</span></div>
+  <div class="row"><span class="n">44</span><span class="tx"><b>Vaikunthah purushah praanah</b><small>Not recorded yet</small></span><span class="st gy">Record ›</span></div>
+  <div class="row"><span class="n">45</span><span class="tx"><b>Rituh sudarshanah kaalah</b><small>Best take · 0:19</small></span><span class="st ok">✓ checked</span></div>
+ </div>
+ <div class="gh">Send for review to</div>
+ <div class="card"><div class="who" id="who"><button class="on">🙏 My guru</button><button>🧑‍🤝‍🧑 A chanting partner</button><button>👥 My study group</button></div>
+  <div class="note">One message a week, not one per verse. They listen in 2–3 minutes and reply ✓ or “redo”.</div>
+  <button class="btn" id="send">📤 Send this week’s chanting</button><div class="note" id="sendm"></div></div>
+ <div class="gh">When they reply</div>
+ <div class="card"><div class="row"><span class="n">43</span><span class="tx"><b>Mark what they said</b><small>Shows on the verse and in My journey</small></span><span class="yn"><button class="y" data-r>✓ Good</button><button class="n" data-r>🔁 Redo</button></span></div><div class="note">A verse gets <b>“Reviewed ✓”</b> only from a reviewer. Later, with an online backend, they could reply inside the app.</div></div>
+</div>
+</div>
+<script>
+var G='audio/v043.m4a',take=null,takeUrl=null,rec=null,chunks=[],t0=0,tm=0,AC=null,player=new Audio(),CK={};
+function $(i){return document.getElementById(i)}
+function step(n){[1,2,3].forEach(function(k){$('s'+k).classList.toggle('hide',k!==n)});document.querySelectorAll('.steps button').forEach(function(b){b.classList.toggle('on',+b.dataset.s===n)});scrollTo(0,0)}
+document.querySelectorAll('.steps button').forEach(function(b){b.onclick=function(){var n=+b.dataset.s;if(n===2&&!take){$('mt').innerHTML='<b>Record first</b>Then you can compare';return}step(n)}});
+function play(u,cb){player.pause();player.src=u;player.onended=function(){if(cb)cb()};player.play().catch(function(){})}
+$('hearG').onclick=function(){play(G)};
+$('mic').onclick=function(){
+ if(rec&&rec.state==='recording'){rec.stop();return}
+ if(!navigator.mediaDevices||!window.MediaRecorder){$('mt').innerHTML='<b>Recording not supported here</b>Open this page in Safari on your iPhone';return}
+ navigator.mediaDevices.getUserMedia({audio:true}).then(function(st){chunks=[];var mt=MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported('audio/mp4')?'audio/mp4':'';rec=mt?new MediaRecorder(st,{mimeType:mt}):new MediaRecorder(st);
+  rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data)};
+  rec.onstop=function(){st.getTracks().forEach(function(t){t.stop()});clearInterval(tm);$('mic').classList.remove('rec');$('mic').textContent='🎙';take=new Blob(chunks,{type:rec.mimeType||'audio/mp4'});if(takeUrl)URL.revokeObjectURL(takeUrl);takeUrl=URL.createObjectURL(take);$('mt').innerHTML='<b>Got it</b>Now compare';CK={};resetCk();step(2);analyse()};
+  rec.start();t0=Date.now();$('mic').classList.add('rec');$('mic').textContent='■';tm=setInterval(function(){$('mt').innerHTML='<b>Recording… '+((Date.now()-t0)/1000).toFixed(0)+' s</b>Tap ■ when you finish'},300)
+ }).catch(function(e){$('mt').innerHTML='<b>Microphone blocked</b>Allow the microphone for this page and try again'})};
+$('pG').onclick=function(){play(G)};$('pY').onclick=function(){if(takeUrl)play(takeUrl)};
+$('pGYG').onclick=function(){play(G,function(){setTimeout(function(){play(takeUrl,function(){setTimeout(function(){play(G)},600)})},600)})};
+$('again').onclick=function(){step(1)};$('toWeek').onclick=function(){step(3)};
+function env(buf){var d=buf.getChannelData(0),sr=buf.sampleRate,w=Math.round(sr*0.05),n=Math.floor(d.length/w),e=[];for(var i=0;i<n;i++){var s=0;for(var j=i*w;j<(i+1)*w;j+=4)s+=d[j]*d[j];e.push(Math.sqrt(s/(w/4)))}var mx=Math.max.apply(null,e)||1;e=e.map(function(x){return x/mx});var th=0.12,a=0,b=e.length-1;while(a<b&&e[a]<th)a++;while(b>a&&e[b]<th)b--;var c=e.slice(a,b+1),gaps=0,run=0;c.forEach(function(x){if(x<th){run++}else{if(run>=6)gaps++;run=0}});return {e:c,sec:c.length*0.05,gaps:gaps}}
+function draw(cv,E,col,max){var x=cv.getContext('2d'),W=cv.width,H=cv.height;x.clearRect(0,0,W,H);var bw=W/max;x.fillStyle=col;E.e.forEach(function(v,i){var h=Math.max(2,v*H*0.9);x.fillRect(i*bw,(H-h)/2,Math.max(1,bw-0.5),h)})}
+function analyse(){$('auto').innerHTML='<div class="note">Comparing…</div>';try{AC=AC||new (window.AudioContext||window.webkitAudioContext)()}catch(e){}
+ if(!AC){$('auto').innerHTML='';return}
+ Promise.all([fetch(G).then(function(r){return r.arrayBuffer()}),take.arrayBuffer()]).then(function(ab){return Promise.all(ab.map(function(a){return new Promise(function(ok,no){AC.decodeAudioData(a,ok,no)})}))}).then(function(bs){
+  var g=env(bs[0]),y=env(bs[1]),mx=Math.max(g.e.length,y.e.length);draw($('cG'),g,'#0f6b66',mx);draw($('cY'),y,'#e8890c',mx);$('dG').textContent=g.sec.toFixed(0)+' s';$('dY').textContent=y.sec.toFixed(0)+' s';
+  var r=y.sec/g.sec,h='';
+  if(y.sec<2)h='<div class="hint w"><span>🎙</span><span><b>Very short take</b>Say the whole verse, both lines.</span></div>';
+  else{h+=r<0.8?'<div class="hint w"><span>⏩</span><span><b>A little fast</b>You took '+y.sec.toFixed(0)+' s, the guide '+g.sec.toFixed(0)+' s. Hold the long sounds.</span></div>':r>1.35?'<div class="hint w"><span>🐢</span><span><b>A little slow</b>You took '+y.sec.toFixed(0)+' s, the guide '+g.sec.toFixed(0)+' s. That is fine while learning.</span></div>':'<div class="hint"><span>✅</span><span><b>Good pace</b>Close to the guide ('+y.sec.toFixed(0)+' s vs '+g.sec.toFixed(0)+' s).</span></div>';
+   h+=y.gaps<1&&g.gaps>=1?'<div class="hint w"><span>🌬</span><span><b>Take a breath after line 1</b>The guide pauses in the middle; you did not.</span></div>':'';}
+  h+='<div class="note">This rough check only looks at pace and pauses. It cannot hear the words — your ears (and a reviewer) do that.</div>';$('auto').innerHTML=h;
+ }).catch(function(e){$('auto').innerHTML='<div class="note">Could not compare here ('+e+'). You can still listen side by side.</div>'})}
+function resetCk(){document.querySelectorAll('.yn[data-k] button').forEach(function(b){b.classList.remove('on')});$('res').innerHTML='';$('toWeek').classList.add('hide')}
+document.querySelectorAll('.yn[data-k]').forEach(function(g){g.querySelectorAll('button').forEach(function(b){b.onclick=function(){g.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});CK[g.dataset.k]=b.classList.contains('y')?1:0;result()}})});
+function result(){if(Object.keys(CK).length<3)return;var bad=Object.keys(CK).filter(function(k){return !CK[k]}).map(function(k){return {w:'words',f:'flow',s:'sounds'}[k]});
+ $('res').innerHTML=bad.length?'<div class="res wk"><b>Needs work: '+bad.join(', ')+'</b><br>Verse 43 comes back in tomorrow’s revision, with the guide first. This take is kept as your best so far.</div>':'<div class="res ok"><b>✓ Verse 43 checked by you</b><br>Saved as your best take. It goes in this week’s chanting for review.</div>';
+ $('toWeek').classList.remove('hide');$('r43').textContent='Your take · '+(bad.length?'needs work: '+bad.join(', '):'checked by you');$('s43').className='st '+(bad.length?'wk':'ok');$('s43').textContent=bad.length?'Work':'✓ checked'}
+document.querySelectorAll('#who button').forEach(function(b){b.onclick=function(){document.querySelectorAll('#who button').forEach(function(x){x.classList.toggle('on',x===b)})}});
+document.querySelectorAll('[data-r]').forEach(function(b){b.onclick=function(){document.querySelectorAll('[data-r]').forEach(function(x){x.classList.toggle('on',x===b)})}});
+$('send').onclick=function(){if(!take){$('sendm').textContent='Record verse 43 first (step 1). In the app, all your best takes of the week would go together.';return}
+ var ext=/mp4/.test(take.type)?'m4a':'webm',f=null;try{f=new File([take],'verse-43.'+ext,{type:take.type})}catch(e){}
+ var txt='Hari Om. My chanting this week, verses 41–45. Please reply ✓ or redo for each verse. 🙏';
+ if(f&&navigator.canShare&&navigator.canShare({files:[f]}))navigator.share({files:[f],text:txt}).then(function(){$('sendm').textContent='Sent. (In the app all the week’s takes would go in one message.)'}).catch(function(){});
+ else $('sendm').textContent='Sharing files is not available in this browser. On iPhone Safari it opens the share sheet (WhatsApp, Messages, Mail).'};
+</script></body></html>
