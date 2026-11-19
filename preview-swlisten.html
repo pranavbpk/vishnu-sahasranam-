@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Preview · Swadhyayam Listen and My listening</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#2a2118;color:#3a2a18;-webkit-text-size-adjust:100%}
+button{font:inherit;cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
+.intro{color:#f6e7c8;padding:14px 16px 2px;max-width:430px;margin:auto;font-size:.92rem;line-height:1.45}.intro b{color:#ffd76a}
+.tabs{position:sticky;top:0;z-index:20;display:flex;gap:6px;padding:10px 8px;background:#2a2118;justify-content:center;flex-wrap:wrap}
+.tabs button{border:0;border-radius:999px;padding:9px 13px;font-weight:700;font-size:.86rem;background:#4a3b2a;color:#f6e7c8}.tabs button.on{background:#ffd76a;color:#2a1500}
+.note{color:#f6e7c8;max-width:430px;margin:0 auto 10px;padding:0 16px;font-size:.88rem;line-height:1.45}.note b{color:#ffd76a}.note ul{margin:6px 0;padding-left:18px}
+.cap{color:#ffd76a;text-align:center;font-weight:800;margin:4px 0 8px;font-size:.9rem}
+.ph{width:min(393px,calc(100vw - 16px));margin:0 auto 26px;border-radius:30px;overflow:hidden;background:#faf6ee;box-shadow:0 20px 50px rgba(0,0,0,.45);padding:14px 14px 22px}
+.pane{display:none}.pane.on{display:block}
+/* header new */
+.hd{display:flex;align-items:center;justify-content:space-between}.hd b{color:#0f6b66;font-size:1.15rem}
+.hb{display:flex;gap:8px}.ib{width:42px;height:42px;border-radius:50%;border:1px solid #e3d3b0;background:#fff;display:grid;place-items:center}.ib svg{width:20px;height:20px;stroke:#0f6b66;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cl{border:1px solid #efc3bb;background:#fff4f2;color:#a12a1c;border-radius:12px;padding:8px 12px;font-weight:700}
+.td{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #eadcbc;border-radius:16px;padding:10px 12px;margin:12px 0 10px;width:100%;text-align:left}
+.ring{width:48px;height:48px;flex:none}.td b{display:block;font-size:.98rem}.td small{color:#7a6a55;font-size:.78rem}.td em{margin-left:auto;font-style:normal;color:#0f6b66;font-weight:700;font-size:.82rem;white-space:nowrap}
+.seg{display:flex;background:#efe5cf;border-radius:14px;padding:4px}.seg span{flex:1;text-align:center;padding:9px 0;border-radius:10px;font-weight:700;font-size:.9rem;color:#6a5a40}.seg .on{background:#fff;color:#0f6b66}
+/* old header */
+.oh{display:flex;align-items:center;gap:8px;margin:10px 0}.oh .g{flex:1;font-size:.9rem}.oh .g b{display:block}.oh .sq{width:62px;height:58px;border-radius:16px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.55rem;font-weight:700;color:#3a2a18}.oh .sq i{font-style:normal;color:#0f6b66;font-size:1rem}
+.red{outline:3px solid #e34b3a;outline-offset:2px}
+/* sections */
+.sh{display:flex;justify-content:space-between;align-items:baseline;margin:18px 2px 8px}.sh b{font-size:1rem}.sh small{color:#8a7a60;font-size:.78rem}
+.pl{background:linear-gradient(160deg,#0f6b66,#0b4f4b);color:#fff;border-radius:22px;padding:14px}
+.pl small.k{color:#ffd76a;font-weight:800;font-size:.72rem;letter-spacing:.06em}.pl h3{margin:4px 0 2px;font-size:1.1rem}.pl .m{opacity:.85;font-size:.8rem}
+.sb{height:5px;border-radius:5px;background:rgba(255,255,255,.2);margin:12px 0 4px}.sb i{display:block;height:100%;width:38%;background:#ffd76a;border-radius:5px}
+.tm{display:flex;justify-content:space-between;font-size:.72rem;opacity:.8}
+.pc{display:flex;align-items:center;justify-content:center;gap:22px;margin:8px 0 10px}.pc button{width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:.95rem}.pc .pp{width:66px;height:66px;background:#ffd76a;color:#3a2a00;font-size:1.4rem}
+.act{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.act button{border:0;background:rgba(255,255,255,.12);border-radius:12px;padding:8px 0;font-size:.72rem;color:#fff;display:flex;flex-direction:column;align-items:center;gap:2px}.act i{font-style:normal;font-size:1rem}
+.lst{background:#fff;border:1px solid #eadcbc;border-radius:14px;overflow:hidden}
+.rw{display:flex;align-items:center;gap:10px;padding:9px 10px;min-height:50px;border-bottom:1px solid #f1e7d2}.rw:last-child{border-bottom:0}
+.ic{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;flex:none}.ic.a{background:#e6f2f0}.ic.v{background:#e3eef8}
+.tx{flex:1;min-width:0}.tx b{display:block;font-size:.9rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tx small{color:#8a7a60;font-size:.74rem}
+.r{font-size:.74rem;color:#8a7a60;text-align:right}.r.dn{color:#0f6b66;font-weight:700}
+.ck{width:24px;height:24px;border-radius:50%;border:2px solid #d8c8a4;flex:none;display:grid;place-items:center;font-size:.8rem;color:#fff}.ck.y{background:#0f6b66;border-color:#0f6b66}
+.wbtn{border:1px solid #e3d3b0;background:#fffaf0;border-radius:10px;padding:6px 10px;font-weight:700;font-size:.78rem;color:#7a4a12}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:#fff;border:1px solid #eadcbc;border-radius:14px;padding:10px 8px}
+.wd{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.66rem;color:#8a7a60}.wd .c{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:.68rem;font-weight:700;color:#5a4a35;background:#f4ecda}.wd .c.f{background:#0f6b66;color:#fff}.wd .c.h{background:conic-gradient(#e8890c var(--p),#f4ecda 0)}.wd .c.h span{width:22px;height:22px;border-radius:50%;background:#fff;display:grid;place-items:center}.wd.t{color:#0f6b66;font-weight:800}
+/* my listening */
+.sum{background:#fff;border:1px solid #eadcbc;border-radius:16px;padding:12px}
+.sum-t{display:flex;align-items:center;gap:12px}.big{font-size:1.6rem;font-weight:800;color:#0f6b66;line-height:1}.sum-t small{color:#7a6a55;font-size:.78rem}
+.bars{display:flex;align-items:flex-end;gap:6px;height:84px;margin:14px 0 4px;padding:0 2px}.bars div{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.62rem;color:#8a7a60}.bars i{display:block;width:100%;border-radius:6px 6px 2px 2px;background:#cfe3df}.bars .g i{background:#0f6b66}.bars .tdy{color:#0f6b66;font-weight:800}
+.gl{border-top:1px dashed #e6d3a6;margin-top:6px;padding-top:6px;font-size:.72rem;color:#8a7a60}
+.split{display:flex;height:10px;border-radius:6px;overflow:hidden;margin:8px 0 6px}.split i{display:block}
+.lg{display:flex;gap:14px;font-size:.78rem}.lg span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+.st3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.st3 div{background:#fff;border:1px solid #eadcbc;border-radius:14px;padding:10px 6px;text-align:center}.st3 b{display:block;font-size:1.2rem;color:#0f6b66}.st3 small{font-size:.7rem;color:#8a7a60}
+.sg2{display:flex;gap:6px;margin:14px 0 8px}.sg2 button{flex:1;border:1px solid #e3d3b0;background:#fff;border-radius:12px;padding:9px 0;font-weight:700;font-size:.84rem;color:#5a4a35}.sg2 .on{background:#0f6b66;color:#fff;border-color:#0f6b66}
+.dh{font-size:.76rem;font-weight:800;color:#8a7a60;margin:12px 2px 6px;display:flex;justify-content:space-between}
+.back{border:0;background:#e6f2f0;color:#0f6b66;border-radius:12px;padding:8px 12px;font-weight:700}
+.olds{background:#fff;border:1px solid #eadcbc;border-radius:16px;display:grid;grid-template-columns:repeat(4,1fr);padding:12px 4px;text-align:center;font-size:.7rem;color:#7a6a55}.olds b{display:block;font-size:1.3rem;color:#0f6b66}
+</style></head><body>
+<div class="intro"><b>Swadhyayam · Listen and My listening</b> (preview, sample numbers). Tell me A or B for the Listen tab, and if the new header and My listening are OK.</div>
+<div class="tabs"><button class="on" data-t="h">Header</button><button data-t="a">Listen A</button><button data-t="b">Listen B</button><button data-t="m">My listening</button></div>
+
+<div class="pane on" id="p-h">
+<div class="note"><b>Header</b><ul><li>The two big square buttons (bar “strings” icon and Settings) go.</li><li>One slim <b>Today</b> card: a small ring, minutes, streak, and <b>My listening ›</b>. Tap it to open My listening.</li><li>Settings becomes a small round ⚙︎ beside Close.</li></ul></div>
+<div class="cap">Now</div>
+<div class="ph"><div class="hd"><b>🎧 Swadhyayam</b><button class="cl">✕ Close</button></div>
+<div class="oh"><span>⏳</span><span class="g"><b>25 of 60 min</b><small>35 min to go today</small></span><span class="sq red"><i>ılı</i>My listening</span><span class="sq red"><i>⚙︎</i>Settings</span></div>
+<div class="seg"><span class="on">Listen</span><span>Library</span><span>Notes</span></div></div>
+<div class="cap">New</div>
+<div class="ph"><div class="hd"><b>🎧 Swadhyayam</b><span class="hb"><button class="ib" aria-label="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg></button><button class="cl">✕ Close</button></span></div>
+<button class="td"><svg class="ring" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="#efe3c8" stroke-width="6"/><circle cx="24" cy="24" r="20" fill="none" stroke="#e8890c" stroke-width="6" stroke-linecap="round" stroke-dasharray="52.4 125.7" transform="rotate(-90 24 24)"/><text x="24" y="28" text-anchor="middle" font-size="11" font-weight="800" fill="#0f6b66">42%</text></svg><span><b>25 of 60 min today</b><small>🔥 4 days in a row · 35 min to go</small></span><em>My listening ›</em></button>
+<div class="seg"><span class="on">Listen</span><span>Library</span><span>Notes</span></div></div>
+</div>
+
+<div class="pane" id="p-a"><div class="note"><b>Listen A · one clear column</b> (my pick)<ul><li>Order: <b>Now playing → Up next → Today’s plan → This week</b>.</li><li>Player is shorter: one row of actions (★ Important, ✎ Note, ? Doubt, ⋯ More for speed, timer, mark done).</li><li>Up next uses the same slim rows as the Library.</li><li>This week shows each day as a ring (full = 60 min).</li></ul></div><div class="ph" id="la"></div></div>
+<div class="pane" id="p-b"><div class="note"><b>Listen B · today first</b><ul><li>Today’s goal and the 3 plan ticks sit together in one card at the top.</li><li>Then Now playing and Up next. This week moves to My listening.</li></ul></div><div class="ph" id="lb"></div></div>
+
+<div class="pane" id="p-m"><div class="note"><b>My listening</b><ul><li>Top: today’s minutes and a 7-day bar chart (dark bar = full 60 min).</li><li>Guru’s classes vs other listening as one split bar.</li><li>3 small numbers: 30 days, days studied, best streak.</li><li>Below: <b>By day</b> (grouped, slim rows) or <b>By class</b>.</li></ul></div>
+<div class="cap">Now</div><div class="ph"><button class="back">‹ Back</button> <b>📊 My listening</b><div class="olds" style="margin-top:12px"><span><b>0</b>min today</span><span><b>0</b>min in 7 days</span><span><b>0</b>min in 30 days</span><span><b>0</b>days studied</span></div></div>
+<div class="cap">New</div><div class="ph" id="ml"></div></div>
+
+<script>
+var hdr=document.querySelector('#p-h .ph:last-child').innerHTML.replace(/<div class="hd">[\s\S]*?<\/div>/,function(m){return m});
+var HD=document.querySelectorAll('#p-h .ph')[1].innerHTML;
+function row(ic,t,s,r,cls){return '<div class="rw"><span class="ic '+ic+'">'+(ic==='v'?'🎬':'🎧')+'</span><span class="tx"><b>'+t+'</b><small>'+s+'</small></span><span class="r '+(cls||'')+'">'+r+'</span></div>'}
+var PL='<div class="pl"><small class="k">NOW PLAYING</small><h3>Gita chapter 2</h3><div class="m">Oct 2, 2026 · Heard 1 of 3 · class in 3 days</div><div class="sb"><i></i></div><div class="tm"><span>19:05</span><span>−31:10</span></div><div class="pc"><button>↺15</button><button class="pp">❚❚</button><button>30↻</button><button>⏭</button></div><div class="act"><button><i>☆</i>Important</button><button><i>✎</i>Note</button><button><i>?</i>Doubt</button><button><i>⋯</i>More</button></div></div>';
+var UP='<div class="sh"><b>Up next</b><small>in 2026 Classes</small></div><div class="lst">'+row('v','Gita chapter 3','Oct 3, 2026 · Video · 48 min','New')+row('a','Gita chapter 4','Oct 4, 2026 · 52 min','New')+'</div>';
+var PLAN=function(){return '<div class="lst">'+'<div class="rw"><span class="ck y">✓</span><span class="tx"><b>Listen to Swamy’s classes</b><small>25 of 60 min</small></span></div><div class="rw"><span class="ck"></span><span class="tx"><b>Write 3 points from this class</b><small>After you finish listening</small></span><button class="wbtn">Write ›</button></div><div class="rw"><span class="ck"></span><span class="tx"><b>One line from today</b><small>One thing to remember</small></span><button class="wbtn">Write ›</button></div></div>'};
+var WK='<div class="sh"><b>This week</b><small>3 of 7 days full</small></div><div class="wk">'+[['Fri',100],['Sat',100],['Sun',40],['Mon',0],['Tue',100],['Wed',70],['Today',42]].map(function(d,i){var c=d[1]>=100?'<span class="c f">✓</span>':d[1]>0?'<span class="c h" style="--p:'+d[1]+'%"><span>'+Math.round(d[1]*.6)+'</span></span>':'<span class="c">–</span>';return '<div class="wd'+(i===6?' t':'')+'">'+c+d[0]+'</div>'}).join('')+'</div>';
+document.getElementById('la').innerHTML=HD+'<div style="height:12px"></div>'+PL+UP+'<div class="sh"><b>Today’s plan</b><small>1 of 3 done</small></div>'+PLAN()+WK;
+var HD2=HD.replace(/<button class="td">[\s\S]*?<\/button>/,'');
+document.getElementById('lb').innerHTML=HD2+'<div class="sum" style="margin:12px 0 4px"><div class="sum-t"><svg class="ring" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="#efe3c8" stroke-width="6"/><circle cx="24" cy="24" r="20" fill="none" stroke="#e8890c" stroke-width="6" stroke-linecap="round" stroke-dasharray="52.4 125.7" transform="rotate(-90 24 24)"/></svg><span><b>Today · 25 of 60 min</b><br><small>🔥 4 days · plan 1 of 3 done</small></span><em style="margin-left:auto;font-style:normal;color:#0f6b66;font-weight:700;font-size:.8rem">My listening ›</em></div><div style="margin-top:10px">'+PLAN()+'</div></div><div style="height:10px"></div>'+PL+UP;
+var D=[['Fri',62,1],['Sat',60,1],['Sun',24,0],['Mon',0,0],['Tue',65,1],['Wed',42,0],['Today',25,0]];
+document.getElementById('ml').innerHTML='<button class="back">‹ Back</button> <b>📊 My listening</b>'
++'<div class="sum" style="margin-top:12px"><div class="sum-t"><span class="big">25</span><span><b>min today</b><br><small>278 min in the last 7 days · 🔥 4 days</small></span></div>'
++'<div class="bars">'+D.map(function(d,i){return '<div class="'+(d[2]?'g ':'')+(i===6?'tdy':'')+'"><span>'+(d[1]||'')+'</span><i style="height:'+Math.max(3,d[1]*0.9)+'px"></i>'+d[0]+'</div>'}).join('')+'</div><div class="gl">Dark bar = full 60 min</div>'
++'<div style="margin-top:10px;font-weight:700;font-size:.85rem">Last 7 days</div><div class="split"><i style="width:78%;background:#0f6b66"></i><i style="width:22%;background:#e8b04a"></i></div><div class="lg"><span style="--c:#0f6b66">Guru’s classes 216 min</span><span style="--c:#e8b04a">Other 62 min</span></div></div>'
++'<div class="st3"><div><b>940</b><small>min in 30 days</small></div><div><b>21</b><small>days studied</small></div><div><b>9</b><small>best streak</small></div></div>'
++'<div class="sg2"><button class="on">📅 By day</button><button>📚 By class</button><button>📜 Log</button></div>'
++'<div class="dh"><span>TODAY</span><span>25 min</span></div><div class="lst">'+row('a','Gita chapter 2','Guru’s class · 19:05 → 31:10','25 min')+'</div>'
++'<div class="dh"><span>WEDNESDAY</span><span>42 min</span></div><div class="lst">'+row('a','Gita chapter 1','Guru’s class · finished','✓ heard','dn')+row('v','Q and A','Other lectures · 38%','12 min')+'</div>'
++'<div class="dh"><span>TUESDAY</span><span>65 min</span></div><div class="lst">'+row('a','Gita chapter 1','Guru’s class','40 min')+row('a','Slow chant, part 1','Other listening','25 min')+'</div>';
+document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===b)});document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('on',p.id==='p-'+b.dataset.t)});scrollTo(0,0)}});
+</script></body></html>
