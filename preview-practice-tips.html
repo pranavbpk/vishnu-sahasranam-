@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · Tips, record once, milestone</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#2a2118;color:#3a2a18;-webkit-text-size-adjust:100%}
+button{font:inherit;cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
+.intro{color:#f6e7c8;padding:14px 16px 2px;max-width:430px;margin:auto;font-size:.92rem;line-height:1.45}.intro b{color:#ffd76a}
+.tabs{position:sticky;top:0;z-index:20;display:flex;gap:6px;padding:10px 8px;background:#2a2118;justify-content:center;flex-wrap:wrap}
+.tabs button{border:0;border-radius:999px;padding:9px 12px;font-weight:700;font-size:.84rem;background:#4a3b2a;color:#f6e7c8}.tabs button.on{background:#ffd76a;color:#2a1500}
+.note{color:#f6e7c8;max-width:430px;margin:0 auto 10px;padding:0 16px;font-size:.88rem;line-height:1.45}.note b{color:#ffd76a}.note ul{margin:6px 0;padding-left:18px}
+.pane{display:none}.pane.on{display:block}
+.ph{width:min(393px,calc(100vw - 16px));margin:0 auto 26px;border-radius:30px;overflow:hidden;background:#faf6ee;box-shadow:0 20px 50px rgba(0,0,0,.45);padding:14px 14px 22px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.top b{color:#0f6b66}.top span{font-size:.8rem;color:#7a6a55;font-weight:700}
+.stp{display:flex;align-items:center;gap:8px;background:#0f6b66;color:#fff;border-radius:14px;padding:10px 12px;font-weight:700;font-size:.9rem}.stp small{margin-left:auto;font-weight:600;opacity:.85}
+.vc{background:#fff;border:1px solid #eadcbc;border-radius:18px;padding:14px;margin-top:10px;text-align:center}.vs{font-size:1.12rem;line-height:1.6;color:#2d1a0c}.pr{color:#0f6b66;font-size:.86rem;margin-top:6px;line-height:1.55}.pr b{background:#ffe7a8;color:#3b1d05;border-radius:4px;padding:0 2px}
+.lf{background:#fff6dc;border:1px solid #f0dca8;border-radius:14px;padding:10px 12px;margin-top:10px;text-align:left}.lf b{font-size:.86rem;color:#7a4a12}.lf ul{margin:4px 0 0;padding-left:18px;font-size:.86rem;line-height:1.5}
+.lf.one{display:flex;gap:8px;align-items:flex-start;font-size:.88rem}
+.ctl{display:flex;justify-content:center;gap:18px;margin:14px 0 4px}.ctl button{width:54px;height:54px;border-radius:50%;border:0;background:#f2ead8}.ctl .pp{width:70px;height:70px;background:#0f6b66;color:#fff;font-size:1.4rem}
+.cap{color:#ffd76a;text-align:center;font-weight:800;margin:4px 0 8px;font-size:.88rem}
+.mic{display:block;margin:12px auto 4px;width:88px;height:88px;border-radius:50%;border:0;background:#c0392b;color:#fff;font-size:1.9rem;box-shadow:0 8px 20px rgba(192,57,43,.35)}.mic.rec{animation:pl 1.2s infinite}@keyframes pl{50%{box-shadow:0 0 0 14px rgba(192,57,43,.15)}}
+.mt{text-align:center;color:#7a6a55;font-size:.88rem}.mt b{display:block;color:#2d1a0c}
+.hb{display:block;width:100%;border:0;border-radius:14px;background:#0f6b66;color:#fff;font-weight:800;min-height:54px;font-size:1rem;margin-top:12px}.hb.g{background:#fff;color:#0f6b66;border:1.5px solid #0f6b66}
+.prog{display:flex;gap:6px;justify-content:center;margin:10px 0 2px}.prog span{font-size:.78rem;color:#8a7a60;border:1px solid #e3d3b0;border-radius:999px;padding:4px 10px;background:#fff}.prog .on{background:#0f6b66;color:#fff;border-color:#0f6b66}
+.ask{font-size:.84rem;color:#7a6a55;text-align:center;margin-top:10px}.ask a{color:#0f6b66;font-weight:700}
+.big{text-align:center;padding:10px 6px}.big .e{font-size:2.4rem}.big h3{margin:6px 0 4px;color:#0f6b66}.big p{margin:0;color:#6a5a40;font-size:.9rem;line-height:1.45}
+.lst{background:#fff;border:1px solid #eadcbc;border-radius:14px;overflow:hidden;margin-top:12px}.rw{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid #f1e7d2}.rw:last-child{border-bottom:0}.rw .n{width:34px;height:34px;border-radius:10px;background:#f2ead8;display:grid;place-items:center;font-weight:800;flex:none}.rw .tx{flex:1}.rw .tx b{display:block;font-size:.9rem}.rw .tx small{color:#8a7a60;font-size:.76rem}
+.sm{font-size:.8rem;color:#8a7a60;text-align:center;margin-top:8px;line-height:1.4}
+.banner{display:flex;gap:10px;align-items:center;background:#eef6f3;border:1px solid #cfe3dc;border-radius:16px;padding:12px;margin-top:10px}.banner .e{font-size:1.6rem}.banner b{display:block}.banner small{color:#6a5a40;font-size:.8rem}
+</style></head><body>
+<div class="intro"><b>Preview, not the app.</b> 1: tips on the practice screen · 2: record once, hear yourself (real microphone, open in Safari) · 3: a milestone to chant for review.</div>
+<div class="tabs"><button class="on" data-t="a">1 · Listen-for tips</button><button data-t="b">2 · Record once</button><button data-t="c">3 · Milestone</button></div>
+
+<div class="pane on" id="p-a"><div class="note"><b>Tips right where you chant</b><ul><li>Each verse gets 2–3 short “listen for” notes, checked by your guru once.</li><li>The tricky syllables are lightly marked in the read-aloud line.</li><li>While the guide speaks, only <b>one</b> tip shows, the one for that line. No extra step, nothing to tap.</li></ul></div>
+<div class="cap">While practising · line 1</div>
+<div class="ph"><div class="top"><b>Verse 43</b><span>New verse</span></div>
+<div class="stp">🎧 Listen · line 1<small>time 1 of 2</small></div>
+<div class="vc"><div class="vs">रामो विरामो विरजो मार्गो नेयो नयोऽनयः ।</div><div class="pr"><b>Raa</b>-mo Vi-<b>raa</b>-mo Vi-ra-jo <b>Maar</b>-go Ne-yo Na-yo Na-<b>yah</b></div>
+<div class="lf one"><span>👂</span><span><b>Listen for:</b> hold the long <b>“aa”</b> in Raa-mo, Vi-raa-mo, Maar-go for two beats.</span></div></div>
+<div class="ctl"><button>↺</button><button class="pp">❚❚</button><button>⏭</button></div></div>
+<div class="cap">Whole verse · all tips together</div>
+<div class="ph"><div class="top"><b>Verse 43</b><span>New verse</span></div>
+<div class="stp">🗣 Your turn · whole verse<small>time 2 of 3</small></div>
+<div class="vc"><div class="vs">रामो विरामो विरजो मार्गो नेयो नयोऽनयः ।<br>वीरः शक्तिमतां श्रेष्ठो धर्मो धर्मविदुत्तमः ॥</div><div class="pr"><b>Raa</b>-mo Vi-<b>raa</b>-mo Vi-ra-jo <b>Maar</b>-go Ne-yo Na-yo Na-<b>yah</b><br>Vee-rash Shak-ti-ma-taam <b>Shresh-tho</b> Dhar-mo Dhar-ma-vi-dut-ta-<b>mah</b></div>
+<div class="lf"><b>👂 Listen for</b><ul><li>Long <b>“aa”</b>: Raa-mo, Vi-raa-mo, Maar-go</li><li><b>Shresh-tho</b>: “sh” and “th” together, no “a” between</li><li>Soft <b>“h”</b> at the end: Na-yah, …ut-ta-mah</li></ul></div></div></div></div>
+
+<div class="pane" id="p-b"><div class="note"><b>Record once, then hear yourself</b><ul><li>Only after a new verse: say it once on your own.</li><li>One button: <b>Hear me, then the guide</b>. That is the whole check.</li><li>No ticks, no sending. “Record again” or “Next” and you are done.</li></ul></div>
+<div class="ph"><div class="top"><b>Verse 43</b><span>Step 3 of 4 · Record</span></div>
+<div class="vc"><div class="vs">रामो विरामो विरजो मार्गो नेयो नयोऽनयः ।<br>वीरः शक्तिमतां श्रेष्ठो धर्मो धर्मविदुत्तमः ॥</div><div class="pr">Raa-mo Vi-raa-mo Vi-ra-jo Maar-go Ne-yo Na-yo Na-yah<br>Vee-rash Shak-ti-ma-taam Shresh-tho Dhar-mo Dhar-ma-vi-dut-ta-mah</div></div>
+<div id="recA"><button class="mic" id="mic">🎙</button><div class="mt" id="mt"><b>Tap to record</b>Say the whole verse once, on your own</div></div>
+<div id="recB" style="display:none">
+ <button class="hb" id="hear">▶ Hear me, then the guide</button>
+ <div class="prog" id="prog"><span id="pa">You</span><span id="pb">Guide</span></div>
+ <div class="lf one" style="margin-top:12px"><span>👂</span><span>Did it sound the same? Listen for the long <b>“aa”</b> and the soft <b>“h”</b> at the end.</span></div>
+ <button class="hb g" id="again">🎙 Record again</button><button class="hb" id="next">Next · read the meaning ›</button>
+ <div class="sm" id="saved">Your take is kept on this phone, in My recordings.</div></div></div></div>
+
+<div class="pane" id="p-c"><div class="note"><b>A milestone, not homework</b><ul><li>After every 10 verses (and at 27, 54, 81, 108) the app offers once: chant them for your guru or teacher.</li><li>It uses the takes you already made. One message, a few minutes to listen.</li><li>“Not now” is fine. It stays in My recordings to send any time.</li><li>No guru? Send to anyone who chants: a parent, a friend, the satsang group.</li></ul></div>
+<div class="cap">Shown once, after verse 50</div>
+<div class="ph"><div class="big"><div class="e">🏵</div><h3>50 verses learned!</h3><p>A good moment to let someone hear you. Your takes of verses 41–50 are ready.</p></div>
+<div class="lst"><div class="rw"><span class="n">41</span><span class="tx"><b>Udbhavah kshobhano devah</b><small>Your take · 0:21</small></span>▶</div><div class="rw"><span class="n">42</span><span class="tx"><b>Vyavasaayo vyavasthaanah</b><small>Your take · 0:24</small></span>▶</div><div class="rw"><span class="n">…</span><span class="tx"><b>8 more</b><small>About 4 minutes in all</small></span></div></div>
+<button class="hb">📤 Send to my guru or teacher</button><button class="hb g">Not now</button>
+<div class="sm">They reply in WhatsApp. You can mark verses “Reviewed ✓” when they do.</div></div>
+<div class="cap">On Today, the day after (only if “Not now”)</div>
+<div class="ph" style="padding-bottom:16px"><div class="banner"><span class="e">🏵</span><span><b>Verses 41–50 ready to send</b><small>For your guru or teacher · any time · My recordings</small></span></div></div></div>
+
+<script>
+document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===b)});document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('on',p.id==='p-'+b.dataset.t)});scrollTo(0,0)}});
+var G='audio/v043.m4a',rec=null,chunks=[],url=null,t0=0,tm=0,pl=new Audio();
+function $(i){return document.getElementById(i)}
+$('mic').onclick=function(){if(rec&&rec.state==='recording'){rec.stop();return}
+ if(!navigator.mediaDevices||!window.MediaRecorder){$('mt').innerHTML='<b>Recording not supported here</b>Open this page in Safari on your iPhone';return}
+ navigator.mediaDevices.getUserMedia({audio:true}).then(function(st){chunks=[];var mt=MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported('audio/mp4')?'audio/mp4':'';rec=mt?new MediaRecorder(st,{mimeType:mt}):new MediaRecorder(st);
+  rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data)};
+  rec.onstop=function(){st.getTracks().forEach(function(t){t.stop()});clearInterval(tm);$('mic').classList.remove('rec');$('mic').textContent='🎙';if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(new Blob(chunks,{type:rec.mimeType||'audio/mp4'}));$('recA').style.display='none';$('recB').style.display='block'};
+  rec.start();t0=Date.now();$('mic').classList.add('rec');$('mic').textContent='■';tm=setInterval(function(){$('mt').innerHTML='<b>Recording… '+((Date.now()-t0)/1000).toFixed(0)+' s</b>Tap ■ when you finish'},300)
+ }).catch(function(){$('mt').innerHTML='<b>Microphone blocked</b>Allow the microphone for this page and try again'})};
+function mark(w){$('pa').className=w==='a'?'on':'';$('pb').className=w==='b'?'on':''}
+$('hear').onclick=function(){pl.pause();mark('a');pl.src=url;pl.onended=function(){setTimeout(function(){mark('b');pl.src=G;pl.onended=function(){mark('')};pl.play().catch(function(){})},600)};pl.play().catch(function(){})};
+$('again').onclick=function(){pl.pause();$('recB').style.display='none';$('recA').style.display='block';$('mt').innerHTML='<b>Tap to record</b>Say the whole verse once, on your own'};
+$('next').onclick=function(){$('saved').textContent='In the app this goes on to the meaning. (Preview ends here.)'};
+</script></body></html>
