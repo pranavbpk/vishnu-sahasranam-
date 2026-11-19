@@ -2791,6 +2791,18 @@ html.qton .nvbar{display:none!important}
 .swr-op{flex:none;border:1px solid #e3d3b0;background:#fff;border-radius:10px;padding:6px 9px;margin-right:8px;font-size:.75rem;font-weight:700;color:#0f6b66}
 .swr-in{border-left:3px solid #f0dca8;background:#fffdf8}.swr-ld{padding:10px 14px;color:#8a7a60;font-size:.8rem;border-bottom:1px solid #f1e7d2}
 .swr-s.nw{color:#b0782a;font-weight:700;font-size:.7rem}.swl-ca{border:0;background:none;color:#0f6b66;font-weight:700;font-size:.76rem;padding:2px 4px}
+.swn-hd2{display:flex;align-items:center;gap:8px;margin:4px 0 12px}.swn-td{flex:1;min-width:0;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #eadcbc;border-radius:16px;padding:8px 10px;text-align:left;font:inherit;color:inherit;cursor:pointer}.swn-td.ok{border-color:#9cc58f;background:#f6fbf3}
+.swn-r2{width:46px;height:46px;flex:none}.swn-tdt{flex:1;min-width:0}.swn-tdt b{display:block;font-size:.95rem}.swn-tdt small{display:block;color:#7a6a55;font-size:.75rem;line-height:1.3}.swn-td em{font-style:normal;color:#0f6b66;font-weight:700;font-size:.78rem;white-space:nowrap}
+.swn-gear{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid #e3d3b0;background:#fff;display:grid;place-items:center;cursor:pointer;padding:0}.swn-gear svg{width:20px;height:20px}
+.swn-h2{padding-top:14px}.sw-mk4{grid-template-columns:repeat(4,1fr)!important;display:grid!important}.sw-dots{font-size:1.2rem;line-height:1;font-weight:800}
+.sw-wv{display:block;width:100%;margin:2px 0 8px;min-height:44px;border:0;border-radius:12px;background:#ffd76a;color:#3a2a00;font-weight:800;font:inherit;font-weight:800;cursor:pointer}
+.swn-wk2{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:#fff;border:1px solid #eadcbc;border-radius:14px;padding:10px 6px}.swn-wk2 button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:4px;font:inherit;font-size:.66rem;color:#8a7a60;padding:2px 0;cursor:pointer}.swn-wk2 button.t{color:#0f6b66;font-weight:800}.swn-wk2 button[aria-pressed=true] .c{box-shadow:0 0 0 2px #0f6b66}
+.swn-wk2 .c{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:.66rem;font-weight:700;color:#5a4a35;background:#f4ecda}.swn-wk2 .c.f{background:#0f6b66;color:#fff}.swn-wk2 .c.h{background:conic-gradient(#e8890c var(--p),#f4ecda 0)}.swn-wk2 .c.h span{width:22px;height:22px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.swh2{background:#fff;border:1px solid #eadcbc;border-radius:16px;padding:12px;margin:10px 0}.swh2-t{display:flex;align-items:center;gap:12px}.swh2-big{font-size:1.7rem;font-weight:800;color:#0f6b66;line-height:1}.swh2-t b{display:block}.swh2-t small{color:#7a6a55;font-size:.78rem}
+.swh2-bars{display:flex;align-items:flex-end;gap:6px;height:96px;margin:12px 0 4px}.swh2-bars div{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.62rem;color:#8a7a60}.swh2-bars i{display:block;width:100%;border-radius:6px 6px 2px 2px;background:#cfe3df}.swh2-bars .g i{background:#0f6b66}.swh2-bars .tdy{color:#0f6b66;font-weight:800}
+.swh2-gl{border-top:1px dashed #e6d3a6;padding-top:5px;font-size:.72rem;color:#8a7a60}.swh2-sl{margin-top:10px;font-weight:700;font-size:.85rem}.swh2-sp{display:flex;height:10px;border-radius:6px;overflow:hidden;margin:6px 0}.swh2-sp i{display:block}.swh2-lg{display:flex;gap:14px;flex-wrap:wrap;font-size:.78rem}.swh2-lg span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+.swh2-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:6px}.swh2-3 div{background:#fff;border:1px solid #eadcbc;border-radius:14px;padding:10px 4px;text-align:center}.swh2-3 b{display:block;font-size:1.2rem;color:#0f6b66}.swh2-3 small{font-size:.7rem;color:#8a7a60}
+.swh2-d{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:14px 0 0!important}.swh2-d .swh-dh{padding:0 4px 6px}.swh2-bx .swh-s0{border:0!important;margin:0!important;padding:10px!important;background:none!important;border-radius:0!important;text-align:left}.swh2-bx{background:#fff;border:1px solid #eadcbc;border-radius:14px;overflow:hidden}.swh2-bx .swh-s{border:0!important;border-bottom:1px solid #f1e7d2!important;padding:9px 10px!important;margin:0!important;background:none!important;border-radius:0!important}.swh2-bx .swh-s:last-child{border-bottom:0}
 </style>
 </head>
 <body>
@@ -3488,9 +3500,10 @@ function swPlayer(l,pl,o){o=o||{};var nx=swNextItem(),sp=S.swsp||1,ic=!!o.svg;
  return '<div class="ow-pl sw-pl">'+(o.art?'<small class="sw-np">NOW PLAYING</small>':'')+head+'<div class="sw-sub">'+swDots(l.heard||0)+swHeard(l)+' · '+swSun()+'</div>'
   +'<input id="ow-seek" class="ow-seek" type="range" min="0" step="1" max="'+Math.floor(l.dur||1)+'" value="'+Math.floor(SWA?SWA.currentTime:l.pos||0)+'" aria-label="Position"><div id="ow-tm" class="ow-tm">'+oT(SWA?SWA.currentTime:l.pos)+' / '+oT(l.dur)+'</div>'
   +ctl
-  +'<div class="sw-mk"><button data-act="swmark"><span>⭐</span>Important</button><button data-act="swnote"><span>📝</span>Note</button><button data-act="swdoubt"><span>❓</span>Doubt</button></div>'
+  +(ic&&swLVid(l)?'<button class="sw-wv" data-act="swwatch">🎬 Watch video</button>':'')
+  +'<div class="sw-mk'+(ic?' sw-mk4':'')+'"><button data-act="swmark"><span>⭐</span>Important</button><button data-act="swnote"><span>📝</span>Note</button><button data-act="swdoubt"><span>❓</span>Doubt</button>'+(ic?'<button data-act="swmore2" aria-pressed="'+SWMORE+'"><span class="sw-dots">⋯</span>More</button>':'')+'</div>'
   +(SWNOTE?'<div class="ow-nb"><div class="mute">'+(SWNOTE.k==='doubt'?'Doubt':'Note')+' at '+oT(SWNOTE.t)+'</div><textarea id="ow-nt" class="ow-in" rows="3" placeholder="'+(SWNOTE.k==='doubt'?'What do you want to ask the guru on Sunday?':'Type while it keeps playing. What did the guru say?')+'"></textarea><div class="ow-two"><button class="btn ow-sm" data-act="swnsave">Save</button><button class="chip" data-act="swncan">Cancel</button></div></div>':'')
-  +'<div class="sw-ft">'+(swLVid(l)?'<button class="chip" data-act="swwatch">🎬 Watch video</button>':'')+'<button class="chip" data-act="swspc" aria-label="Speed">⚡ '+sp+'×</button>'+swSlpChip()+'<button class="chip" data-act="swdone">'+(l.done?'↺ Not done':'✅ Mark done')+'</button>'+(nx&&!ic?'<button class="chip" data-act="swnext">Next class ›</button>':'')+'</div>'
+  +(ic&&!SWMORE?'':'<div class="sw-ft">'+(swLVid(l)&&!ic?'<button class="chip" data-act="swwatch">🎬 Watch video</button>':'')+'<button class="chip" data-act="swspc" aria-label="Speed">⚡ '+sp+'×</button>'+swSlpChip()+'<button class="chip" data-act="swdone">'+(l.done?'↺ Not done':'✅ Mark done')+'</button>'+(nx&&!ic?'<button class="chip" data-act="swnext">Next class ›</button>':'')+'</div>')
   +((l.notes||[]).length?'<details class="ow-notes"><summary>This class · '+l.notes.length+' note'+(l.notes.length>1?'s':'')+'</summary><button class="chip" data-act="swshare">📤 Share notes</button>'+l.notes.map(function(n,i){return '<div class="ow-n"><button class="ow-nt" data-act="swjump" data-v="'+n.t+'">'+oT(n.t)+'</button><span>'+oEsc(swNx(n)).replace(/\n/g,'<br>')+'</span><button class="ow-x" data-act="swndel" data-v="'+i+'">✕</button></div>'}).join('')+'</details>':'')+'</div>'}
 /* simple big card when nothing is playing: this week's class (or the one to continue) with one big play button */
 function swBigCard(){var w=swWeek(),l=w?swLecOf(w):null,c=null;
@@ -3498,7 +3511,7 @@ function swBigCard(){var w=swWeek(),l=w?swLecOf(w):null,c=null;
  var nm=w?w.name:c.name,lx=w?l:c,act=w?'msplay':'swopen',v=w?w.id:c.id;
  return '<div class="sw-big"><small>'+(w?'THIS WEEK’S CLASS':'CONTINUE LISTENING')+'</small>'+swTH(nm)+'<div class="sw-sub">'+swDots((lx&&lx.heard)||0)+swHeard(lx)+' · '+swSun()+'</div><button class="ow-big" data-act="'+act+'" data-v="'+v+'" aria-label="Play">'+SWI.play+'</button></div>'}
 function swUpNext(){if(!SWCUR||!/^od_/.test(SWCUR))return '';var q=swSeq(),id=SWCUR.slice(3),i=-1;q.forEach(function(x,k){if(x.id===id)i=k});var n=i>=0?q.slice(i+1,i+4):[];if(!n.length)return '';
- return '<div class="sw-h">Up next</div><div class="sw-up">'+n.map(function(x,k){var o=swT(x.name);return '<button data-act="msplay" data-v="'+x.id+'"><i>'+(k+1)+'</i><span><b>'+oEsc(o.t)+'</b><small>'+oEsc(o.s)+'</small></span><em>'+SWI.play+'</em></button>'}).join('')+'</div>'}
+ var fn=MSF.path.length>1?MSF.path[MSF.path.length-1].n:'';return '<div class="swn-h">Up next'+(fn?' <span>in '+oEsc(fn)+'</span>':'')+'</div><div class="swl">'+n.map(function(x){return swRow(x)}).join('')+'</div>'}
 function swLocal(pl){var loc=LEC.filter(function(x){return !x.od});if(!loc.length)return '';loc.forEach(swFixYt);
  return '<div class="sw-h">On this phone and links</div>'+loc.map(function(x){var p=x.dur?Math.min(100,Math.round((x.done?x.dur:x.pos||0)/x.dur*100)):0,cur=x.id===SWCUR;return '<div class="ow-li'+(cur?' cur':'')+'"><button class="ow-lb" data-act="swopen" data-v="'+x.id+'"><span class="ow-lp">'+(cur&&pl?'⏸':'▶')+'</span><span class="ow-tx"><b>'+oEsc(swT(x.name).t)+'</b><small>'+(x.ytl&&!x.yt?'▶️ YouTube playlist · ':x.yt?'▶️ YouTube · ':x.url?(isYt(x.url)?'▶️ YouTube · ':'🔗 Link · '):'')+'Added '+oDay(x.added)+(x.dur?' · '+oT(x.dur):'')+' · '+swHeard(x)+'</small><i class="ow-bar"><u style="width:'+(x.done?100:p)+'%"></u></i></span></button><button class="ow-x" data-act="swopt" data-v="'+x.id+'" aria-label="Options" aria-expanded="'+(SWOPT===x.id)+'">'+(SWOPT===x.id?'✕':'⋯')+'</button></div>'+(SWOPT===x.id?swOpts(x):'')}).join('')}
 /* b333: options under an added class or link */
@@ -3580,19 +3593,20 @@ function swPage0(){var m=swMin(tdy()),g=swGoal(),ok=m>=g,l=swL(),pl=SWA&&!SWA.pa
  return h+'</div>'}
 
 /* b401: Swadhyayam new look (owner chose the mix of Gemini's tabs + the this-week card): progress line + 📊 + ⚙️, tabs Listen · Library · Notes, settings in a bottom sheet. The 6 page styles are no longer shown (old code kept, unused). */
-var SWT2='L',SWNF='all',SWSET=false;
+var SWT2='L',SWNF='all',SWSET=false,SWMORE=false;
 function swNew(m,g,ok,l,pl,sk){var d=swAllNotes().filter(function(o){return o.n.k==='doubt'&&!o.n.d}).length,h='<div class="swn">';
- h+='<div class="swn-hd"><span class="swn-pr'+(ok?' ok':'')+'">'+(ok?'✅':'⏳')+' <span class="swn-pt"><b id="ow-today">'+m+' of '+g+' min</b><small>'+(ok?'Today’s study is done':(g-m)+' min to go today')+(sk?' · 🔥 '+sk:'')+'</small></span></span><button class="swn-ib swn-big" data-act="swhist">'+SVI.chart+'<small>My listening</small></button><button class="swn-ib swn-big" data-act="swset">'+SVI.gear+'<small>Settings</small></button></div>';
+ /* b436: owner picked Listen A: one slim Today card (ring, minutes, streak, My listening ›) + small round settings button; replaces the two square buttons. */
+ h+='<div class="swn-hd2"><button class="swn-td'+(ok?' ok':'')+'" data-act="swhist">'+swRing2(m,g)+'<span class="swn-tdt"><b id="ow-today">'+m+' of '+g+' min</b><small>'+(ok?'✅ Today’s study is done':'Today · '+(g-m)+' min to go')+(sk?' · 🔥 '+sk+' day'+(sk>1?'s':'')+' in a row':'')+'</small></span><em>My listening ›</em></button><button class="swn-gear" data-act="swset" aria-label="Settings">'+SVI.gear+'</button></div>';
  h+='<div class="swn-seg">'+[['L',SVI.listen+'Listen'],['B',SVI.lib+'Library'],['N',SVI.notes+'Notes'+(d?' <span class="swn-dq">'+d+'</span>':'')]].map(function(x){return '<button data-act="swt2" data-v="'+x[0]+'" aria-pressed="'+(SWT2===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
  if(SWT2==='B'){h+='<div class="swn-h">Swamy’s classes</div>'+swClasses({noWeek:1,flat:1})+swLocal3(pl)+'<button class="swn-addb" data-act="swadd">'+SVI.plus+'Add a link or a file</button>'}
  else if(SWT2==='N'){h+='<div class="swn-nf">'+[['all','All'],['doubt','❓ Doubts'+(d?' '+d:'')],['notes','📝 Notes'],['line','✍️ One line']].map(function(x){return '<button class="chip" data-act="swnf" data-v="'+x[0]+'" aria-pressed="'+(SWNF===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
   var dc=swDoubtCard()||(SWNF==='doubt'?'<div class="mute" style="padding:8px 4px">No open doubts. While listening, tap ❓ Doubt to keep a question for Sunday.</div>':'');
   if(SWNF==='all')h+=swPtsSec(l)+dc+swNotesList()+swLines();else if(SWNF==='doubt')h+=dc;else if(SWNF==='notes')h+=swNotesList();else h+=(swLines()||'<div class="mute" style="padding:8px 4px">After 20 minutes of listening, the app asks for one line to remember.</div>')}
  else{var w=swWeek(),isW=l&&w&&l.id==='od_'+w.id;h+='<div class="swn-div">‖ श्रीमते रामानुजाय नमः ‖</div>'+swJoin();
-  if(l)h+='<div class="swn-hero">'+swRing(m,g)+'<small class="swn-lb">'+(isW?'THIS WEEK’S CLASS · NEXT '+swSun().toUpperCase():'NOW PLAYING')+'</small>'+swPlayer(l,pl,{svg:1})+'</div>';
+  if(l)h+='<div class="swn-hero swn-h2"><small class="swn-lb">'+(isW?'THIS WEEK’S CLASS · NEXT '+swSun().toUpperCase():'NOW PLAYING')+'</small>'+swPlayer(l,pl,{svg:1})+'</div>';
   else{var wc=swWeekCard()||swContinue();h+=wc?'<div class="swn-hero swn-idle">'+swRing(m,g)+wc+'</div>':'<div class="swn-empty">Open <b>📚 Library</b> and choose a class to begin.</div>'}
-  h+=swPlan(m,g,l)+swTip(l)
-  h+=swLineCard()+swWeekBars()+swFromClass(l)+swUpNext()}
+  h+=swUpNext()+swPlan(m,g,l)+swTip(l)
+  h+=swLineCard()+swWeekBars()+swFromClass(l)}
  h=swPolish(h)+'</div>';
  if(SWADD)h+='<div class="swn-dim" data-act="swadd"></div><div class="swn-sheet" role="dialog" aria-label="Add to my listening"><div class="swn-grab"></div><div class="swn-sh"><b>Add to my listening</b><button class="chip" data-act="swadd">✕ Close</button></div>'+swLinkBox().replace('<details class="ow-gd">','<details class="ow-gd" open>')+'<details class="ow-gd"><summary>📱 Choose a file on this phone</summary><label class="btn ow-add">＋ Add class audio<input type="file" accept="audio/*,.m4a,.mp3,.aac,.wav,video/mp4" multiple hidden data-own="lecfile"></label><div class="mute ow-note">Only if a class is not in the OneDrive folder. This saves the file on this phone and uses its space.</div></details></div>';
  if(SWSET)h+='<div class="swn-dim" data-act="swset"></div><div class="swn-sheet" role="dialog" aria-label="Swadhyayam settings"><div class="swn-grab"></div><div class="swn-sh"><b>⚙️ Swadhyayam settings</b><button class="chip" data-act="swset">✕ Close</button></div>'+swSetBody(g)+'</div>';
@@ -4476,6 +4490,7 @@ function swPolish(h){return h.replace(/<span>⭐<\/span>Important/g,SVI.star+'Im
  .replace(/<span class="ow-lp" style="background:#d9a034">📁<\/span>/g,'<span class="ow-lp swn-fo">'+SVI.folder+'</span>')}
 /* b408: Swadhyayam ring, Today's plan (ticks by itself), one tip, 3 points per class + recall check, You are here */
 var SWLINEF=false,SWRC='';
+function swRing2(m,g){var p=Math.min(1,m/g),c=2*Math.PI*20,done=m>=g;return '<svg class="swn-r2" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="none" stroke="#efe3c8" stroke-width="6"/><circle cx="24" cy="24" r="20" fill="none" stroke="'+(done?'#5f9b56':'#e8890c')+'" stroke-width="6" stroke-linecap="round" stroke-dasharray="'+(p*c).toFixed(1)+' '+c.toFixed(1)+'" transform="rotate(-90 24 24)"/><text x="24" y="28" text-anchor="middle" font-size="11" font-weight="800" fill="#0f6b66">'+(done?'✓':Math.round(p*100)+'%')+'</text></svg>'}
 function swRing(m,g){var n=Math.max(15,Math.min(45,Math.round(g/2))),f=Math.min(n,Math.floor(m/g*n)),d='',done=m>=g;for(var i=0;i<n;i++){var a=i/n*2*Math.PI-Math.PI/2,x=46+38*Math.cos(a),y=46+38*Math.sin(a);d+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(i===0?4.3:3.3)+'" fill="'+(i<f?(done?'#9fd6b4':'#e9c46a'):'rgba(255,255,255,.2)')+'"/>'}
  return '<div class="swn-ring" aria-label="'+m+' of '+g+' minutes today"><svg width="92" height="92" viewBox="0 0 92 92">'+d+'</svg><b>'+(done?'✓':m)+'<small>'+(done?'hour done':'of '+g+' min')+'</small></b></div>'}
 function swPA(x){var p=x&&x.pts;if(!p)return [];if(Array.isArray(p))return p.filter(function(y){return y});return String(p).split(/\n+/).map(function(y){return y.replace(/^\s*\d+[.)]\s*/,'').trim()}).filter(function(y){return y})}
@@ -4508,7 +4523,7 @@ function swClsCheck(force){try{if(!MSF.path||!MSF.path[0]||!MSF.path[0].d)return
   if(!f){S.swcls={u:'',w:'',at:Date.now()};sv();if(force)render();return}var u=msDU(f);if(!u)return;return fetch(u).then(function(x){return x.text()}).then(function(t){var ls=t.split(/\r?\n/).map(function(x){return x.trim()}).filter(Boolean),m=t.match(/https?:\/\/\S+/),w=ls.filter(function(x){return !/https?:\/\//.test(x)})[0]||'';S.swcls={u:m?m[0]:'',w:w,at:Date.now()};sv();render()})}).catch(function(){})}catch(e){}}
 function swWeekBars(){var d=new Date(),g=swGoal(),a=[],n=0;for(var i=6;i>=0;i--){var x=new Date();x.setDate(d.getDate()-i);var k=dstr(x),m=swMin(k);if(m>=g)n++;a.push({k:k,m:m,l:i?x.toLocaleDateString('en',{weekday:'short'}):'Today',t:!i})}
  var sel=SWWK>=0?a[SWWK]:null;
- return '<div class="swn-h">This week <span>tap a day</span></div><div class="swn-wk">'+a.map(function(o,i){return '<button data-act="swwk" data-v="'+i+'" aria-pressed="'+(SWWK===i)+'"><i class="'+(o.m>=g?'f':o.t?'t':'')+'" style="height:'+Math.max(5,Math.min(44,Math.round(o.m/g*40)))+'px"></i>'+o.l+'</button>'}).join('')+'</div><div class="swn-wkn">'+(sel?sel.l+': '+sel.m+' min'+(sel.m>=g?' · full hour ✓':''):n+' of 7 days with your full '+g+' min')+'</div>'}
+ return '<div class="swn-h">This week <span>'+n+' of 7 days full</span></div><div class="swn-wk2">'+a.map(function(o,i){var p=Math.min(100,Math.round(o.m/g*100)),c=o.m>=g?'<span class="c f">✓</span>':o.m>0?'<span class="c h" style="--p:'+p+'%"><span>'+o.m+'</span></span>':'<span class="c">–</span>';return '<button data-act="swwk" data-v="'+i+'" aria-pressed="'+(SWWK===i)+'" class="'+(o.t?'t':'')+'">'+c+o.l+'</button>'}).join('')+'</div>'+(sel?'<div class="swn-wkn">'+sel.l+': '+sel.m+' min'+(sel.m>=g?' · full '+g+' min ✓':'')+'</div>':'')}
 function swFromClass(l){if(!l)return '';var ns=l.notes||[],dq=ns.filter(function(n){return n.k==='doubt'&&!n.d}),ot=ns.length-dq.length;if(!ns.length)return '';
  var r='<div class="swn-h">From this class</div>';if(dq.length)r+='<button class="swn-row" data-act="swnf2" data-v="doubt"><span class="swn-ic swn-nt">'+SVI.q+'</span><span class="swn-tx"><b>'+dq.length+' doubt'+(dq.length>1?'s':'')+' for Sunday</b><small>“'+oEsc((dq[0].x||'').slice(0,60))+'”</small></span><span class="ow-go">›</span></button>';
  if(ot)r+='<button class="swn-row" data-act="swnf2" data-v="notes"><span class="swn-ic swn-nt">'+SVI.pen+'</span><span class="swn-tx"><b>'+ot+' note'+(ot>1?'s':'')+' and marks</b><small>Tap to read and hear them</small></span><span class="ow-go">›</span></button>';return r}
@@ -4660,6 +4675,7 @@ Object.assign(OWNA,{
  swxdel:function(){if(SWFX<0)return;var x=S.swx[SWFX];if(!confirm('Remove “'+x.n+'” from the app? The folder stays in OneDrive.'))return;S.swx.splice(SWFX,1);sv();swFxGo(-1)},
  swso:function(){var L=['new','old','un'];S.swso=L[(L.indexOf(S.swso||'new')+1)%3];sv();render()},
  swexp:function(t,v){var x=swKnown().filter(function(y){return y.id===v})[0];if(x)swExp(x)},
+ swmore2:function(){SWMORE=!SWMORE;render()},
  swcoll:function(){for(var k in SWEXP)SWEXP[k].open=false;render()},
  msdir:function(t,v){SWQ='';var x=swKnown().filter(function(y){return y.id===v})[0];if(!x)return;MSF.path.push({d:x.parentReference.driveId,i:x.id,n:x.name});msList()},
  msup:function(t,v){MSF.path=MSF.path.slice(0,+v+1);msList()},
@@ -5838,7 +5854,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=435,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
+var APPV=436,NEWV=0,VCHK=0;VLBL='Guru Dev \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -6256,14 +6272,20 @@ function swMinS(sec){var m=Math.round((sec||0)/60);return m<1&&sec>0?'under 1 mi
 function swLastLine(){var L=S.swlog||[],x=L[L.length-1];if(!x)return '<div class="swlast mute">🎧 From today the app keeps an exact log of what you hear. Tap 📊 to see it.</div>';
  var ago=Date.now()-x.e,when=x.d===tdy()?'today '+swClock(x.e):swDayName(x.d)+' '+swClock(x.e);
  return '<div class="swlast">🎧 Last heard '+when+' · '+swMinS(x.h)+' · '+oEsc(x.n)+(ago>36*3600e3?' · <b>'+Math.floor(ago/864e5)+' days ago</b>':'')+'</div>'}
+function swBest(){var g=swGoal()*60,K=Object.keys(S.swd||{}).filter(function(k){return (S.swd[k]||0)>=g}).sort(),b=0,r=0,pv=null;K.forEach(function(k){var t=new Date(k+'T12:00:00').getTime();r=pv!==null&&Math.round((t-pv)/864e5)===1?r+1:1;if(r>b)b=r;pv=t});return b}
 function swSumD(n){var t=0,d=new Date();for(var i=0;i<n;i++){t+=((S.swd||{})[dstr(d)]||0);d.setDate(d.getDate()-1)}return t}
 function swHist(){var L=S.swlog||[],g=swGoal(),h='';
  h+='<div class="swh-top"><button class="chip" data-act="swhist">‹ Back</button><b>📊 My listening</b></div>';
  var days=Object.keys(S.swd||{}).filter(function(k){return (S.swd[k]||0)>=60}).length;
- h+='<div class="swh-sum"><div><b>'+swMin(tdy())+'</b><small>min today</small></div><div><b>'+Math.round(swSumD(7)/60)+'</b><small>min in 7 days</small></div><div><b>'+Math.round(swSumD(30)/60)+'</b><small>min in 30 days</small></div><div><b>'+days+'</b><small>days studied</small></div></div>';
- var sp7=swSplit(7);h+='<div class="swh-split"><div><b>🪔 '+Math.round(sp7[0]/60)+' min</b><small>Guru’s classes</small></div><div><b>🌼 '+Math.round(sp7[1]/60)+' min</b><small>Other listening</small></div><span>last 7 days</span></div>';
+ /* b436: My listening redesigned (owner picked the preview): today + 7-day bars, Guru vs other as one bar, 3 numbers */
+ var bd=[],dd=new Date(),mx=g;for(var bi=6;bi>=0;bi--){var bx=new Date();bx.setDate(dd.getDate()-bi);var bm=swMin(dstr(bx));if(bm>mx)mx=bm;bd.push({m:bm,l:bi?bx.toLocaleDateString('en',{weekday:'short'}):'Today',t:!bi})}
+ var sp7=swSplit(7),s0=Math.round(sp7[0]/60),s1=Math.round(sp7[1]/60),st=s0+s1,sk=swStreak(),best=swBest();
+ h+='<div class="swh2"><div class="swh2-t"><span class="swh2-big">'+swMin(tdy())+'</span><span><b>min today</b><small>'+Math.round(swSumD(7)/60)+' min in the last 7 days'+(sk?' · 🔥 '+sk+' day'+(sk>1?'s':''):'')+'</small></span></div>'
+  +'<div class="swh2-bars">'+bd.map(function(o){return '<div class="'+(o.m>=g?'g ':'')+(o.t?'tdy':'')+'"><span>'+(o.m||'')+'</span><i style="height:'+Math.max(3,Math.round(o.m/mx*64))+'px"></i>'+o.l+'</div>'}).join('')+'</div><div class="swh2-gl">Dark bar = your full '+g+' min</div>'
+  +(st?'<div class="swh2-sl">Last 7 days</div><div class="swh2-sp"><i style="width:'+Math.round(s0/st*100)+'%;background:#0f6b66"></i><i style="width:'+(100-Math.round(s0/st*100))+'%;background:#e8b04a"></i></div><div class="swh2-lg"><span style="--c:#0f6b66">Guru’s classes '+s0+' min</span><span style="--c:#e8b04a">Other '+s1+' min</span></div>':'')+'</div>'
+  +'<div class="swh2-3"><div><b>'+Math.round(swSumD(30)/60)+'</b><small>min in 30 days</small></div><div><b>'+days+'</b><small>days studied</small></div><div><b>'+best+'</b><small>best streak</small></div></div>';
  h+=swLastLine();
- h+='<div class="swh-tabs"><button data-act="swhv" data-v="l" aria-pressed="'+(SWHV==='l')+'">📜 What I heard</button><button data-act="swhv" data-v="d" aria-pressed="'+(SWHV==='d')+'">📅 By day</button><button data-act="swhv" data-v="c" aria-pressed="'+(SWHV==='c')+'">📚 By class</button></div>';
+ h+='<div class="swh-tabs swh2-tb"><button data-act="swhv" data-v="d" aria-pressed="'+(SWHV==='d')+'">📅 By day</button><button data-act="swhv" data-v="c" aria-pressed="'+(SWHV==='c')+'">📚 By class</button><button data-act="swhv" data-v="l" aria-pressed="'+(SWHV==='l')+'">📜 Log</button></div>';
  if(SWHV==='l'){var R=[],ix={};L.slice().reverse().forEach(function(x){var key=x.d+'|'+x.i;if(ix[key]===undefined){ix[key]=R.length;R.push({d:x.d,i:x.i,n:x.n,h:0,k:x.k,g:swGuruX(x)})}R[ix[key]].h+=x.h});
   if(!R.length)return h+'<div class="mute swh-e">Nothing heard yet.</div>';var lastD='';
   h+='<div class="swh-ls">'+R.slice(0,80).map(function(r){var dh=r.d!==lastD?'<div class="swh-ld">'+swDayName(r.d)+'</div>':'';lastD=r.d;return dh+'<div class="swh-li"><span class="swh-lt">'+(r.g?'🪔':'🌼')+'</span><span class="swh-n"><b>'+oEsc(r.n)+'</b><small>'+(r.g?'Guru’s class':'Other listening')+' · '+({a:'🎧 Audio',y:'▶️ YouTube',v:'🎬 Video'}[r.k]||'🎧')+' · '+swMinS(r.h)+'</small></span></div>'}).join('')+'</div>';
@@ -6271,9 +6293,9 @@ function swHist(){var L=S.swlog||[],g=swGoal(),h='';
  if(SWHV==='d'){var dl=[],d=new Date();for(var i=0;i<21;i++){var k=dstr(d);if((S.swd||{})[k]||L.some(function(x){return x.d===k}))dl.push(k);d.setDate(d.getDate()-1)}
   if(!dl.length)return h+'<div class="mute swh-e">Nothing heard in the last 3 weeks.</div>';
   h+=dl.map(function(k){var se=L.filter(function(x){return x.d===k}),sec=(S.swd||{})[k]||0;
-   return '<div class="swh-d"><div class="swh-dh"><b>'+swDayName(k)+'</b><span class="'+(sec>=g*60?'ok':'')+'">'+(sec>=g*60?'✅ ':'')+Math.round(sec/60)+' min</span></div>'
+   return '<div class="swh-d swh2-d"><div class="swh-dh"><b>'+swDayName(k)+'</b><span class="'+(sec>=g*60?'ok':'')+'">'+(sec>=g*60?'✅ ':'')+Math.round(sec/60)+' min</span></div><div class="swh2-bx">'
     +(se.length?se.map(function(x){return '<div class="swh-s"><span class="swh-t">'+swClock(x.s)+' – '+swClock(x.e)+'</span><span class="swh-n"><b>'+oEsc(x.n)+'</b><small>'+(swGuruX(x)?'🪔 ':'🌼 ')+({a:'🎧 Audio',y:'▶️ YouTube',v:'🎬 Video'}[x.k]||'🎧')+' · heard '+swMinS(x.h)+' · '+oT(x.a)+' → '+oT(x.b)+'</small></span></div>'}).join('')
-     :'<div class="mute swh-s0">Minutes from before the detailed log started.</div>')+'</div>'}).join('');
+     :'<div class="mute swh-s0">Minutes from before the detailed log started.</div>')+'</div></div>'}).join('');
   return h+'<div class="mute swh-e">Only real listening counts: minutes go up only while the sound or video is actually playing.</div>'}
  var C=LEC.filter(function(l){return (l.heard||0)||l.pos>5||L.some(function(x){return x.i===l.id})||(l.notes||[]).length});
  C.sort(function(a,b){return (b.last||0)-(a.last||0)});
