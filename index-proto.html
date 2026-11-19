@@ -2777,6 +2777,7 @@ html.qton .nvbar{display:none!important}
 .rdfew{border:1px solid #eadcbc;background:#fff;border-radius:16px;padding:12px;margin-top:10px}.rdfew-h{display:flex;gap:12px;align-items:center}.rdfew-h i{background:#fff1d6;color:#a8431a}
 .rdrg{display:flex;align-items:center;gap:8px;margin:10px 0 2px;font-weight:700;color:#5a4a35}.rdrg .rd-seg{flex:1;margin:0}.rdstp{display:flex;align-items:center;border:1px solid #e3d3b0;border-radius:12px;overflow:hidden;background:#fff}.rdstp button{width:42px;height:44px;border:0;background:#f7f0e0;font-size:1.1rem;color:#5a3a12;cursor:pointer}.rdstp b{min-width:42px;text-align:center;font-size:1.05rem}
 .rdfew-go{width:100%;margin-top:12px;min-height:50px;border:0;border-radius:14px;background:#e8890c;color:#fff;font-weight:800;font-size:1rem;cursor:pointer}
+.swfx{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;margin-bottom:6px;border-bottom:1px solid #eadcbc;-webkit-overflow-scrolling:touch}.swfx .chip{flex:none;min-height:40px}.swfx .chip.on{background:#0f6b66;color:#fff;border-color:#0f6b66}.swfx-add{border-style:dashed!important}.swfx-f{background:#fffaf0;border:1px solid #eadcbc;border-radius:14px;padding:10px;margin-bottom:10px}.swfx-o{display:flex;gap:6px;margin:-2px 0 10px}
 </style>
 </head>
 <body>
@@ -3447,7 +3448,7 @@ function swSeq(){var f=(MSF.items||[]).filter(function(x){return !x.folder});var
 function swNextItem(){if(!SWCUR||!/^od_/.test(SWCUR))return null;var q=swSeq(),id=SWCUR.slice(3);for(var i=0;i<q.length;i++)if(q[i].id===id)return q[i+1]||null;return null}
 function swNext(){var n=swNextItem();if(n){msPlay(n.id);return true}return false}
 /* this week's class = last class in the open folder by file name number (audio first) */
-function swWeek(){var f=swSeq();return f.length?f[f.length-1]:null}
+function swWeek(){if(SWFX>=0)return null;var f=swSeq();return f.length?f[f.length-1]:null}
 function swCD(n){var m=String(n||'').match(/^\d+[_ -]+(\d{4})-(\d{2})-(\d{2})/);return m?new Date(+m[1],+m[2]-1,+m[3]).getTime():0}
 function swCatch(){var w=swWeek();if(!w)return [];var q=swSeq(),i=q.indexOf(w),wd=swCD(w.name);if(i<1)return [];
  return q.slice(0,i).filter(function(x,k){var cd=swCD(x.name),near=wd&&cd?(wd-cd)<=22*864e5:k>=i-2,l=swLecOf(x);return near&&!(l&&(l.heard||l.done))})}
@@ -4534,11 +4535,19 @@ function msAT(){var t=msTok();if(!t||!t.at)return Promise.reject('Not signed in'
 function msGet(u,pf){return msAT().then(function(at){var h={Authorization:'Bearer '+at};if(pf)h.Prefer='redeemSharingLink';return fetch(u,{headers:h})}).then(function(r){return r.json().then(function(j){if(!r.ok)throw ((j.error&&j.error.message)||('Error '+r.status));return j})})}
 function msShareId(url){return 'u!'+btoa(unescape(encodeURIComponent(url))).replace(/=+$/,'').replace(/\//g,'_').replace(/\+/g,'-')}
 function msIsAud(n){return /\.(m4a|mp3|aac|wav|ogg|opus|mp4|m4v|mov|webm|amr|3gp)$/i.test(n||'')}
-function msOpenRoot(){if(!S.swlink){MSF.err='Paste the guru’s OneDrive folder link first.';render();return}MSF.busy=true;MSF.err='';render();
- msGet('https://graph.microsoft.com/v1.0/shares/'+msShareId(S.swlink)+'/driveItem',1).then(function(it){MSF.path=[{d:it.parentReference&&it.parentReference.driveId,i:it.id,n:it.name}];return msList()}).catch(function(e){MSF.busy=false;S.swok=0;sv();var t=msTok()||{};MSF.err=msExp(e)?msExpMsg():/denied|forbidden|not found|403|404|itemNotFound/i.test(String(e))?'This Microsoft account ('+(t.mail||'')+') can’t open the guru’s class folder. Ask for the folder to be shared with this email, then tap Show the guru’s classes.':'Could not open the folder: '+e;render()})}
+/* b433: more OneDrive folders in Swadhyayam (owner asked for a second folder). Each = {n:name,u:link} in S.swx, kept only on this phone like S.swlink. SWFX = -1 the guru's class folder, else the index in S.swx. Other folders don't touch this week's class, catch-up or the saved place in the class folder. */
+var SWFX=-1,SWXADD=false,SWXMSG='';
+function swCurLink(){var x=SWFX>=0&&(S.swx||[])[SWFX];return x?x.u:S.swlink}
+function swFoldBar(){var L=S.swx||[];if(!L.length&&!OWN)return '';var h='<div class="swfx">'+'<button class="chip'+(SWFX<0?' on':'')+'" data-act="swfx" data-v="-1">📚 Guru’s classes</button>'+L.map(function(x,i){return '<button class="chip'+(SWFX===i?' on':'')+'" data-act="swfx" data-v="'+i+'">📁 '+oEsc(x.n)+'</button>'}).join('')+(OWN?'<button class="chip swfx-add" data-act="swxadd">＋ Add folder</button>':'')+'</div>';
+ if(SWXADD)h+='<div class="swfx-f"><label class="ow-lab" style="margin-top:0">Name for this folder</label><input id="swx-n" class="ow-in" placeholder="e.g. Bhagavad Gita classes"><label class="ow-lab">🔗 OneDrive folder link</label><input id="swx-u" class="ow-in" placeholder="Paste the shared link"><div class="ow-two"><button class="btn ow-sm" data-act="swxsave">Save</button><button class="chip" data-act="swxadd">Cancel</button></div><div class="mute">Saved only on this phone, never in the app’s code.</div>'+(SWXMSG?'<div class="ow-err">'+oEsc(SWXMSG)+'</div>':'')+'</div>';
+ else if(SWFX>=0&&OWN)h+='<div class="swfx-o"><a class="chip" href="'+oEsc(swCurLink())+'" target="_blank" rel="noopener">Open in OneDrive</a><button class="chip" data-act="swxdel">Remove this folder</button></div>';
+ return h}
+function swFxGo(i){SWFX=i;SWXADD=false;MSF={path:[],items:null,err:'',busy:false};MSAUTO=false;render()}
+function msOpenRoot(){var lk=swCurLink();if(!lk){MSF.err='Paste the guru’s OneDrive folder link first.';render();return}MSF.busy=true;MSF.err='';render();
+ msGet('https://graph.microsoft.com/v1.0/shares/'+msShareId(lk)+'/driveItem',1).then(function(it){MSF.path=[{d:it.parentReference&&it.parentReference.driveId,i:it.id,n:it.name}];return msList()}).catch(function(e){MSF.busy=false;S.swok=0;sv();var t=msTok()||{};MSF.err=msExp(e)?msExpMsg():/denied|forbidden|not found|403|404|itemNotFound/i.test(String(e))?'This Microsoft account ('+(t.mail||'')+') can’t open the guru’s class folder. Ask for the folder to be shared with this email, then tap Show the guru’s classes.':'Could not open the folder: '+e;if(SWFX>=0)MSF.err=MSF.err.replace('the guru’s class folder','this folder').replace('Show the guru’s classes','the folder again');render()})}
 function msList(){var p=MSF.path[MSF.path.length-1];MSF.busy=true;MSF.err='';render();
  return msGet('https://graph.microsoft.com/v1.0/drives/'+p.d+'/items/'+p.i+'/children?$top=200').then(function(j){var tn=Date.now();(j.value||[]).forEach(function(x){var u=msDU(x);if(u)MSU[x.id]={u:u,at:tn}});
-  S.swpath=MSF.path.slice();S.swok=1;MSF.items=(j.value||[]).filter(function(x){return x.folder||msIsAud(x.name)}).sort(function(a,b){return (b.createdDateTime||'').localeCompare(a.createdDateTime||'')});var wk=swWeek();if(wk)S.swwk={id:wk.id,name:wk.name,d:wk.parentReference&&wk.parentReference.driveId,size:wk.size,c:wk.createdDateTime};sv();MSF.busy=false;render();swClsCheck()}).catch(function(e){MSF.busy=false;if(MSF.path.length>1&&S.swpath){S.swpath=null;sv();msOpenRoot();return}MSF.err=String(e);render()})}
+  if(SWFX<0){S.swpath=MSF.path.slice();S.swok=1}MSF.items=(j.value||[]).filter(function(x){return x.folder||msIsAud(x.name)}).sort(function(a,b){return (b.createdDateTime||'').localeCompare(a.createdDateTime||'')});var wk=SWFX<0&&swWeek();if(wk)S.swwk={id:wk.id,name:wk.name,d:wk.parentReference&&wk.parentReference.driveId,size:wk.size,c:wk.createdDateTime};sv();MSF.busy=false;render();if(SWFX<0)swClsCheck()}).catch(function(e){MSF.busy=false;if(MSF.path.length>1&&(S.swpath||SWFX>=0)){if(SWFX<0){S.swpath=null;sv()}msOpenRoot();return}MSF.err=String(e);render()})}
 function msDU(j){return j&&(j['@microsoft.graph.downloadUrl']||j['@content.downloadUrl'])}
 function msDl(l){var base='https://graph.microsoft.com/v1.0/drives/'+l.od.d+'/items/'+l.od.i;
  return msGet(base).then(function(j){var u=msDU(j);if(u)return u;
@@ -4580,12 +4589,12 @@ function stuAfter2(){if(OWN&&!S.swlink){stuCheck().then(function(){OWNP='sw';HT=
 function msPanel(o){o=o||{};var t=msTok(),h='<div class="ow-fold ms-p">';
  if(!t||!t.at){h+='<b>☁️ Guru’s classes from OneDrive</b><div class="mute">Sign in once with a Microsoft account (Outlook, Hotmail, or one made with Gmail). The classes then show here with your progress, and play straight from OneDrive.</div><button class="btn ow-sm" data-act="mslogin">Sign in with Microsoft</button>';
   if(MSF.err)h+='<div class="ow-err">'+oEsc(MSF.err)+'</div>';return h+'</div>'}
- if(!o.noWeek)h+='<b>📚 Guru’s classes</b>';
+ h+=swFoldBar();if(!o.noWeek)h+='<b>'+(SWFX>=0?'📁 '+oEsc(S.swx[SWFX].n):'📚 Guru’s classes')+'</b>';
  if(MSF.err)h+='<div class="ow-err">'+oEsc(MSF.err)+'</div>';
- if(!MSF.items&&!MSF.busy&&!MSAUTO&&!MSF.err){MSAUTO=true;setTimeout(function(){if(S.swpath&&S.swpath.length){MSF.path=S.swpath;msList()}else msOpenRoot()},0)}
- if(!MSF.items){h+=MSF.busy||!MSF.err?'<div class="mute">Opening the folder…</div>':'<button class="btn ow-sm" data-act="msroot">📂 Show the guru’s classes</button>';return h+'</div>'}
+ if(!MSF.items&&!MSF.busy&&!MSAUTO&&!MSF.err){MSAUTO=true;setTimeout(function(){if(SWFX<0&&S.swpath&&S.swpath.length){MSF.path=S.swpath;msList()}else msOpenRoot()},0)}
+ if(!MSF.items){h+=MSF.busy||!MSF.err?'<div class="mute">Opening the folder…</div>':'<button class="btn ow-sm" data-act="msroot">📂 '+(SWFX>=0?'Open the folder':'Show the guru’s classes')+'</button>';return h+'</div>'}
  var nfi=MSF.items.filter(function(x){return !x.folder}).length,nfo=MSF.items.length-nfi,open=o.flat||S.swall||!nfi;
- var crumb='<div class="ms-crumb">'+MSF.path.map(function(p,i){return '<button class="chip" data-act="msup" data-v="'+i+'">'+(i?oEsc(p.n):'🏠 Classes')+'</button>'}).join('<span>›</span>')+(MSF.busy?' <small>loading…</small>':'')+'</div>';
+ var crumb='<div class="ms-crumb">'+MSF.path.map(function(p,i){return '<button class="chip" data-act="msup" data-v="'+i+'">'+(i?oEsc(p.n):SWFX>=0?'🏠 '+oEsc(S.swx[SWFX].n):'🏠 Classes')+'</button>'}).join('<span>›</span>')+(MSF.busy?' <small>loading…</small>':'')+'</div>';
  if(open&&!(o.flat&&MSF.path.length<2))h+=crumb;
  var nw=swWeek();
  if(nw&&!o.noWeek){var nl=swLecOf(nw),hh=(nl&&nl.heard)||0;
@@ -4604,6 +4613,10 @@ Object.assign(OWNA,{
  mslogin:function(){msLogin()},
  mslogout:function(){try{localStorage.removeItem('sg_ms')}catch(e){}STUMSG='';if(!OWN){S.swok=0;S.swinv=0;S.swlink='';SWCUR=null;if(SWA)SWA.pause();OWNP='gate';STUMSG='Signed out.';sv()}MSF={path:[],items:null,err:'',busy:false};render()},
  msroot:function(){msOpenRoot()},
+ swfx:function(t,v){swFxGo(+v)},
+ swxadd:function(){SWXADD=!SWXADD;SWXMSG='';render()},
+ swxsave:function(){var n=((document.getElementById('swx-n')||{}).value||'').trim(),u=((document.getElementById('swx-u')||{}).value||'').trim();if(!/^https:\/\//i.test(u)){SWXMSG='Please paste a link starting with https://';render();return}if(!n)n='Folder '+((S.swx||[]).length+2);S.swx=(S.swx||[]).concat([{n:n.slice(0,40),u:u}]);sv();SWXMSG='';swFxGo(S.swx.length-1)},
+ swxdel:function(){if(SWFX<0)return;var x=S.swx[SWFX];if(!confirm('Remove “'+x.n+'” from the app? The folder stays in OneDrive.'))return;S.swx.splice(SWFX,1);sv();swFxGo(-1)},
  msdir:function(t,v){var x=(MSF.items||[]).filter(function(y){return y.id===v})[0];if(!x)return;MSF.path.push({d:x.parentReference.driveId,i:x.id,n:x.name});msList()},
  msup:function(t,v){MSF.path=MSF.path.slice(0,+v+1);msList()},
  msplay:function(t,v){msPlay(v)}
@@ -5781,7 +5794,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=432,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=433,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
