@@ -552,3 +552,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 443 (20 Nov 2026) — Guru Test only. Levels now differ clearly (hideNow):
 - Beginner: text never hidden (as the setup screen says). Normal: new verse hidden only on the last say-it-alone round; revision hidden on your turn. Advanced: new verse lines shown, whole-verse turns hidden; revision hidden. Guide chanting: always shown. Tap to peek and S.hide unchanged. Setup screen wording not changed yet (Telugu/Hindi strings keyed on the English text).
+
+## Last known good Guru Test = build 440 (owner, 20 Nov 2026)
+- Saved on the backups branch as backups/index-proto-v440-good.html (from commit de56809). To revert Guru Test: copy it to index-proto.html, set APPV to the next number, push.
