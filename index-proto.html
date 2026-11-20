@@ -2531,6 +2531,14 @@ html.qton .nvbar{display:none!important}
 .mlk-b{border:1.5px solid #ecd5a0;border-top:0;border-radius:0 0 14px 14px;margin-top:-8px;padding:12px 12px 10px;background:#fffdf8}
 .mlk-h{font-size:1rem;margin:10px 0 6px}.mlk-b .mlk-h:first-child{margin-top:4px}
 .unbtns .unw{background:#7a1f1f;border-color:#7a1f1f;color:#fff}
+.vsel-nb{border:0;font:inherit;font-weight:800;font-size:1.15rem;color:#fff;flex-direction:column;line-height:1;min-width:54px;height:50px;cursor:pointer}.vsel-nb i{font-style:normal;font-size:.6rem;font-weight:600;opacity:.85;margin-top:3px}
+.vspk-b{display:flex;align-items:center;gap:10px;width:100%;margin-top:12px;padding:11px 14px;border-radius:14px;border:1.5px dashed #cfe2dc;background:#fff;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.vspk-b span{flex:1}.vspk-b b{display:block;font-size:.95rem;color:#0f5c58}.vspk-b small{display:block;font-size:.78rem;color:#6b7a70;margin-top:1px}.vspk-b i{font-style:normal;color:#0f6b66;font-size:1.05rem;transition:transform .25s}
+.vspk-b.open{border-style:solid;border-radius:14px 14px 0 0;border-bottom-color:transparent}.vspk-b.open i{transform:rotate(180deg)}
+.vspk-d{border:1.5px solid #cfe2dc;border-top:0;border-radius:0 0 14px 14px;margin-top:-2px;padding:4px 12px 12px;animation:vspkIn .25s ease}.vspk-d.unm0{border-top:1.5px solid #cfe2dc;border-radius:14px;margin-top:12px;padding-top:10px}
+@keyframes vspkIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.vspk-lg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.74rem;color:#6b7a70;margin:6px 0 8px}.vspk-lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.vspk-ft{display:flex;justify-content:space-between;margin-top:10px}.vspk-ft .lnkb{font-size:.86rem;font-weight:700;color:#7a4a10}
 .unbtns .unk{background:#2e7d4a;border:1.5px solid #2e7d4a;color:#fff}.unopt.unko{background:#eef7ef;border-color:#9fcfa8}
 .unlk{display:block;margin:10px auto 0;font-size:.84rem;color:#7a4a10}
 
@@ -5097,16 +5105,23 @@ function vsCard(jr){if(!S.learned.length)return '';var L=S.learned.slice().sort(
  var LA=L;if(VSST)L=L.filter(function(x){return x.s.c==='vs-'+VSST});
  var RG=[];L.forEach(function(x){var r=Math.floor((x.n-1)/20);if(RG.indexOf(r)<0)RG.push(r)});if(VSR!==null&&String(VSRS)!==String(sel))VSR=null;
  var cr=VSR!==null&&RG.indexOf(VSR)>=0?VSR:(sel?Math.floor((+sel-1)/20):RG[RG.length-1]);if(RG.indexOf(cr)<0)cr=RG[RG.length-1];var tabs=L.length>20&&RG.length>1,LS=tabs?L.filter(function(x){return Math.floor((x.n-1)/20)===cr}):L;
- if(NEWORG()){h=vsTop(due,soon,nO,row);h+='<div class="card vsc vsnew"><div class="vsph"><span class="vspi">🎧</span><span class="vspt"><b>Practise any verse</b><small><b class="vslc">'+LA.length+' learned</b> · tap a number</small></span><button class="vsq vsmk'+(UNM?' on':'')+'" data-act="unmode" aria-label="Select verses to change">'+(UNM?'✕ Done':'✎ Edit')+'</button><button class="vsq" data-act="jsr" aria-label="Type a verse number">🔍</button></div>'+(UNM?'<div class="unbar0">✎ <b>Select verses to change</b> · tap the numbers, then choose below</div>':'')}h+=(NEWORG()?'':'<div class="vsh vh-o"><i>📿</i><span>All learned</span><em>'+LA.length+'</em><button class="vsq" data-act="jsr" aria-label="Type a verse number">🔍</button></div>')
+ if(NEWORG()){h=vsTop(due,soon,nO,row);h+='<div class="card vsc vsnew"><div class="vsph"><span class="vspi">🎧</span><span class="vspt"><b>Practise any verse</b><small><b class="vslc">'+LA.length+' learned</b>'+(UNM?' · tap a number':'')+'</small></span>'+(UNM?'<button class="vsq vsmk on" data-act="unmode" aria-label="Finish changing verses">✕ Done</button>':'')+'</div>'+(UNM?'<div class="unbar0">✎ <b>Select verses to change</b> · tap the numbers, then choose below</div>':'')}h+=(NEWORG()?'':'<div class="vsh vh-o"><i>📿</i><span>All learned</span><em>'+LA.length+'</em><button class="vsq" data-act="jsr" aria-label="Type a verse number">🔍</button></div>')
   +(NEWORG()?'':'<div class="vsst">'+[['due','🔔','Revise today',nD],['soon','⏳','Coming back',nS],['ok','🌿',NEWORG()?'Kaṇṭhastham':'Strong',nO]].map(function(x){return '<button class="vsst-'+x[0]+'" data-act="vsst" data-v="'+x[0]+'" aria-pressed="'+(VSST===x[0])+'"'+(x[3]?'':' disabled')+'><b>'+x[1]+' '+x[3]+'</b><small>'+x[2]+'</small></button>'}).join('')+'</div>')
-  +(VSST?'<div class="vsstn">Showing <b>'+{due:'Revise today',soon:'Coming back',ok:NEWORG()?'Kaṇṭhastham':'Strong'}[VSST]+'</b> only · <button class="lnkb" data-act="vsst" data-v="">Show all '+LA.length+'</button></div>':'')+(tabs?'<div class="vsrt">'+RG.map(function(r){var a=L.filter(function(x){return Math.floor((x.n-1)/20)===r}),lo=a[0].n,hi=a[a.length-1].n;if(NEWORG()){lo=r*20+1;hi=Math.min(r*20+20,108)}return '<button data-act="vsrg" data-v="'+r+'" aria-pressed="'+(r===cr)+'">'+lo+(hi!==lo?'–'+hi:'')+'</button>'}).join('')+'</div>':'')+'<div class="vsg'+(UNM?' unm':'')+'">'+LS.map(function(x){return UNM?'<button class="'+x.s.c+(UNSEL.indexOf(x.n)>=0?' pk':'')+'" data-act="unpick" data-v="'+x.n+'" aria-pressed="'+(UNSEL.indexOf(x.n)>=0)+'">'+x.n+'</button>':'<button class="'+x.s.c+(String(sel)===String(x.n)?' on':'')+'" data-act="jpick" data-v="'+x.n+'">'+x.n+'</button>'}).join('')+'</div>'+(UNM?unBar(LS):'')
+  +'<!--PK-->'+(VSST?'<div class="vsstn">Showing <b>'+{due:'Revise today',soon:'Coming back',ok:NEWORG()?'Kaṇṭhastham':'Strong'}[VSST]+'</b> only · <button class="lnkb" data-act="vsst" data-v="">Show all '+LA.length+'</button></div>':'')+(tabs?'<div class="vsrt">'+RG.map(function(r){var a=L.filter(function(x){return Math.floor((x.n-1)/20)===r}),lo=a[0].n,hi=a[a.length-1].n;if(NEWORG()){lo=r*20+1;hi=Math.min(r*20+20,108)}return '<button data-act="vsrg" data-v="'+r+'" aria-pressed="'+(r===cr)+'">'+lo+(hi!==lo?'–'+hi:'')+'</button>'}).join('')+'</div>':'')+'<div class="vsg'+(UNM?' unm':'')+'">'+LS.map(function(x){return UNM?'<button class="'+x.s.c+(UNSEL.indexOf(x.n)>=0?' pk':'')+'" data-act="unpick" data-v="'+x.n+'" aria-pressed="'+(UNSEL.indexOf(x.n)>=0)+'">'+x.n+'</button>':'<button class="'+x.s.c+(String(sel)===String(x.n)?' on':'')+'" data-act="jpick" data-v="'+x.n+'">'+x.n+'</button>'}).join('')+'</div>'+(UNM?unBar(LS):'')+'<!--/PK-->'
   
   +(NEWORG()?vsSelNew(sel,ss,jr,fm,cl):'<div class="vssel">'+(sel?'<b>Verse '+sel+'</b>'+(ss?'<small>'+ss.t+'</small>':''):'')+(jr||'')+'</div>'
   +'<div class="mute" style="font-size:.8rem;margin-top:8px">Strong = revised after 1, 3 and 7 days, or marked as known.</div>')+'</div>';
+ if(NEWORG())h=vsPkMove(h,LA.length,nD,sel);
  return h}
+/* b446: Practise any verse: the number buttons fold away under "Choose another verse" (or tap the big number). Picking a number folds them again. Open by itself in ✎ edit mode, with the Kaṇṭhastham filter, or when no verse is chosen. */
+var VSPK=false;
+function vsPkMove(h,nL,nD,sel){var m=/<!--PK-->([\s\S]*?)<!--\/PK-->/.exec(h);if(!m)return h;var op=VSPK||UNM||!!VSST||(!sel&&!JSR);h=h.replace(m[0],'');
+ var btn=UNM?'':'<button class="vspk-b'+(op?' open':'')+'" data-act="vspk" aria-expanded="'+op+'"><span><b>'+(op?'Pick a verse number':'Choose another verse')+'</b><small>'+(op?'Tap a number · it closes by itself':nL+' learned'+(nD?' · '+nD+' to revise today':''))+'</small></span><i>⌄</i></button>';
+ var drw=op?'<div class="vspk-d'+(UNM?' unm0':'')+'">'+(UNM?'':'<div class="vspk-lg"><span><i class="vs-due"></i>Revise today</span><span><i class="vs-soon"></i>Coming back</span><span><i class="vs-ok"></i>Kaṇṭhastham</span></div>')+m[1]+(UNM?'':'<div class="vspk-ft"><button class="lnkb" data-act="jsr">🔍 Type a number</button><button class="lnkb" data-act="unmode">✎ Change marks</button></div>')+'</div>':'';
+ var i=h.lastIndexOf('</div>');return h.slice(0,i)+btn+drw+h.slice(i)}
 /* b367: Revise › Practise any verse on your own: chosen verse with its first line, then "How many times" 1×/3×/5×, then a big Play (NEWORG only). */
 function vsSelNew(sel,ss,jr,fm,cl){var v=sel?V[vIdx(+sel)]:null;jr=(jr||'').replace(/<button class="chip jsr"[^>]*>[^<]*<\/button>/,'').replace('<div class="jseg"','<span class="vsx">How many times</span><div class="jseg"').replace('<input id="jv"','<span class="vsjv"><span class="vsx">Verse number</span><input id="jv"').replace('value="'+(JVV||'')+'">','value="'+(JVV||'')+'"><button class="vsjx" data-act="jsr" aria-label="Close">✕</button></span>');
- return '<div class="vssel vsel2">'+(sel?'<div class="vsel-h"><span class="vsel-n">'+sel+'</span><span class="vsel-t"><b>Verse '+sel+(ss?' <em class="vsb '+ss.c+'">'+ss.t+'</em>':'')+'</b>'+(v&&v[fm]?'<span class="'+cl+'">'+v[fm][0]+'</span>':'')+'</span>'+(S.learned.indexOf(+sel)>=0?'<button class="vsun" data-act="unopen" data-v="'+sel+'" aria-label="Change how this verse is marked">✎</button>':'')+'</div>':'')+jr+'</div>'+(UNV&&+UNV===+sel?unSheet(+sel):'')}
+ return '<div class="vssel vsel2">'+(sel?'<div class="vsel-h"><button class="vsel-n vsel-nb" data-act="vspk" aria-label="Choose another verse">'+sel+'<i>change ⌄</i></button><span class="vsel-t"><b>Verse '+sel+(ss?' <em class="vsb '+ss.c+'">'+ss.t+'</em>':'')+'</b>'+(v&&v[fm]?'<span class="'+cl+'">'+v[fm][0]+'</span>':'')+'</span>'+(S.learned.indexOf(+sel)>=0?'<button class="vsun" data-act="unopen" data-v="'+sel+'" aria-label="Change how this verse is marked">✎</button>':'')+'</div>':'')+jr+'</div>'+(UNV&&+UNV===+sel?unSheet(+sel):'')}
 /* b383: unmark one verse. Needs work = stays learned (progress unchanged), back in Revise today until Kaṇṭhastham again. Not learned yet = leaves the learned list (count goes down) and is taught again as a new verse. Streak, history and recordings stay. */
 var UNV=0,UNMSG='',UNM=false,UNSEL=[],UNASK='';
 /* b387: after marking or unmarking verses, an open or paused practice list could still hold an old new verse (owner: home said 76, tapping opened 2). Drop it so the next start builds a fresh list. */
@@ -5952,7 +5967,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=445,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=446,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -6211,7 +6226,8 @@ app.addEventListener('click',function(e){
  else if(a==='vcgo'){vcTry(1)}
  else if(a==='vccopy'){vcCopy(v)}
  else if(a==='vctry'){vcPlay(1,1)}
- else if(a==='jpick'){JVV=v;JSR=false;render()}
+ else if(a==='jpick'){JVV=v;JSR=false;VSPK=false;render()}
+ else if(a==='vspk'){VSPK=!VSPK;if(!VSPK&&VSST)VSST='';render()}
  else if(a==='vsf'){VSF=v;VSM=0;render()}
  else if(a==='vsmore'){VSM=1;render()}
  else if(a==='vsplay'){JVV=v;JSR=false;var jv=$('jv');if(jv)jv.value=v;jumpPlay()}
