@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · Learn one verse, full flow</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#2a2118;color:#3a2a18;-webkit-text-size-adjust:100%}
+button{font:inherit;cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
+.intro{color:#f6e7c8;padding:14px 16px 4px;max-width:430px;margin:auto;font-size:.9rem;line-height:1.45}.intro b{color:#ffd76a}
+.pick{display:flex;gap:8px;justify-content:center;padding:10px 8px}.pick button{border:0;border-radius:999px;padding:9px 16px;font-weight:700;background:#4a3b2a;color:#f6e7c8}.pick button.on{background:#ffd76a;color:#2a1500}
+.ph{width:min(393px,calc(100vw - 16px));margin:0 auto 26px;border-radius:30px;background:#faf6ee;box-shadow:0 20px 50px rgba(0,0,0,.45);padding:14px 14px 22px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.top b{color:#0f6b66}.top span{font-size:.82rem;color:#7a6a55;font-weight:700}
+.steps{display:flex;gap:4px;margin-bottom:10px}.steps span{flex:1;text-align:center;font-size:.74rem;font-weight:700;padding:6px 2px;border-radius:8px;background:#efe6d2;color:#8a7a60}.steps .on{background:#0f6b66;color:#fff}.steps .dn{background:#cfe3dc;color:#0f6b66}
+.stp{display:flex;align-items:center;gap:8px;background:#0f6b66;color:#fff;border-radius:14px;padding:11px 12px;font-weight:700;font-size:.95rem;min-height:46px}.stp.you{background:#c0392b}.stp.tip{background:#7a4a12}.stp small{margin-left:auto;font-weight:600;opacity:.9}
+.bar{height:5px;background:#efe6d2;border-radius:3px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:#c0392b}
+.vc{background:#fff;border:1px solid #eadcbc;border-radius:18px;padding:14px;margin-top:10px;text-align:center}
+.ln{padding:6px 4px;border-radius:10px;transition:background .2s}.ln.hl{background:#fff1c9}.ln.dim{opacity:.4}
+.vs{font-size:1.1rem;line-height:1.6;color:#2d1a0c}.pr{color:#0f6b66;font-size:.86rem;line-height:1.5}.pr b{background:#ffe7a8;color:#3b1d05;border-radius:4px;padding:0 2px}
+.lf{background:#fff6dc;border:1px solid #f0dca8;border-radius:14px;padding:10px 12px;margin-top:10px;text-align:left;font-size:.88rem;line-height:1.45}.lf b{color:#7a4a12}
+.hb{display:block;width:100%;border:0;border-radius:14px;background:#0f6b66;color:#fff;font-weight:800;min-height:54px;font-size:1rem;margin-top:12px}.hb.g{background:#fff;color:#0f6b66;border:1.5px solid #0f6b66}
+.mic{display:block;margin:12px auto 4px;width:84px;height:84px;border-radius:50%;border:0;background:#c0392b;color:#fff;font-size:1.8rem}.mic.rec{animation:pl 1.2s infinite}@keyframes pl{50%{box-shadow:0 0 0 14px rgba(192,57,43,.15)}}
+.mt{text-align:center;color:#7a6a55;font-size:.88rem}.mt b{display:block;color:#2d1a0c}
+.prog{display:flex;gap:6px;justify-content:center;margin:10px 0 2px}.prog span{font-size:.8rem;color:#8a7a60;border:1px solid #e3d3b0;border-radius:999px;padding:4px 12px;background:#fff}.prog .on{background:#0f6b66;color:#fff;border-color:#0f6b66}
+.sm{font-size:.8rem;color:#8a7a60;text-align:center;margin-top:8px;line-height:1.4}
+.done{text-align:center;padding:8px}.done .e{font-size:2.4rem}.done h3{margin:6px 0 4px;color:#0f6b66}.done p{margin:0;color:#6a5a40;font-size:.9rem}
+</style></head><body>
+<div class="intro"><b>Preview, not the app.</b> The full way to learn one new verse. Open in Safari, sound on, silent switch off. The tip voice is a <b>placeholder</b>: in the app it will be your own recorded voice.</div>
+<div class="pick"><button data-v="1" class="on">Verse 1</button><button data-v="43">Verse 43</button></div>
+<div class="ph">
+ <div class="top"><b id="vt">Verse 1</b><span id="clk">0:00</span></div>
+ <div class="steps"><span id="s0">1 Tip</span><span id="s1">2 Lines</span><span id="s2">3 Whole</span><span id="s3">4 Record</span></div>
+ <div class="stp" id="stp">Ready when you are<small></small></div>
+ <div class="bar"><i id="bar"></i></div>
+ <div class="vc"><div class="ln" id="l0"><div class="vs" id="v0"></div><div class="pr" id="p0"></div></div><div class="ln" id="l1"><div class="vs" id="v1"></div><div class="pr" id="p1"></div></div></div>
+ <div class="lf" id="tipbox"></div>
+ <div id="go"><button class="hb" id="start">▶ Start learning this verse</button><div class="sm">About 4 minutes. Everything plays by itself, you just chant when it says “Your turn”.</div></div>
+ <div id="run" style="display:none"><button class="hb g" id="stop">■ Stop</button></div>
+ <div id="recA" style="display:none"><button class="mic" id="mic">🎙</button><div class="mt" id="mt"><b>Tap to record</b>Say the whole verse once, on your own</div></div>
+ <div id="recB" style="display:none"><button class="hb" id="hear">▶ Hear me, then the guide</button><div class="prog"><span id="pa">You</span><span id="pb">Guide</span></div><div class="lf" id="hint"></div><button class="hb g" id="again">🎙 Record again</button><button class="hb" id="fin">✓ Done</button></div>
+ <div id="end" style="display:none" class="done"><div class="e">🌼</div><h3>Verse learned</h3><p id="took"></p><button class="hb g" id="redo">↺ Do this verse again</button></div>
+</div>
+<script>
+var V={1:{a:'audio/v001.m4a',c:6.9,d:13.95,l:[['विश्वं विष्णुर्वषट्कारो भूतभव्यभवत्प्रभुः ।','<b>Vish</b>-vam Vish-nur Va-<b>shat</b>-kaa-ro <b>Bhoo</b>-ta-bhav-ya-bha-vat-pra-bhuh'],['भूतकृद्भूतभृद्भावो भूतात्मा भूतभावनः ॥१॥','Bhoo-ta-krid Bhoo-ta-<b>bhrid</b> Bhaa-vo Bhoo-taat-maa Bhoo-ta-bhaa-va-nah']],
+ t:'<b>👂 Listen for:</b> soft <b>“sh”</b> in Vishvam (not Visvam) · curl the tongue back in Va<b>shat</b> · long <b>“oo”</b> in Bhoota.',
+ s:'In this verse, listen carefully. Vishvam has a soft sh, not Visvam. In Vashatkaaro, curl your tongue back. And hold the long oo in Bhoota.',
+ h:'Did yours sound the same? Check the soft “sh” in Vishvam and the long “oo” in Bhoota.'},
+43:{a:'audio/v043.m4a',c:7.18,d:14.25,l:[['रामो विरामो विरजो मार्गो नेयो नयोऽनयः ।','<b>Raa</b>-mo Vi-<b>raa</b>-mo Vi-ra-jo <b>Maar</b>-go Ne-yo Na-yo Na-<b>yah</b>'],['वीरः शक्तिमतां श्रेष्ठो धर्मो धर्मविदुत्तमः ॥४३॥','Vee-rash Shak-ti-ma-taam <b>Shresh-tho</b> Dhar-mo Dhar-ma-vi-dut-ta-<b>mah</b>']],
+ t:'<b>👂 Listen for:</b> long <b>“aa”</b> in Raamo, Viraamo, Maargo · <b>Shresh-tho</b> with no “a” in between · soft <b>“h”</b> at the end.',
+ s:'In this verse, listen carefully. Hold the long aa in Raamo, Viraamo and Maargo. Say Shreshtho, with no a in the middle. And end softly, Nayah, Uttamah.',
+ h:'Did yours sound the same? Check the long “aa” in Raamo and Shreshtho with no “a” in between.'}};
+var REP=2,cur=1,ga=new Audio(),pl=new Audio(),tok=0,t0=0,clkT=0,rec=null,chunks=[],url=null,rt=0,rtm=0;
+function $(i){return document.getElementById(i)}
+function show(id,on){$(id).style.display=on?'block':'none'}
+function load(n){cur=n;tok++;stopAll();var v=V[n];$('vt').textContent='Verse '+n;for(var i=0;i<2;i++){$('v'+i).textContent=v.l[i][0];$('p'+i).innerHTML=v.l[i][1]}$('tipbox').innerHTML=v.t;$('hint').innerHTML=v.h;ga.src=v.a;ga.preload='auto';
+ steps(-1);hl(-1);say('Ready when you are','');bar(0);show('go',1);show('run',0);show('recA',0);show('recB',0);show('end',0);clearInterval(clkT);$('clk').textContent='0:00'}
+function steps(k){for(var i=0;i<4;i++)$('s'+i).className=i<k?'dn':i===k?'on':''}
+function hl(k){for(var i=0;i<2;i++)$('l'+i).className='ln'+(k<0||k===2?(k===2?' hl':''):(i===k?' hl':' dim'))}
+function say(t,s,c){var e=$('stp');e.className='stp'+(c?' '+c:'');e.innerHTML=t+'<small>'+s+'</small>'}
+function bar(p){$('bar').style.width=(p*100)+'%'}
+function fmt(s){s=Math.round(s);return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
+function stopAll(){try{ga.pause()}catch(e){}try{pl.pause()}catch(e){}try{speechSynthesis.cancel()}catch(e){}}
+function wait(ms,k){return new Promise(function(r,j){var st=Date.now(),iv=setInterval(function(){if(k!==tok){clearInterval(iv);j()}bar(Math.min(1,(Date.now()-st)/ms));if(Date.now()-st>=ms){clearInterval(iv);r()}},50)})}
+function seg(a,b,k){return new Promise(function(r,j){try{ga.currentTime=a}catch(e){}ga.play().catch(function(){});var iv=setInterval(function(){if(k!==tok){clearInterval(iv);ga.pause();j();return}bar(Math.max(0,Math.min(1,(ga.currentTime-a)/(b-a))));if(ga.currentTime>=b-0.05||ga.ended){clearInterval(iv);ga.pause();r()}},50)})}
+function speak(txt,k){return new Promise(function(r,j){var done=false,fin=function(){if(!done){done=true;clearInterval(iv);k===tok?r():j()}};var iv=setInterval(function(){if(k!==tok)fin()},200);
+ try{var u=new SpeechSynthesisUtterance(txt);u.rate=0.9;var vs=speechSynthesis.getVoices(),pv=vs.filter(function(x){return /en-IN/i.test(x.lang)})[0]||vs.filter(function(x){return /^en/i.test(x.lang)})[0];if(pv)u.voice=pv;u.onend=fin;u.onerror=fin;speechSynthesis.speak(u);setTimeout(fin,16000)}catch(e){setTimeout(fin,6000)}})}
+async function flow(){var k=++tok,v=V[cur],L=[[0,v.c],[v.c,v.d]];show('go',0);show('run',1);t0=Date.now();clearInterval(clkT);clkT=setInterval(function(){$('clk').textContent=fmt((Date.now()-t0)/1000)},500);
+ try{steps(0);hl(-1);say('👂 Guru’s tip','listen','tip');bar(0);await speak(v.s,k);await wait(800,k);
+  steps(1);for(var i=0;i<2;i++){hl(i);for(var r=0;r<REP;r++){say('🎧 Guide · line '+(i+1),'time '+(r+1)+' of '+REP);await seg(L[i][0],L[i][1],k);say('🗣 Your turn · line '+(i+1),'chant now','you');await wait((L[i][1]-L[i][0])*1000+1500,k)}}
+  steps(2);hl(2);for(var r2=0;r2<REP;r2++){say('🎧 Guide · whole verse','time '+(r2+1)+' of '+REP);await seg(0,v.d,k);say('🗣 Your turn · whole verse','chant now','you');await wait(v.d*1000+2000,k)}
+  steps(3);say('🎙 Say it alone, once','record');bar(0);show('run',0);show('recA',1);$('mt').innerHTML='<b>Tap to record</b>Say the whole verse once, on your own'}catch(e){}}
+$('start').onclick=function(){ga.muted=true;var p=ga.play();if(p&&p.then)p.then(function(){ga.pause();ga.muted=false}).catch(function(){ga.muted=false});else{ga.pause();ga.muted=false}pl.src=V[cur].a;flow()};
+$('stop').onclick=function(){load(cur)};
+document.querySelectorAll('.pick button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.pick button').forEach(function(x){x.classList.toggle('on',x===b)});load(+b.dataset.v)}});
+$('mic').onclick=function(){if(rec&&rec.state==='recording'){rec.stop();return}
+ if(!navigator.mediaDevices||!window.MediaRecorder){$('mt').innerHTML='<b>Recording not supported here</b>Open this page in Safari on your iPhone';return}
+ navigator.mediaDevices.getUserMedia({audio:true}).then(function(st){chunks=[];var mt=MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported('audio/mp4')?'audio/mp4':'';rec=mt?new MediaRecorder(st,{mimeType:mt}):new MediaRecorder(st);
+  rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data)};
+  rec.onstop=function(){st.getTracks().forEach(function(t){t.stop()});clearInterval(rtm);$('mic').classList.remove('rec');$('mic').textContent='🎙';if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(new Blob(chunks,{type:rec.mimeType||'audio/mp4'}));show('recA',0);show('recB',1);mark('')};
+  rec.start();rt=Date.now();$('mic').classList.add('rec');$('mic').textContent='■';rtm=setInterval(function(){$('mt').innerHTML='<b>Recording… '+Math.round((Date.now()-rt)/1000)+' s</b>Tap ■ when you finish'},300)
+ }).catch(function(){$('mt').innerHTML='<b>Microphone blocked</b>Allow the microphone for this page and try again'})};
+function mark(w){$('pa').className=w==='a'?'on':'';$('pb').className=w==='b'?'on':''}
+$('hear').onclick=function(){stopAll();mark('a');pl.src=url;pl.onended=function(){setTimeout(function(){mark('b');pl.src=V[cur].a;pl.onended=function(){mark('')};pl.play().catch(function(){})},600)};pl.play().catch(function(){})};
+$('again').onclick=function(){stopAll();show('recB',0);show('recA',1);$('mt').innerHTML='<b>Tap to record</b>Say the whole verse once, on your own'};
+$('fin').onclick=function(){stopAll();clearInterval(clkT);steps(4);show('recB',0);show('end',1);say('✅ All done','');bar(1);$('took').textContent='Time taken: '+fmt((Date.now()-t0)/1000)+'. In the app, the meaning would come next.'};
+$('redo').onclick=function(){load(cur)};
+load(1);
+</script></body></html>
