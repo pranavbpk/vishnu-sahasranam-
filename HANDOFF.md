@@ -549,3 +549,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 442 (20 Nov 2026) — Guru Test only.
 - Owner (iPhone): first line of a new verse got cut after the spoken tip. Fix: after the tip, a short 'tipgap' phase (0.9 s, or 1.5 s if the phone voice was still speaking and had to be stopped) before rpListen, so iOS can switch back from speech to normal sound. The real fix is the owner's own recorded tip audio (no phone voice).
+
+## Build 443 (20 Nov 2026) — Guru Test only. Levels now differ clearly (hideNow):
+- Beginner: text never hidden (as the setup screen says). Normal: new verse hidden only on the last say-it-alone round; revision hidden on your turn. Advanced: new verse lines shown, whole-verse turns hidden; revision hidden. Guide chanting: always shown. Tap to peek and S.hide unchanged. Setup screen wording not changed yet (Telugu/Hindi strings keyed on the English text).
