@@ -558,3 +558,8 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 444 (21 Nov 2026) — Guru Test only.
 - Owner: no bell since 441. Cause (iPhone): the phone voice used for the tip puts the Web Audio context (window._ac, used by chime/tbPlay) into 'interrupted', and the code only resumed it when 'suspended'. Now every check resumes when state !== 'running', plus acWake() after the tip and on any tap.
+
+## Build 445 (21 Nov 2026) — Guru Test only.
+- Owner: bell still silent after 444. New approach: each bell (temple, hand, soft) is drawn once with tbPlay into an OfflineAudioContext, turned into a WAV blob (wavBlob) and played with its own <audio> element (BELLS[k]); unlocked muted on the first taps (bellUnlock, only when the guide isn't playing). ring(k) uses the clip, falls back to Web Audio (bellWA) if the clip can't play or the guide is playing. chime, fcBell and togCue use ring().
+- Owner: couldn't mark a "Needs more practice" verse back to complete (playing it from Practise any verse never counts; only the daily revision moves it on 1/3/7 days). Now: ✎ sheet shows "🌿 I know it well: Kaṇṭhastham" (unokv → delete S.rev[n]) when the verse is in S.rev; ✎ Edit multi-select has a green "🌿 Kaṇṭhastham" button (UNASK 'ok' → undo2 deletes S.rev for the chosen verses).
+- Preview only (not built): preview-vspick.html — Practise any verse with the number grid folded under "Choose another verse" (and the big number), closing by itself after a pick; 🔍 and ✎ move into the folded part.
