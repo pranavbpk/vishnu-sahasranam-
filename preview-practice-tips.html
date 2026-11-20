@@ -31,16 +31,17 @@ button{font:inherit;cursor:pointer;color:inherit;-webkit-tap-highlight-color:tra
 <div class="tabs"><button class="on" data-t="a">1 · Listen-for tips</button><button data-t="b">2 · Record once</button><button data-t="c">3 · Milestone</button></div>
 
 <div class="pane on" id="p-a"><div class="note"><b>Tips right where you chant</b><ul><li>Each verse gets 2–3 short “listen for” notes, checked by your guru once.</li><li>The tricky syllables are lightly marked in the read-aloud line.</li><li>While the guide speaks, only <b>one</b> tip shows, the one for that line. No extra step, nothing to tap.</li></ul></div>
-<div class="cap">While practising · line 1</div>
+<div class="cap">While practising · tap ▶ to hear the guide</div>
 <div class="ph"><div class="top"><b>Verse 43</b><span>New verse</span></div>
-<div class="stp">🎧 Listen · line 1<small>time 1 of 2</small></div>
-<div class="vc"><div class="vs">रामो विरामो विरजो मार्गो नेयो नयोऽनयः ।</div><div class="pr"><b>Raa</b>-mo Vi-<b>raa</b>-mo Vi-ra-jo <b>Maar</b>-go Ne-yo Na-yo Na-<b>yah</b></div>
-<div class="lf one"><span>👂</span><span><b>Listen for:</b> hold the long <b>“aa”</b> in Raa-mo, Vi-raa-mo, Maar-go for two beats.</span></div></div>
-<div class="ctl"><button>↺</button><button class="pp">❚❚</button><button>⏭</button></div></div>
+<div class="stp" id="tStp">🎧 Listen · line 1<small>tap ▶</small></div>
+<div class="vc"><div class="vs" id="tVs"></div><div class="pr" id="tPr"></div>
+<div class="lf one"><span>👂</span><span id="tTip"></span></div></div>
+<div class="ctl"><button id="tRe" aria-label="Start again">↺</button><button class="pp" id="tPP" aria-label="Play">▶</button><button id="tNx" aria-label="Next line">⏭</button></div></div>
 <div class="cap">Whole verse · all tips together</div>
 <div class="ph"><div class="top"><b>Verse 43</b><span>New verse</span></div>
 <div class="stp">🗣 Your turn · whole verse<small>time 2 of 3</small></div>
 <div class="vc"><div class="vs">रामो विरामो विरजो मार्गो नेयो नयोऽनयः ।<br>वीरः शक्तिमतां श्रेष्ठो धर्मो धर्मविदुत्तमः ॥</div><div class="pr"><b>Raa</b>-mo Vi-<b>raa</b>-mo Vi-ra-jo <b>Maar</b>-go Ne-yo Na-yo Na-<b>yah</b><br>Vee-rash Shak-ti-ma-taam <b>Shresh-tho</b> Dhar-mo Dhar-ma-vi-dut-ta-<b>mah</b></div>
+<div class="ctl"><button class="pp" id="wPP" aria-label="Play whole verse">▶</button></div>
 <div class="lf"><b>👂 Listen for</b><ul><li>Long <b>“aa”</b>: Raa-mo, Vi-raa-mo, Maar-go</li><li><b>Shresh-tho</b>: “sh” and “th” together, no “a” between</li><li>Soft <b>“h”</b> at the end: Na-yah, …ut-ta-mah</li></ul></div></div></div></div>
 
 <div class="pane" id="p-b"><div class="note"><b>Record once, then hear yourself</b><ul><li>Only after a new verse: say it once on your own.</li><li>One button: <b>Hear me, then the guide</b>. That is the whole check.</li><li>No ticks, no sending. “Record again” or “Next” and you are done.</li></ul></div>
@@ -75,7 +76,18 @@ $('mic').onclick=function(){if(rec&&rec.state==='recording'){rec.stop();return}
   rec.start();t0=Date.now();$('mic').classList.add('rec');$('mic').textContent='■';tm=setInterval(function(){$('mt').innerHTML='<b>Recording… '+((Date.now()-t0)/1000).toFixed(0)+' s</b>Tap ■ when you finish'},300)
  }).catch(function(){$('mt').innerHTML='<b>Microphone blocked</b>Allow the microphone for this page and try again'})};
 function mark(w){$('pa').className=w==='a'?'on':'';$('pb').className=w==='b'?'on':''}
-$('hear').onclick=function(){pl.pause();mark('a');pl.src=url;pl.onended=function(){setTimeout(function(){mark('b');pl.src=G;pl.onended=function(){mark('')};pl.play().catch(function(){})},600)};pl.play().catch(function(){})};
+$('hear').onclick=function(){pl.pause();ga.pause();mark('a');pl.src=url;pl.onended=function(){setTimeout(function(){mark('b');pl.src=G;pl.onended=function(){mark('')};pl.play().catch(function(){})},600)};pl.play().catch(function(){})};
 $('again').onclick=function(){pl.pause();$('recB').style.display='none';$('recA').style.display='block';$('mt').innerHTML='<b>Tap to record</b>Say the whole verse once, on your own'};
 $('next').onclick=function(){$('saved').textContent='In the app this goes on to the meaning. (Preview ends here.)'};
+
+var CUT=7.18,L=[{v:'रामो विरामो विरजो मार्गो नेयो नयोऽनयः ।',p:'<b>Raa</b>-mo Vi-<b>raa</b>-mo Vi-ra-jo <b>Maar</b>-go Ne-yo Na-yo Na-<b>yah</b>',t:'<b>Listen for:</b> hold the long <b>“aa”</b> in Raa-mo, Vi-raa-mo, Maar-go for two beats.'},{v:'वीरः शक्तिमतां श्रेष्ठो धर्मो धर्मविदुत्तमः ॥',p:'Vee-rash Shak-ti-ma-taam <b>Shresh-tho</b> Dhar-mo Dhar-ma-vi-dut-ta-<b>mah</b>',t:'<b>Listen for:</b> <b>Shresh-tho</b>, “sh” and “th” together, no “a” between. Soft <b>“h”</b> at the end.'}],tl=-1,ga=new Audio(G);ga.preload='auto';
+function showL(i){if(i===tl)return;tl=i;$('tVs').textContent=L[i].v;$('tPr').innerHTML=L[i].p;$('tTip').innerHTML=L[i].t;stp()}
+function stp(){$('tStp').innerHTML='🎧 Listen · line '+(tl+1)+'<small>'+(ga.paused?'tap ▶':'guide speaking')+'</small>'}
+function setPP(){$('tPP').textContent=ga.paused?'▶':'❚❚';$('wPP').textContent=ga.paused?'▶':'❚❚';stp()}
+ga.ontimeupdate=function(){showL(ga.currentTime>=CUT?1:0)};ga.onplay=ga.onpause=setPP;ga.onended=function(){setPP()};
+function go(t){pl.pause();try{ga.currentTime=t}catch(e){}ga.play().catch(function(){$('tStp').innerHTML='🎧 Could not play<small>check the silent switch</small>'})}
+$('tPP').onclick=function(){if(!ga.paused){ga.pause();return}go(ga.ended||ga.currentTime>=ga.duration-0.1?0:ga.currentTime)};
+$('tRe').onclick=function(){go(0)};$('tNx').onclick=function(){go(tl===0?CUT:0)};
+$('wPP').onclick=function(){if(!ga.paused){ga.pause();return}go(0)};
+showL(0);
 </script></body></html>
