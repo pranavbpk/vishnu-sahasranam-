@@ -546,3 +546,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Record once a day: recLater() = another new verse still comes later in today's list → no record button, a "No recording now · you'll record once, after your last new verse today" card (laterNote), Next verse is the main button. The last new verse keeps "Tap to record". Both old and new screens; Record my take chip still in More.
 - After recording: "Hear yourself, then the guide" card (mgCard) plays the take, then the guide verse, once by itself (mgPlay; mgUnlock on the stop tap for iPhone), with ⏭ Skip / 🔁 Hear again and the verse's Listen for line. Stops on Next, Stop here, Close, Record again.
 - Tested in a phone-sized browser: old screen 1 and 2 verses, new screen 2 and 3 verses. Sound still to be tested on owner's iPhone.
+
+## Build 442 (20 Nov 2026) — Guru Test only.
+- Owner (iPhone): first line of a new verse got cut after the spoken tip. Fix: after the tip, a short 'tipgap' phase (0.9 s, or 1.5 s if the phone voice was still speaking and had to be stopped) before rpListen, so iOS can switch back from speech to normal sound. The real fix is the owner's own recorded tip audio (no phone voice).
