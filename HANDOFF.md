@@ -540,3 +540,9 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 419 (17 Nov 2026) — Dev + Test only.
 - Owner asked if the buttons on the small video are hard to press (they were ~24 pt). Small size now shows 4 spread-out 40 pt buttons over the video: ⤢ top-left, ✕ top-right, ▶ (46 pt) centre, ＋ bottom-right; ±10 hidden at the small size (still in the bigger size and the class player). Tapping an empty part of the dimmed video hides the buttons.
+
+## Build 441 (20 Nov 2026) — Guru Test only (index-proto.html). Owner testing 1, 2, 3+ new verses a day.
+- Spoken tip before each NEW verse (phase 'tip', tipSheet/tipGo/tipSay): speaks the verse's existing v.tip with the phone voice (speechSynthesis, en-IN if present) as a placeholder for the guru's recorded tip; then the guide starts by itself. Buttons: Start the verse › (tipgo), 🔁 Hear the tip again (tipagain). If the phone won't speak (no voice / no tap), the text shows and it moves on after 8 s. Once per verse per session (TIPDONE). Not for revisions or recap.
+- Record once a day: recLater() = another new verse still comes later in today's list → no record button, a "No recording now · you'll record once, after your last new verse today" card (laterNote), Next verse is the main button. The last new verse keeps "Tap to record". Both old and new screens; Record my take chip still in More.
+- After recording: "Hear yourself, then the guide" card (mgCard) plays the take, then the guide verse, once by itself (mgPlay; mgUnlock on the stop tap for iPhone), with ⏭ Skip / 🔁 Hear again and the verse's Listen for line. Stops on Next, Stop here, Close, Record again.
+- Tested in a phone-sized browser: old screen 1 and 2 verses, new screen 2 and 3 verses. Sound still to be tested on owner's iPhone.
