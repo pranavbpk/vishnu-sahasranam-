@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · Messages, My journey, Level, Meaning</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#2a2118;color:#3a2a18;-webkit-text-size-adjust:100%}
+button{font:inherit;cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
+.intro{color:#f6e7c8;padding:14px 16px 2px;max-width:430px;margin:auto;font-size:.9rem;line-height:1.45}.intro b{color:#ffd76a}
+.tabs{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:10px 8px}.tabs button{border:0;border-radius:999px;padding:8px 13px;font-weight:700;background:#4a3b2a;color:#f6e7c8;font-size:.86rem}.tabs button.on{background:#ffd76a;color:#2a1500}
+.pane{display:none}.pane.on{display:block}
+.why{color:#f6e7c8;max-width:430px;margin:0 auto 10px;padding:0 16px;font-size:.86rem;line-height:1.45}.why b{color:#ffd76a}
+.ph{width:min(393px,calc(100vw - 16px));margin:0 auto 26px;border-radius:30px;background:#faf6ee;box-shadow:0 20px 50px rgba(0,0,0,.45);padding:14px 14px 22px;position:relative;overflow:hidden;min-height:560px}
+.hd{display:flex;align-items:center;gap:8px;margin-bottom:12px}.hd .pill{background:#fff1d6;border-radius:999px;padding:5px 10px;font-weight:700;font-size:.85rem}.hd .sp{flex:1}
+.ic{position:relative;border:0;background:#fff;border-radius:50%;width:40px;height:40px;font-size:1.15rem;box-shadow:0 1px 3px rgba(0,0,0,.12)}.ic sup{position:absolute;top:-3px;right:-3px;background:#c0392b;color:#fff;border-radius:999px;font-size:.7rem;min-width:18px;height:18px;line-height:18px;font-weight:800}
+.card{background:#fff;border:1px solid #eadcbc;border-radius:18px;padding:14px;margin-top:10px}
+.big{background:#0f6b66;color:#fff;border:0;border-radius:14px;width:100%;min-height:52px;font-weight:800;font-size:1rem;margin-top:10px}
+.mute{color:#8a7a60;font-size:.82rem;line-height:1.4}
+.toast{background:#fff6dc;border:1px solid #f0dca8;border-radius:12px;padding:9px 12px;font-size:.88rem;margin-bottom:10px}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;box-shadow:0 -10px 30px rgba(0,0,0,.2);padding:14px 14px 20px;transform:translateY(105%);transition:transform .25s}.sheet.on{transform:none}
+.sheet h3{margin:0 0 4px;font-size:1.05rem}.grab{width:40px;height:5px;border-radius:3px;background:#ddd;margin:0 auto 10px}
+.row{display:flex;align-items:center;gap:10px;padding:11px 4px;border-bottom:1px solid #f1e8d6}.row:last-of-type{border:0}.row .e{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex:none}.row b{display:block;font-size:.95rem}.row small{color:#8a7a60}.row .go{border:0;background:none;margin-left:auto;color:#0f6b66;font-weight:800;font-size:.9rem;white-space:nowrap}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:.82rem;margin-top:6px}.cal .h{color:#8a7a60;font-size:.72rem;font-weight:700}
+.cal button{border:0;background:none;padding:5px 0 4px;border-radius:10px;position:relative}.cal button.sel{background:#e6f2ef;outline:2px solid #0f6b66}.cal button.td{font-weight:800}
+.dt{display:flex;justify-content:center;gap:3px;height:8px;margin-top:2px}.dt i{width:7px;height:7px;border-radius:50%}
+.f{background:#2e9e5b}.p{background:#fff;border:2px solid #e0a020}.x{background:#e7dcc6}.s{background:#8e5bb5}
+.leg{display:flex;gap:12px;justify-content:center;font-size:.76rem;color:#6a5a40;margin-top:8px;flex-wrap:wrap}.leg span{display:flex;align-items:center;gap:4px}.leg i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.dl{list-style:none;margin:8px 0 0;padding:0}.dl li{display:flex;gap:9px;padding:7px 0;border-bottom:1px solid #f4ecdc;font-size:.92rem;line-height:1.35}.dl li:last-child{border:0}.dl small{display:block;color:#8a7a60;font-size:.8rem}
+.top{display:flex;justify-content:space-between;align-items:center}.top b{color:#0f6b66}
+.lv{border:1px solid #d9cba8;background:#fff;border-radius:999px;padding:4px 10px;font-size:.8rem;font-weight:700;color:#6a5a40}
+.stp{background:#0f6b66;color:#fff;border-radius:14px;padding:11px 12px;font-weight:700;margin-top:10px}.stp.you{background:#c0392b}
+.vc{background:#fff;border:1px solid #eadcbc;border-radius:18px;padding:14px;margin-top:10px;text-align:center}.vs{font-size:1.08rem;line-height:1.6;color:#2d1a0c}.pr{color:#0f6b66;font-size:.85rem;line-height:1.5}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1.5px solid #eadcbc;border-radius:14px;padding:11px;margin-top:8px;text-align:left;width:100%;background:#fff}.opt.on{border-color:#0f6b66;background:#eef6f3}.opt .r{width:20px;height:20px;border-radius:50%;border:2px solid #b9a982;flex:none;margin-top:2px}.opt.on .r{border:6px solid #0f6b66}.opt b{display:block}.opt small{color:#6a5a40}
+.done{text-align:center;padding:6px 0}.done .e{font-size:2rem}.done h3{margin:2px 0;color:#0f6b66}
+.mc{background:#fff8e6;border:1px solid #f0dca8;border-radius:18px;padding:14px;margin-top:12px;text-align:left}.mc .t{font-size:.78rem;font-weight:800;color:#7a4a12;letter-spacing:.02em}.mc p{margin:6px 0 10px;font-size:1rem;line-height:1.5;color:#2d1a0c}
+.mb{display:flex;gap:8px}.mb button{flex:1;border-radius:12px;min-height:44px;font-weight:700;border:1.5px solid #0f6b66;background:#fff;color:#0f6b66;font-size:.9rem}.mb button.pri{background:#0f6b66;color:#fff}
+.names{display:none;margin-top:10px;border-top:1px solid #f0dca8;padding-top:6px}.names.on{display:block}.names div{display:flex;gap:8px;padding:5px 0;font-size:.9rem}.names b{min-width:110px;color:#7a4a12}
+.stv{display:flex;gap:4px;margin-top:10px}.stv span{flex:1;text-align:center;font-size:.72rem;font-weight:700;padding:6px 2px;border-radius:8px;background:#cfe3dc;color:#0f6b66}.stv span.cur{background:#0f6b66;color:#fff}.stv span.no{background:#efe6d2;color:#8a7a60}
+</style></head><body>
+<div class="intro"><b>Preview, not the app.</b> Four ideas to look at. Tap around: buttons work, nothing is saved.</div>
+<div class="tabs"><button data-p="a" class="on">🔔 Messages</button><button data-p="b">📅 My journey</button><button data-p="c">🎚 Level</button><button data-p="d">📖 Meaning</button></div>
+
+<div class="pane on" id="pa">
+<div class="why"><b>Idea:</b> the bell shows only what's left for today. Each message goes away by itself once it's done, or when the day ends. Nothing stays forever. The pop-up message names <b>My slokas</b> clearly and opens them.</div>
+<div class="ph">
+ <div class="hd"><span class="pill">🔥 12</span><span class="sp"></span><button class="ic" id="bell">🔔<sup id="bc">3</sup></button><button class="ic">⚙️</button></div>
+ <div class="toast" id="tst">🎵 My slokas · 4 due for revision <span style="float:right;color:#0f6b66;font-weight:800">Open ›</span></div>
+ <div class="card" style="text-align:center"><div style="font-size:.85rem;color:#8a7a60">श्री विष्णु सहस्रनाम</div><div style="font-weight:800;font-size:1.1rem;margin:4px 0">Today: revise 3 · new verse 12</div><button class="big">▶ Start today's practice</button></div>
+ <div class="mute" style="text-align:center;margin-top:14px">Tap the 🔔 to see today's messages</div>
+ <div class="sheet" id="bs"><div class="grab"></div><h3>For today</h3>
+  <div id="ml">
+  <div class="row" data-k="r"><span class="e" style="background:#e6f2ef">🔁</span><span><b>Revise 3 verses</b><small>Sahasranamam · verses 3, 4, 9</small></span><button class="go" data-x="r">Start ›</button></div>
+  <div class="row" data-k="m"><span class="e" style="background:#f6ecf9">🎵</span><span><b>4 of My slokas due</b><small>Revise them when you can</small></span><button class="go" data-x="m">Open ›</button></div>
+  <div class="row" data-k="s"><span class="e" style="background:#fff1d6">🪔</span><span><b>Satsang · Sun 23 Nov, 6 pm</b><small>Online group chant</small></span><button class="go" data-x="s">View ›</button></div>
+  </div>
+  <div id="empty" class="mute" style="display:none;text-align:center;padding:14px">🙏 Nothing left for today</div>
+  <div class="mute" style="margin-top:8px">Tap <b>Start ›</b> or <b>Open ›</b> to see a message clear itself once it's done. Messages also clear at the end of the day.</div>
+  <button class="big" style="background:#fff;color:#0f6b66;border:1.5px solid #0f6b66" id="bx">Close</button></div>
+</div></div>
+
+<div class="pane" id="pb">
+<div class="why"><b>Idea:</b> one dot per day. <b>Green</b> = practice fully done, <b>gold ring</b> = partly done, <b>purple</b> = Swadhyayam goal met. Tap a day to see exactly what was done. It's the same page as now, just clearer.</div>
+<div class="ph">
+ <div class="top"><b>My journey</b><span class="mute">By day · By verse</span></div>
+ <div style="text-align:center;font-weight:800;margin-top:10px">November 2026</div>
+ <div class="cal" id="cal"></div>
+ <div class="leg"><span><i class="f"></i>Done</span><span><i class="p" style="width:7px;height:7px"></i>Part</span><span><i class="x"></i>Missed</span><span><i class="s"></i>Swadhyayam</span></div>
+ <div class="card" id="day"></div>
+</div></div>
+
+<div class="pane" id="pc">
+<div class="why"><b>Idea:</b> a small label in the practice screen's top bar shows the level. Tap it to see what each level means and to switch. Nothing else is added to the screen.</div>
+<div class="ph">
+ <div class="top"><b>Verse 12 · New verse</b><button class="lv" id="lvb">Normal ›</button></div>
+ <div class="stp">🎧 Listen · line 1</div>
+ <div class="vc"><div class="vs">वसुर्वसुमनाः सत्यः समात्मा सम्मितः समः ।</div><div class="pr">Va-sur Va-su-ma-naas Sat-yas Sa-maat-maa Sam-mi-tas Sa-mah</div><div class="vs" style="margin-top:8px">अमोघः पुण्डरीकाक्षो वृषकर्मा वृषाकृतिः ॥१२॥</div><div class="pr">A-mo-ghah Pun-da-ree-kaak-sho Vri-sha-kar-maa Vri-shaa-kri-tih</div></div>
+ <div class="sheet" id="ls"><div class="grab"></div><h3>How much help do you want?</h3><div class="mute">You can change this any time.</div>
+  <button class="opt" data-l="Beginner"><span class="r"></span><span><b>Beginner</b><small>Text always shown · a little more time to chant</small></span></button>
+  <button class="opt on" data-l="Normal"><span class="r"></span><span><b>Normal</b><small>Text hidden on the last try of a new verse, and when you revise</small></span></button>
+  <button class="opt" data-l="Advanced"><span class="r"></span><span><b>Advanced</b><small>Text hidden when you say the whole verse, and when you revise</small></span></button>
+  <div class="mute" style="margin-top:8px">When text is hidden, tap it to peek.</div>
+  <button class="big" id="lx">Done</button></div>
+</div></div>
+
+<div class="pane" id="pd">
+<div class="why"><b>Idea:</b> no pop-up and no forced step. When a new verse is finished, the meaning is <b>right there on the finish screen</b>, with the short meaning to read and ▶ to listen. The Meaning step only gets a ✓ once it has actually been read or heard.</div>
+<div class="ph">
+ <div class="top"><b>Verse 12</b><span class="mute">New verse</span></div>
+ <div class="stv"><span>✓ Listen</span><span>✓ Chant</span><span>✓ Record</span><span class="cur" id="ms">4 Meaning</span><span class="no">5 Next</span></div>
+ <div class="done"><div class="e">🌼</div><h3>Verse 12 learned</h3></div>
+ <div class="mc"><div class="t">📖 KNOW WHAT YOU CHANTED · 30 SECONDS</div>
+  <p>Vishnu lives in all beings and has a generous heart. He is truth itself and treats everyone equally. He never fails; His blessings always bear fruit.</p>
+  <div class="mb"><button class="pri" id="mh">▶ Hear it</button><button id="mr">Names one by one</button></div>
+  <div class="names" id="nm"></div>
+  <div class="mute" style="margin-top:8px">Test voice for now. Later it will be your own voice.</div></div>
+ <button class="big" id="nx">Next verse ›</button>
+ <div class="mute" style="text-align:center;margin-top:8px" id="nxm">Meaning is optional, so Next always works.</div>
+</div></div>
+
+<script>
+function $(i){return document.getElementById(i)}
+document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===b)});document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('on',p.id==='p'+b.dataset.p)});try{speechSynthesis.cancel()}catch(e){}}});
+/* messages */
+$('bell').onclick=function(){$('bs').classList.add('on')};$('bx').onclick=function(){$('bs').classList.remove('on')};
+$('tst').onclick=function(){this.style.display='none'};
+document.querySelectorAll('#ml .go').forEach(function(g){g.onclick=function(){var r=g.closest('.row');r.style.opacity='.35';g.textContent='✓ Done';setTimeout(function(){r.remove();var n=document.querySelectorAll('#ml .row').length;$('bc').textContent=n;$('bc').style.display=n?'':'none';if(!n)$('empty').style.display='block'},700)}});
+/* journey */
+var D={};for(var d=1;d<=21;d++){D[d]={k:'f',sw:d%3!==0}}D[6]={k:'p',sw:true};D[7]={k:'x',sw:false};D[14]={k:'p',sw:false};D[15]={k:'x',sw:true};D[21]={k:'p',sw:true,today:1};
+var info={f:function(d){return ['<li>✅<span><b>Practice fully done</b><small>9 minutes</small></span></li>','<li>🔁<span><b>Revised 3 of 3</b><small>Verses '+(d%9+1)+', '+(d%9+2)+', '+(d%9+4)+'</small></span></li>','<li>✨<span><b>New verse '+(d-9>0?d-9:d)+' learned</b><small>🎙 Recorded · 📖 Meaning '+(d%2?'heard':'read')+'</small></span></li>']},
+ p:function(d){return ['<li>⏸<span><b>Practice partly done</b><small>Stopped midway</small></span></li>','<li>🔁<span><b>Revised 2 of 4</b><small>Verse 5 and 8 still to revise</small></span></li>','<li>✨<span><b>New verse not started</b><small>It waits for the next day</small></span></li>']},
+ x:function(){return ['<li>○<span><b>No practice this day</b><small>That’s okay, verses are kept safe</small></span></li>']}};
+function showDay(d){var x=D[d];document.querySelectorAll('#cal button').forEach(function(b){b.classList.toggle('sel',+b.dataset.d===d)});
+ var h='<div style="font-weight:800">'+(x.today?'Today · ':'')+['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][(d+6)%7]+' '+d+' Nov</div><ul class="dl">'+info[x.k](d).join('')+'<li>📿<span><b>Swadhyayam '+(x.sw?'60 / 60 min ✓':(x.k==='x'?'not listened':'25 / 60 min'))+'</b><small>'+(x.sw?'Class recording':'')+'</small></span></li></ul>';$('day').innerHTML=h}
+(function(){var h=['S','M','T','W','T','F','S'].map(function(x){return '<div class="h">'+x+'</div>'}).join('');for(var i=0;i<0;i++)h+='<div></div>';
+ for(var d=1;d<=30;d++){var x=D[d];h+='<button data-d="'+d+'" class="'+(x&&x.today?'td':'')+'"'+(x?'':' disabled style="color:#c9bda3"')+'>'+d+'<div class="dt">'+(x?'<i class="'+x.k+'"></i>'+(x.sw?'<i class="s"></i>':''):'')+'</div></button>'}
+ $('cal').innerHTML=h;document.querySelectorAll('#cal button').forEach(function(b){if(!b.disabled)b.onclick=function(){showDay(+b.dataset.d)}});showDay(20)})();
+/* level */
+$('lvb').onclick=function(){$('ls').classList.add('on')};$('lx').onclick=function(){$('ls').classList.remove('on')};
+document.querySelectorAll('.opt').forEach(function(o){o.onclick=function(){document.querySelectorAll('.opt').forEach(function(x){x.classList.toggle('on',x===o)});$('lvb').textContent=o.dataset.l+' ›'}});
+/* meaning */
+var W=[['Vasuḥ','Lives in all beings'],['Vasumanāḥ','Has a generous heart'],['Satyaḥ','Truth itself'],['Samātmā','Treats everyone equally'],['Sammitaḥ','Known through the scriptures'],['Samaḥ','Always the same, calm'],['Amoghaḥ','Never fails; His blessings bear fruit'],['Puṇḍarīkākṣaḥ','Has lotus eyes; lives in our heart'],['Vṛṣakarmā','All His actions are dharma'],['Vṛṣākṛtiḥ','Takes form to protect dharma']];
+$('nm').innerHTML=W.map(function(w){return '<div><b>'+w[0]+'</b><span>'+w[1]+'</span></div>'}).join('');
+function seen(){$('ms').className='';$('ms').textContent='✓ Meaning';$('nxm').textContent='Meaning ✓ · well done'}
+$('mr').onclick=function(){$('nm').classList.toggle('on');seen()};
+$('mh').onclick=function(){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance('Verse 12. Vishnu lives in all beings and has a generous heart. He is truth itself and treats everyone equally. He never fails. His blessings always bear fruit.');u.rate=.9;var v=speechSynthesis.getVoices().filter(function(x){return /en-IN/i.test(x.lang)})[0];if(v)u.voice=v;speechSynthesis.speak(u)}catch(e){}seen()};
+$('nx').onclick=function(){this.textContent='→ next verse would start';};
+</script></body></html>
