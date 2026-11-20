@@ -555,3 +555,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Last known good Guru Test = build 440 (owner, 20 Nov 2026)
 - Saved on the backups branch as backups/index-proto-v440-good.html (from commit de56809). To revert Guru Test: copy it to index-proto.html, set APPV to the next number, push.
+
+## Build 444 (21 Nov 2026) — Guru Test only.
+- Owner: no bell since 441. Cause (iPhone): the phone voice used for the tip puts the Web Audio context (window._ac, used by chime/tbPlay) into 'interrupted', and the code only resumed it when 'suspended'. Now every check resumes when state !== 'running', plus acWake() after the tip and on any tap.
