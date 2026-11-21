@@ -587,3 +587,9 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Every due revision ends with "How did it go?" (rvAsk, classes .rvask*): 👍 Good (act revgo → advanceRev: 1, 3, 7 days, then Kaṇṭhastham) or 🔁 Not yet (act revny → RVNY[n]; revResult keeps the stage, due tomorrow). No tap → Good after 6 s (was 3 s; only for rt 'due'). Shown on both old (rpSheet revdone) and new (g2Done rd) screens; new style hides the big dock button while the question shows.
 - Practise any verse: when the chosen verse is due today, "🔁 Revise verse N now · about 1 minute · this marks it done" (act rev1 → revOne(n): one-verse session LST=[{rt:'due'}], LST.rv1; ends like a single practice — doesn't set doneDay or move S.pos — with "✓ Verse N revised · back in N days" / "comes back tomorrow"). Line under it: "▶ Play is listening only".
 - Removed b449 plRevCount (playing to the end no longer counts).
+
+## Build 451 (21 Nov 2026) — Guru Test only.
+- Practice level chip (lvlChip, 🌱 Beginner / 🌿 Normal / 🌳 Advanced ⌄) on: new practice header (g2-t), old practice header (gvHead, not recap), Today card next to "N verses a day" (.pacelv), Revise tab under Today's revision (.lvrow). Tap → lvlSheet (LVO) with a one-line description of each level; choosing uses the existing 'level' act; works mid-practice.
+- Revise tab › Revise today rows: the button is now "🔁 Revise" (act rev1 → one-verse revision) instead of ▶ listen; Coming back rows keep ▶.
+- b448 meaning card renamed .mcard2 (its CSS was changing the older <details class="mcard"> meaning box).
+- Owner asked what "Not learned yet" (start again) does — answered, no change: off the learned list (count down), out of Revise (S.rev deleted), S.pos moves back to the earliest such verse so it becomes the next new verse; already-learned verses after it are skipped; streak/days/recordings stay.
