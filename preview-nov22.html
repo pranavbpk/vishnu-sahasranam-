@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · 22 Nov ideas (not the app)</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#2a2118;color:#3a2a18;-webkit-text-size-adjust:100%}
+button{font:inherit;cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent;border:0;background:none}
+.pvbar{max-width:430px;margin:auto;padding:10px 12px 6px;color:#f6e7c8;font-size:.82rem;line-height:1.4}
+.pvbar b{color:#ffd76a}.jump{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.jump button{background:#4a3b2a;color:#f6e7c8;border-radius:999px;padding:6px 11px;font-size:.78rem;font-weight:700}
+.ph{width:min(400px,calc(100vw - 12px));margin:6px auto 30px;border-radius:30px;background:#faf6ee;box-shadow:0 20px 50px rgba(0,0,0,.45);min-height:640px;display:flex;flex-direction:column;overflow:hidden}
+.scr{flex:1;padding:14px 14px 18px;overflow:auto}
+.tabs{display:flex;border-top:1px solid #eadcbc;background:#fff}.tabs button{flex:1;padding:10px 0 12px;font-size:.78rem;font-weight:700;color:#8a7a60}.tabs button.on{color:#0f6b66}.tabs i{display:block;font-style:normal;font-size:1.2rem}
+h2{margin:4px 0 2px;font-size:1.25rem;color:#2d1a0c}.sub{color:#7a6a55;font-size:.88rem;margin:0 0 10px}
+.card{background:#fff;border:1px solid #eadcbc;border-radius:18px;padding:14px;margin-top:10px}
+.btn{display:block;width:100%;border-radius:14px;background:#0f6b66;color:#fff;font-weight:800;padding:13px;font-size:1rem;margin-top:10px}
+.btn.gold{background:#d99a1e;color:#2a1500}.btn.red{background:#c0392b}.btn.ghost{background:#efe6d2;color:#3a2a18}
+.lnk{display:block;width:100%;text-align:center;color:#0f6b66;font-weight:700;padding:10px;font-size:.92rem}
+.opt{display:flex;gap:12px;align-items:center;width:100%;text-align:left;border:1.5px solid #eadcbc;border-radius:14px;padding:12px;margin-top:8px;background:#fff}
+.opt.on{border-color:#0f6b66;background:#eaf5f2}.opt .e{font-size:1.5rem}.opt b{display:block}.opt small{color:#7a6a55}
+.steps{display:flex;gap:3px;margin:2px 0 10px}.steps span{flex:1;text-align:center;font-size:.68rem;font-weight:800;padding:6px 1px;border-radius:8px;background:#efe6d2;color:#8a7a60}.steps .on{background:#0f6b66;color:#fff}.steps .dn{background:#cfe3dc;color:#0f6b66}
+.top{display:flex;align-items:center;gap:8px;margin-bottom:6px}.top b{flex:1;color:#0f6b66}.x{font-size:1.1rem;padding:4px 8px;color:#7a6a55}
+.chip{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:6px 11px;font-size:.8rem;font-weight:700;background:#efe6d2;color:#3a2a18}
+.stp{display:flex;align-items:center;gap:8px;background:#0f6b66;color:#fff;border-radius:14px;padding:11px 12px;font-weight:800;min-height:46px}.stp.you{background:#c0392b}.stp.tip{background:#7a4a12}.stp.wait{background:#8a7a60}.stp small{margin-left:auto;font-weight:600;opacity:.9}
+.bar{height:6px;background:#efe6d2;border-radius:3px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:#c0392b}
+.vc{background:#fff;border:1px solid #eadcbc;border-radius:18px;padding:12px;margin-top:10px;text-align:center;position:relative}
+.ln{padding:6px 4px;border-radius:10px;transition:background .2s}.ln.hl{background:#fff1c9}.ln.dim{opacity:.35}
+.vs{font-size:1.12rem;line-height:1.6;color:#2d1a0c}.pr{color:#0f6b66;font-size:.84rem;line-height:1.45}
+.hid{padding:22px 8px;color:#8a7a60;font-weight:700}.hid big{display:block;font-size:2rem}
+.eye{position:absolute;top:8px;right:8px}.lvl{font-size:.72rem;color:#8a7a60;font-weight:700;text-align:left}
+.pic{width:100%;border-radius:14px;display:block;aspect-ratio:16/9;object-fit:cover;background:#efe6d2}
+.one{font-size:1.05rem;line-height:1.5;color:#2d1a0c;margin:10px 0 4px}
+.tipb{background:#fff6dc;border:1px solid #f0dca8;border-radius:14px;padding:10px 12px;margin-top:10px;font-size:.88rem;line-height:1.45}
+.note{font-size:.76rem;color:#8a7a60;margin-top:6px}
+.cd{font-size:3.4rem;font-weight:900;color:#0f6b66;text-align:center;margin:16px 0}
+.vsy{display:flex;gap:8px;justify-content:center;margin:10px 0}.vsy span{padding:7px 14px;border-radius:999px;background:#efe6d2;font-weight:800;color:#8a7a60}.vsy span.on{background:#c0392b;color:#fff}.vsy span.on.g{background:#0f6b66}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}.two .btn{margin-top:8px}
+.recbig{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;padding:22px 10px;border-radius:20px;background:#fff;border:1.5px solid #eadcbc;margin-top:12px}
+.rmic{width:78px;height:78px;border-radius:50%;background:#c0392b;color:#fff;display:flex;align-items:center;justify-content:center;font-size:2rem}
+.rmic.on{animation:pu 1s infinite}@keyframes pu{50%{transform:scale(1.08);box-shadow:0 0 0 10px rgba(192,57,43,.15)}}
+.carry{background:#0f6b66;color:#fff;border-radius:18px;padding:18px;text-align:center;margin-top:12px}.carry .sa{font-size:1.7rem;font-family:Georgia,serif}.carry small{display:block;opacity:.85}
+.nm{display:flex;gap:8px;padding:7px 0;border-top:1px solid #f1e8d6;font-size:.86rem;text-align:left}.nm b{min-width:92px;color:#2d1a0c;font-family:Georgia,serif}
+.tiles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}.tile{background:#fff;border:1px solid #eadcbc;border-radius:14px;padding:10px 4px;text-align:center}.tile b{display:block;font-size:1.4rem;color:#0f6b66}.tile small{font-size:.72rem;color:#7a6a55}
+.fin{text-align:center;padding-top:10px}.fin .om{font-size:2.4rem}
+details.bl summary{list-style:none;text-align:center;color:#0f6b66;font-weight:700;padding:10px;cursor:pointer}details.bl summary::-webkit-details-marker{display:none}
+.hm{background:#0f6b66;color:#fff;border-radius:20px;padding:16px}.hm small{opacity:.85}.hm .btn{background:#ffd76a;color:#2a1500}
+.row{display:flex;justify-content:space-between;align-items:center;padding:12px 2px;border-top:1px solid #f1e8d6;font-size:.92rem}.row:first-child{border-top:0}
+.vpick{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.vpick button{border-radius:10px;padding:8px 12px;background:#efe6d2;font-weight:800}.vpick button.dn{background:#cfe3dc;color:#0f6b66}
+.kid{background:#fff7e3}.kh{display:flex;align-items:center;justify-content:space-between}.kh b{font-size:1.2rem;color:#7a4a12}
+.lot{display:flex;flex-wrap:wrap;gap:3px;margin-top:8px}.lot i{width:9px;height:9px;border-radius:50%;background:#efe1c4}.lot i.on{background:#e0559a}
+.kname{font-family:Georgia,serif;font-size:2.3rem;text-align:center;color:#2d1a0c;margin-top:10px}
+.kbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.kb{border-radius:20px;padding:16px 6px;font-weight:900;font-size:1.05rem;color:#fff}.kb i{display:block;font-style:normal;font-size:2rem}
+.kb.a{background:#2f8fd8}.kb.b{background:#e0559a}.kb.c{background:#f0a020}.kb.d{background:#3aa569}
+.bub{width:150px;height:150px;border-radius:50%;margin:18px auto;display:flex;align-items:center;justify-content:center;flex-direction:column;font-weight:900;font-size:1.1rem;color:#fff;background:#2f8fd8;transition:transform .3s}
+.bub.you{background:#e0559a;animation:pu 1s infinite}.bub i{font-style:normal;font-size:2.6rem}
+.wd{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}.wd button{background:#fff;border:2px solid #f0a020;border-radius:14px;padding:10px 12px;font-weight:800;font-size:1rem}.wd button.ok{background:#3aa569;border-color:#3aa569;color:#fff}.wd button.bad{animation:sh .3s}
+@keyframes sh{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.ans{min-height:48px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;border:2px dashed #f0d79a;border-radius:14px;padding:8px;margin-top:10px}.ans span{background:#3aa569;color:#fff;border-radius:10px;padding:6px 10px;font-weight:800}
+.story p{line-height:1.6;font-size:1rem}
+.toast{position:sticky;bottom:6px;margin-top:10px;background:#2d1a0c;color:#fff;border-radius:12px;padding:10px 12px;font-size:.85rem;text-align:center}
+.cmp{display:flex;gap:6px;justify-content:center;margin:6px 0}
+</style></head><body>
+<div class="pvbar"><b>Preview, 22 Nov.</b> This is not the app, and nothing here changes Guru Test or the live app. It has 4 verses (1, 61, 62, 63) with your real audio and the real microphone. Spoken meanings and tips use the phone's voice for now.
+<div class="jump"><button data-a="jsetup">1 · First time</button><button data-a="jhome">Today</button><button data-a="jkids">6 · Kids</button><button data-a="jfin">7 · Kainkaryam</button><button data-a="jyou">You</button><button data-a="reset">↺ Reset</button></div></div>
+<div class="ph"><div class="scr" id="scr"></div><div class="tabs" id="tabs"></div></div>
+<script>
+var VS={"1":{"n":1,"sa":["विश्वं विष्णुर्वषट्कारो भूतभव्यभवत्प्रभुः ।","भूतकृद्भूतभृद्भावो भूतात्मा भूतभावनः ॥१॥"],"pr":["Vish-vam Vish-nur Va-shat-kaa-ro Bhoo-ta-bhav-ya-bha-vat-pra-bhuh","Bhoo-ta-krid Bhoo-ta-bhrid Bhaa-vo Bhoo-taat-maa Bhoo-ta-bhaa-va-nah"],"tip":"Va-shat-kaa-ro: say the sh softly, then a short t. Bhoo is a breathy b with a long oo.","tipSay":"Vashatkaaro: say the sh softly, then a short t. Bhoo is a breathy b with a long oo.","cut":6.9,"t":[3.78,10.7],"dur":13.95,"one":"The Lord is the whole universe. He was, is and will be, and He looks after every being.","full":"Vishnu is the whole universe and is present everywhere. He is worshipped in every yajna. He is Lord of the past, the future and the present. He creates all beings, looks after them and helps them grow. He is everything that exists, and the soul inside every being.","names":[["विश्वम्","Vish-vam","Is the whole universe"],["विष्णुः","Vish-nuh","Present everywhere"],["वषट्कारः","Va-shat-kaa-rah","Worshipped with the sacred call in yajnas"],["भूतभव्यभवत्प्रभुः","Bhoo-ta-bhav-ya-bha-vat-pra-bhuh","Lord of the past, the future and the present"],["भूतकृत्","Bhoo-ta-krit","Creates all beings"],["भूतभृत्","Bhoo-ta-bhrit","Looks after all beings"],["भावः","Bhaa-vah","Is everything that exists"],["भूतात्मा","Bhoo-taat-maa","The soul inside every being"],["भूतभावनः","Bhoo-ta-bhaa-va-nah","Helps every being grow"]],"carry":0,"pic":"img/mean/v001.jpg","kid":{"w":0,"piece":0,"say":"He is the whole world!","words":["Vishvam","Vishnur","Vashatkaaro"],"pic":"img/mean/v001.jpg","story":null}},"61":{"n":61,"sa":["सुधन्वा खंडपरशुर् दारुणो द्रविणप्रदः ।","दिवस्पृक् सर्वदृग् व्यासो वाचस्पतिरयोनिजः ॥६१॥"],"pr":["Su-dhan-vaa Khan-da-pa-ra-shur Daa-ru-no Dra-vi-na-pra-dah","Di-vas-prik Sar-va-drig Vyaa-so Vaa-chas-pa-ti-ra-yo-ni-jah"],"tip":"Dra-vi-na: the r is a light tap. Vyaa-so: vy is said together, like vya. Vaa-chas-pa-ti: ch like the ch in chair.","tipSay":"Dravina: the r is a light tap. Vyaaso: vy is said together, like vya. Vaachaspati: ch like the ch in chair.","cut":7.12,"t":[3.71,10.8],"dur":14.1,"one":"The Lord holds a mighty bow and an axe. He is stern with evil, kind to the good, and sees everything.","full":"Vishnu holds a mighty bow and an axe. He is stern with evil, but gives wealth to the good. He reaches up to the heavens and sees everything. As Vyasa, He gave us the Vedas. He is the master of all speech, and He was never born like us.","names":[["सुधन्वा","Su-dhan-vaa","One with the excellent bow (Sharnga)"],["खंडपरशुः","Khan-da-pa-ra-shuh","Wielder of the cutting axe"],["दारुणः","Daa-ru-nah","Stern toward the wicked"],["द्रविणप्रदः","Dra-vi-na-pra-dah","Giver of wealth"],["दिवस्पृक्","Di-vas-prik","One who touches the heavens"],["सर्वदृक्","Sar-va-drik","The all-seeing"],["व्यासः","Vyaa-sah","Vyasa, who arranged the Vedas"],["वाचस्पतिः","Vaa-chas-pa-tih","Lord of speech"],["अयोनिजः","A-yo-ni-jah","Not born from a womb"]],"carry":7,"pic":"img/mean/v061.jpg","kid":{"w":1,"piece":0,"say":"The one with the axe!","words":["Sudhanvaa","Khandaparashur"],"pic":"img/mean/v061.jpg","story":{"t":"Parashurama, the axe-bearer","s":"Long ago, some kings became proud and cruel. They forgot that a king's duty is to protect people, not to hurt them.\n\nThe Lord was born as Parashurama, the son of the sage Jamadagni. Though born in a family of sages, he carried a great axe, given by Lord Shiva. He fought the cruel kings and set the world right again.\n\nWhen his work was done, Parashurama put down his weapons and went to the mountains to live a quiet life of prayer. He did not want power for himself.\n\nThe lesson: strength is good only when it protects the weak. And when the work is done, let go of pride.","pic":"img/story/parashurama.jpg"}}},"62":{"n":62,"sa":["त्रिसामा सामगस् साम निर्वाणं भेषजं भिषक् ।","संन्यासकृच् छमश् शांतो निष्ठा शांतिः परायणम् ॥६२॥"],"pr":["Tri-saa-maa Saa-ma-gas Saa-ma Nir-vaa-nam Bhe-sha-jam Bhi-shak","San-nyaa-sa-krich Chha-mash Shaan-to Nish-thaa Shaan-tif Pa-raa-ya-nam"],"tip":"San-nyaa-sa: the n is said twice (san-nya). Chha is ch with a puff of air. Shaan-tih: sh like ship, with a long aa.","tipSay":"Sannyaasa: the n is said twice (sannya). Chha is ch with a puff of air. Shaantih: sh like ship, with a long aa.","cut":7.78,"t":[3.97,12.07],"dur":15.9,"one":"The Lord is the sacred music, the doctor and the medicine, and the peace every soul is looking for.","full":"Vishnu is praised in the sacred Sama chants, and He is that music too. He is both the doctor and the medicine for the sickness of worldly life. He is calm and peaceful, gives peace to others, and is the final place where every soul finds rest.","names":[["त्रिसामा","Tri-saa-maa","Praised by the three Sama chants"],["सामगः","Saa-ma-gah","The singer of Sama"],["साम","Saa-ma","The Sama Veda itself"],["निर्वाणम्","Nir-vaa-nam","Liberation, final peace"],["भेषजम्","Bhe-sha-jam","The medicine for worldly suffering"],["भिषक्","Bhi-shak","The physician"],["संन्यासकृत्","San-nyaa-sa-krit","Who set up the path of renunciation"],["शमः","Sha-mah","Who gives calm to the mind"],["शान्तः","Shaan-tah","The peaceful one"],["निष्ठा","Nish-thaa","The final resting place of all"],["शान्तिः","Shaan-tih","Peace itself"],["परायणम्","Pa-raa-ya-nam","The highest refuge"]],"carry":10,"pic":"img/mean/v062.jpg","kid":{"w":5,"piece":1,"say":"The doctor who makes everyone well!","words":["Nirvaanam","Bheshajam","Bhishak"],"pic":"img/mean/v062.jpg","story":{"t":"Dhanvantari and the pot of nectar","s":"The gods and the demons once churned the great ocean of milk together, hoping to find amrita, the nectar of immortality. They used the mountain Mandara as the churning rod and the serpent Vasuki as the rope. Vishnu, as a giant tortoise, held the mountain on His back.\n\nMany wonders came up from the ocean. At last, a shining figure rose from the waves, holding a golden pot. It was Dhanvantari, the Lord as the divine physician, carrying the nectar.\n\nDhanvantari is honoured as the father of Ayurveda, the science of healing. Doctors in India still pray to him.\n\nThe lesson: good things come after patient, shared effort. And the Lord cares for our health, of body and of mind.","pic":"img/story/dhanvantari.jpg"}}},"63":{"n":63,"sa":["शुभांगश् शांतिदस् स्रष्टा कुमुदः कुवलेशयः ।","गोहितो गोपतिर् गोप्ता वृषभाक्षो वृषप्रियः ॥६३॥"],"pr":["Shu-bhaan-gash Shaan-ti-das Srash-taa Ku-mu-dah Ku-va-le-sha-yah","Go-hi-to Go-pa-tir Gop-taa Vri-sha-bhaak-sho Vri-sha-pri-yah"],"tip":"Srash-taa: s and r run together, then sh. Vri-sha-bhaak-sho: bh is a breathy b, ksh is k and sh together. Shu-bhaan-gash ends with sh, not s.","tipSay":"Srashtaa: s and r run together, then sh. Vrishabhaaksho: bh is a breathy b, ksh is k and sh together. Shubhaangash ends with sh, not s.","cut":7.97,"t":[4.5,11.94],"dur":15.5,"one":"The Lord is beautiful and gives peace. Like a loving cowherd, He protects every being.","full":"Vishnu has a beautiful form, gives peace, and created the world. He delights in the earth and rests on the cosmic waters. Like a loving cowherd, He cares for and protects all beings. His eyes shower blessings, and He loves those who do right.","names":[["शुभांगः","Shu-bhaan-gah","Of beautiful form"],["शान्तिदः","Shaan-ti-dah","Giver of peace"],["स्रष्टा","Srash-taa","The Creator"],["कुमुदः","Ku-mu-dah","Who rejoices on the earth"],["कुवलेशयः","Ku-va-le-sha-yah","Who rests on the waters"],["गोहितः","Go-hi-tah","Friend of the cows and all beings"],["गोपतिः","Go-pa-tih","Lord of the cows"],["गोप्ता","Gop-taa","The protector"],["वृषभाक्षः","Vri-sha-bhaak-shah","Whose gaze showers blessings"],["वृषप्रियः","Vri-sha-pri-yah","Lover of dharma"]],"carry":7,"pic":"img/mean/v063.jpg","kid":{"w":6,"piece":2,"say":"The loving cowherd who looks after the cows!","words":["Gohito","Gopatir","Goptaa"],"pic":"img/mean/v063.jpg","story":{"t":"Krishna lifts Govardhana hill","s":"Every year, the people of Vrindavan held a big festival for Indra, the king of the gods, so that he would send rain. Little Krishna asked, 'Why not thank Govardhana hill instead? It gives grass to our cows and water to our fields.' The people agreed.\n\nIndra became angry and sent a terrible storm. Rain poured for days. The cows and the people were frightened.\n\nKrishna smiled, walked to Govardhana, and lifted the whole hill on the little finger of his left hand, like an umbrella. Everyone, with their cows and calves, sheltered under it for seven days. At last Indra understood, and bowed to Krishna.\n\nThe lesson: the Lord protects those who trust Him, and He cares for every cow and calf, not just for people.","pic":"img/story/govardhana.jpg"}}}};
+var ORD=[1,61,62,63],LV={b:['🌱','New to it','Verse stays on screen all the time'],n:['🌿','Heard it before','Verse hides when you say it alone'],a:['🌳','I chant it already','Verse also hides on whole-verse turns']};
+var ST;try{ST=JSON.parse(localStorage.getItem('pv22')||'null')}catch(e){}
+if(!ST)ST={setup:false,who:'me',lvl:'n',done:{},rec:'',today:0,lot:12,kdone:{},kidx:0};
+function save(){try{localStorage.setItem('pv22',JSON.stringify(ST))}catch(e){}}
+function td(){return new Date().toDateString()}
+var $=function(i){return document.getElementById(i)},SCR=$('scr');
+var VIEW='home',CUR=0,STEP=0,EYE=null,RUN=0,MSG='';
+/* audio */
+var A=new Audio();A.preload='auto';A.playsInline=true;var AT=null,APOLL=null;
+function stopA(){clearInterval(APOLL);clearTimeout(AT);try{A.pause()}catch(e){}try{speechSynthesis.cancel()}catch(e){}if(TK)TK.pause()}
+function playSeg(n,s,e,cb){stopA();var src='audio/v'+('00'+n).slice(-3)+'.m4a',go=function(){try{A.currentTime=s}catch(x){}var p=A.play();if(p&&p.catch)p.catch(function(){MSG='Tap the screen once, then try again (the phone blocked the sound).';draw()});var lim=((e||A.duration||12)-s)*1000+1500;AT=setTimeout(fin,lim);APOLL=setInterval(function(){if(e&&A.currentTime>=e-0.05)fin();if(ONT)ONT(A.currentTime)},40)};var dn=false;function fin(){if(dn)return;dn=true;clearInterval(APOLL);clearTimeout(AT);A.pause();cb&&cb()}
+ A.onended=function(){fin()};
+ if(A.getAttribute('src')!==src){A.setAttribute('src',src);A.load();A.addEventListener('loadedmetadata',function h(){A.removeEventListener('loadedmetadata',h);go()})}else go()}
+var ONT=null;
+function say(t,cb){try{var ss=window.speechSynthesis;ss.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='en-IN';u.rate=.92;u.onend=function(){cb&&cb()};u.onerror=function(){cb&&cb()};ss.speak(u)}catch(e){cb&&cb()}}
+function segs(n){var v=VS[n];return[[0,v.t[0]],[v.t[0],v.cut],[v.cut,v.t[1]],[v.t[1],0]]}
+function lineSeg(n,i){var v=VS[n];return i?[v.cut,0]:[0,v.cut]}
+function wait(ms,id,cb,bar){var t0=Date.now(),b=bar&&$(bar);var iv=setInterval(function(){if(id!==RUN){clearInterval(iv);return}var f=Math.min(1,(Date.now()-t0)/ms);if(b)b.style.width=(f*100)+'%';if(f>=1){clearInterval(iv);cb()}},50)}
+function len(n,s,e){return ((e||VS[n].dur)-s)}
+/* screens */
+function tabs(){var t=ST.who==='kid'?[['khome','🪷','Today'],['you','🙂','You']]:[['home','🌅','Today'],['you','🙂','You']];if(VIEW==='setup'||VIEW==='prac'){$('tabs').innerHTML='';return}$('tabs').innerHTML=t.map(function(x){return '<button data-a="tab" data-v="'+x[0]+'" class="'+(VIEW===x[0]||(x[0]==='khome'&&VIEW.indexOf('k')===0)?'on':'')+'"><i>'+x[1]+'</i>'+x[2]+'</button>'}).join('')}
+function draw(){tabs();var h='';
+ if(VIEW==='setup')h=setupH();else if(VIEW==='home')h=homeH();else if(VIEW==='you')h=youH();else if(VIEW==='prac')h=pracH();else if(VIEW==='fin')h=finH();else if(VIEW.indexOf('k')===0)h=kidH();
+ if(MSG)h+='<div class="toast">'+MSG+'</div>';SCR.innerHTML=h}
+var SU=0;
+function setupH(){if(SU===0)return '<h2>Hari Om 🙏</h2><p class="sub">Two quick questions, asked only once.</p><b>Who is learning on this phone?</b><button class="opt'+(ST.who==='me'?' on':'')+'" data-a="who" data-v="me"><span class="e">🙂</span><span><b>Me</b><small>Daily practice, about 5–10 minutes</small></span></button><button class="opt'+(ST.who==='kid'?' on':'')+'" data-a="who" data-v="kid"><span class="e">🧒</span><span><b>A child</b><small>One name a day, pictures, stories and games</small></span></button><button class="btn" data-a="su1">Next</button>';
+ return '<h2>How well do you know the Sahasranamam?</h2><p class="sub">This decides when the verse hides so you can test yourself. You can change it later in You › Settings.</p>'+['b','n','a'].map(function(k){return '<button class="opt'+(ST.lvl===k?' on':'')+'" data-a="lvl" data-v="'+k+'"><span class="e">'+LV[k][0]+'</span><span><b>'+LV[k][1]+'</b><small>'+LV[k][2]+'</small></span></button>'}).join('')+'<button class="btn" data-a="sudone">Start</button><p class="note">Old app: a level button on Today, on Revise, and on every practice screen. Here: asked once, then one small 👁 button while practising.</p>'}
+function nextV(){for(var i=0;i<ORD.length;i++)if(!ST.done[ORD[i]])return ORD[i];return 0}
+function homeH(){var n=nextV(),h='<h2>Hari Om 🙏</h2><p class="sub">🔥 '+(9+(ST.today?1:0))+' day streak · '+(43+Object.keys(ST.done).length)+' / 108 verses</p>';
+ h+=n?'<div class="hm"><small>Today\'s new verse</small><div style="font-size:1.5rem;font-weight:900">Verse '+n+'</div><small>About 4 minutes · 5 short steps</small><button class="btn" data-a="start" data-v="'+n+'">Start</button></div>':'<div class="hm"><b>All 4 preview verses done</b><br><small>Tap ↺ Reset at the top to try again, or pick a verse below.</small><button class="btn" data-a="jfin">See today\'s kainkaryam</button></div>';
+ h+='<div class="card"><b>Try any preview verse</b><div class="vpick">'+ORD.map(function(v){return '<button class="'+(ST.done[v]?'dn':'')+'" data-a="start" data-v="'+v+'">'+v+(ST.done[v]?' ✓':'')+'</button>'}).join('')+'</div><p class="note">The level button isn\'t on this screen. Only Start is.</p></div>';
+ return h}
+function youH(){return '<h2>You</h2><p class="sub">Settings (preview)</p><div class="card"><b>Practice level</b>'+['b','n','a'].map(function(k){return '<button class="opt'+(ST.lvl===k?' on':'')+'" data-a="lvl2" data-v="'+k+'"><span class="e">'+LV[k][0]+'</span><span><b>'+LV[k][1]+'</b><small>'+LV[k][2]+'</small></span></button>'}).join('')+'</div><div class="card"><b>Who is learning?</b><button class="opt'+(ST.who==='me'?' on':'')+'" data-a="who2" data-v="me"><span class="e">🙂</span><span><b>Me</b></span></button><button class="opt'+(ST.who==='kid'?' on':'')+'" data-a="who2" data-v="kid"><span class="e">🧒</span><span><b>A child (Kids mode)</b></span></button></div><button class="btn ghost" data-a="reset">↺ Reset the preview</button>'}
+/* practice */
+var SN=['Meet','Learn','Alone','Record','Name'],PH='',PI=0,PR=0,LH=-1,TK=null,TKU='',REC=null,CH=[],CDN=0,PK=-1;
+function stepsH(){return '<div class="steps">'+SN.map(function(s,i){return '<span class="'+(i===STEP?'on':i<STEP?'dn':'')+'">'+(i<STEP?'✓ ':'')+s+'</span>'}).join('')+'</div>'}
+function shown(){if(EYE!==null)return EYE;if(STEP===2)return ST.lvl==='b';if(STEP===1&&PH.indexOf('w')===0)return ST.lvl!=='a';return true}
+function verseH(hl){var v=VS[CUR],sh=shown(),lv=LV[ST.lvl];var h='<div class="vc"><button class="chip eye" data-a="eye">'+(sh?'🙈 Hide':'👁 Show')+'</button><div class="lvl">'+lv[0]+' '+lv[1]+'</div>';
+ if(!sh)h+='<div class="hid"><big>🙈</big>Verse hidden. Say it from memory.<br><small>Tap 👁 Show to peek</small></div>';
+ else h+=v.sa.map(function(l,i){return '<div class="ln'+(hl===i?' hl':hl!==undefined&&hl!==-1&&hl!==i?' dim':'')+'" id="ln'+i+'"><div class="vs">'+l+'</div><div class="pr">'+v.pr[i]+'</div></div>'}).join('');
+ return h+'</div>'}
+function pracH(){var v=VS[CUR],h='<div class="top"><button class="x" data-a="quit">✕</button><b>Verse '+CUR+'</b><span class="chip">'+(STEP+1)+' of 5</span></div>'+stepsH();
+ if(STEP===0){h+=(v.pic?'<img class="pic" src="'+v.pic+'" alt="">':'')+'<p class="one">💡 '+v.one+'</p><div class="tipb">👂 <b>Listen for:</b> '+v.tip+'</div><div class="stp tip" style="margin-top:10px">'+(PH==='spk'?'🔊 Speaking…':'🔊 Plays by itself')+'<small>20 s</small></div><p class="note">Phone voice for now. Later this is your own voice, about 20 seconds.</p><button class="btn" data-a="s1">Start learning</button><button class="lnk" data-a="say1">🔁 Hear it again</button>';return h}
+ if(STEP===1){var lab=PH==='g'?['','🔊 Guide','line '+(PI+1)+' · '+(PR+1)+' of '+reps()]:PH==='y'?['you','🗣 Your turn','line '+(PI+1)+' · '+(PR+1)+' of '+reps()]:PH==='wg'?['','🔊 Guide: whole verse','']:PH==='wy'?['you','🗣 Your turn: whole verse','']:PH==='p'?['wait','⏸ Paused','']:['','Ready',''];
+ h+='<div class="stp '+lab[0]+'">'+lab[1]+'<small>'+lab[2]+'</small></div><div class="bar"><i id="pb"></i></div>'+verseH(PH==='wg'?LH:PH==='wy'?-1:PI);
+ h+='<div class="two"><button class="btn ghost" data-a="pause">'+(PH==='p'?'▶ Carry on':'⏸ Pause')+'</button><button class="btn" data-a="gotit">I\'ve got it ›</button></div><p class="note">"I\'ve got it" skips the rest of this line\'s repeats. Repeats per line: 🌱 3 · 🌿 2 · 🌳 1.</p>';return h}
+ if(STEP===2){var lab2=PH==='ay'?['you','🗣 Say the whole verse alone']:PH==='ag'?['','🔊 Now the guide, to check']:['','Ready'];h+='<div class="stp '+lab2[0]+'">'+lab2[1]+'</div><div class="bar"><i id="pb"></i></div>'+verseH(PH==='ag'?LH:-1);
+ if(PH==='adone')h+='<button class="btn" data-a="s3">Next</button><button class="lnk" data-a="s2">🔁 Once more</button>';return h}
+ if(STEP===3)return h+recH();
+ if(STEP===4){var c=v.names[v.carry];h+='<div class="carry"><small>Carry this name today</small><div class="sa">'+c[0]+'</div><div>'+c[1]+'</div><div style="font-size:1.1rem;margin-top:6px">'+c[2]+'</div></div><button class="lnk" data-a="sayc">▶ Hear it</button><details class="card"><summary><b>📖 Full meaning and all names ›</b></summary><p style="line-height:1.55">'+v.full+'</p>'+v.names.map(function(w){return '<div class="nm"><b>'+w[0]+'</b><span>'+w[2]+'</span></div>'}).join('')+'</details><button class="btn gold" data-a="finish">Finish verse '+CUR+'</button>';return h}}
+function reps(){return ST.lvl==='b'?3:ST.lvl==='a'?1:2}
+function recH(){var v=VS[CUR],today=ST.rec===td();
+ if(PH==='rec')return '<div class="recbig"><span class="rmic on">●</span><b>Recording…</b><small>Say verse '+CUR+' once, on your own</small><button class="btn red" data-a="rstop" style="width:70%">■ Stop</button></div>'+verseH(-1);
+ if(PH==='bridge')return '<div class="card" style="text-align:center"><div style="font-size:.9rem;color:#0f6b66;font-weight:800">🎙 Take saved</div><h2>Now listen: you, then the guide</h2><p class="sub">Notice where they sound different.</p><div class="cd" id="cd">'+CDN+'</div><div class="two"><button class="btn" data-a="cmpgo">Start now</button><button class="btn ghost" data-a="cmpskip">Skip</button></div></div>';
+ if(PH==='cmp'||PH==='cmpask')return '<div class="vsy"><span id="sy" class="'+(CW==='y'?'on':'')+'">🙂 You</span><span>→</span><span id="sg" class="on g'+(CW==='g'?'':'" style="opacity:.35')+'">🔊 Guide</span></div>'+verseH(LH)+(PH==='cmpask'?'<div class="card" style="text-align:center"><b>Did it sound the same?</b><div class="two"><button class="btn" data-a="close">👍 Close enough</button><button class="btn ghost" data-a="again">🎙 Try again</button></div><button class="lnk" data-a="cmpgo">🔁 Hear both again</button></div>':'<button class="lnk" data-a="cmpskip">Skip ›</button>');
+ return (today?'<div class="tipb">✓ You already recorded today. Once a day is enough.</div>':'')+'<div class="recbig"><button class="rmic" data-a="rgo">🎙</button><b>'+(today?'Record again anyway?':'Record yourself today?')+'</b><small>About 1 minute. Then hear yourself next to the guide.</small></div>'+(MSG2?'<div class="tipb" style="color:#c0392b">'+MSG2+'</div>':'')+'<button class="btn ghost" data-a="rskip">'+(today?'Next ›':'Skip today ›')+'</button><p class="note">Optional. With 2 or more new verses a day, this step comes only after the last one.</p>'}
+var CW='',MSG2='';
+/* flows */
+function start(n){stopA();CUR=n;STEP=0;EYE=null;PH='spk';VIEW='prac';MSG='';draw();say1()}
+function say1(){PH='spk';draw();var v=VS[CUR];say('This verse in one line. '+v.one+' Listen for this. '+v.tipSay,function(){if(VIEW==='prac'&&STEP===0){PH='';draw()}})}
+function learn(){STEP=1;EYE=null;PI=0;PR=0;var id=++RUN;nextRep(id)}
+function nextRep(id){if(id!==RUN)return;var sg=lineSeg(CUR,PI);PH='g';draw();playSeg(CUR,sg[0],sg[1],function(){if(id!==RUN)return;PH='y';draw();wait(len(CUR,sg[0],sg[1])*1100+900,id,function(){PR++;if(PR>=reps()){PR=0;PI++}if(PI>1)whole(id);else nextRep(id)},'pb')})}
+function whole(id){PH='wg';EYE=null;LH=0;draw();ONT=function(t){var l=t<VS[CUR].cut?0:1;if(l!==LH){LH=l;hlUp()}};playSeg(CUR,0,0,function(){ONT=null;if(id!==RUN)return;PH='wy';draw();wait(VS[CUR].dur*1050+1200,id,function(){alone()},'pb')})}
+function alone(){STEP=2;EYE=null;PH='ay';LH=-1;var id=++RUN;draw();wait(VS[CUR].dur*1100+1500,id,function(){PH='ag';LH=0;draw();ONT=function(t){var l=t<VS[CUR].cut?0:1;if(l!==LH){LH=l;hlUp()}};playSeg(CUR,0,0,function(){ONT=null;if(id!==RUN)return;PH='adone';LH=-1;draw()})},'pb')}
+function hlUp(){for(var i=0;i<2;i++){var e=$('ln'+i);if(e){e.classList.toggle('hl',LH===i);e.classList.toggle('dim',LH!==i)}}}
+function toRec(){stopA();++RUN;STEP=3;EYE=null;PH='';MSG2='';draw()}
+function recGo(){MSG2='';if(!navigator.mediaDevices||!window.MediaRecorder){MSG2='This browser can\'t record. Try Safari on iPhone or Chrome.';draw();return}
+ navigator.mediaDevices.getUserMedia({audio:true}).then(function(st){CH=[];var mt=MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported('audio/mp4')?'audio/mp4':'';REC=mt?new MediaRecorder(st,{mimeType:mt}):new MediaRecorder(st);REC.ondataavailable=function(e){if(e.data&&e.data.size)CH.push(e.data)};REC.onstop=function(){st.getTracks().forEach(function(t){t.stop()});var b=new Blob(CH,{type:REC.mimeType||'audio/mp4'});if(TKU)URL.revokeObjectURL(TKU);TKU=URL.createObjectURL(b);ST.rec=td();save();bridge()};REC.start();PH='rec';EYE=null;draw()}).catch(function(){MSG2='The microphone didn\'t start. Check the browser\'s microphone permission and try again.';draw()})}
+function bridge(){PH='bridge';CDN=3;var id=++RUN;draw();var iv=setInterval(function(){if(id!==RUN||PH!=='bridge'){clearInterval(iv);return}CDN--;var e=$('cd');if(e)e.textContent=CDN;if(CDN<=0){clearInterval(iv);compare()}},1000)}
+function compare(){var id=++RUN;stopA();PH='cmp';CW='y';LH=0;EYE=null;draw();if(!TK){TK=new Audio();TK.playsInline=true}TK.src=TKU;var r=VS[CUR].cut/VS[CUR].dur;
+ var iv=setInterval(function(){if(id!==RUN){clearInterval(iv);return}if(TK.duration&&isFinite(TK.duration)){var l=TK.currentTime<TK.duration*r?0:1;if(l!==LH){LH=l;hlUp()}}},80);
+ TK.onended=function(){clearInterval(iv);if(id!==RUN)return;CW='g';LH=0;draw();ONT=function(t){var l=t<VS[CUR].cut?0:1;if(l!==LH){LH=l;hlUp()}};playSeg(CUR,0,0,function(){ONT=null;if(id!==RUN)return;PH='cmpask';LH=-1;draw()})};
+ var p=TK.play();if(p&&p.catch)p.catch(function(){TK.onended()})}
+function toName(){stopA();++RUN;STEP=4;PH='';draw()}
+function finish(){stopA();ST.done[CUR]=1;if(ST.todayD!==td()){ST.todayD=td();ST.today=0;ST.names=[]}ST.today++;ST.last=CUR;save();VIEW='fin';draw()}
+/* finish */
+function finH(){var c=ST.last?VS[ST.last].names[VS[ST.last].carry]:VS[1].names[0],d=new Date();
+ return '<div class="fin"><div class="om">🪔</div><div class="sub" style="margin:0">'+d.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long'})+'</div><h2>Today\'s kainkaryam is done</h2><div class="tiles"><div class="tile"><b>'+(ST.today||1)+'</b><small>chanted today</small></div><div class="tile"><b>'+(9+(ST.today?1:0))+'</b><small>day streak 🔥</small></div><div class="tile"><b>'+(43+Object.keys(ST.done).length)+'</b><small>of 108 learned</small></div></div><div class="card"><small style="color:#7a6a55">Name for today</small><div style="font-family:Georgia,serif;font-size:1.4rem;color:#2d1a0c">'+c[0]+'</div><div>'+c[2]+'</div></div><button class="btn" data-a="jhome">Done</button><div class="two"><button class="btn ghost" data-a="share">📤 Share</button><button class="btn ghost" data-a="more">➕ One more verse</button></div><details class="bl"><summary>🙏 Today\'s blessing ›</summary><div class="card" style="text-align:center"><div class="vs">सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज ।<br>अहं त्वा सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः ॥</div><p class="sub" style="margin-top:8px">Leave all other means and take refuge in Me alone. I will free you from all sins; do not grieve.</p><small style="color:#8a7a60">Bhagavad Gita 18.66</small></div></details><p class="note">Removed from the big screen: medallion, flower shower, 3-script verse, looks settings. The blessing is one tap away.</p></div>'}
+/* kids */
+var KV='khome',KS={ph:'',r:0,pick:[],bad:-1};
+function kv(){return VS[ORD[ST.kidx%ORD.length]]}
+function kidH(){var v=kv(),k=v.kid,w=v.names[k.w],h='';
+ if(KV==='khome'){h+='<div class="kh"><b>Hari Om, little star ⭐</b><span class="chip">🪷 '+ST.lot+' / 108</span></div><div class="lot">'+Array.apply(null,Array(108)).map(function(_,i){return '<i class="'+(i<ST.lot?'on':'')+'"></i>'}).join('')+'</div><p class="note">One lotus for every name learned. 108 make a garland for Perumal.</p>';
+  h+='<div class="card kid"><div style="text-align:center;font-weight:800;color:#7a4a12">Today\'s name</div>'+(k.pic?'<img class="pic" src="'+k.pic+'" alt="" style="margin-top:8px">':'')+'<div class="kname">'+w[0]+'</div><div style="text-align:center;font-weight:800;color:#0f6b66">'+w[1]+'</div><div style="text-align:center;font-size:1.1rem;margin-top:4px">'+k.say+'</div>';
+  h+='<div class="kbtns"><button class="kb a" data-a="khear"><i>👂</i>Hear it</button><button class="kb b" data-a="ksay"><i>🗣</i>Say it</button><button class="kb c" data-a="kstory"><i>📖</i>Story</button><button class="kb d" data-a="kgame"><i>🧩</i>Game</button></div>'+(ST.kdone[v.n]?'<div class="tipb" style="text-align:center;margin-top:12px">🪷 Lotus earned today!</div>':'')+'</div><button class="lnk" data-a="knext">Next name › (preview only)</button>';return h}
+ h+='<div class="top"><button class="x" data-a="kback">←</button><b>'+w[1]+'</b></div>';
+ if(KV==='ksay'){var t=KS.ph==='g'?['','<i>👂</i>Listen…']:KS.ph==='y'?['you','<i>🗣</i>Your turn!']:KS.ph==='done'?['','<i>🌟</i>Well done!']:['','<i>▶</i>Ready'];h+='<div style="text-align:center;font-weight:800;color:#7a4a12">Say it 3 times with the guide</div><div class="bub '+t[0]+'">'+t[1]+'</div><div style="text-align:center;font-size:1.3rem;font-family:Georgia,serif">'+k.words.join(' ')+'</div><div style="text-align:center;margin-top:6px" class="sub">'+(KS.ph==='done'?'':'Round '+(KS.r+1)+' of 3')+'</div>'+(KS.ph==='done'?'<button class="btn gold" data-a="kgame">🧩 Now play the game</button>':'');return h}
+ if(KV==='kstory'){var s=k.story;if(!s)return h+'<div class="card">A story for this name is coming soon. Try another name with "Next name".</div>';return h+(s.pic?'<img class="pic" src="'+s.pic+'" alt="">':'')+'<div class="story"><h2>'+s.t+'</h2>'+s.s.split('\n\n').map(function(p){return '<p>'+p+'</p>'}).join('')+'</div><button class="btn ghost" data-a="kstorysay">🔊 Read it to me</button><p class="note">Later: in your voice or the guru\'s.</p>'}
+ if(KV==='kgame'){var done=KS.pick.length===k.words.length;h+='<div style="text-align:center;font-weight:800;color:#7a4a12">Tap the words in the right order</div><button class="lnk" data-a="khear">👂 Hear them first</button><div class="ans">'+KS.pick.map(function(i){return '<span>'+k.words[i]+'</span>'}).join('')+'</div><div class="wd">'+KS.sh.map(function(i){return KS.pick.indexOf(i)>=0?'':'<button class="'+(KS.bad===i?'bad':'')+'" data-a="kw" data-v="'+i+'">'+k.words[i]+'</button>'}).join('')+'</div>'+(done?'<div class="bub" style="background:#3aa569"><i>🪷</i>Lotus!</div><button class="btn" data-a="kback">Back to today</button>':'');return h}
+ return h}
+function kHear(){var v=kv(),sg=segs(v.n)[v.kid.piece];playSeg(v.n,sg[0],sg[1]||0)}
+function kSay(){var id=++RUN,v=kv(),sg=segs(v.n)[v.kid.piece];KS.ph='g';draw();playSeg(v.n,sg[0],sg[1]||0,function(){if(id!==RUN)return;KS.ph='y';draw();wait(len(v.n,sg[0],sg[1])*1200+1200,id,function(){KS.r++;if(KS.r>=3){KS.ph='done';draw()}else kSayR(id)})})}
+function kSayR(id){var v=kv(),sg=segs(v.n)[v.kid.piece];KS.ph='g';draw();playSeg(v.n,sg[0],sg[1]||0,function(){if(id!==RUN)return;KS.ph='y';draw();wait(len(v.n,sg[0],sg[1])*1200+1200,id,function(){KS.r++;if(KS.r>=3){KS.ph='done';draw()}else kSayR(id)})})}
+function shuf(n){var a=[];for(var i=0;i<n;i++)a.push(i);for(var j=a.length-1;j>0;j--){var r=Math.floor(Math.random()*(j+1)),t=a[j];a[j]=a[r];a[r]=t}if(n>1&&a.every(function(x,i){return x===i}))a.reverse();return a}
+/* events */
+document.addEventListener('click',function(e){var b=e.target.closest('[data-a]');if(!b)return;var a=b.getAttribute('data-a'),v=b.getAttribute('data-v');MSG='';
+ if(a==='jsetup'){stopA();++RUN;SU=0;VIEW='setup'}
+ else if(a==='jhome'){stopA();++RUN;VIEW=ST.who==='kid'?'khome':'home';KV='khome'}
+ else if(a==='jkids'){stopA();++RUN;ST.who='kid';save();VIEW='khome';KV='khome'}
+ else if(a==='jfin'){stopA();++RUN;VIEW='fin'}
+ else if(a==='jyou'){stopA();++RUN;VIEW='you'}
+ else if(a==='reset'){stopA();++RUN;localStorage.removeItem('pv22');ST={setup:false,who:'me',lvl:'n',done:{},rec:'',today:0,lot:12,kdone:{},kidx:0};SU=0;VIEW='setup'}
+ else if(a==='tab'){stopA();++RUN;VIEW=v;KV='khome'}
+ else if(a==='who'){ST.who=v;save()}
+ else if(a==='su1'){SU=1}
+ else if(a==='lvl'){ST.lvl=v;save()}
+ else if(a==='sudone'){ST.setup=true;save();VIEW=ST.who==='kid'?'khome':'home';KV='khome'}
+ else if(a==='lvl2'){ST.lvl=v;save();MSG='Level saved. It applies on the next practice.'}
+ else if(a==='who2'){ST.who=v;save();MSG=v==='kid'?'Kids mode on. Today now shows the kids\' screen.':'Kids mode off.'}
+ else if(a==='start'){start(+v);return}
+ else if(a==='quit'){stopA();++RUN;VIEW='home'}
+ else if(a==='say1'){say1();return}
+ else if(a==='s1'){stopA();learn();return}
+ else if(a==='eye'){EYE=!shown()}
+ else if(a==='pause'){if(PH==='p'){var id=++RUN;PR=0;PH='g';nextRep(id);return}stopA();++RUN;PH='p'}
+ else if(a==='gotit'){stopA();var id2=++RUN;PR=0;PI++;if(PI>1)whole(id2);else nextRep(id2);return}
+ else if(a==='s2'){alone();return}
+ else if(a==='s3'){toRec();return}
+ else if(a==='rgo'){recGo();return}
+ else if(a==='rstop'){if(REC&&REC.state!=='inactive')REC.stop();return}
+ else if(a==='rskip'||a==='cmpskip'||a==='close'){toName();return}
+ else if(a==='cmpgo'){compare();return}
+ else if(a==='again'){stopA();++RUN;PH='';recGo();return}
+ else if(a==='sayc'){var c=VS[CUR].names[VS[CUR].carry];say(c[1].replace(/-/g,'')+'. '+c[2]);return}
+ else if(a==='finish'){finish();return}
+ else if(a==='share'){var t='Today I chanted Vishnu Sahasranamam 🙏';if(navigator.share)navigator.share({text:t}).catch(function(){});else MSG='Sharing opens the phone\'s share sheet.'}
+ else if(a==='more'){var n=nextV();if(n){start(n);return}MSG='All 4 preview verses are done. Tap ↺ Reset to try again.'}
+ else if(a==='khear'){kHear();return}
+ else if(a==='ksay'){KV='ksay';KS={ph:'',r:0};draw();kSay();return}
+ else if(a==='kstory'){stopA();KV='kstory'}
+ else if(a==='kstorysay'){var s=kv().kid.story;if(s)say(s.t+'. '+s.s);return}
+ else if(a==='kgame'){stopA();++RUN;KV='kgame';KS={pick:[],sh:shuf(kv().kid.words.length),bad:-1}}
+ else if(a==='kw'){var i=+v;if(i===KS.pick.length){KS.pick.push(i);KS.bad=-1;if(KS.pick.length===kv().kid.words.length&&!ST.kdone[kv().n]){ST.kdone[kv().n]=1;ST.lot++;save()}}else{KS.bad=i;setTimeout(function(){KS.bad=-1},400)}}
+ else if(a==='kback'){stopA();++RUN;KV='khome'}
+ else if(a==='knext'){stopA();ST.kidx++;save();KV='khome'}
+ draw()});
+if(!ST.setup)VIEW='setup';else VIEW=ST.who==='kid'?'khome':'home';
+draw();
+</script>
+</body></html>
