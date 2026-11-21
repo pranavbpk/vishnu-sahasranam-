@@ -2553,7 +2553,7 @@ html.qton .nvbar{display:none!important}
 .vsrv1{display:block;width:100%;margin-top:12px;padding:12px 14px;border-radius:16px;border:1.5px solid #e8a33a;background:#fff4e2;text-align:left;font:inherit;cursor:pointer}.vsrv1 b{display:block;color:#8a4a07;font-size:1rem}.vsrv1 small{display:block;color:#7a6a52;font-size:.8rem;margin-top:2px}.vsrvn{font-size:.78rem;color:#7a6a52;margin-top:6px;text-align:center}
 .lvch{display:inline-flex;align-items:center;gap:4px;border:1.5px solid #cfe2dc;background:#fff;color:#0f5c58;border-radius:999px;padding:3px 10px;font:inherit;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;line-height:1.4}.lvch i{font-style:normal;font-size:.7rem;opacity:.8}
 .g2-t .lvch{margin-top:4px}.gvt .lvch{margin-left:6px}
-.thl2{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0}.lvch.thl{background:none;border:0;color:var(--acc);padding:0;font-size:.82rem;font-weight:700}.lvch.thl i{margin-left:1px}.lvrow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 2px 4px;font-size:.84rem;color:#5a6a66;font-weight:600}
+.thl2{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0}.lvch.thl{background:none;border:0;color:var(--acc);padding:0;font-size:.82rem;font-weight:700}.lvch.thl i{margin-left:1px}.lvch.tdl3{margin-left:auto;align-self:center}.lvrow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 2px 4px;font-size:.84rem;color:#5a6a66;font-weight:600}
 .lvsh .lvo{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;border:1.5px solid #eadfc8;background:#fff;border-radius:14px;padding:12px;margin-top:8px;font:inherit;color:inherit;cursor:pointer}.lvsh .lvo.on{border-color:#0f6b66;background:#eef7f4}.lvoi{font-size:1.4rem;line-height:1}.lvsh .lvo b{display:block;font-size:1rem}.lvsh .lvo small{display:block;font-size:.82rem;color:#6b5a40;margin-top:2px;line-height:1.35}
 .vsp.vsrvb{width:auto;border-radius:999px;padding:0 12px;font-size:.82rem;font-weight:800;background:#fff4e2;border:1.5px solid #e8a33a;color:#8a4a07;white-space:nowrap}
 .apr-i{font-size:.9rem;color:#6b5a40;margin:4px 0 10px}.aprg{background:#fff;border:1.5px solid #eadfc8;border-radius:14px;margin-bottom:8px;overflow:hidden}.aprg summary{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;list-style:none;font-size:1rem}.aprg summary::-webkit-details-marker{display:none}.aprg summary::after{content:'⌄';margin-left:auto;color:#0f6b66}.aprg[open] summary::after{content:'⌃'}.aprg summary span{font-size:1.2rem}.aprg ul{margin:0;padding:0 16px 12px 34px}.aprg li{font-size:.92rem;line-height:1.45;margin:6px 0;color:#3a2a18}.apr-v{font-size:.75rem;color:#8a7a60;text-align:center;margin-top:10px}
@@ -3331,7 +3331,7 @@ function tdCompact(rvL,nwL){var rn=rvL.map(function(x){return V[x.i].n}),fm=S.ma
 var TDM='';
 function tdDone(){var dv=(S.dayv||{})[tdy()]||{},l=(dv.l||[]).filter(function(x){return +x}),r=(dv.r||[]).filter(function(x){return +x&&l.indexOf(x)<0}),sk=streak(),t=S.doneAt&&new Date(S.doneAt).toDateString()===new Date().toDateString()?new Date(S.doneAt).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'',ch=function(a,c){return '<div class="dvc">'+a.map(function(n){return '<button class="dvn'+c+'" data-act="mvopen" data-v="'+n+'">'+n+'</button>'}).join('')+'</div>'};
  var row=function(lb,a,c,k){if(!a.length)return '';var sh=a.length>3?a.slice(0,3):a;return '<div class="tdD3-r"><span class="tdD3-l">'+lb+'</span>'+sh.map(function(n){return '<button class="tdD3-c'+c+'" data-act="mvopen" data-v="'+n+'">'+n+'</button>'}).join('')+(a.length>3?'<button class="tdD3-c more" data-act="tdmore" data-v="'+k+'">+'+(a.length-3)+' ›</button>':'')+'</div>'};
- var h='<div class="tdD tdD3"><div class="tdD3-h"><span class="tdD3-i">✅</span><b>Practice done today</b>'+(t?'<small>🙏 '+t+'</small>':'')+'</div>'+row('📗 Learned',l,'','l')+row('🔁 Revised',r,' rv','r')+'</div>';
+ var h='<div class="tdD tdD3"><div class="tdD3-h"><span class="tdD3-i">✅</span><b>Practice done today</b>'+(t?'<small>🙏 '+t+'</small>':'')+lvlChip('thl tdl3')+'</div>'+row('📗 Learned',l,'','l')+row('🔁 Revised',r,' rv','r')+'</div>';
  if(TDM){var L2=TDM==='l'?l:r;h+=bhSheet('tdmore',TDM==='l'?'📗 Learned today':'🔁 Revised today','<div class="dvc">'+L2.map(function(n){return '<button class="dvn'+(TDM==='r'?' rv':'')+'" data-act="mvopen" data-v="'+n+'">'+n+'</button>'}).join('')+'</div>')}
  return h}
 function swHomeD(c,nm,pl,m,g,ok){var h=c?(c.heard||0):0,tg=swTg(),seg='';for(var i=0;i<tg;i++)seg+='<i class="'+(i<h?'on':'')+'"></i>';var nx=swSun().replace('class','Next class');
@@ -3352,7 +3352,7 @@ function vidCard(){var t=HVT[hvL()];return HOWVID?'<div class="hv-vid"><video id
 /* b421: once, after setup, a small card on Today offers the guide video; gone after Watch or Not now */
 function hv1Card(){if(!HOWVID||!S.setupDone||S.vidSeen)return '';var t=HVT[hvL()];return '<div class="hv1"><span class="hv1i">🎬</span><div class="hv1t"><b>'+t[2]+'</b><small>'+t[3]+'</small></div><div class="hv1b"><button class="hv1w" data-act="hv1go">'+t[4]+'</button><button class="hv1x" data-act="hv1x">'+t[5]+'</button></div></div>'}
 /* b452: "How the app works" — the rules in plain words, for users (owner 21 Nov: keep one place that explains every rule and update it with each change). Same content as claude/app-rules.md in the project. RULESV = build these rules were last checked. English for now; Telugu/Hindi after guru review. */
-var APPRULESV='Build 452 · 21 Nov 2026';
+var APPRULESV='Build 453 · 21 Nov 2026';
 var APPRULES=[
 ['🌅','Your daily practice',[
  'One practice a day, about 10 minutes. Tap <b>Start today’s practice</b> on Today.',
@@ -3368,7 +3368,7 @@ var APPRULES=[
  '<b>🌿 Normal</b>: new verse hidden only on the last “say it alone”. Revision hidden.',
  '<b>🌳 Advanced</b>: new verse hidden on the whole-verse turns. Revision hidden.',
  'The guide’s chanting is always shown.',
- 'Change it any time with the level button (on Today, Revise, and the practice screen), even in the middle of practice.']],
+ 'Change it any time with the level button: on the Today card, the Revise tab, and under the verse title while practising. Works even in the middle of practice.']],
 ['🔁','Revision',[
  'Each verse you learn comes back after <b>1 day</b>, then <b>3 days</b>, then <b>7 days</b>. After that it is <b>Kaṇṭhastham 🌿</b> (known by heart).',
  'In a revision the guide chants the whole verse and you chant it back.',
@@ -5187,8 +5187,8 @@ function jChips(){jDef();var L=S.learned.slice().sort(function(a,b){return a-b})
 function jStripPos(){var st=document.querySelector('.jstrip');if(!st)return;var on=st.querySelector('.on');st.scrollLeft=on?on.offsetLeft-st.clientWidth/2+on.offsetWidth/2:st.scrollWidth}
 function revNext(){var b=null,c=0;Object.keys(S.rev||{}).forEach(function(n){var d=S.rev[n]&&S.rev[n].due;if(!d||dnum2(d)<=dnum2(tdy()))return;if(b===null||dnum2(d)<dnum2(b)){b=d;c=1}else if(d===b)c++});if(b===null)return '';var g=Math.round((dnum2(b)-dnum2(tdy()))/864e5);return '<span class="rnx"><small>Next</small><b>'+(g===1?'Tomorrow':'In '+g+' days')+'</b><small>'+c+' verse'+(c>1?'s':'')+'</small></span>'}
 function revCard(){if(!S.learned.length)return '';var r=mkList().filter(function(x){return x.r}).length,dn=S.doneDay===tdy(),nt='<small>Each new verse comes back after 1, 3 and 7 days</small>';
- if(dn)return '<div class="revc d slim"><span class="rci">\u2705</span><span class="rct"><b>Revision done for today</b></span>'+revNext()+'</div>';
- if(!r)return '<div class="revc z"><span class="rci">\ud83c\udf3f</span><span class="rct"><b>No revision due today</b>'+nt+'</span></div>';
+ var lvr='<div class="lvrow"><span>Practice level</span>'+lvlChip()+'</div>';if(dn)return '<div class="revc d slim"><span class="rci">\u2705</span><span class="rct"><b>Revision done for today</b></span>'+revNext()+'</div>'+lvr;
+ if(!r)return '<div class="revc z"><span class="rci">\ud83c\udf3f</span><span class="rct"><b>No revision due today</b>'+nt+'</span></div>'+lvr;
  return '<button class="revc" data-act="revgo"><span class="rci">\ud83d\udcc5</span><span class="rct"><b>Today\u2019s revision</b><span class="rcn">'+r+' verse'+(r>1?'s':'')+'</span>'+nt+'</span><span class="rcg">Go \u203a</span></button><div class="lvrow"><span>Practice level</span>'+lvlChip()+'</div>'}
 var VSF='need';
 function vsState(n){var r=S.rev[n];if(!r)return {k:'ok',t:NEWORG()?'Kaṇṭhastham ✓':'Strong ✓',c:'vs-ok'};var d=Math.round((dnum2(r.due)-dnum2(tdy()))/864e5),st=(r.stage||0)+1;
@@ -6085,7 +6085,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=452,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=453,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});

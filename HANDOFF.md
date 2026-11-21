@@ -597,3 +597,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 452 (21 Nov 2026) — Guru Test only.
 - "📋 How the app works" page (LP 'rules', rulesHTML, data APPRULES + APPRULESV): all the app's rules in plain words, grouped in tap-to-open topics (classes .apr*; .rul* and RULES were already taken). Opened from You › Help, Learn › Help, and the How to use page. Same content as claude/app-rules.md in the project — keep both in step on every rule change and bump APPRULESV.
 - Today card: level chip moved under the "Today's practice" title (.thl2, plain text style "🌿 Normal ⌄"); removed from under the Start button (owner: didn't look good).
+
+## Build 453 (21 Nov 2026) — Guru Test only.
+- Owner couldn't see the level button: once today's practice is done the Today card is tdDone() (no chip) and the Revise card is the "Revision done" / "No revision due" state (no chip). Chip now also in the tdDone header (.tdl3) and under both Revise card states (lvr). Rules page wording + APPRULESV updated.
