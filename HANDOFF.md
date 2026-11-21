@@ -582,3 +582,8 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Meaning voice (mcSay) kept talking after Finish: MCSPK flag; any other action cancels speechSynthesis.
 - "Type a number" in the Practise any verse fold didn't work on iPhone (focus from a timer doesn't open the keyboard) and sat too close to the numbers. Now a real box in the fold footer (#vpk + Go, Enter works) that picks the verse (vpkGo → JVV, fold closes); dashed line and more space above it.
 - Revise today: owner played verse 61 and it stayed in Revise today. plRevCount(): a single verse due today played to the end (all its times, PL.one) now counts as revised (advanceRev + histMark 'r' + addDay); player line shows "✓ Verse N revised · back in N days" (or "now Kaṇṭhastham").
+
+## Build 450 (21 Nov 2026) — Guru Test only. Owner agreed: a revision counts only when you chanted it.
+- Every due revision ends with "How did it go?" (rvAsk, classes .rvask*): 👍 Good (act revgo → advanceRev: 1, 3, 7 days, then Kaṇṭhastham) or 🔁 Not yet (act revny → RVNY[n]; revResult keeps the stage, due tomorrow). No tap → Good after 6 s (was 3 s; only for rt 'due'). Shown on both old (rpSheet revdone) and new (g2Done rd) screens; new style hides the big dock button while the question shows.
+- Practise any verse: when the chosen verse is due today, "🔁 Revise verse N now · about 1 minute · this marks it done" (act rev1 → revOne(n): one-verse session LST=[{rt:'due'}], LST.rv1; ends like a single practice — doesn't set doneDay or move S.pos — with "✓ Verse N revised · back in N days" / "comes back tomorrow"). Line under it: "▶ Play is listening only".
+- Removed b449 plRevCount (playing to the end no longer counts).
