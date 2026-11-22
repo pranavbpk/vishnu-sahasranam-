@@ -612,3 +612,13 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Bell log under the version line removed.
 - APPRULES: "waits for your answer", Weekly recap wording; APPRULESV 'Build 455 · 23 Nov 2026'.
 - preview-nov23.html (not in the app): 4 = "I already know this verse" quick check (3 screens) + lamp path / always-on I've got it for learners; 7 = new Practise on my own screen. Screenshots: docs/screens-nov23/.
+
+## Build 456 (23 Nov 2026) — Guru Test only.
+- Bug: "Undo: unmark the N verses I marked" did nothing — My slokas' OWNA handler also has 'mkundo' (cut-marker undo) and caught the tap first. Revise undo is now data-act 'knundo', with a green confirmation.
+- Bug: Weekly recap "This week" missed verses that had been unmarked and learned again (hist[n].l kept the first date). recapWeek() now also reads S.dayv[d].l for the last 7 days; unmarking sets hist[n].un=1 so the next learn updates h.l.
+- Guru's tip = tipCard(n): lavender card "👂 Listen for" + 🔈/🔊 button (tipagain); one row per sentence (max 3), dash words as pills (tipPill regex on Capital-dash-words); "Word: hint" split into pill + hint.
+- Quick check (point 4): tip screen buttons side by side: "Start the verse ›" / "✓ I know it · Quick check". qkGo(): RP.steps=[2], RP.qk=1 → guide once, your turn with text hidden (hideNow), no class chanting (clsOn false when RP.qk) → phase 'qkask' (qkSheet): 👍 Yes, I know it (learned, S.rev={stage:1,due:+3}, histMark l, goNext with skipN) / 🔁 Not fully (RP.qk=0, rpStart, tip skipped); chips Hear the guide again (qkagain), 👁 Verse.
+- "I've got it" on line turns: rpMore() now skips all remaining line steps up to the whole verse (and on whole verse, the remaining repeats). Not in quick check.
+- Sizes follow You › Language & display › What to show (S.prshow): both → Read aloud 1.5rem, script te 1.2 / sa 1.3; script only → 1.75/1.9; read aloud only → 1.75.
+- Practise on my own (point 7): verse() returns ownHTML() on the Say tab: ✕ header with level chip, sheetVerse (not hidden unless 👁 Hide text), panel 🎧 Listen (id gBtn2, g2Lbl via gUi) / 🪜 Line by line (rpstart) / 🎙 Record; progress bar + 3 dots; after a take: Your takes (open) + mHL meaning card (new verses); chips Meaning/Benefit/How to read; dock ▶ Continue with the guru (gresume) + I'm done for today / Next verse ›. Old own-practice code still there (unused for the Say tab).
+- APPRULES: quick check + I've got it lines. Screens: docs/screens-nov23b/.
