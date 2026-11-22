@@ -38,7 +38,7 @@ async def skipto(pg,cond):
     return False
 HDR="()=>{var l=document.querySelector('.lvch');var r=l;var o=document.querySelector('.eyeb');if(o)o.remove();if(r){var b=document.createElement('span');b.className='eyeb';b.textContent=window._EYE||'👁';b.style.cssText='display:inline-flex!important;align-items:center;border-radius:20px;margin-top:4px;white-space:nowrap;visibility:visible;opacity:1';r.parentNode.insertBefore(b,r);r.remove()}}"
 
-CL="""(st)=>{var r=document.querySelector('.rpsheet .rdpill');var o=document.querySelector('.clsb');if(o)o.remove();var b=document.createElement('span');b.className='clsb';b.innerHTML=st?'👥<small>On</small>':'👥<small>Off</small>';b.style.cssText='display:inline-flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;font-size:1.15rem;width:48px;height:48px;border-radius:50%;margin-left:6px;font-weight:800;'+(st?'background:#0f6b66;color:#fff;border:2px solid #0f6b66':'background:#f3eee6;color:#8a7a60;border:2px dashed #b9a98c;filter:grayscale(1)');b.querySelector('small').style.cssText='font-size:.62rem;margin-top:2px';r.parentNode.insertBefore(b,r.nextSibling)}"""
+CL="""(st)=>{var o=document.querySelector('.mkcls');if(o)o.remove();var b=document.createElement('button');b.className='g2-cls mkcls'+(st?' on':'');b.innerHTML='<span>👥 Class chanting</span> <span>· '+(st?'On':'Off')+'</span>';var r=document.querySelector('.rpbar');r.parentNode.insertBefore(b,r.nextSibling)}"""
 async def main():
     async with async_playwright() as p:
         b=await p.chromium.launch(executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--autoplay-policy=no-user-gesture-required'])
@@ -52,10 +52,10 @@ async def main():
             if bt: await bt.click(); await pg.wait_for_timeout(300)
         await skipto(pg,"t.indexOf('Your turn')>=0&&t.indexOf('Line 1')>=0")
         await freeze(pg); await pg.evaluate(CL,True)
-        await note(pg,"<b>👥 Chant with the class · On.</b> On your turn, soft voices chant with you. One tap turns it off, right here. Same switch as in You › Settings.")
+        await note(pg,"<b>👥 Chant with the class · On.</b> Same pill as the New screen, same place, only on your turns. Tap to turn it off.")
         await shot(pg,'13_class_on')
         await pg.evaluate(CL,False)
-        await note(pg,"<b>👥 Chant with the class · Off.</b> On your turn, only you. Tap again to turn it back on.")
+        await note(pg,"<b>👥 Chant with the class · Off.</b> On your turn, only your voice. Tap again to turn it back on.")
         await shot(pg,'14_class_off')
         await b.close()
 asyncio.run(main())
