@@ -600,3 +600,15 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 453 (21 Nov 2026) — Guru Test only.
 - Owner couldn't see the level button: once today's practice is done the Today card is tdDone() (no chip) and the Revise card is the "Revision done" / "No revision due" state (no chip). Chip now also in the tdDone header (.tdl3) and under both Revise card states (lvr). Rules page wording + APPRULESV updated.
+
+## Build 455 (23 Nov 2026) — Guru Test only. Owner's 9 points.
+- Revise header: Weekly recap / Listen to all buttons had class "rvask" (clashed with the b450 "How did it go?" box, so they showed as plain grey buttons). Back to "rvq".
+- Mark known verses: could not reproduce a failure (works in Chromium, en/hi). Sheet now shows "Already learned: 1–60, 61–88" (rngTxt), tells you when the chosen verses are already learned, and on success closes and shows a green line on the Revise tab for 6 s (MKDONE). Asked owner what he saw.
+- Guru's tip: big brown banner removed; one compact tip card (.tip2: "👂 Guru’s tip · Read it, then the guide starts", text, 🔁 Hear again). "Test voice" line removed.
+- Verse on all practice sheets (sheetVerse): each half-line split into its two padas, one row each (pdS for script: split at the space nearest the middle; pdD for dash lines: split at PADA[n].w[L], audio/pada.json). Rows are nowrap and pdFit() shrinks a row to fit the width (min 62%); runs after render, after 120 ms and on font load/resize. Sizes: Telugu 1.6rem, Sanskrit 1.7rem, English 1.3rem, dash 1.2rem (dash-first mode: script 1.1, dash 1.5).
+- Take saved (new screen, g2Done 'saved'): first only "Hear yourself, then the guide". When it ends or Skip (mgMark('') → MGD[vi]=1, re-render), it is replaced by the meaning card (picture max 96px, text clamped to 4 lines) and one chip row: Hear again · Record again · Send to guru · 👁 Verse (opens a sheet, DVS) · Benefit. No "Show verse" expander, so nothing pushes the screen. Old screen unchanged.
+- Revision "Well done / How did it go?" no longer moves on by itself (was 6 s for due, 3 s for others); waits for a tap. "New verse starts in" countdown 8 s → 15 s.
+- Weekly recap: tapping it opens a sheet: "This week’s verses" (learned in the last 7 days, from S.hist[n].l) or "Everything I’ve learned". recapList(m), recapWeek(), rcSheet(), RCS.
+- Bell log under the version line removed.
+- APPRULES: "waits for your answer", Weekly recap wording; APPRULESV 'Build 455 · 23 Nov 2026'.
+- preview-nov23.html (not in the app): 4 = "I already know this verse" quick check (3 screens) + lamp path / always-on I've got it for learners; 7 = new Practise on my own screen. Screenshots: docs/screens-nov23/.
