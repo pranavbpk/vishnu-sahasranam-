@@ -655,3 +655,9 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 
 ## Build 461 (23 Nov 2026) — Guru Test only
 - Owner's phone after Start again on 80–92: Revise correctly showed 79 learned, but the Today "Practice done today" card still listed 88, 89, 90… (learned) and 85, 86, 87 (revised) from today's day log. tdDone() now only shows verses still on the learned list. Day log itself unchanged (streak/history safe).
+
+## Build 462 (23 Nov 2026) — Guru Test only. Root-cause fix for "started-again verses still show"
+- Cause: Start again correctly removes verses from S.learned and S.rev, but ~10 screens read today's day log (S.dayv[today].l / .r) directly and never checked S.learned. 461 fixed only the Today card.
+- Fix: one helper dvT(k, day) = day-log list filtered to verses still learned. Now used by tdDone (Today card + "+N ›" sheet), tdMsg, dayDone, endHTML/svEnd (Well done), svMore, svShare, endMean, todayV, ydLine (yesterday's verse), homeOld paused count.
+- Not filtered on purpose: S.dayv itself (never changed), streak/dayKind, goNext (new-verses-per-day limit). My journey day details (calDet) keep the true record and add "🔄 Since started again: …".
+- Tested: learned 1–92, today learned 88–92 + revised 75, 85–87, then Start again 80–92 → learned 79, next new 80, Revise 75–79; Today card "Revised 75"; Well done "Revised 75"; My journey shows the note; streak unchanged.
