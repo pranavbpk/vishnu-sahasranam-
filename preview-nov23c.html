@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · slimmer practice screen</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#fbf6ec;color:#2b2118;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+button{font:inherit;cursor:pointer}
+.pv{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;gap:6px;justify-content:center;align-items:center;padding:calc(6px + env(safe-area-inset-top)) 8px 6px;background:#3b2a14;color:#fff;font-size:.78rem}
+.pv b{opacity:.8;margin-right:4px}.pv button{border:0;border-radius:14px;padding:5px 10px;background:rgba(255,255,255,.15);color:#fff;font-size:.8rem}.pv button.on{background:#f2c15a;color:#3b2a14;font-weight:800}
+.scr{display:none;max-width:480px;margin:0 auto;padding:calc(44px + env(safe-area-inset-top)) 12px 0;min-height:100vh}.scr.on{display:block}
+/* ---------- practice ---------- */
+.hd{display:flex;align-items:center;gap:8px;height:46px}
+.x{width:36px;height:36px;border-radius:50%;border:1.5px solid #e6d9bf;background:#fff;font-size:1rem}
+.ht{flex:1;line-height:1.1}.ht b{font-size:1.15rem}.ht small{display:block;color:#7a6a52;font-size:.78rem;margin-top:2px}
+.lv{border:1.5px solid #cfe6dc;background:#f1faf6;color:#0f6b66;border-radius:16px;padding:5px 10px;font-size:.8rem;font-weight:700}
+.mn{width:36px;height:36px;border-radius:50%;border:1.5px solid #e6d9bf;background:#fff;font-size:1.2rem;line-height:1}
+.tday{height:4px;border-radius:3px;background:#efe3c8;margin:4px 0 8px;overflow:hidden}.tday i{display:block;height:100%;width:50%;background:#e0a02a;border-radius:3px}
+.st{display:flex;align-items:center;gap:10px;height:50px;border-radius:16px;padding:0 12px;color:#fff;position:relative;overflow:hidden;transition:background .3s}
+.st.listen{background:linear-gradient(135deg,#127a73,#0d5e59)}.st.turn{background:linear-gradient(135deg,#f08a24,#d9541a)}.st.paused{background:linear-gradient(135deg,#8a6d4e,#6b5236)}
+.st .ic{width:34px;height:34px;flex:0 0 34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.2);font-size:1rem;position:relative}
+.st .ic.ring::after{content:"";position:absolute;inset:3px;border-radius:50%;background:#e2671d}.st .ic b{position:relative;z-index:1;font-size:.95rem}
+.st .tx{flex:1;line-height:1.15}.st .tx b{font-size:1rem}.st .tx small{display:block;opacity:.9;font-size:.78rem}
+.st .dots{display:flex;gap:4px}.st .dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35)}.st .dots i.on{background:#fff}
+.st .cls{border:0;background:rgba(255,255,255,.2);color:#fff;border-radius:14px;padding:4px 8px;font-size:.78rem}
+.st .pb{position:absolute;left:0;bottom:0;height:3px;background:rgba(255,255,255,.85);width:30%;transition:width .25s linear}
+.vb{margin-top:8px;background:#fffdf8;border:1px solid #eee0c2;border-radius:18px;padding:8px 14px 12px}
+.tabs{display:flex;gap:6px;margin-bottom:6px}.tabs button{flex:1;border:1px solid #e6d9bf;background:#fff;border-radius:14px;padding:4px 0;font-size:.82rem}.tabs button.on{background:#0f6b66;color:#fff;border-color:#0f6b66}
+.lb{font-size:.68rem;font-weight:800;letter-spacing:.06em;color:#9a8a6e;margin:6px 0 2px}
+.sc .row{white-space:nowrap;overflow:hidden}.ra .row{flex-wrap:nowrap!important;white-space:nowrap;overflow:hidden}.sc{font-size:1.5rem;line-height:1.5;border-left:3px solid #8a9a8a;padding-left:10px;margin:4px 0}.sc .dim{opacity:.35}
+.ra{border-left:3px solid #0f6b66;padding-left:10px;margin:4px 0}.ra div{font-size:1.7rem;line-height:1.5;font-weight:700;color:#0f4f4b;display:flex;flex-wrap:wrap;gap:0 12px}
+.ra span{border-bottom:2px solid #d8c89c;transition:background .2s}.ra span.now{background:#f9d96b;border-radius:4px}.ra span.heard{color:#0f6b66}.ra .dim span{opacity:.32}.sc .dim{opacity:.35}
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:20;max-width:480px;margin:0 auto;background:#fffdf7;border-top:1px solid #eadcbc;border-radius:20px 20px 0 0;box-shadow:0 -6px 16px rgba(0,0,0,.06);padding:8px 16px calc(10px + env(safe-area-inset-bottom))}
+.hint{display:flex;align-items:center;justify-content:center;gap:6px;font-size:.8rem;color:#30524a;margin-bottom:6px}.hint b{color:#0f6b66}
+.ctl{display:flex;align-items:center;justify-content:space-around}
+.cb{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;font-size:.76rem;color:#4a3a28;width:90px}
+.cb span{width:46px;height:46px;border-radius:50%;border:1.5px solid #e3d6bb;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.15rem}
+.cb.big span{width:60px;height:60px;background:#0f6b66;color:#fff;border:0;font-size:1.4rem;box-shadow:0 4px 12px rgba(15,107,102,.3)}
+.cb.go span{border-color:#0f6b66;color:#0f6b66;font-weight:800}
+.sp{height:140px}
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:60;display:none}.sheet{position:fixed;left:0;right:0;bottom:0;z-index:61;max-width:480px;margin:0 auto;background:#fffdf7;border-radius:22px 22px 0 0;padding:14px 16px calc(18px + env(safe-area-inset-bottom));display:none}
+.show .sheet-bg,.show .sheet{display:block}
+.sheet h3{margin:4px 0 10px;font-size:1.05rem}.mi{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;border-bottom:1px solid #f0e6d0;background:none;padding:12px 4px;font-size:.98rem}.mi i{font-style:normal;width:26px;text-align:center}.mi small{margin-left:auto;color:#0f6b66;font-weight:700}
+.note{margin:14px 0 160px;font-size:.82rem;color:#7a6a52;background:#fff;border:1px dashed #e0cfa6;border-radius:14px;padding:10px 12px;line-height:1.45}
+/* ---------- kainkaryam ---------- */
+.kk{margin-top:6px;border-radius:26px;overflow:hidden;background:linear-gradient(180deg,#8d1a2a,#6e1020);color:#fff;text-align:center;border:3px solid #d9a441;box-shadow:0 10px 30px rgba(110,16,32,.25)}
+.kk .str{height:12px;background:repeating-linear-gradient(90deg,#d9a441 0 10px,transparent 10px 14px)}
+.kk .in{padding:12px 16px 16px}
+.kk .tp{font-size:.74rem;letter-spacing:.1em;color:#f2c766;font-weight:700}
+.kk .emb{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0 4px}.kk .emb svg{width:46px;height:46px}.kk .emb svg.nm{width:40px;height:58px}
+.kk .kc{font-size:.72rem;letter-spacing:.12em;color:#f2c766;font-weight:800;margin-top:4px}
+.kk h1{font-family:Georgia,"Times New Roman",serif;font-size:1.65rem;margin:4px 0 0;line-height:1.15}
+.kk .tl{color:#f2c766;font-size:.92rem;margin-top:2px}
+.kk .day{margin:14px 0 10px;background:#fff8e8;color:#5a3410;border-radius:18px;padding:12px}
+.kk .row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.kk .lbl{font-weight:800;font-size:.85rem}
+.kk .chip{border:0;border-radius:11px;padding:6px 12px;font-weight:800;font-size:1rem;background:#0f6b66;color:#fff}.kk .chip.r{background:#f6d98f;color:#6b3a07}
+.kk .sk{margin-top:8px;font-size:.88rem}.kk .sk b{color:#b2401b}
+.kk .bl{display:flex;align-items:center;gap:10px;width:100%;border:1px solid rgba(242,199,102,.55);background:rgba(0,0,0,.14);color:#fff;border-radius:16px;padding:10px 12px;text-align:left}
+.kk .bl span{flex:1;line-height:1.25}.kk .bl small{display:block;color:#f2c766;font-size:.78rem}.kk .bl em{font-style:normal;color:#f2c766;font-size:1.2rem}
+.kk .thx{margin-top:12px;font-size:.92rem}.kk .thx b{color:#f2c766}
+.done{display:block;width:100%;margin:12px 0 0;border:0;border-radius:18px;padding:16px;background:#b2401b;color:#fff;font-size:1.15rem;font-weight:800;box-shadow:0 6px 16px rgba(178,64,27,.3)}
+.bless .sheet{background:linear-gradient(180deg,#8d1a2a,#6e1020);color:#fff;text-align:center}.bless .qs{font-size:1.1rem;line-height:1.6;margin:8px 0}.bless .qe{font-size:.9rem;opacity:.95}.bless small{display:block;color:#f2c766;margin-top:8px}.bless .sh{margin-top:14px;border:0;border-radius:16px;padding:10px 16px;background:#fff8e8;color:#7a2a12;font-weight:800}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="svgo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a3"/><stop offset=".45" stop-color="#e2b24a"/><stop offset="1" stop-color="#a8761c"/></linearGradient><radialGradient id="sviv" cx=".38" cy=".35" r=".75"><stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#f6efe2"/><stop offset="1" stop-color="#dccbb0"/></radialGradient><linearGradient id="svrd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2331f"/><stop offset="1" stop-color="#b3150f"/></linearGradient><radialGradient id="svpq" cx=".5" cy=".42" r=".6"><stop offset="0" stop-color="#a5281c"/><stop offset="1" stop-color="#6e1010"/></radialGradient><linearGradient id="svfl" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e8641a"/><stop offset="1" stop-color="#ffd25a"/></linearGradient><path id="svf" d="M50 1 C53.5 6 55.5 9 53.8 13 L46.2 13 C44.5 9 46.5 6 50 1Z"/><g id="svring" fill="url(#svfl)"><use href="#svf" transform="rotate(0 50 50)"/><use href="#svf" transform="rotate(30 50 50)"/><use href="#svf" transform="rotate(60 50 50)"/><use href="#svf" transform="rotate(90 50 50)"/><use href="#svf" transform="rotate(120 50 50)"/><use href="#svf" transform="rotate(150 50 50)"/><use href="#svf" transform="rotate(180 50 50)"/><use href="#svf" transform="rotate(210 50 50)"/><use href="#svf" transform="rotate(240 50 50)"/><use href="#svf" transform="rotate(270 50 50)"/><use href="#svf" transform="rotate(300 50 50)"/><use href="#svf" transform="rotate(330 50 50)"/></g><g id="svchak"><use href="#svring"/><circle cx="50" cy="50" r="37" fill="url(#svgo)"/><circle cx="50" cy="50" r="31.5" fill="url(#svpq)" stroke="#a8761c"/><g fill="url(#svgo)" stroke="#a8761c" stroke-width=".6"><path id="svbl" d="M50 20 C54 30 54 38 50 44 C46 38 46 30 50 20Z"/><use href="#svbl" transform="rotate(45 50 50)"/><use href="#svbl" transform="rotate(90 50 50)"/><use href="#svbl" transform="rotate(135 50 50)"/><use href="#svbl" transform="rotate(180 50 50)"/><use href="#svbl" transform="rotate(225 50 50)"/><use href="#svbl" transform="rotate(270 50 50)"/><use href="#svbl" transform="rotate(315 50 50)"/></g><circle cx="50" cy="50" r="8" fill="url(#svgo)" stroke="#a8761c" stroke-width=".8"/><circle cx="50" cy="50" r="3.2" fill="#c0392b"/><circle cx="50" cy="50" r="37" fill="none" stroke="#8a5e12"/></g><g id="svshk"><use href="#svring"/><circle cx="50" cy="50" r="37" fill="url(#svgo)"/><circle cx="50" cy="50" r="31.5" fill="url(#svpq)" stroke="#a8761c"/><path d="M50 19 L54.5 28 L45.5 28 Z" fill="url(#sviv)" stroke="#9c8460" stroke-width=".7"/><path d="M44 28.5 L56 28.5 L58.5 33.5 L41.5 33.5 Z" fill="url(#sviv)" stroke="#9c8460" stroke-width=".7"/><path d="M40.5 34 C33 37 31.5 47 34 55 C36.5 63 42 70 46 74 L54 74 C58 70 63.5 63 66 55 C68.5 47 67 37 59.5 34 Z" fill="url(#sviv)" stroke="#9c8460" stroke-width=".9"/><path d="M37 40 Q50 36.5 63 40 M35 46 Q48 42 65.5 46" fill="none" stroke="#bda57c"/><path d="M55 39 C63.5 44 64.5 57 57.5 68 C53.5 61 52.5 49 55 39 Z" fill="#f4b9a0" stroke="#c98a70" stroke-width=".8"/><path d="M45 73.5 L55 73.5 L53.5 80 L46.5 80 Z M47 80 L53 80 L50 84.5 Z" fill="url(#svgo)" stroke="#8a5e12" stroke-width=".7"/><circle cx="50" cy="76.6" r="1.3" fill="#c0392b"/><circle cx="50" cy="50" r="37" fill="none" stroke="#8a5e12"/></g><g id="svnT"><path d="M9 4 C9 2.5 10 2 11.5 2 L20 2 C21.5 2 22.3 3 22.4 4.3 L26 50 C26.6 56 29 59 32 59 C35 59 37.4 56 38 50 L41.6 4.3 C41.7 3 42.5 2 44 2 L52.5 2 C54 2 55 2.5 55 4 L49.5 54 C48.6 62.5 44.5 67.5 35.4 69.5 L34.6 79 C35.2 80.6 37.6 81.6 37.6 83.6 C37.6 85.6 35 86.8 32 86.8 C29 86.8 26.4 85.6 26.4 83.6 C26.4 81.6 28.8 80.6 29.4 79 L28.6 69.5 C19.5 67.5 15.4 62.5 14.5 54 Z" fill="#fffdf8" stroke="#b89a6a" stroke-width="1.1"/><path d="M29.6 6 C29.6 4.7 30.6 4 32 4 C33.4 4 34.4 4.7 34.4 6 L33.4 50 C33.3 52 32.7 53 32 53 C31.3 53 30.7 52 30.6 50 Z" fill="url(#svrd)"/></g><g id="svnV"><path d="M9 4 C9 2.5 10 2 11.5 2 L20 2 C21.5 2 22.3 3 22.4 4.3 L26 58 C26.6 65 29 68 32 68 C35 68 37.4 65 38 58 L41.6 4.3 C41.7 3 42.5 2 44 2 L52.5 2 C54 2 55 2.5 55 4 L49.5 62 C48.4 75 41.5 82 32 82 C22.5 82 15.6 75 14.5 62 Z" fill="#fffdf8" stroke="#b89a6a" stroke-width="1.1"/><path d="M29.6 6 C29.6 4.7 30.6 4 32 4 C33.4 4 34.4 4.7 34.4 6 L33.4 58 C33.3 60 32.7 61 32 61 C31.3 61 30.7 60 30.6 58 Z" fill="url(#svrd)"/></g></defs></svg>
+<div class="pv"><b>Preview</b><button data-s="listen" class="on">🎧 Listen</button><button data-s="turn">🗣 Your turn</button><button data-s="kk">🙏 Kaiṅkaryam</button></div>
+
+<div class="scr on" id="prac">
+ <div class="hd"><button class="x">✕</button><div class="ht"><b>Verse 61</b><small>New verse · 1 of 2 today</small></div><button class="lv">🌿 Normal ⌄</button><button class="mn" id="menuB" aria-label="More">⋯</button></div>
+ <div class="tday"><i></i></div>
+ <div class="st listen" id="st"></div>
+ <div class="vb">
+  <div class="tabs" id="tabs"><button data-t="sa" class="on">संस्कृत</button><button data-t="te">తెలుగు</button><button data-t="en">English</button><button data-t="hi">हिन्दी</button></div>
+  <div class="lb">📜 VERSE</div><div class="sc" id="sc"></div>
+  <div class="lb">🗣 READ THIS ALOUD</div><div class="ra" id="ra"></div>
+ </div>
+ <div class="note"><b>What changed (preview only):</b><br>• The big Listen / Your turn card, the class-chanting pill, the step bar and the “Today · verse 1 of 2” bar are now <b>one slim strip</b> (timer ring, step dots, 👥 class chanting inside it).<br>• Buttons: <b>Hear again · Pause · Skip / I’ve got it</b>. “Last verse”, How to read, Old/New and Stop here move to <b>⋯</b>.<br>• Verse and Read aloud are <b>bigger</b> and get about 200 px more room.<br>Tap Pause, ⋯ and the tabs at the top to try it. Not connected to your progress.</div>
+ <div class="sp"></div>
+ <div class="dock"><div class="hint" id="hint"></div><div class="ctl"><button class="cb"><span>↺</span>Hear again</button><button class="cb big" id="pz"><span>⏸</span>Pause</button><button class="cb go" id="sk"></button></div></div>
+ <div class="menu" id="menu"><div class="sheet-bg" data-close></div><div class="sheet"><h3>Verse 61</h3>
+  <button class="mi"><i>⏮</i>Last verse</button><button class="mi"><i>🗣</i>How to read</button><button class="mi" id="clsB"><i>👥</i>Class chanting<small id="clsV">On</small></button><button class="mi"><i>🎚</i>Practice screen<small>New</small></button><button class="mi" data-close><i>⏹</i>Stop here</button></div></div>
+</div>
+
+<div class="scr" id="kks">
+ <div class="kk"><div class="str"></div><div class="in">
+  <div class="tp">śrīmate rāmānujāya namaḥ</div>
+  <div class="emb"><svg viewBox="0 0 100 100"><use href="#svshk"/></svg><svg class="nm" viewBox="0 0 64 90"><use href="#svnT"/></svg><svg viewBox="0 0 100 100"><use href="#svchak"/></svg></div>
+  <div class="kc">TODAY’S KAIṄKARYAM IS COMPLETE</div>
+  <h1>Jai Śrīman Nārāyaṇa</h1><div class="tl">జై శ్రీమన్నారాయణ · जय श्रीमन्नारायण</div>
+  <div class="day"><div class="row"><span class="lbl">✨ Learned</span><button class="chip">80 – 85</button></div><div class="row" style="margin-top:6px"><span class="lbl">🔁 Revised</span><button class="chip r">85</button></div><div class="sk">🪔 <b>18 days</b> in a row · 85 of 108</div></div>
+  <button class="bl" id="blB"><span>🌸 <b>Today’s blessing</b><small>pallāṇḍu pallāṇḍu pallāyirattāṇḍu…</small></span><em>›</em></button>
+  <div class="thx">Thank your ācārya: <b>Asmad gurubhyo namaḥ</b> 🙏</div>
+ </div></div>
+ <button class="done">🙏 Done for today</button>
+ <div class="note" style="margin-bottom:30px"><b>What changed:</b> same colours and emblem, smaller emblem, verses as one chip (80 – 85), the maṅgaḷam is one tap away (🌸 Today’s blessing, with Share inside). Fits one screen with no scrolling.</div>
+ <div class="bless" id="bless"><div class="sheet-bg" data-close></div><div class="sheet"><b style="color:#f2c766;letter-spacing:.1em;font-size:.8rem">TIRUPPALLĀṆḌU · MAṄGAḶAM</b><div class="qs">పల్లాండు పల్లాండు పల్లాయిరత్తాండు పలకోటి నూఱాయిరం<br>మల్లాండ తిణ్ తోళ్ మణివణ్ణా ఉన్ సేవడి సెవ్వి తిరుక్కాప్పు</div><div class="qe">May You live for years and years, for crores of hundred-thousands of years, O gem-coloured Lord with mighty shoulders. May Your lovely red feet be ever protected.</div><small>Periyāzhvār · Tiruppallāṇḍu 1</small><button class="sh" data-close>📤 Share the blessing</button></div></div>
+</div>
+
+<script>
+var PW=[2,3],V={"sa": ["सुधन्वा खंडपरशुर् दारुणो द्रविणप्रदः ।", "दिवस्पृक् सर्वदृग् व्यासो वाचस्पतिरयोनिजः ॥६१॥"], "te": ["సుధన్వా ఖండపరశుర్ దారుణో ద్రవిణప్రదః |", "దివస్పృక్ సర్వదృగ్ వ్యాసో వాచస్పతిరయోనిజః ||"], "en": ["Sudhanva Khandaparashur Daruno Dravinapradah", "Divasprik Sarvadrig Vyaso Vachaspatir Ayonijah"], "pr": ["Su-dhan-vaa Khan-da-pa-ra-shur Daa-ru-no Dra-vi-na-pra-dah", "Di-vas-prik Sar-va-drig Vyaa-so Vaa-chas-pa-ti-ra-yo-ni-jah"]},mode='listen',paused=false,tab='sa',w=0,left=16,cls=true;
+function $(i){return document.getElementById(i)}
+function words(i){return V.pr[i].split(' ')}
+function fit(){['#sc','#ra'].forEach(function(id){var R=document.querySelectorAll(id+' .row'),m=99;R.forEach(function(r){r.style.fontSize='';var f=parseFloat(getComputedStyle(r).fontSize),k=0;while(r.scrollWidth>r.clientWidth+1&&k<20){f-=1;r.style.fontSize=f+'px';k++}m=Math.min(m,f)});R.forEach(function(r){r.style.fontSize=m+'px'})})}
+function draw(){
+ var st=$('st');st.className='st '+(paused?'paused':mode);
+ if(paused)st.innerHTML='<span class="ic">⏸</span><span class="tx"><b>Paused</b><small>Tap ▶ to carry on</small></span><span class="dots"><i class="on"></i><i></i><i></i></span>';
+ else if(mode==='listen')st.innerHTML='<span class="ic">🎧</span><span class="tx"><b>Listen · Line 1</b><small>The guru chants, you listen</small></span><span class="dots"><i class="on"></i><i></i><i></i></span><span class="pb" id="pb" style="width:'+Math.min(100,w*25)+'%"></span>';
+ else st.innerHTML='<span class="ic ring" id="rg" style="background:conic-gradient(#fff '+(left/16*100)+'%,rgba(255,255,255,.3) 0)"><b>'+left+'</b></span><span class="tx"><b>Your turn · Line 1</b><small>Say it 2 times</small></span><button class="cls" id="clsS">👥 '+(cls?'On':'Off')+'</button><span class="dots"><i class="on"></i><i></i><i></i></span>';
+ var sc=tab==='en'?V.en:tab==='te'?V.te:V.sa,half=function(l,i){var a=l.replace(/\s+([।॥|]+.*)$/,'\u00a0$1').split(' '),k=PW[i];return [a.slice(0,k).join(' '),a.slice(k).join(' ')]};
+ $('sc').innerHTML=sc.map(function(l,i){return half(l,i).map(function(h){return '<div class="row'+(i?' dim':'')+'">'+h+'</div>'}).join('')}).join('');
+ $('ra').innerHTML=[0,1].map(function(i){var ws=words(i),k=PW[i];return [ws.slice(0,k),ws.slice(k)].map(function(part,pi){return '<div class="row'+(i?' dim':'')+'">'+part.map(function(x,jj){var j=pi*k+jj,c=i===0&&mode==='listen'?(j<w?'heard':j===w?'now':''):'';return '<span class="'+c+'">'+x+'</span>'}).join('')+'</div>'}).join('')}).join('');
+ fit();
+ $('hint').innerHTML=mode==='listen'?'<b>Skip</b> → go to your turn now':'<b>I’ve got it</b> → skip to the whole verse';
+ $('sk').innerHTML=mode==='listen'?'<span>⏭</span>Skip':'<span>✓</span>I’ve got it';
+ $('pz').innerHTML=paused?'<span>▶</span>Play':'<span>⏸</span>Pause';
+ document.querySelectorAll('#tabs button').forEach(function(b){b.className=b.dataset.t===tab?'on':''});
+}
+setInterval(function(){if(paused)return;if(mode==='listen'){w=(w+1)%5;draw()}else{left=left>1?left-1:16;var r=$('rg');if(r){r.style.background='conic-gradient(#fff '+(left/16*100)+'%,rgba(255,255,255,.3) 0)';r.querySelector('b').textContent=left}}},900);
+document.addEventListener('click',function(e){var t=e.target.closest('button,[data-close]');if(!t)return;
+ if(t.dataset.s){document.querySelectorAll('.pv button').forEach(function(b){b.className=b===t?'on':''});var k=t.dataset.s==='kk';$('prac').className='scr'+(k?'':' on');$('kks').className='scr'+(k?' on':'');if(!k){mode=t.dataset.s;paused=false;draw()}return}
+ if(t.dataset.t){tab=t.dataset.t;draw();return}
+ if(t.id==='pz'){paused=!paused;draw();return}
+ if(t.id==='sk'){mode=mode==='listen'?'turn':'listen';document.querySelectorAll('.pv button').forEach(function(b){b.className=b.dataset.s===mode?'on':''});draw();return}
+ if(t.id==='menuB'){$('menu').classList.add('show');return}
+ if(t.id==='blB'){$('bless').classList.add('show');return}
+ if(t.id==='clsB'||t.id==='clsS'){cls=!cls;$('clsV').textContent=cls?'On':'Off';draw();return}
+ if(t.hasAttribute('data-close')){document.querySelectorAll('.show').forEach(function(x){x.classList.remove('show')})}
+});
+draw();
+</script></body></html>
