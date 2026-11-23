@@ -670,3 +670,11 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Full meaning sheet text was in CAPITALS: class clash (.mct = card title style, uppercase). .msheet .mct reset.
 - Meaning card language switch (EN · తె · हि) bigger: .98rem, 38 px wide.
 - Kaiṅkaryam simple layout (svEndS, what the owner sees): today's verses as tappable coloured chips (learned teal, revised gold), streak + count line in a soft gold box, the maṅgaḷam back on the card (script + English, no transliteration), thank-ācārya line, Share. Blessing sheet button removed from this layout. Fits 393 × 852.
+
+## Build 464 (23 Nov 2026) — Guru Test only. Third practice style "Guru" (S.gsty='mix'), for the owner to try
+- From preview-nov23d design E. Choose in You › Settings › Practice screen (Old / New / 🧘 Guru & śiṣya) or the Old | New | Guru switch in the practice header.
+- gNew() = New or Guru: every former S.gsty==='new' check now uses it, so Guru shares all New screens (tip, quick check, record, saved, own practice).
+- rpMix(): only the listen / your-turn screen differs: thin today bar; strip with a round face (art/guru-face.jpg while listening, art/sishya-face.jpg on your turn, seconds badge #rpcd), title "Listen · Line 1", counts "Guru chants it 1 of 3" / "Say it 2 times"; 👥 class chanting inside the strip; lesson path with counts (Line 1 ×N › Line 2 ×N › Whole verse ×N); warm card (.g3-card) with the verse centred, the practised line big (script ~30 px) and the other line small/faded (.rpverse.s0/.s1). Player: Hear again · Pause · Done (turn) / Skip (listen); "✓ I've got it — skip …" pill (rpskip, same ask-once); Next verse link on revisions.
+- New action rpturnok = end this turn now (rpNext). Tip screen in Guru style shows art/guru-sishya-draft.jpg above the tip.
+- Art is a DRAFT cropped from the owner's Gemini mock-up — replace with our own artwork before going live; guru to approve.
+- Read aloud rows are width-limited by pdFit (one pada per row), so they grow only a little; script grows ~20.8 → ~30 px.
