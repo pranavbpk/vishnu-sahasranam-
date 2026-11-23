@@ -622,3 +622,11 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Sizes follow You › Language & display › What to show (S.prshow): both → Read aloud 1.5rem, script te 1.2 / sa 1.3; script only → 1.75/1.9; read aloud only → 1.75.
 - Practise on my own (point 7): verse() returns ownHTML() on the Say tab: ✕ header with level chip, sheetVerse (not hidden unless 👁 Hide text), panel 🎧 Listen (id gBtn2, g2Lbl via gUi) / 🪜 Line by line (rpstart) / 🎙 Record; progress bar + 3 dots; after a take: Your takes (open) + mHL meaning card (new verses); chips Meaning/Benefit/How to read; dock ▶ Continue with the guru (gresume) + I'm done for today / Next verse ›. Old own-practice code still there (unused for the Say tab).
 - APPRULES: quick check + I've got it lines. Screens: docs/screens-nov23b/.
+
+## Build 457 (23 Nov 2026) — Guru Test only. Owner's screen-fit points.
+- Practise on my own (ownHTML): title tag in colour (.o2tag "✨ New verse · 1 of 2" / "🔁 Revision"); paused banner .o2pz is an orange card "Guru practice paused · Carry on below on your own" with ▶ Continue (gresume) inside it. Listen / Line by line / Record, thin bar, ▶ Continue with guru + Next verse › are now a fixed bottom panel (.own2 .o2d, spacer .o2sp). Time label short (gTime data-s). Verse sizes unchanged.
+- Tip screen (tipSheet): new style uses the g2 header; Start the verse / I know it are fixed at the bottom (.tipdk). After the spoken tip the guide starts by itself after TIPWAIT = 6 s (was 0.9 s) with a visible countdown (#tipcd, RP.tipAt, RP.tipI).
+- Listen / your turn (rpSheet2): meaning picture strip (vBand) removed. Record screen before recording (g2Done): picture strip removed for new verses; duplicate "Record my take" chip removed.
+- recLater() returns false: every new verse is recorded straight after it is learned (bug: with 2 a day and verse 2 passed by quick check, verse 1 was never recorded).
+- Take saved meaning card: picture as a 74 px thumbnail, text 3 lines, so the screen fits.
+- APPRULES: recording + tip auto-start lines; APPRULESV 'Build 457'. Screens: docs/screens-nov23c/.
