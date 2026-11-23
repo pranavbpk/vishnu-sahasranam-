@@ -2946,6 +2946,15 @@ html.qton .nvbar{display:none!important}
 .g2sv .mhl .mhlpic,.own2 .mhl .mhlpic{float:left;width:74px;height:74px;max-height:none;margin:10px 2px 4px 10px;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
 .g2sv .mcard2 p,.own2 .mhl .mcard2 p{-webkit-line-clamp:3;margin:5px 0 8px}.g2sv .mcard2 .mcb,.own2 .mhl .mcb{clear:both}
 .g2sv .g2-st{padding-top:10px;padding-bottom:10px}
+.sv-more{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}.sv-more button{border:1.5px solid #e3c27a;background:#fffaf0;color:#7a2a12;border-radius:20px;padding:8px 14px;font:inherit;font-weight:700;font-size:.88rem;cursor:pointer}
+.svbsh{max-height:82vh;overflow:auto;text-align:center}.svbsh .sv-q{margin:6px 0 10px}.svbsh .sv-sh{margin:8px 0 4px;color:#9a3412;font-weight:700}
+.tipc3.tmin{display:flex;align-items:center;gap:8px;width:100%;font:inherit;text-align:left;cursor:pointer;padding:8px 12px;color:#3b2f7a}.tipc3.tmin>b{white-space:nowrap;font-size:.9rem}.tmw{flex:1;display:flex;flex-wrap:wrap;gap:4px}.tmw .tpw{font-size:.86rem}.tmx{color:#6b5fc0}
+.mcard2 .mct{display:flex;align-items:center;justify-content:space-between;gap:6px}.mlp{display:inline-flex;border:1px solid #e6c873;border-radius:12px;overflow:hidden;flex:0 0 auto;text-transform:none;letter-spacing:0}.mlp button{border:0;background:#fffaf0;color:#8a5a12;font:inherit;font-size:.78rem;font-weight:700;padding:3px 8px;cursor:pointer}.mlp button.on{background:#c98a12;color:#fff}
+.fsh{display:flex;align-items:center;gap:10px;background:#eef7f4;border:1px solid #bfe0d6;border-radius:16px;padding:10px 12px;margin:0 0 10px}.fsi{font-size:1.4rem}.fst{flex:1;line-height:1.25}.fst b{color:#0f6b66}.fst small{display:block;font-size:.8rem;color:#4a5a55;margin-top:2px}.fsx{border:0;background:none;font-size:1rem;color:#6b7a75;cursor:pointer;padding:4px}
+.g2sv.cdn .g2-sc{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;gap:6px;margin:8px -2px 2px;padding:2px;scrollbar-width:none}.g2sv.cdn .g2-sc::-webkit-scrollbar{display:none}.g2sv.cdn .g2-sc .chip{flex:0 0 auto;padding:7px 11px;font-size:.84rem;margin:0}
+.g2-hint{text-align:center;font-size:.76rem;color:#6b5a3e;margin-top:6px;min-height:1em}.g2-hint b{color:#0f6b66}
+.gotsh{text-align:center}.gotsh .gott{display:block;font-size:1.2rem;margin:4px 0 6px}.gotsh p{margin:4px 0 8px;font-size:.95rem}.gotsh .gotm{color:#7a6a52;font-size:.88rem}.gotsh .btn{margin:6px 0 0}.gotsh .lnkb{margin-top:8px}
+
 </style>
 </head>
 <body>
@@ -3393,9 +3402,9 @@ function svEndS(e,dl,sk){var st=svSt(),nm=S.wdnm==='v'?'svnV':'svnT';
   +'<div class="sv-emb s1"><svg class="sv-sd" viewBox="0 0 100 100" aria-hidden="true"><use href="#svshk"/></svg><svg class="sv-nm" viewBox="0 0 64 90" aria-hidden="true"><use href="#'+nm+'"/></svg><svg class="sv-sd" viewBox="0 0 100 100" aria-hidden="true"><use href="#svchak"/></svg></div>'
   +'<div class="sv-kk">Today’s kaiṅkaryam is complete</div><h1>Jai Śrīman Nārāyaṇa</h1><div class="sv-tl">జై శ్రీమన్నారాయణ · जय श्रीमन्नारायण</div>'
   +'<div class="sv-ln">'+(dl.length?'Verse'+(dl.length>1?'s ':' ')+dl.join(', ')+' learned · ':'')+(dayDone().r.length?'Revised '+dayDone().r.join(', ')+' · ':'')+'🪔 '+sk+(sk===1?' day':' days')+' in a row</div>'
-  +svMang()+'<div class="sv-g">Thank your ācārya: say <b>Asmad gurubhyo namaḥ</b> 🙏</div>'
+  +'<div class="sv-g">Thank your ācārya: <b>Asmad gurubhyo namaḥ</b> 🙏</div>'+svMore()
   +'<svg class="sv-orn" viewBox="0 0 150 12" aria-hidden="true"><path d="M0 6H58M92 6H150" stroke="currentColor" stroke-width="1" opacity=".5"/><path d="M75 1l4 5-4 5-4-5z" fill="currentColor" opacity=".8"/><circle cx="64" cy="6" r="1.6" fill="currentColor" opacity=".7"/><circle cx="86" cy="6" r="1.6" fill="currentColor" opacity=".7"/></svg>'
-  +'<div class="sv-sh">Āzhvār Emperumānār Jīyar tiruvaḍigaḷē śaraṇam</div></div></div>'+endMean()+'<button class="btn sf" data-act="enddone">🙏 Done for today</button>'+(e.more?bonusBtn('endmore'):'')+'</div>'}
+  +'</div></div><button class="btn sf" data-act="enddone">🙏 Done for today</button>'+(e.more?bonusBtn('endmore'):'')+svBless()+'</div>'}
 function svMang(){var d=window.SVMQ!=null?SVMQ:Math.floor(Date.now()/864e5)%2;
  if(d===0)return '<div class="sv-q"><div class="sv-qh">Tiruppallāṇḍu · maṅgaḷam</div><div class="sv-qs">పల్లాండు పల్లాండు పల్లాయిరత్తాండు పలకోటి నూఱాయిరం<br>మల్లాండ తిణ్ తోళ్ మణివణ్ణా ఉన్ సేవడి సెవ్వి తిరుక్కాప్పు</div><div class="sv-qi">pallāṇḍu pallāṇḍu pallāyirattāṇḍu palakōṭi nūṟāyiram · mallāṇḍa tiṇ tōḷ maṇivaṇṇā un sēvaḍi sevvi tirukkāppu</div><div class="sv-qe">May You live for years and years, for crores of hundred-thousands of years, O gem-coloured Lord with mighty shoulders. May Your lovely red feet be ever protected.</div><small>Periyāzhvār · Tiruppallāṇḍu 1</small></div>';
  return '<div class="sv-q"><div class="sv-qh">The charama ślokam</div><div class="sv-qs">सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज ।<br>अहं त्वा सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः ॥</div><div class="sv-qe">Leave all other means and take refuge in Me alone. I will free you from all sins; do not grieve.</div><small>Bhagavad Gītā 18.66</small></div>'}
@@ -3404,13 +3413,14 @@ function svEnd(e,dl,sk){if(svLy()==='s')return svEndS(e,dl,sk);var st=svSt(),nm=
  return SVDEF+'<div class="endw sve sv-'+st+'"><div class="sv-cd"><div class="sv-str"></div><div class="sv-in">'
   +'<div class="sv-top"><span>śrīmate rāmānujāya namaḥ</span><button class="sv-pv" data-act="svpet" aria-label="Shower flowers">🌸 Puṣpa vṛṣṭi</button></div>'
   +'<div class="sv-emb"><svg class="sv-sd" viewBox="0 0 100 100" aria-hidden="true"><use href="#svchak"/></svg>'+SVMED.replace('NAMID',nm)+'<svg class="sv-sd" viewBox="0 0 100 100" aria-hidden="true"><use href="#svshk"/></svg></div>'
-  +'<div class="sv-sb">శుభమస్తు <i>❖</i> शुभमस्तु</div>'
   +'<h1>Jai Śrīman Nārāyaṇa</h1><div class="sv-kk">Today’s kaiṅkaryam is complete</div>'
   +'<div class="sv-ts"><span><i>📿</i><b>'+L+' / '+TOTAL+'</b><small>verses learned</small></span><span><i>🪔</i><b>'+sk+(sk===1?' day':' days')+'</b><small>in a row</small></span><span><i>🌿</i><b>'+(dl.length?dl.join(', '):'✓')+'</b><small>'+(dl.length?'today':'practised')+'</small></span></div>'
-  +svMang()
-  +'<div class="sv-g">Thank your ācārya: say <b>Asmad gurubhyo namaḥ</b> 🙏</div>'
-  +'<div class="sv-sh">Āzhvār Emperumānār Jīyar tiruvaḍigaḷē śaraṇam</div>'
-  +'</div></div>'+endMean()+'<button class="btn sf" data-act="enddone">🙏 Done for today</button><button class="sv-shr" data-act="svshare">📤 Share the blessing</button>'+(e.more?bonusBtn('endmore'):'')+'</div>'}
+  +'<div class="sv-g">Thank your ācārya: <b>Asmad gurubhyo namaḥ</b> 🙏</div>'
+  +svMore()+'</div></div><button class="btn sf" data-act="enddone">🙏 Done for today</button>'+(e.more?bonusBtn('endmore'):'')+svBless()+'</div>'}
+/* b458 (owner 23 Nov): Well done screen fits one screen. Blessing (maṅgaḷam, śaraṇam, share) and the meaning are one tap away. */
+var SVBL=false;
+function svMore(){var l=((S.dayv||{})[tdy()]||{}).l||[],n=0;l.forEach(function(x){if(!n&&M[x]&&M[x].v&&!MSEEN[x])n=x});return '<div class="sv-more"><button data-act="svbless">🌸 Today’s blessing</button>'+(n?'<button data-act="mvopen" data-v="'+n+'">📖 Verse '+n+' meaning</button>':'')+'</div>'}
+function svBless(){if(!SVBL)return '';return '<div class="dmsh-bg" data-act="svbless"></div><div class="dmsh svbsh"><div class="hdl"></div><div class="dhh"><b>🌸 Today’s blessing</b><button class="chip" data-act="svbless">✕</button></div>'+svMang()+'<div class="sv-sh">Āzhvār Emperumānār Jīyar tiruvaḍigaḷē śaraṇam</div><button class="sv-shr" data-act="svshare">📤 Share the blessing</button></div>'}
 var SVPET=0;
 function svPetals(){try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;var o=document.getElementById('svpet');if(o)o.remove();o=document.createElement('div');o.id='svpet';o.setAttribute('aria-hidden','true');var h='',k=['m','m','r','t','m','r'];for(var i=0;i<34;i++){var t=k[i%k.length];h+='<i class="'+t+'" style="left:'+(Math.random()*100).toFixed(1)+'%;animation-delay:'+(Math.random()*2.2).toFixed(2)+'s;animation-duration:'+(3.4+Math.random()*2.6).toFixed(2)+'s;--r:'+Math.round(Math.random()*360)+'deg;--x:'+Math.round(Math.random()*80-40)+'px"></i>'}o.innerHTML=h;document.body.appendChild(o);setTimeout(function(){if(o.parentNode)o.remove()},7500)}catch(x){}}
 function svShare(){var dl=((S.dayv||{})[tdy()]||{}).l||[],t='Jai Śrīman Nārāyaṇa 🙏\nToday I chanted Vishnu Sahasranamam'+(dl.length?' and learned verse'+(dl.length>1?'s ':' ')+dl.join(', '):'')+'. '+S.learned.length+' of '+TOTAL+' verses so far.\nĀzhvār Emperumānār Jīyar tiruvaḍigaḷē śaraṇam';try{if(navigator.share){navigator.share({text:t}).catch(function(){});return}navigator.clipboard.writeText(t);notice='Copied. Paste it in WhatsApp.';render()}catch(e){}}
@@ -3446,7 +3456,7 @@ function vidCard(){var t=HVT[hvL()];return HOWVID?'<div class="hv-vid"><video id
 /* b421: once, after setup, a small card on Today offers the guide video; gone after Watch or Not now */
 function hv1Card(){if(!HOWVID||!S.setupDone||S.vidSeen)return '';var t=HVT[hvL()];return '<div class="hv1"><span class="hv1i">🎬</span><div class="hv1t"><b>'+t[2]+'</b><small>'+t[3]+'</small></div><div class="hv1b"><button class="hv1w" data-act="hv1go">'+t[4]+'</button><button class="hv1x" data-act="hv1x">'+t[5]+'</button></div></div>'}
 /* b452: "How the app works" — the rules in plain words, for users (owner 21 Nov: keep one place that explains every rule and update it with each change). Same content as claude/app-rules.md in the project. RULESV = build these rules were last checked. English for now; Telugu/Hindi after guru review. */
-var APPRULESV='Build 457 · 23 Nov 2026';
+var APPRULESV='Build 458 · 23 Nov 2026';
 var APPRULES=[
 ['🌅','Your daily practice',[
  'One practice a day, about 10 minutes. Tap <b>Start today’s practice</b> on Today.',
@@ -3455,7 +3465,7 @@ var APPRULES=[
  'Before a new verse you hear a short tip on what to listen for. The guide then starts by itself after 6 seconds (the countdown shows under the buttons), unless you tap <b>✓ I know it</b>.',
  'With 2 or more new verses a day, each verse goes the same way: tip, learn, record, meaning, then the next verse. About 6 minutes each; the Today card shows the total.',
  'Already know the verse? Tap <b>✓ I know it</b> on the tip screen: hear it once, say it once from memory. <b>Yes, I know it</b> counts it as learned (revision in 3 days); <b>Not fully</b> starts the normal lesson.',
- 'On your turn, <b>✓ I’ve got it</b> skips the rest of that part: from the lines to the whole verse, or the remaining whole-verse repeats.',
+ 'On your turn, <b>✓ I’ve got it</b> skips the rest of that part: from the lines to the whole verse, or the remaining whole-verse repeats. A line under the buttons says what the button will do, and the app asks once before skipping (<b>Don’t ask me again</b> turns that off).',
  'A new verse is taught line by line: the guide chants a line, you chant it back. Then the whole verse, a few times.',
  'Tap <b>Finish today</b> after the last verse. The day is then complete.',
  'After finishing, <b>Keep going</b> gives you the next new verse only.',
@@ -3489,6 +3499,7 @@ var APPRULES=[
  'Record each new verse straight after you learn it, while it is fresh (about 1 minute).',
  'If you pass the quick check (✓ I know it), no recording is needed for that verse.',
  'After recording, your take plays, then the guide, so you can compare. Then the meaning.',
+ 'The meaning card has EN · తె · हि to switch language; it starts in the language you read the verse in. ▶ Hear it turns into ⏹ Stop while it speaks.',
  'Recordings stay on this phone (You › My recordings).']],
 ['📖','Meaning',[
  'After a new verse, a short meaning appears: ▶ Hear it, Names one by one, or Full meaning.',
@@ -5398,7 +5409,7 @@ if(panel==='again'){h+='<div class="card"><h2>Start from which verse?</h2><div c
  if(notice){h+='<div class="plain">'+notice+'</div>';notice=''}
  
  h+=hv1Card();h+=(S.setupDone&&!S.rdSeen?rd4(1):'');h+='<!--#TODAY-->';var rvL=mkList().filter(function(x){return x.r}),nwL=mkList().filter(function(x){return !x.r});
- h+=S.doneDay===tdy()?'<div class="tcard tdone">'+(tdL()==='D'?tdDone():true?(function(sk){return '<div class="tdn gemr"><span class="lf">🪴</span><b class="tt">Practice done<br>for today</b><span class="ring" style="--p:'+Math.min(100,sk/7*100)+'%"><i><b>'+sk+'</b><small>'+(sk===1?'DAY':'DAYS')+'</small></i></span></div>'})(streak()):'<div class="tdn">\u2705 <b>Practice done for today</b><span>\ud83d\udd25 '+streak()+' day'+(streak()===1?'':'s')+'</span></div>')+(tdL()==='D'?'':tdMsg()):'<div class="tcard"><div class="thead th2"><span class="thl2"><h2>Today\'s practice</h2>'+lvlChip('thl')+'</span>'+(tdL()==='D'&&!(rvL.length+nwL.length)?'':'<span class="mins">\u23f1 '+(tdL()==='D'?(rvL.length*2+nwL.length*6):10)+' min</span>')+'</div>';
+ h+=S.doneDay===tdy()?'<div class="tcard tdone">'+(tdL()==='D'?tdDone():true?(function(sk){return '<div class="tdn gemr"><span class="lf">🪴</span><b class="tt">Practice done<br>for today</b><span class="ring" style="--p:'+Math.min(100,sk/7*100)+'%"><i><b>'+sk+'</b><small>'+(sk===1?'DAY':'DAYS')+'</small></i></span></div>'})(streak()):'<div class="tdn">\u2705 <b>Practice done for today</b><span>\ud83d\udd25 '+streak()+' day'+(streak()===1?'':'s')+'</span></div>')+(tdL()==='D'?'':tdMsg()):fsHint()+'<div class="tcard"><div class="thead th2"><span class="thl2"><h2>Today\'s practice</h2>'+lvlChip('thl')+'</span>'+(tdL()==='D'&&!(rvL.length+nwL.length)?'':'<span class="mins">\u23f1 '+(tdL()==='D'?(rvL.length*2+nwL.length*6):10)+' min</span>')+'</div>';
  if(fin)h+='<div class="mute">All added verses are finished</div>';
  else if(S.doneDay!==tdy()&&tdL()==='D'){h+=tdCompact(rvL,nwL)}
  else if(S.doneDay!==tdy()&&(tdL()==='C'||tdL()==='D')){var vfl=function(n){var x=V[vIdx(n)],fm=S.main||'sa';return x&&x[fm]?x[fm][0]:''},zr=function(n,r){return '<div class="zq '+(r?'r':'n')+'"><span class="zqn">'+n+'</span><span class="zqt"><b>'+(r?'\ud83d\udd01 Revise':'\u2728 New verse')+'</b><span class="'+((S.main||'sa')==='te'?'te':(S.main||'sa')==='en'?'enb':'sa')+'">'+vfl(n)+'</span></span><span class="zqk">'+(r?'2':'6')+' min</span></div>'},rn=rvL.map(function(x){return V[x.i].n}),sh=rn.length>4?rn.slice(0,3):rn;h+='<div class="zql">'+sh.map(function(n){return zr(n,1)}).join('')+(rn.length>sh.length?'<div class="zq zqm">+ '+(rn.length-sh.length)+' more to revise: '+rn.slice(3).join(', ')+'</div>':'')+nwL.map(function(x){return zr(V[x.i].n,0)}).join('')+'</div>'}
@@ -6133,7 +6144,7 @@ function pdD(h,n,L){var p=PADA&&PADA[n]&&PADA[n].w?PADA[n].w[L]:null;if(p==null)
 function pdFit(){document.querySelectorAll('.rpverse .pd').forEach(function(e){e.style.fontSize='';var w=e.clientWidth;if(!w)return;var sw=e.scrollWidth;if(sw>w+1){var fs=parseFloat(getComputedStyle(e).fontSize)||16;e.style.fontSize=Math.max(fs*0.62,fs*w/sw*0.97).toFixed(1)+'px'}})}
 window.addEventListener('resize',function(){try{pdFit()}catch(e){}});try{document.fonts.addEventListener('loadingdone',function(){try{pdFit();vFit()}catch(e){}})}catch(e){}
 function sheetVerse(){var it=LST[vi],v=V[it.i],mn=S.main||'sa',hc=hideNow(it)?' hid" data-act="peek':'',sg=(RP.on&&RP.seg!==undefined&&RP.steps&&RP.steps[0]!==2)?' s'+segL(RP.seg):(RP.on&&RP.steps&&RP.steps[0]===2?' s2':'');var pf=padaFade(v.n);var vA='<div class="'+(mn==='te'?'te':mn==='en'?'enb':'sa')+hc+'"><div class="ln l1">'+pdS(ndn(v[mn][0]))+'</div><div class="ln l2">'+pdS(ndn(v[mn][1]))+'</div></div>',vB='<div class="prb big2'+hc+'"><div class="ln l1">'+pdD((/[|।]\s*$/.test(dP(v)[0])?pf(wordsHTML(dP(v)[0],0,1),0):lendW(pf(wordsHTML(dP(v)[0],0,1),0),'|')),v.n,0)+'</div><div class="ln l2">'+pdD((/[|॥।]\s*$/.test(dP(v)[1])?pf(wordsHTML(dP(v)[1],1,1),1):lendW(pf(wordsHTML(dP(v)[1],1,1),1),'||')),v.n,1)+'</div></div>';var sh=S.prshow||'both';if(sh!=='scr'&&sh!=='dash')sh='both';if(sh==='scr'&&it&&!it.r&&it.rt!=='recap')sh='both';return '<div class="rpverse'+sg+(dFirst()?' dfirst':'')+' sh'+sh+'">'+rdChips()+(sh==='scr'?vA:sh==='dash'?vB:dFirst()?vB+vA:vA+vB)+'</div>'}
-function recSheet(){return '<div class="rpsheet">'+gvHead()+'<div class="rpph rec"><span class="reddot"></span> Recording <b id="rtime">0:00</b></div><div class="mute" style="text-align:center;margin-top:-4px">Say the verse, then tap Stop when you finish'+(isFinite(rpA.duration)&&rpA.duration>0?' \u00b7 about '+Math.round(rpA.duration)+'s':'')+'</div>'+sheetVerse()+'<button class="btn rec" data-act="rec">Stop recording</button></div>'}
+function recSheet(){return '<div class="rpsheet">'+gvHead()+'<div class="rpph rec"><span class="reddot"></span> '+(RECPEND&&!recActive?'Getting the microphone ready…':'Recording <b id="rtime">0:00</b>')+'</div><div class="mute" style="text-align:center;margin-top:-4px">Say the verse, then tap Stop when you finish'+(isFinite(rpA.duration)&&rpA.duration>0?' \u00b7 about '+Math.round(rpA.duration)+'s':'')+'</div>'+sheetVerse()+'<button class="btn rec" data-act="rec">Stop recording</button></div>'}
 var rpA=new Audio(),RP={on:false};
 rpA.addEventListener('playing',function(){if((rpA.src||'').indexOf('data:')===0)return;RP.pl=true;if(RP.on&&RP.blocked){RP.blocked=false;render()}});
 function rpCheck(){clearTimeout(RP.chk);RP.pl=false;RP.chk=setTimeout(function(){if(RP.on&&RP.phase==='listen'&&!RP.paused&&!RP.pl&&!RP.err){RP.blocked=true;render()}},4000)}
@@ -6208,7 +6219,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=457,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=458,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -6226,11 +6237,13 @@ function vBand(n,sm){if(!MPIC[n]||S.vpic==='0')return '';if(sm)return '<button c
 var MCN=0,MCSPK=false;
 /* b454: meaning after recording, highlighted (owner 22 Nov): gold card with the verse picture */
 function mHL(n){var c=mCard(n);if(!c)return '';return '<div class="mhl"><img class="mhlpic" src="'+vPicF(n)+'.jpg" alt="" onerror="this.remove()">'+c+'</div>'}
-function mCard(n){var m=M[n],k=LI[cL()]||0;if(!m)return '';var tx=(m.v&&(m.v[k]||m.v[0]))||'',seen=!!MSEEN[n];
+function mL(){return S.ml||(S.main==='te'?'te':S.lang==='hi'?'hi':(S.lang||'en'))}
+function mCard(n){var m=M[n],k=LI[mL()]||0;if(!m)return '';var tx=(m.v&&(m.v[k]||m.v[0]))||'',seen=!!MSEEN[n];
  var nm=MCN===n?'<div class="mcnm">'+(m.w||[]).map(function(w){return '<div><b class="sa">'+w[0]+'</b> <em>'+w[1]+'</em><span>'+(w[2+k]||w[2])+'</span></div>'}).join('')+'</div>':'';
- return '<div class="mcard2"><div class="mct">📖 Know what you chanted'+(seen?' <i>✓</i>':' · 30 seconds')+'</div>'+(tx?'<p>'+tx+'</p>':'')+'<div class="mcb"><button class="mcp" data-act="mchear" data-v="'+n+'">▶ Hear it</button>'+((m.w||[]).length?'<button data-act="mcnames" data-v="'+n+'">'+(MCN===n?'Hide names':'Names one by one')+'</button>':'')+'</div>'+nm
+ var ml=mL(),lp='<span class="mlp">'+[['en','EN'],['te','తె'],['hi','हि']].map(function(x){return '<button data-act="mlang" data-v="'+x[0]+'"'+(ml===x[0]?' class="on"':'')+'>'+x[1]+'</button>'}).join('')+'</span>';
+ return '<div class="mcard2"><div class="mct"><span>📖 What it means'+(seen?' <i>✓</i>':'')+'</span>'+lp+'</div>'+(tx?'<p>'+tx+'</p>':'')+'<div class="mcb"><button class="mcp" data-act="mchear" data-v="'+n+'">'+(MCSPK?'⏹ Stop':'▶ Hear it')+'</button>'+((m.w||[]).length?'<button data-act="mcnames" data-v="'+n+'">'+(MCN===n?'Hide names':'Names one by one')+'</button>':'')+'</div>'+nm
  +'<div class="mcf"><button class="lnkb" data-act="mopen" data-v="m">Full meaning ›</button>'+(seen?'':'<button class="lnkb" data-act="mcread" data-v="'+n+'">✓ I’ve read it</button>')+'</div></div>'}
-function mcSay(n){try{var ss=window.speechSynthesis,m=M[n],k=LI[cL()]||0;if(!ss||!m)return;ss.cancel();var u=new SpeechSynthesisUtterance((m.v&&(m.v[k]||m.v[0]))||'');u.lang={en:'en-IN',te:'te-IN',hi:'hi-IN'}[cL()||'en']||'en-IN';u.rate=0.9;u.onend=function(){MCSPK=false};MCSPK=true;ss.speak(u)}catch(e){}}
+function mcSay(n){try{var ss=window.speechSynthesis,m=M[n],k=LI[mL()]||0;if(!ss||!m)return;ss.cancel();var u=new SpeechSynthesisUtterance((m.v&&(m.v[k]||m.v[0]))||'');u.lang={en:'en-IN',te:'te-IN',hi:'hi-IN'}[mL()]||'en-IN';u.rate=0.9;u.onend=u.onerror=function(){MCSPK=false;[].forEach.call(document.querySelectorAll('[data-act=mchear]'),function(b){b.textContent='▶ Hear it'})};MCSPK=true;ss.speak(u)}catch(e){}}
 function g2Done(ph){var it=LST[vi]||{},n=RP.on&&RP.n?RP.n:(V[it.i]?V[it.i].n:0),rev=!!it.r||it.rt==='recap',last=vi>=LST.length-1,saved=ph==='saved',rd=ph==='revdone';
  var head='<div class="g2-tb"><button class="g2-x" data-act="'+(saved?'gstop':'rpclose')+'" aria-label="Close">✕</button><div class="g2-t"><b>Verse '+n+'</b><small>'+'<span>'+sessPos()+'</span>'+'</small></div><button class="g2-c" data-act="rdopen" aria-label="How to say this verse">🗣️</button>'+gsw()+'</div>';
  var big=saved?'Take saved':rev?'Well done':'Now your turn to record',sub=saved?'Listen back below, or move on':rev?'Verse '+n+' revised':'Say the verse once, on your own';
@@ -6239,14 +6252,16 @@ function g2Done(ph){var it=LST[vi]||{},n=RP.on&&RP.n?RP.n:(V[it.i]?V[it.i].n:0),
  var mn=!rev&&M[n]?(saved?mHL(n):recLater()?mCard(n):''):'';
  var ag=[];if(!saved){ag.push('<button class="chip" data-act="omw">🔁 Whole verse</button>');if(CUTS[n]>0)ag.push('<button class="chip" data-act="oml">🪜 Line by line</button>');if(CUTS[n]>0&&PADA[n])ag.push('<button class="chip" data-act="omp">🧩 Small pieces</button>')}
  var mo=[];if(rev&&M[n])mo.push('<button class="chip" data-act="mopen" data-v="m">📖 Meaning</button>');if(BEN[n])mo.push('<button class="chip" data-act="mopen" data-v="b">'+BEN[n].ic+' Benefit</button>');if(saved||rev)mo.push('<button class="chip" data-act="'+(saved?'rec':rd?'revrec':'rpdone')+'">🎙 '+(saved?'Record again':'Record my take')+'</button>');if(saved)mo.push(sendBtnH('n:'+n));
+ if(ag.length)ag.push('<button class="chip" data-act="dvsopen">📜 Verse</button>');
  var box=(ag.length?'<div class="g2-ag"><div class="g2-agh">Practise this verse again</div><div class="g2-agc">'+ag.join('')+'</div></div>':'')+'<div class="g2-ag"><div class="g2-agh">More</div><div class="g2-agc">'+mo.join('')+'</div></div>';
  var bl='';if(LST.length>1){for(var i=0;i<LST.length;i++)bl+='<i class="'+(i<=vi?'d':'')+'"></i>'}
  var go=rd?'revgo':saved||GS.on?'gnext':'rpclose',gl=rd||saved||GS.on?(last?(LST.rv1?'Done':'Finish today'):'Next verse ›'):'Finish';
  var dock='<div class="g2-dock"><div class="g2-day"><span>TODAY · VERSE '+(vi+1)+' OF '+LST.length+'</span><span>'+(last?'last one':(LST.length-vi-1)+' to go')+'</span></div>'+(bl?'<div class="g2-blk">'+bl+'</div>':'')+(rd&&it.rt==='due'?'':'<button class="btn g2-go'+(main&&!recLater()?' ghost':'')+'" data-act="'+go+'">'+gl+'</button>')+(go!=='rpclose'?'<button class="lnkb" data-act="'+(saved?'gstop':'rpclose')+'">Stop here</button>':'')+'</div>';
  if(saved){var mgc=mgCard(n),cdn=!mgc||!!MGD[vi];var sc=[];if(cdn&&mgc)sc.push('<button class="chip" data-act="mgplay">👂 Hear again</button>');sc.push('<button class="chip" data-act="rec">🎙 Record again</button>');sc.push(sendBtnH('n:'+n));sc.push('<button class="chip" data-act="dvsopen">👁 Verse</button>');if(BEN[n])sc.push('<button class="chip" data-act="mopen" data-v="b">'+BEN[n].ic+' Benefit</button>');
   var dvs=DVS?'<div class="dmsh-bg" data-act="dvsclose"></div><div class="dmsh dvsh"><div class="hdl"></div><div class="dhh"><b>Verse '+n+'</b><button class="chip" data-act="dvsclose">✕</button></div>'+sheetVerse().split(' hid" data-act="peek').join('')+'</div>':'';
-  return '<div class="rpsheet g2 g2d g2sv'+(cdn?' cdn':'')+'">'+head+ban+(stepStrip(1)?'<div class="g2-ss">'+stepStrip(1)+'</div>':'')+(cdn?mn+'<div class="g2-sc">'+sc.join('')+'</div>':mgc)+'<div class="g2-sp"></div>'+dock+mSheet()+dvs+'</div>'}
- return '<div class="rpsheet g2 g2d">'+head+ban+(stepStrip(saved?1:0)?'<div class="g2-ss">'+stepStrip(saved?1:0)+'</div>':'')+(rev?vBand(n):'')+main+(saved?mgCard(n):'')+mn+box+doneVerse()+'<div class="g2-sp"></div>'+dock+mSheet()+'</div>'}
+  return '<div class="rpsheet g2 g2d g2sv'+(cdn?' cdn':'')+'">'+head+ban+(stepStrip(1)?'<div class="g2-ss">'+stepStrip(1)+'</div>':'')+(cdn?'<div class="g2-sc">'+sc.join('')+'</div>'+mn:mgc)+'<div class="g2-sp"></div>'+dock+mSheet()+dvs+'</div>'}
+ return '<div class="rpsheet g2 g2d">'+head+ban+(stepStrip(saved?1:0)?'<div class="g2-ss">'+stepStrip(saved?1:0)+'</div>':'')+(rev?vBand(n):'')+main+(saved?mgCard(n):'')+mn+box+(ag.length?'':doneVerse())+'<div class="g2-sp"></div>'+dock+mSheet()+dvsSh(n)+'</div>'}
+function dvsSh(n){return DVS?'<div class="dmsh-bg" data-act="dvsclose"></div><div class="dmsh dvsh"><div class="hdl"></div><div class="dhh"><b>Verse '+n+'</b><button class="chip" data-act="dvsclose">✕</button></div>'+sheetVerse().split(' hid" data-act="peek').join('')+'</div>':''}
 function rpSheet2(){var ph=RP.phase,it=LST[vi]||{},n=RP.n,st=RP.steps||[2,2,2],r=RP.round||1,sg=st[r-1],stc=stCnt(),tg=togNow(),tot=stc.filter(function(x){return x===sg}).length,idx=stc.slice(0,r).filter(function(x){return x===sg}).length;
  var what=RP.recap?'Verse '+n:(segN(sg)||'Whole verse'),times=tot>1&&!tg?' · time '+idx+' of '+tot:'',dots=tot>1&&!tg&&!RP.x2?'<div class="g2-dots">'+Array.apply(null,Array(tot)).map(function(_,k){return '<i class="'+(k<idx-1?'d':k===idx-1?'c':'')+'"></i>'}).join('')+'</div>':'';
  var hide=ph==='turn'&&hideNow(it);
@@ -6262,9 +6277,9 @@ function rpSheet2(){var ph=RP.phase,it=LST[vi]||{},n=RP.n,st=RP.steps||[2,2,2],r
  var ban='<div class="g2-st '+(RP.paused?'pz':ph)+(tg&&!RP.paused?' tog'+(RP.togin?' tgin':''):'')+'"'+(RP.blocked&&ph==='listen'?' data-act="rpplay" role="button"':'')+'>'+ring+'<div class="g2-bt"><b>'+big+'</b><small>'+sub+'</small>'+dots+'<div class="g2-bar"><i id="rpbar" style="width:'+(ph==='turn'?Math.max(0,Math.min(100,((RP.end||0)-Date.now())/(RP.dur||1)*100)):0)+'%"></i></div></div></div>';
  var bl='';if(LST.length>1){for(var i=0;i<LST.length;i++)bl+='<i class="'+(i<vi?'d':i===vi?'c':'')+'"></i>'}
  var left=LST.length-vi,dock='<div class="g2-dock"><div class="g2-day"><span>'+(RP.recap?'RECAP':'TODAY')+' · VERSE '+(vi+1)+' OF '+LST.length+'</span><span>'+(left>1?left-1+' to go':'last one')+'</span></div>'+(bl?'<div class="g2-blk">'+bl+'</div>':'')
-  +'<div class="g2-b"><button data-act="rpagain"><span>↺</span>Hear again</button><button data-act="rpback"'+(vi>0&&GS.on?'':' disabled')+'><span>⏮</span>Last verse</button><button class="p" data-act="rppause"><span>'+(RP.paused?'▶':'⏸')+'</span>'+(RP.paused?'Play':'Pause')+'</button><button data-act="rpskip"><span>'+(ph==='turn'?'✓':'⏭')+'</span>'+(ph==='turn'?(rpMore()?'I’ve got it':'I’m done'):'Skip')+'</button>'+(GS.on&&it.r&&!RP.recap?'<button data-act="rpnextv"><span>⏩</span>Next verse</button>':'')+'</div></div>';
+  +'<div class="g2-b"><button data-act="rpagain"><span>↺</span>Hear again</button><button data-act="rpback"'+(vi>0&&GS.on?'':' disabled')+'><span>⏮</span>Last verse</button><button class="p" data-act="rppause"><span>'+(RP.paused?'▶':'⏸')+'</span>'+(RP.paused?'Play':'Pause')+'</button><button data-act="rpskip"><span>'+(ph==='turn'?'✓':'⏭')+'</span>'+(ph==='turn'?(rpMore()?'I’ve got it':'I’m done'):'Skip')+'</button>'+(GS.on&&it.r&&!RP.recap?'<button data-act="rpnextv"><span>⏩</span>Next verse</button>':'')+'</div><div class="g2-hint">'+skipHint()+'</div></div>';
  var clp=ph==='turn'&&TRK==='vsn'&&!RP.qk?'<button class="g2-cls'+(clsOn()?' on':'')+'" data-act="clstg" aria-pressed="'+clsOn()+'"><span>👥 Class chanting</span> <span>· '+(clsOn()?'On':'Off')+'</span></button>':'';
- return '<div class="rpsheet g2">'+head+ban+clp+(path?'<div class="g2-pw">'+path+'</div>':'')+(hide?'<div class="hidw">'+sheetVerse()+hidOv()+'</div>':sheetVerse())+'<div class="g2-sp"></div>'+dock+mSheet()+'</div>'}
+ return '<div class="rpsheet g2">'+head+ban+clp+gotSheet()+(path?'<div class="g2-pw">'+path+'</div>':'')+(hide?'<div class="hidw">'+sheetVerse()+hidOv()+'</div>':sheetVerse())+'<div class="g2-sp"></div>'+dock+mSheet()+'</div>'}
 function rpSheet(){var ph=RP.phase;if(ph==="tip"||ph==="tipgap")return tipSheet();if(ph==="qkask")return qkSheet();if(S.gsty==='new'&&!RP.wait&&!RP.err&&(ph==='listen'||ph==='turn'))return rpSheet2();if(S.gsty==='new'&&!RP.wait&&!RP.err&&(ph==='done'||ph==='revdone'))return g2Done(ph);
  if(RP.wait)return '<div class="rpsheet"><div class="rpph listen">Getting ready\u2026</div></div>';
  if(RP.err)return '<div class="rpsheet"><div class="rpph turn">Guide audio for this verse is coming soon.</div><button class="btn ghost" data-act="rpclose">Close</button></div>';
@@ -6275,7 +6290,7 @@ function rpSheet(){var ph=RP.phase;if(ph==="tip"||ph==="tipgap")return tipSheet(
   (ph==='done'?stepStrip(0)+(LST[vi]&&!LST[vi].r&&recLater()?laterNote():LST[vi]&&!LST[vi].r?'<button class="recbig" data-act="rpdone"><span class="rmic"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></span><b>Tap to record</b><small>Say the verse once, on your own</small></button>'+(RECERR?'<div class="recerr">'+RECERR+'</div>':'')+'':'<button class="btn rec" data-act="rpdone">Record my take</button>')+(function(){var it=LST[vi],n=RP.n;if(!it||it.r||it.rt==='recap'||!M[n]||!recLater())return '';return '<button class="mnudge" data-act="mopen" data-v="m"><span>\ud83d\udcd6</span><span><b>Meaning of verse '+n+'</b><small>Understand what you just chanted</small></span></button>'})()+(GS.on?'<button class="btn'+(LST[vi]&&!LST[vi].r?' ghost':'')+'" data-act="gnext">'+(vi>=LST.length-1?'Finish today':'Next verse')+'</button>':'')+moreBox(LST[vi]&&!LST[vi].r&&M[RP.n]?3:0)+dvRow('rpclose',GS.on?'Stop here':'Finish')
    :(ph==='turn'?'':'<div class="rpbar'+(RP.steps&&RP.steps[0]!==2?' c'+segL(RP.seg):'')+'"><i id="rpbar"></i></div>')+'<div class="rpctl"><button class="chip" data-act="rppause">'+(RP.paused?'\u25b6 Resume':'\u23f8 Pause')+'</button><button class="chip" data-act="rpskip">'+(ph==='turn'?(rpMore()?'\u2713 I\'ve got it \u203a':'\u2713 I\'m done'):'\u23e9 Skip ahead')+'</button><button class="chip" data-act="rpagain">\ud83d\udd01 Hear again</button></div>'+rpNav()+(ph==='turn'&&LST[vi]&&hideNow(LST[vi])?'<div class="hidw">'+sheetVerse()+hidOv()+'</div>':sheetVerse()))+
   mSheet()+'</div>'}
-function ovl(){if(view!=='verse'||transMsg)return '';if(RBOPEN)return rbSheet();if(recActive)return recSheet();if(RP.on)return rpSheet();if(GS.on&&GS.afterRec)return gcontSheet();return ''}
+function ovl(){if(view!=='verse'||transMsg)return '';if(RBOPEN)return rbSheet();if(recActive||RECPEND)return recSheet();if(RP.on)return rpSheet();if(GS.on&&GS.afterRec)return gcontSheet();return ''}
 function rpUrl(n,ext){if(TRK!=='vsn'){var v0=V[vIdx(+n)];return v0&&v0.au?v0.au:''}return 'audio/v'+('00'+n).slice(-3)+ext}
 /* b335: class chanting. In "Your turn" a soft group of voices (audio/cls/vNNN.m4a, made from the guide audio) chants the same part, so the learner chants along like a class after the guru. Same audio element as the guide (no Web Audio). */
 function clsOn(){return TRK==='vsn'&&S.cls!=='0'&&!(RP&&RP.on&&RP.qk)}
@@ -6298,11 +6313,11 @@ function tipWant(){var it=LST[vi]||{};if(TRK!=='vsn'||it.r||it.rt==='recap'||!RP
 function acWake(){try{var c=window._ac;if(c&&c.state!=='running')c.resume()}catch(e){}}
 document.addEventListener('touchend',acWake,{passive:true});document.addEventListener('click',acWake);
 function tipStop(){TIPK++;clearTimeout(RP.tipT);clearInterval(RP.tipI);RP.tipAt=0;try{speechSynthesis.cancel()}catch(e){}}
-function tipSay(){tipStop();var k=TIPK,n=RP.n,t=tipTxt(n);RP.tipst=0;try{var u=new SpeechSynthesisUtterance('Verse '+n+'. Listen for this. '+t.replace(/-/g,''));u.rate=0.9;var vs=speechSynthesis.getVoices(),pv=vs.filter(function(x){return /en-IN/i.test(x.lang)})[0]||vs.filter(function(x){return /^en/i.test(x.lang)})[0];if(pv)u.voice=pv;u.onstart=function(){if(k===TIPK)RP.tipst=1};u.onend=function(){acWake();if(k===TIPK)tipEnd(TIPWAIT)};u.onerror=function(){if(k===TIPK&&RP.tipst!==1){RP.tipst=-1;render();tipEnd(8000)}};speechSynthesis.speak(u)}catch(e){RP.tipst=-1;tipEnd(8000)}
+function tipSay(){tipStop();var k=TIPK,n=RP.n,t=tipTxt(n);RP.tipst=0;try{var u=new SpeechSynthesisUtterance('Verse '+n+'. Listen for this. '+t.replace(/-/g,''));u.rate=0.9;var vs=speechSynthesis.getVoices(),pv=vs.filter(function(x){return /en-IN/i.test(x.lang)})[0]||vs.filter(function(x){return /^en/i.test(x.lang)})[0];if(pv)u.voice=pv;u.onstart=function(){if(k===TIPK)RP.tipst=1};u.onend=function(){acWake();if(k===TIPK){RP.tipMin=1;RP.tipst=2;render();tipEnd(TIPWAIT)}};u.onerror=function(){if(k===TIPK&&RP.tipst!==1){RP.tipst=-1;render();tipEnd(8000)}};speechSynthesis.speak(u)}catch(e){RP.tipst=-1;tipEnd(8000)}
  setTimeout(function(){if(k===TIPK&&RP.on&&RP.phase==='tip'&&!RP.tipst){RP.tipst=-1;render();tipEnd(8000)}},2500)}
 var TIPWAIT=6000;function tipEnd(ms){var k=TIPK;clearTimeout(RP.tipT);clearInterval(RP.tipI);RP.tipAt=Date.now()+ms;RP.tipT=setTimeout(function(){if(k===TIPK&&RP.on&&RP.phase==='tip')tipGoOn()},ms);var w=$('tipcdw');if(w)w.innerHTML='Starts by itself in <b id="tipcd">'+Math.ceil(ms/1000)+'</b> s';RP.tipI=setInterval(function(){if(k!==TIPK||!RP.on||RP.phase!=='tip'){clearInterval(RP.tipI);return}var e=$('tipcd');if(e)e.textContent=Math.max(0,Math.ceil((RP.tipAt-Date.now())/1000))},250)}
 function tipGoOn(){clearInterval(RP.tipI);RP.tipAt=0;var sp=false;try{sp=speechSynthesis.speaking||speechSynthesis.pending}catch(e){}TIPK++;clearTimeout(RP.tipT);if(sp){try{speechSynthesis.cancel()}catch(e){}}TIPDONE[RP.n]=1;RP.phase='tipgap';acWake();render();var R0=RP;/* b442: let the iPhone switch back from the phone voice before the guide plays, or the first line got cut */setTimeout(function(){if(RP===R0&&RP.on&&RP.phase==='tipgap')rpListen()},sp?1500:900)}
-function tipGo(){RP.phase='tip';render();tipSay()}
+function tipGo(){RP.phase='tip';RP.tipMin=0;render();tipSay()}
 /* b456: quick check (owner 23 Nov): hear the guide once, say it once from memory, then Yes, I know it (learned, revision in 3 days) / Not fully (normal lesson). */
 function qkGo(){RP.steps=[2];RP.round=1;RP.togR=0;RP.qk=1;tipGoOn()}
 function qkSheet(){var n=RP.n;return '<div class="rpsheet"><div class="gtop">'+gvHead()+'<button class="chip" data-act="rpclose">Close</button></div><div class="qkban"><span>✓</span><div><b>Well said</b><small>Verse '+n+' · quick check</small></div></div><div class="qkask"><b>Did it come out right?</b><button class="btn" data-act="qkyes">👍 Yes, I know it<small>Counts as learned · back for revision in 3 days</small></button><button class="btn o" data-act="qkno">🔁 Not fully · teach me<small>The normal lesson starts</small></button><div class="mute" style="margin-top:8px;font-size:.82rem">Be honest: your revision depends on it.</div></div><div class="g2-sc"><button class="chip" data-act="qkagain">👂 Hear the guide again</button><button class="chip" data-act="dvsopen">👁 Verse</button></div>'+(DVS?'<div class="dmsh-bg" data-act="dvsclose"></div><div class="dmsh dvsh"><div class="hdl"></div><div class="dhh"><b>Verse '+n+'</b><button class="chip" data-act="dvsclose">✕</button></div>'+sheetVerse().split(' hid" data-act="peek').join('')+'</div>':'')+'</div>'}
@@ -6313,7 +6328,10 @@ function tipSheet(){var n=RP.n,nw=S.gsty==='new';/* b457: fits one screen; Start
 /* b456: Guru's tip as a short coloured card. Each sentence is one row; the dash words in it are pills. */
 function tipRows(t){return String(t||'').split(/\.\s+(?=[A-Z])/).map(function(x){return x.replace(/\.\s*$/,'')}).filter(Boolean).slice(0,3)}
 function tipPill(x){return x.replace(/\b([A-Z][a-z]*(?:-[a-z]+)+(?:\s+[A-Z][a-z]*(?:-[a-z]+)+)*)/g,'<b class="tpw">$1</b>')}
-function tipCard(n){var R=tipRows(tipTxt(n)),sp=RP.tipst!==-1&&RP.phase==='tip';return '<div class="tipc3"><div class="tc3h"><b>👂 Listen for</b><button class="tc3s'+(sp?' on':'')+'" data-act="tipagain" aria-label="Hear the tip">'+(sp?'🔊':'🔈')+'</button></div>'+R.map(function(r){var i=r.indexOf(':');return '<div class="tc3r">'+(i>0&&i<40?tipPill(r.slice(0,i))+'<span>'+r.slice(i+1).trim()+'</span>':'<span>'+tipPill(r)+'</span>')+'</div>'}).join('')+'</div>'}
+function tipCard(n){var R=tipRows(tipTxt(n)),sp=RP.tipst!==-1&&RP.tipst!==2&&RP.phase==='tip';
+ /* b458 (owner 23 Nov): once the tip has been spoken it folds into one line, so the verse moves up. Tap to open again. */
+ if(RP.tipMin&&RP.phase==='tip'){var ws=R.map(function(r){var i=r.indexOf(':');return i>0&&i<40?r.slice(0,i).trim():''}).filter(Boolean);return '<button class="tipc3 tmin" data-act="tipexp"><b>👂 Listen for</b><span class="tmw">'+(ws.length?ws.map(function(w){return '<b class="tpw">'+w+'</b>'}).join(''):'tap to read the tip')+'</span><span class="tmx">▾</span></button>'}
+ return '<div class="tipc3"><div class="tc3h"><b>👂 Listen for</b><button class="tc3s'+(sp?' on':'')+'" data-act="tipagain" aria-label="Hear the tip">'+(sp?'🔊':'🔈')+'</button></div>'+R.map(function(r){var i=r.indexOf(':');return '<div class="tc3r">'+(i>0&&i<40?tipPill(r.slice(0,i))+'<span>'+r.slice(i+1).trim()+'</span>':'<span>'+tipPill(r)+'</span>')+'</div>'}).join('')+'</div>'}
 function recLater(){/* b457 (owner 23 Nov): record each new verse straight after learning it, while it is fresh */return false;var it=LST[vi];if(!GS.on||!it||it.r||it.rt==='recap'||LST.single)return false;for(var i=vi+1;i<LST.length;i++){if(!LST[i].r&&LST[i].rt!=='recap')return true}return false}
 function laterNote(){return '<div class="reclater"><span style="font-size:1.5rem">🎙</span><span><b>No recording now</b><small>You’ll record once, after your last new verse today.</small></span></div>'}
 function mgEl(){if(!MGA){MGA=new Audio();MGA.preload='auto'}return MGA}
@@ -6350,6 +6368,19 @@ function revGo(){clearTimeout(RP.adv);if(!RP.on||RP.phase!=='revdone')return;RP.
 function rpPause(){RP.paused=!RP.paused;if(RP.togin){render();return}if(RP.phase==='listen'){if(RP.paused)rpA.pause();else{var q=rpA.play();if(q&&q.catch)q.catch(function(){})}}else if(RP.phase==='turn'){if(RP.paused){RP.rem=RP.end-Date.now();if(RP.cact)rpA.pause()}else{RP.end=Date.now()+RP.rem;if(RP.cact){var q3=rpA.play();if(q3&&q3.catch)q3.catch(function(){})}}}render()}
 /* b454: "I've got it" (owner 22 Nov): on your turn, if the same piece comes again (e.g. whole verse time 1 of 3), the button skips the rest of those repeats. The chant-together round stays. */
 function rpMore(){if(!RP||!RP.steps||RP.recap||RP.qk||togNow())return 0;var r=RP.round,sg=RP.steps[r-1],k=0;for(var i=r;i<RP.steps.length;i++){if(RP.togR&&i===RP.togR-1)break;if(sg===2?RP.steps[i]!==2:RP.steps[i]===2)break;k++}return k}
+/* b458 (owner 23 Nov): full screen. An iPhone web page can't hide Safari's bars itself; opening the app from its Home Screen icon gives full screen. Show how, once, only when not already opened that way. */
+function isStandalone(){try{return !!(navigator.standalone||matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches)}catch(e){return false}}
+function fsHint(){if(S.fsX||isStandalone())return '';var ios=/iPhone|iPad|iPod/.test(navigator.userAgent);return '<div class="fsh"><span class="fsi">📱</span><span class="fst"><b>See it full screen</b><small>'+(ios?'In Safari tap <b>Share ⬆︎</b> › <b>Add to Home Screen</b>, then open the app from its icon.':'In the browser menu tap <b>Install app</b> or <b>Add to Home screen</b>, then open it from its icon.')+'</small></span><button class="fsx" data-act="fsx" aria-label="Hide">✕</button></div>'}
+/* b458 (owner 23 Nov): say plainly what the right-hand button does, and ask once before "I've got it" skips practice */
+function skipHint(){var ph=RP.phase,k=rpMore(),sg=(RP.steps||[])[(RP.round||1)-1];
+ if(ph==='listen')return '<b>⏭ Skip</b> = stop listening and go to your turn';
+ if(ph!=='turn')return '';
+ if(k>0)return sg===2?'<b>✓ I’ve got it</b> = skip the other '+k+' whole-verse repeat'+(k>1?'s':''):'<b>✓ I’ve got it</b> = skip the rest of the lines, go to the whole verse';
+ return '<b>✓ I’m done</b> = you said it, move on';}
+var GOTASK=null;
+function gotNeedAsk(){return S.gsty==='new'&&RP.on&&RP.phase==='turn'&&!RP.qk&&!RP.recap&&rpMore()>0&&!S.gotOK}
+function gotSheet(){if(!GOTASK)return '';var sg=(RP.steps||[])[(RP.round||1)-1],k=rpMore();
+ return '<div class="dmsh-bg" data-act="gotno"></div><div class="dmsh gotsh"><div class="hdl"></div><b class="gott">Skip ahead?</b><p>'+(sg===2?'This skips the other <b>'+k+'</b> whole-verse repeat'+(k>1?'s':'')+'.':'This skips the rest of the <b>line-by-line</b> part and goes straight to the whole verse.')+'</p><p class="gotm">Only tap yes if you can say it clearly <b>without looking</b>. Not sure? Keep practising, it takes a minute.</p><button class="btn" data-act="gotno">🙏 Keep practising</button><button class="btn o" data-act="gotyes">✓ Yes, skip ahead</button><button class="lnkb" data-act="gotnever">Don’t ask me again</button></div>'}
 function rpSkip(){if(RP.togin){clearInterval(RP.tgi);RP.togin=false;rpListen();return}if(RP.phase==='listen'){rpA.pause();RP.nobell=1;rpTurn()}else if(RP.phase==='turn'){var k=rpMore();if(k>0){RP.steps=RP.steps.slice(0,RP.round).concat(RP.steps.slice(RP.round+k));if(RP.togR)RP.togR-=k}rpNext()}}
 function stepStrip(rec){var it=LST[vi];if(!it||it.r||it.rt==='recap'||!V[it.i])return '';var n=V[it.i].n,ms=!!MSEEN[n],last=vi>=LST.length-1,k=LI[S.lang]||0,
  st=[['Listen',1],['Chant',1],['Record',rec?1:2],['Meaning',ms?1:(rec?2:0)],[last?'Finish':'Next',rec&&ms?2:0]],cur=0;st.forEach(function(x,i){if(x[1]===2&&!cur)cur=i+1});
@@ -6364,6 +6395,7 @@ function stopSave(){mgStop();var it=LST[vi];if(!GS.on||!it||LST.single||it.rt===
  addDay();sv();GS.on=false;GS.afterRec=false;view='home';render(1);return true}
 function rpClose(){MSH=null;tipStop();mgStop();clsStop();clearTimeout(RP.adv);clearTimeout(RP.chk);if(RP.phase==='revdone')RP.phase='done';if(GS.on&&RP.on&&RP.phase!=='done'&&RP.phase!=='recapdone'&&view==='verse')GPAUSED=true;GS.on=false;GS.afterRec=false;clearInterval(RP.tm);clearInterval(RP.sm);clearInterval(RP.hl);rpA.pause();try{if(RP.wl)RP.wl.release()}catch(e){}RP.on=false;render()}
 var mr=null,ch=[],st=null;
+var RECPEND=false;/* b458: mic is starting; show the record screen, not the saved screen (the meaning flashed on iPhone) */
 var recActive=false,lastRecURL=null,lastRecVerse=null,recT0=0,recTick=null,lastT=0;
 function stopRecIfActive(){if(mr&&mr.state==='recording'){mr.stop()}}
 async function recToggle(btn){
@@ -6372,8 +6404,8 @@ async function recToggle(btn){
  try{try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e0){}st=await navigator.mediaDevices.getUserMedia({audio:true});mr=new MediaRecorder(st);ch=[];var label=(TRK!=='vsn'?trkName()+' · ':'')+'Verse '+V[LST[vi].i].n,forVerse=vi;
   mr.ondataavailable=function(e){ch.push(e.data)};
   mr.onstop=function(){clearInterval(recTick);var blob=new Blob(ch,{type:mr.mimeType});st.getTracks().forEach(function(t){t.stop()});addDay();setStep(3,1);recActive=false;lastRecURL=URL.createObjectURL(blob);lastRecVerse=forVerse;var vn=V[LST[forVerse]?LST[forVerse].i:LST[vi].i].n;sv();var had=vRecsCache[vn]!==undefined,rec={t:Math.max(Date.now(),lastT+1),b:blob,l:label,n:rk(vn)};lastT=rec.t;RECBY[rec.t]=rec;if(!had)vRecsCache[vn]=[];vRecsCache[vn].unshift(rec);if(!had)setTimeout(function(){loadVerseRecs(vn)},700);if(view==='verse')render();if(GS.on&&GS.afterRec){MGD={};setTimeout(mgPlay,350)}saveRec(rec).then(showMine).catch(function(er){var m=$('recMsg');if(m)m.textContent='Recorded, but it could not be saved on this device ('+((er&&(er.name||er.message))||'unknown error')+'). It stays until you close the page.'})};
-  mr.start();recActive=true;recT0=Date.now();clearInterval(recTick);recTick=setInterval(function(){var e=$('rtime');if(e){var s=Math.floor((Date.now()-recT0)/1000);e.textContent=Math.floor(s/60)+':'+('0'+s%60).slice(-2)}},500);if(view==='verse')render();
- }catch(e){recActive=false;RECERR='🎙 The microphone did not start ('+((e&&e.name)||'error')+'). Tap record again. If it keeps failing, allow the microphone for this site in Settings › Safari.';if(GS.on&&GS.afterRec){GS.afterRec=false;RP.on=true;RP.phase='done'}var m=$('recMsg');if(m)m.textContent=RECERR;if(view==='verse')render()}}
+  mr.start();recActive=true;RECPEND=false;recT0=Date.now();clearInterval(recTick);recTick=setInterval(function(){var e=$('rtime');if(e){var s=Math.floor((Date.now()-recT0)/1000);e.textContent=Math.floor(s/60)+':'+('0'+s%60).slice(-2)}},500);if(view==='verse')render();
+ }catch(e){recActive=false;RECPEND=false;RECERR='🎙 The microphone did not start ('+((e&&e.name)||'error')+'). Tap record again. If it keeps failing, allow the microphone for this site in Settings › Safari.';if(GS.on&&GS.afterRec){GS.afterRec=false;RP.on=true;RP.phase='done'}var m=$('recMsg');if(m)m.textContent=RECERR;if(view==='verse')render()}}
 var RECERR='';
 var app=$('app');
 app.addEventListener('ended',function(e){var t=e.target;if(t&&t.tagName==='AUDIO'&&t.dataset.act==='aplay'){var n=V[LST[vi].i].n;listenCount[n]=(listenCount[n]||0)+1;if(listenCount[n]<=3)render()}},true);
@@ -6636,8 +6668,13 @@ app.addEventListener('click',function(e){
  else if(a==='rppause'){rpPause()}
  else if(a==='revgo'){revGo()}
  else if(a==='revrec'){clearTimeout(RP.adv);RP.phase='done';render()}
- else if(a==='rpskip'){rpSkip()}
- else if(a==='mchear'){var mn0=+v;MSEEN[mn0]=1;sv();mcSay(mn0);render()}
+ else if(a==='rpskip'){if(gotNeedAsk()){GOTASK={pz:!RP.paused};if(!RP.paused)rpPause();else render()}else rpSkip()}
+ else if(a==='gotno'){var g0=GOTASK;GOTASK=null;if(g0&&g0.pz&&RP.paused)rpPause();else render()}
+ else if(a==='gotyes'||a==='gotnever'){if(a==='gotnever'){S.gotOK=1;sv()}var g1=GOTASK;GOTASK=null;if(g1&&g1.pz&&RP.paused)RP.paused=false;rpSkip();render()}
+ else if(a==='svbless'){SVBL=!SVBL;render()}
+ else if(a==='fsx'){S.fsX=1;sv();render()}
+ else if(a==='mchear'){var mn0=+v;MSEEN[mn0]=1;sv();if(MCSPK){try{speechSynthesis.cancel()}catch(e){}MCSPK=false}else mcSay(mn0);render()}
+ else if(a==='mlang'){S.ml=v;sv();if(MCSPK){try{speechSynthesis.cancel()}catch(e){}MCSPK=false}render()}
  else if(a==='mcnames'){var mn1=+v;MCN=MCN===mn1?0:mn1;MSEEN[mn1]=1;sv();render()}
  else if(a==='mcread'){MSEEN[+v]=1;sv();render()}
  else if(a==='mopen'){var pz=RP.on&&(RP.phase==='listen'||RP.phase==='turn')&&!RP.paused;MSH={m:v||'m',pz:pz};var it0=LST[vi];if(it0){MSEEN[V[it0.i].n]=1;sv()}if(pz)rpPause();else render()}
@@ -6645,7 +6682,8 @@ app.addEventListener('click',function(e){
  else if(a==='rpnextv'){clearInterval(RP.tm);clearInterval(RP.sm);clearInterval(RP.hl);rpA.pause();try{if(RP.wl)RP.wl.release()}catch(e){}RP.on=false;GS.afterRec=false;skipN=true;goNext()}
  else if(a==='rpplay'){RP.blocked=false;rpCheck();var q2=rpA.play();if(q2&&q2.catch)q2.catch(function(){});render()}
  else if(a==='tipgo'){tipGoOn()}
- else if(a==='tipagain'){tipSay();render()}
+ else if(a==='tipagain'){RP.tipMin=0;tipSay();render()}
+ else if(a==='tipexp'){RP.tipMin=0;render()}
  else if(a==='qkgo'){qkGo()}
  else if(a==='qkagain'){RP.round=1;RP.phase='listen';DVS=false;rpListen()}
  else if(a==='qkno'){RP.qk=0;DVS=false;TIPDONE[RP.n]=1;rpStart()}
@@ -6654,7 +6692,7 @@ app.addEventListener('click',function(e){
  else if(a==='mgskip'){mgStop();MGW='a';mgMark('')}
  else if(a==='dvsopen'){DVS=true;render()}
  else if(a==='dvsclose'){DVS=false;render()}
- else if(a==='rpdone'){RECERR='';clearInterval(RP.tm);try{if(RP.wl)RP.wl.release()}catch(e){}RP.on=false;tab='say';if(GS.on)GS.afterRec=true;render();recToggle()}
+ else if(a==='rpdone'){RECERR='';clearInterval(RP.tm);try{if(RP.wl)RP.wl.release()}catch(e){}RP.on=false;tab='say';if(GS.on)GS.afterRec=true;RECPEND=true;render();recToggle()}
  else if(a==='theme'){S.theme=v;sv();applyTheme();render()}
  else if(a==='img'){bigImg=!bigImg;render()}
  else if(a==='hide'&&t.tagName==='BUTTON'){S.hide=S.hide?0:1;sv();render()}

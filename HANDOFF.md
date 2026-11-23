@@ -630,3 +630,14 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - recLater() returns false: every new verse is recorded straight after it is learned (bug: with 2 a day and verse 2 passed by quick check, verse 1 was never recorded).
 - Take saved meaning card: picture as a 74 px thumbnail, text 3 lines, so the screen fits.
 - APPRULES: recording + tip auto-start lines; APPRULESV 'Build 457'. Screens: docs/screens-nov23c/.
+
+## Build 458 (23 Nov 2026) — Guru Test only. Owner's points after testing 457.
+- Skip / I've got it / I'm done: .g2-hint line under the dock says what the right button does (skipHint). New style: tapping I've got it when it would skip practice (rpMore()>0, not quick check/recap) pauses and opens gotSheet: Keep practising / Yes, skip ahead / Don't ask me again (S.gotOK).
+- Tip folds to one line (.tipc3.tmin, RP.tipMin) once the spoken tip ends; tap or 🔈 opens it again.
+- Meaning flash fixed: RECPEND keeps the record screen ("Getting the microphone ready…") while getUserMedia starts; before, the saved screen with the meaning showed for a moment on iPhone.
+- Meaning card: ▶ Hear it ⇄ ⏹ Stop (MCSPK); EN · తె · हि pills (S.ml); default mL() = S.ml, else Telugu if the verse is read in Telugu (S.main), else app language. Title "What it means".
+- Take saved: chips row (Hear again, Record again, Send to guru, Verse) above the meaning, one line, scrolls sideways.
+- Record screen: 📜 Verse chip in "Practise this verse again" (dvsSh pop-up); Show verse details at bottom removed there.
+- Kaiṅkaryam (Sri Vaishnava Well done, grand + simple): śubhamastu pill, maṅgaḷam box, śaraṇam line and big meaning card moved behind two chips (svMore): 🌸 Today's blessing (svBless sheet with maṅgaḷam, śaraṇam, Share) and 📖 Verse N meaning. Classic Well done unchanged.
+- Full screen: fsHint() card on Today when not opened from the Home Screen icon (✕ sets S.fsX). iPhone Safari can't go full screen from a page.
+- Screens: docs/screens-nov23d/.
