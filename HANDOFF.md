@@ -661,3 +661,12 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Fix: one helper dvT(k, day) = day-log list filtered to verses still learned. Now used by tdDone (Today card + "+N ›" sheet), tdMsg, dayDone, endHTML/svEnd (Well done), svMore, svShare, endMean, todayV, ydLine (yesterday's verse), homeOld paused count.
 - Not filtered on purpose: S.dayv itself (never changed), streak/dayKind, goNext (new-verses-per-day limit). My journey day details (calDet) keep the true record and add "🔄 Since started again: …".
 - Tested: learned 1–92, today learned 88–92 + revised 75, 85–87, then Start again 80–92 → learned 79, next new 80, Revise 75–79; Today card "Revised 75"; Well done "Revised 75"; My journey shows the note; streak unchanged.
+
+## Build 463 (23 Nov 2026) — Guru Test only
+- Audio clipping (owner: "cut off during line 1 / line 2"). Measured all 108 recordings (tools/make-segends.py, ffmpeg, -30 dB from peak):
+  - Line 2 and whole verse were stopped at duration − 0.15 s; 51 verses still have sound there → last syllable clipped. Now they play to the natural end ('ended' moves on).
+  - Line 1 / half-lines stopped at the cut − 0.03 s; on some verses line 1 is still ringing at the cut. New audio/segends.json: stop just before the next part starts (next sound − 0.04 s, max +0.35 s after the cut). segB() uses it (SEGE). Median +0.25 s. Re-run tools/make-segends.py after re-recording a verse or changing cuts.json / pada.json.
+  - sw-proto.js: pada.json + segends.json cached offline; CORE gt-core-v5.
+- Full meaning sheet text was in CAPITALS: class clash (.mct = card title style, uppercase). .msheet .mct reset.
+- Meaning card language switch (EN · తె · हि) bigger: .98rem, 38 px wide.
+- Kaiṅkaryam simple layout (svEndS, what the owner sees): today's verses as tappable coloured chips (learned teal, revised gold), streak + count line in a soft gold box, the maṅgaḷam back on the card (script + English, no transliteration), thank-ācārya line, Share. Blessing sheet button removed from this layout. Fits 393 × 852.

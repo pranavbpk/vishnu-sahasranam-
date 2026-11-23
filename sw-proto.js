@@ -1,7 +1,7 @@
 /* Offline support for the live app (index.html) and Guru Test (index-proto.html).
    Old benchmark pages (index-vNN.html) are never touched. */
-var CORE='gt-core-v4', AUD='gt-audio-v2';
-var CORE_FILES=['index.html','manifest.webmanifest','index-proto.html','manifest-test.webmanifest','icon-180.png','icon-192.png','icon-512.png','audio/cuts.json','satsang.json','vishnu-sahasranamam-108-verses.pdf'];
+var CORE='gt-core-v5', AUD='gt-audio-v2';
+var CORE_FILES=['index.html','manifest.webmanifest','index-proto.html','manifest-test.webmanifest','icon-180.png','icon-192.png','icon-512.png','audio/cuts.json','audio/pada.json','audio/segends.json','satsang.json','vishnu-sahasranamam-108-verses.pdf'];
 
 self.addEventListener('install',function(e){
   e.waitUntil(caches.open(CORE).then(function(c){
