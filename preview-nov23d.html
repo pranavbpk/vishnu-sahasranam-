@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · 3 practice screen designs</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;color:#2b2118;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:#fbf6ec;transition:background .3s}body.d-b{background:linear-gradient(180deg,#fff3c4,#ffe69a)}
+button{font:inherit;cursor:pointer;color:inherit}
+.pv{position:fixed;top:0;left:0;right:0;z-index:50;background:#3b2a14;color:#fff;padding:calc(5px + env(safe-area-inset-top)) 6px 5px;font-size:.76rem}
+.pv .r{display:flex;gap:5px;justify-content:center;margin:2px 0}.pv button{white-space:nowrap;border:0;border-radius:13px;padding:4px 9px;background:rgba(255,255,255,.14);color:#fff;font-size:.76rem}.pv button.on{background:#f2c15a;color:#3b2a14;font-weight:800}
+.app{max-width:480px;margin:0 auto;padding:calc(92px + env(safe-area-inset-top)) 14px 0}
+.hd{display:flex;align-items:center;gap:8px;height:44px}
+.x{width:36px;height:36px;border-radius:50%;border:0;background:rgba(0,0,0,.06);font-size:1rem}
+.ht{flex:1;text-align:center;line-height:1.1}.ht b{font-family:Georgia,serif;font-size:1.3rem}.ht small{display:block;color:#7a6a52;font-size:.74rem;margin-top:2px}
+.lv{border:1.5px solid #e3d6bb;background:transparent;border-radius:16px;padding:5px 10px;font-size:.8rem}
+.mn{width:36px;height:36px;border-radius:50%;border:0;background:rgba(0,0,0,.06);font-size:1.15rem}
+.tabs{display:flex;justify-content:center;gap:0;margin:8px auto 4px;border-bottom:1px solid #e6d9bf;max-width:330px}.tabs button{flex:1;border:0;background:none;padding:6px 0;font-size:.92rem;color:#8a7a62;border-bottom:3px solid transparent}.tabs button.on{color:#7a4a12;font-weight:800;border-color:#e0a02a}
+.sc{text-align:center;font-weight:600;line-height:1.35;margin:10px 0 4px}.sc .row{white-space:nowrap;overflow:hidden}
+.ra{margin:10px 0 0}.ra .lab{font-size:.7rem;letter-spacing:.08em;font-weight:800;color:#9a8a6e;margin-bottom:4px}
+.ra .row{white-space:nowrap;overflow:hidden;font-weight:700;line-height:1.45}.ra span{display:inline-block;margin-right:.5em;border-bottom:3px solid transparent;transition:all .2s}.ra span.now{border-color:#f08a24}.ra span.heard{opacity:.55}
+.other{opacity:.33}.row.wrap{white-space:normal!important}.small{font-size:.62em!important}
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:20;max-width:480px;margin:0 auto;padding:6px 18px calc(8px + env(safe-area-inset-bottom))}
+.ctl{display:flex;align-items:center;justify-content:space-around}
+.cb{display:flex;flex-direction:column;align-items:center;gap:2px;border:0;background:none;font-size:.74rem;color:#5a4a36;width:84px}
+.cb span{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.cb.big span{width:58px;height:58px;font-size:1.2rem;color:#fff!important;font-weight:900;letter-spacing:-2px}
+.lnk{display:block;margin:2px auto 0;border:0;background:none;color:#8a6a3a;font-size:.82rem}
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:60;display:none}.sheet{position:fixed;left:0;right:0;bottom:0;z-index:61;max-width:480px;margin:0 auto;background:#fffdf7;border-radius:22px 22px 0 0;padding:14px 16px calc(18px + env(safe-area-inset-bottom));display:none}
+.show .sheet-bg,.show .sheet{display:block}.sheet h3{margin:4px 0 8px;font-size:1.05rem}.mi{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;border-bottom:1px solid #f0e6d0;background:none;padding:12px 4px;font-size:.98rem}.mi i{font-style:normal;width:26px;text-align:center}.mi small{margin-left:auto;color:#0f6b66;font-weight:700}
+.info{margin:16px 0 150px;font-size:.82rem;color:#6a5a42;background:rgba(255,255,255,.75);border:1px dashed #d9c49a;border-radius:14px;padding:10px 12px;line-height:1.45}
+.cls{border:0;border-radius:14px;padding:4px 9px;font-size:.76rem;font-weight:700}
+/* ===== A: guru & sishya ===== */
+.d-a .pic{position:relative;margin:2px -14px 0;height:190px;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 80%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 80%,transparent 100%)}
+.d-a .pic img{width:100%;height:100%;object-fit:cover;object-position:50% 45%;transition:filter .4s}
+.d-a .pic .glow{position:absolute;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,214,120,.55),transparent 70%);transition:left .5s,opacity .3s;top:22px}
+.d-a .st{text-align:center;margin-top:2px}.d-a .st b{color:#1d5e3a;font-size:1.05rem}.d-a .st .tm{color:#e06a14;font-weight:800}
+.d-a .dots{display:flex;gap:7px;justify-content:center;margin:6px 0 0}.d-a .dots i{width:9px;height:9px;border-radius:50%;background:#e3dccd}.d-a .dots i.on{background:#e8832a}
+.d-a .sc{font-size:30px;color:#2b2118}.d-a .ra{border-left:2px solid #e3cfa4;padding-left:12px}.d-a .ra .row{font-size:24px;color:#2b2118}
+.d-a .cb span{border:1.5px solid #e3d6bb;background:#fffdf7;color:#7a5a30}.d-a .cb.big span{background:#1f5d45;border:0;box-shadow:0 5px 14px rgba(31,93,69,.35)}
+.d-a .dock{background:linear-gradient(180deg,rgba(251,246,236,0),#fbf6ec 22%)}
+.d-d .pic.sm{height:150px}.d-d .strip.g{margin:-18px 0 0;position:relative;z-index:2;display:flex;align-items:center;gap:10px;min-height:54px;border-radius:16px;padding:6px 10px;color:#fff;background:linear-gradient(135deg,#1f5d45,#174a37);box-shadow:0 6px 16px rgba(23,74,55,.3)}
+.d-d .strip.g.paused{background:linear-gradient(135deg,#8a6d4e,#6b5236)}.d-d .strip .ring{width:38px;height:38px;flex:0 0 38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.2);position:relative}.d-d .strip .ring.t::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#1f5d45}.d-d .strip .ring b{position:relative;z-index:1}
+.d-d .strip .tx{flex:1;line-height:1.2}.d-d .strip .tx b{font-size:.92rem;display:block}.d-d .dts{display:flex;gap:6px;margin-top:5px}.d-d .dts i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35)}.d-d .dts i.on{background:#f6c445}
+.d-d .strip .cls{background:rgba(255,255,255,.14);color:#fff;font-size:.7rem;border:0;border-radius:14px;padding:4px 8px}
+.d-d .tabs{border:0;gap:6px;max-width:none}.d-d .tabs button{border:1.5px solid #b9cfc2;border-radius:16px;padding:5px 0;color:#1f5d45}.d-d .tabs button.on{background:#1f5d45;color:#fff;border-color:#1f5d45}
+.d-d .ra{border:0;padding:0}.d-d .ra span.now{background:#f9d264;border-radius:8px;border-color:transparent;padding:0 4px}
+.d-d .lnk.pillk{border:1.5px solid #e3d6bb;border-radius:18px;padding:5px 14px;background:#fffdf7}
+.d-d .cb.big span{box-shadow:0 0 0 3px #e3c27a,0 5px 14px rgba(31,93,69,.35)}
+/* ===== B: parayanam style ===== */
+.d-b .hd .ht b{color:#9b1c1c}.d-b .x,.d-b .mn{background:#fffaf0;border:1.5px solid #f0d98a}
+.d-b .card{margin-top:8px;background:#fffdf6;border:2px solid #f3d978;border-radius:26px;padding:12px 14px 16px;box-shadow:0 6px 18px rgba(155,28,28,.08)}
+.d-b .top{display:flex;align-items:center;gap:8px}.d-b .pill{display:flex;align-items:center;gap:8px;border-radius:20px;padding:5px 12px 5px 5px;color:#fff;font-weight:800;font-size:.9rem;flex:1}
+.d-b .pill.listen{background:#b4232a}.d-b .pill.turn{background:#e3661a}.d-b .pill.paused{background:#8a6d4e}
+.d-b .ring{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.25);font-size:.85rem;position:relative}.d-b .ring.t::after{content:"";position:absolute;inset:3px;border-radius:50%;background:#e3661a}.d-b .ring b{position:relative;z-index:1}
+.d-b .cls{background:#fff3c4;color:#7a2a12;border:1.5px solid #f0d98a}
+.d-b .tabs{border:0}.d-b .tabs button.on{border-color:#b4232a;color:#9b1c1c}
+.d-b .sc{font-size:28px;color:#8a1717}.d-b .div{display:flex;align-items:center;gap:8px;justify-content:center;color:#c0392b;font-size:.72rem;font-weight:800;letter-spacing:.12em;margin:8px 0 2px}.d-b .div::before,.d-b .div::after{content:"";height:1px;width:60px;background:#e8a0a0}
+.d-b .ra .row{text-align:center;font-size:25px;color:#8a1717}.d-b .ra span.now{border-color:#e3661a}
+.d-b .cb span{background:#fffaf0;border:1.5px solid #f0d98a;color:#5a2a10}.d-b .cb.big span{background:#c0392b;border:0;box-shadow:0 5px 14px rgba(192,57,43,.35)}
+.d-b .dock{background:linear-gradient(180deg,rgba(255,230,154,0),#ffe69a 22%)}.d-b .info{background:rgba(255,255,255,.6)}
+/* ===== C: slim ===== */
+.d-c .tday{height:4px;border-radius:3px;background:#efe3c8;margin:2px 0 8px;overflow:hidden}.d-c .tday i{display:block;height:100%;width:50%;background:#e0a02a}
+.d-c .strip{display:flex;align-items:center;gap:10px;height:46px;border-radius:15px;padding:0 10px;color:#fff;position:relative;overflow:hidden}
+.d-c .strip.listen{background:linear-gradient(135deg,#127a73,#0d5e59)}.d-c .strip.turn{background:linear-gradient(135deg,#f08a24,#d9541a)}.d-c .strip.paused{background:linear-gradient(135deg,#8a6d4e,#6b5236)}
+.d-c .ring{width:32px;height:32px;flex:0 0 32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.22);position:relative;font-size:.9rem}.d-c .ring.t::after{content:"";position:absolute;inset:3px;border-radius:50%;background:#e2671d}.d-c .ring b{position:relative;z-index:1}
+.d-c .tx{flex:1;line-height:1.15}.d-c .tx b{font-size:.98rem}.d-c .tx small{display:block;opacity:.9;font-size:.76rem}.d-c .cls{background:rgba(255,255,255,.22);color:#fff}
+.d-c .vb{margin-top:8px;background:#fffdf8;border:1px solid #eee0c2;border-radius:18px;padding:4px 14px 14px}
+.d-c .sc{font-size:28px;text-align:left}.d-c .ra .row{font-size:23px;color:#0f4f4b}.d-c .ra{border-left:3px solid #0f6b66;padding-left:10px}
+.d-c .cb span{border:1.5px solid #e3d6bb;background:#fff;color:#0f6b66}.d-c .cb.big span{background:#0f6b66;border:0}
+.d-c .dock{background:#fffdf7;border-top:1px solid #eadcbc;border-radius:20px 20px 0 0;box-shadow:0 -6px 16px rgba(0,0,0,.06)}
+</style></head><body class="d-a">
+<div class="pv"><div class="r"><button data-d="a" class="on">A · Guru &amp; śiṣya</button><button data-d="b">B · Pārāyaṇam style</button><button data-d="c">C · Slim</button><button data-d="d">D · Gemini 2</button></div>
+<div class="r"><button data-m="listen" class="on">🎧 Listen</button><button data-m="turn">🗣 Your turn</button><button data-m="whole">📜 Whole verse</button></div></div>
+<div class="app" id="app"></div>
+<div class="menu" id="menu"><div class="sheet-bg" data-close></div><div class="sheet"><h3>Verse 61</h3>
+ <button class="mi" id="clsB"><i>👥</i>Class chanting<small id="clsV">On</small></button><button class="mi"><i>⏮</i>Last verse</button><button class="mi"><i>🗣</i>How to read</button><button class="mi"><i>👁</i>Hide the text (test yourself)</button><button class="mi" data-close><i>⏹</i>Stop here</button></div></div>
+<script>
+var V={"sa": ["सुधन्वा खंडपरशुर् दारुणो द्रविणप्रदः ।", "दिवस्पृक् सर्वदृग् व्यासो वाचस्पतिरयोनिजः ॥६१॥"], "te": ["సుధన్వా ఖండపరశుర్ దారుణో ద్రవిణప్రదః |", "దివస్పృక్ సర్వదృగ్ వ్యాసో వాచస్పతిరయోనిజః ||"], "en": ["Sudhanva Khandaparashur Daruno Dravinapradah", "Divasprik Sarvadrig Vyaso Vachaspatir Ayonijah"], "pr": ["Su-dhan-vaa Khan-da-pa-ra-shur Daa-ru-no Dra-vi-na-pra-dah", "Di-vas-prik Sar-va-drig Vyaa-so Vaa-chas-pa-ti-ra-yo-ni-jah"]},PW=[2,3],D='a',M='listen',P=false,w=0,left=14,tab='sa',cls=true;
+function $(i){return document.getElementById(i)}
+function split(a,i){var k=PW[i];return [a.slice(0,k),a.slice(k)]}
+function scLines(){var L=tab==='en'?V.en:tab==='te'?V.te:V.sa;return L.map(function(l,i){var a=l.replace(/\s+([।॥|]+.*)$/,' $1').split(' ');return split(a,i).map(function(x){return x.join(' ')})})}
+function raLines(){return V.pr.map(function(l,i){return split(l.split(' '),i)})}
+var INFO={a:'<b>A · Guru &amp; śiṣya.</b> A picture of the guru and the student sits at the top. While you listen, the light is on the guru; on your turn, it moves to the student. Only the line you are practising is shown, and big (script ~30 px, Read aloud ~24 px; today 21 px and 18 px). Three simple buttons: Hear again · Pause · Done, and a small link “I’ve got it — skip to the whole verse”. The picture is a draft from your Gemini mock-up; for the app we would need our own artwork (and the guru’s OK). It takes about 190 px, so it suits learning new verses more than long revision.',
+ b:'<b>B · Pārāyaṇam style.</b> Same feel as your Pārāyaṇam screen: warm yellow, maroon text, one big verse card, Read aloud centred under a ❀ READ ALOUD divider, round red play button. The status (Listen / Your turn + timer) is a small pill on top of the card, with 👥 class chanting next to it, so it takes no extra row. Only the line you are practising is big; the other line is small and faded.',
+ c:'<b>C · Slim (today’s New design, tightened).</b> Today’s colours and look. One slim strip holds Listen / Your turn, the timer ring and 👥 class chanting (no separate pill). The bottom player is smaller (one row, 58 px Pause). Only the line you are practising is big. Last verse, How to read and Stop here are in ⋯.',d:'<b>D · Gemini 2.</b> Your second Gemini idea: the guru and student picture (a bit smaller), with a dark green strip over its bottom edge holding the timer ring, the step dots and Class chanting. Pill script tabs, then the line you are practising big, Read aloud with the current word lit up. Bottom: Hear again · Pause · I’ve got it, and a small “Skip → whole verse” pill. The picture is a draft; it needs our own artwork.'};
+function draw(){
+ document.body.className='d-'+D+(D==='d'?' d-a':'');var h='';
+ var st=P?'paused':M==='whole'?'listen':M;
+ var stT=P?'Paused':M==='listen'?'Listen · Line 1':M==='turn'?'Your turn · Line 1':'Listen · Whole verse';
+ var stS=P?'Tap ▶ to carry on':M==='listen'?'The guru chants, you listen':M==='turn'?'Say it 2 times':'Time 1 of 3';
+ var ring=M==='turn'&&!P?'<span class="ring t" id="rg" style="background:conic-gradient(#fff '+(left/14*100)+'%,rgba(255,255,255,.3) 0)"><b id="rgn">'+left+'</b></span>':'<span class="ring">'+(P?'⏸':'🎧')+'</span>';
+ h+='<div class="hd"><button class="x">✕</button><div class="ht"><b>Verse 61</b><small>New verse · 1 of 2 today</small></div>'+(D==='a'?'':'<button class="lv">🌿 Normal</button>')+'<button class="mn" id="menuB">⋯</button></div>';
+ if(D==='a'||D==='d'){h+='<div class="pic'+(D==='d'?' sm':'')+'"><img src="preview-assets/guru-sishya-draft.jpg" alt=""><span class="glow" style="left:'+(M==='turn'?'58%':'14%')+';opacity:'+(P?0:1)+'"></span></div>';
+  if(D==='d')h+='<div class="strip g '+st+'">'+ring+'<span class="tx"><b>'+stT+(M==='turn'?' · Say 2 times':'')+'</b><span class="dts"><i class="on"></i><i></i><i></i></span></span>'+(M==='turn'?'<button class="cls" id="clsS">● Class chanting: '+(cls?'On':'Off')+'</button>':'')+'</div>';
+  else h+='<div class="st">'+(M==='turn'&&!P?'<b>Your turn · Say line 1 two times</b> · <span class="tm" id="rgn">'+left+'</span>':'<b>'+stT+'</b>')+'</div>'+(D==='a'?'<div class="dots"><i class="on"></i><i></i><i></i></div>':'')}
+ if(D==='c'){h+='<div class="tday"><i></i></div><div class="strip '+st+'">'+ring+'<span class="tx"><b>'+stT+'</b><small>'+stS+'</small></span>'+(M==='turn'?'<button class="cls" id="clsS">👥 '+(cls?'On':'Off')+'</button>':'')+'</div><div class="vb">'}
+ if(D==='b'){h+='<div class="card"><div class="top"><span class="pill '+st+'">'+ring+stT+'</span>'+(M==='turn'?'<button class="cls" id="clsS">👥 '+(cls?'On':'Off')+'</button>':'')+'</div>'}
+ h+='<div class="tabs">'+[['sa','संस्कृत'],['te','తెలుగు'],['en','English'],['hi','हिन्दी']].map(function(t){return '<button data-t="'+t[0]+'" class="'+(tab===t[0]?'on':'')+'">'+t[1]+'</button>'}).join('')+'</div>';
+ var S=scLines(),R=raLines(),whole=M==='whole';
+ h+='<div class="sc" id="sc">'+S.map(function(rows,i){return rows.map(function(r){return '<div class="row'+(!whole&&i?' other small':'')+'">'+r+'</div>'}).join('')}).join('')+'</div>';
+ if(D==='b')h+='<div class="div">❀ READ ALOUD ❀</div>';
+ h+='<div class="ra" id="ra">'+(D==='b'?'':'<div class="lab">🗣 READ ALOUD</div>')+R.map(function(rows,i){return rows.map(function(ws,pi){return '<div class="row'+(!whole&&i?' other small':'')+'">'+ws.map(function(x,jj){var j=pi*PW[i]+jj,c=(i===0&&M!=='turn')?(j<w?'heard':j===w?'now':''):'';return '<span class="'+c+'">'+x.replace(/-/g,'‑')+'</span>'}).join('')+'</div>'}).join('')}).join('')+'</div>';
+ if(D==='b'||D==='c')h+='</div>';
+ h+='<div class="info">'+INFO[D]+'<br><br>Use the buttons at the top to switch design and step. Tap Pause, ⋯, 👥 and the script tabs. Preview only: no sound, not connected to your progress.</div>';
+ var right=M==='listen'?['⏭','Skip']:D==='d'?['✓','I’ve got it']:['✓','Done'];
+ h+='<div class="dock"><div class="ctl"><button class="cb"><span>↺</span>Hear again</button><button class="cb big" id="pz"><span>'+(P?'▶':'⏸')+'</span>'+(P?'Play':'Pause')+'</button><button class="cb" id="sk"><span>'+right[0]+'</span>'+right[1]+'</button></div>'+(D==='d'&&M==='turn'?'<button class="lnk pillk">⏩ Skip → whole verse</button>':M==='turn'?'<button class="lnk">I’ve got it — skip to the whole verse ›</button>':M==='listen'?'<button class="lnk">Skip = go to your turn now</button>':'')+'</div>';
+ $('app').innerHTML=h;fit();
+}
+function fit(){['#sc','#ra'].forEach(function(id){var R=[].slice.call(document.querySelectorAll(id+' .row:not(.small)')),m=99;R.forEach(function(r){r.style.fontSize='';var f=parseFloat(getComputedStyle(r).fontSize),need=r.scrollWidth,have=r.clientWidth;if(need>have+1)f=Math.floor(f*have/need);m=Math.min(m,Math.max(id==='#sc'?24:22,f))});R.forEach(function(r){r.style.fontSize=m+'px';if(r.scrollWidth>r.clientWidth+1)r.classList.add('wrap')});
+  [].slice.call(document.querySelectorAll(id+' .row.small')).forEach(function(r){r.style.fontSize=Math.round(m*.62)+'px'})})}
+setInterval(function(){if(P)return;if(M!=='turn'){w=(w+1)%6;var sp=document.querySelectorAll('#ra .row');var all=[].slice.call(document.querySelectorAll('#ra .row:not(.small) span'));all.forEach(function(s,j){s.className=j<w?'heard':j===w?'now':''})}else{left=left>1?left-1:14;var r=$('rg');if(r)r.style.background='conic-gradient(#fff '+(left/14*100)+'%,rgba(255,255,255,.3) 0)';var n=$('rgn');if(n)n.textContent=left}},900);
+document.addEventListener('click',function(e){var t=e.target.closest('button,[data-close]');if(!t)return;
+ if(t.dataset.d){D=t.dataset.d;document.querySelectorAll('[data-d]').forEach(function(b){b.className=b===t?'on':''});draw();scrollTo(0,0);return}
+ if(t.dataset.m){M=t.dataset.m;P=false;w=0;document.querySelectorAll('[data-m]').forEach(function(b){b.className=b===t?'on':''});draw();return}
+ if(t.dataset.t){tab=t.dataset.t;draw();return}
+ if(t.id==='pz'){P=!P;draw();return}
+ if(t.id==='menuB'){$('menu').classList.add('show');return}
+ if(t.id==='clsB'||t.id==='clsS'){cls=!cls;$('clsV').textContent=cls?'On':'Off';draw();return}
+ if(t.hasAttribute('data-close'))$('menu').classList.remove('show');
+});
+draw();
+</script></body></html>
