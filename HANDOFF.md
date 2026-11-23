@@ -641,3 +641,9 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Kaiṅkaryam (Sri Vaishnava Well done, grand + simple): śubhamastu pill, maṅgaḷam box, śaraṇam line and big meaning card moved behind two chips (svMore): 🌸 Today's blessing (svBless sheet with maṅgaḷam, śaraṇam, Share) and 📖 Verse N meaning. Classic Well done unchanged.
 - Full screen: fsHint() card on Today when not opened from the Home Screen icon (✕ sets S.fsX). iPhone Safari can't go full screen from a page.
 - Screens: docs/screens-nov23d/.
+
+## Build 459 (23 Nov 2026) — Guru Test only
+- Skip note (skipHint(five)): green pill with a pointer (::before at --ax, 87.5% or 70% when a 5th button shows) up to the button it explains; one short line: "Skip → go to your turn now", "I've got it → skip to the whole verse", "I've got it → skip the other N repeats", "I'm done → move on".
+- Start the verse: round countdown inside the button (tipRing, #tipring with inline conic-gradient via ringBg(); a CSS var inside conic-gradient computed to none here). RP.tipMs; tipEnd re-renders. Old text line under the buttons removed.
+- Full screen: Today card (fsHint) removed; ⛶ icon in the Today header (dhFs) only when not opened from the Home Screen icon. Android/computer: requestFullscreen. iPhone: how-to sheet appended to body (fsShow; inside the header it sat under the tab bar).
+- Screens: docs/screens-nov23e/.
