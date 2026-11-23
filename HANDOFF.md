@@ -652,3 +652,6 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Owner: marked 80–92 "start again" but still saw them as learned / in Revise. Code path for "not learned yet" (undo2 'not', unnot) checked in a test: it does remove them from learned and Revise. Most likely the big "🔔 Needs more practice" button was used (that keeps them learned and puts them in Revise today); "start again" was only a small link under it.
 - Change marks bar: 🔄 Start again is now a third button next to Needs more practice / Kaṇṭhastham, with a one-line explanation under the buttons. One-verse sheet: Start again is a full option card. Notice after: "🔄 verses 80–92 are off your learned list and out of Revise. They come back as new verses, from verse 80."
 - Today header 📖 How to read icon unchanged (still first icon).
+
+## Build 461 (23 Nov 2026) — Guru Test only
+- Owner's phone after Start again on 80–92: Revise correctly showed 79 learned, but the Today "Practice done today" card still listed 88, 89, 90… (learned) and 85, 86, 87 (revised) from today's day log. tdDone() now only shows verses still on the learned list. Day log itself unchanged (streak/history safe).

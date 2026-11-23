@@ -3443,7 +3443,7 @@ function tdCompact(rvL,nwL){var rn=rvL.map(function(x){return V[x.i].n}),fm=S.ma
  if(nwL.length)h+='<div class="zD-l zn"><span class="zD-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.3 6.2 6.2 2.3-6.2 2.3L12 19.5l-2.3-6.2L3.5 11l6.2-2.3z" fill="currentColor"/><circle cx="19.5" cy="4.5" r="1.6" fill="currentColor"/><circle cx="5" cy="19" r="1.3" fill="currentColor"/></svg></span><b>New today</b><small>learn with the guru</small></div>'+nwL.map(function(x){var v=V[x.i];return '<div class="zD-n"><i role="button" data-act="mvopen" data-v="'+v.n+'">'+v.n+'</i><span class="zD-v '+cl+'">'+(v[fm]?v[fm][0]:'')+'</span></div>'}).join('');
  return h+'</div>'}
 var TDM='';
-function tdDone(){var dv=(S.dayv||{})[tdy()]||{},l=(dv.l||[]).filter(function(x){return +x}),r=(dv.r||[]).filter(function(x){return +x&&l.indexOf(x)<0}),sk=streak(),t=S.doneAt&&new Date(S.doneAt).toDateString()===new Date().toDateString()?new Date(S.doneAt).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'',ch=function(a,c){return '<div class="dvc">'+a.map(function(n){return '<button class="dvn'+c+'" data-act="mvopen" data-v="'+n+'">'+n+'</button>'}).join('')+'</div>'};
+function tdDone(){var dv=(S.dayv||{})[tdy()]||{},isL=function(x){return S.learned.indexOf(+x)>=0}/* b461: verses taken off with Start again no longer show here */,l=(dv.l||[]).filter(function(x){return +x&&isL(x)}),r=(dv.r||[]).filter(function(x){return +x&&l.indexOf(x)<0&&isL(x)}),sk=streak(),t=S.doneAt&&new Date(S.doneAt).toDateString()===new Date().toDateString()?new Date(S.doneAt).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'',ch=function(a,c){return '<div class="dvc">'+a.map(function(n){return '<button class="dvn'+c+'" data-act="mvopen" data-v="'+n+'">'+n+'</button>'}).join('')+'</div>'};
  var row=function(lb,a,c,k){if(!a.length)return '';var sh=a.length>3?a.slice(0,3):a;return '<div class="tdD3-r"><span class="tdD3-l">'+lb+'</span>'+sh.map(function(n){return '<button class="tdD3-c'+c+'" data-act="mvopen" data-v="'+n+'">'+n+'</button>'}).join('')+(a.length>3?'<button class="tdD3-c more" data-act="tdmore" data-v="'+k+'">+'+(a.length-3)+' ›</button>':'')+'</div>'};
  var h='<div class="tdD tdD3"><div class="tdD3-h"><span class="tdD3-i">✅</span><b>Practice done today</b>'+(t?'<small>🙏 '+t+'</small>':'')+lvlChip('thl tdl3')+'</div>'+row('📗 Learned',l,'','l')+row('🔁 Revised',r,' rv','r')+'</div>';
  if(TDM){var L2=TDM==='l'?l:r;h+=bhSheet('tdmore',TDM==='l'?'📗 Learned today':'🔁 Revised today','<div class="dvc">'+L2.map(function(n){return '<button class="dvn'+(TDM==='r'?' rv':'')+'" data-act="mvopen" data-v="'+n+'">'+n+'</button>'}).join('')+'</div>')}
@@ -3466,7 +3466,7 @@ function vidCard(){var t=HVT[hvL()];return HOWVID?'<div class="hv-vid"><video id
 /* b421: once, after setup, a small card on Today offers the guide video; gone after Watch or Not now */
 function hv1Card(){if(!HOWVID||!S.setupDone||S.vidSeen)return '';var t=HVT[hvL()];return '<div class="hv1"><span class="hv1i">🎬</span><div class="hv1t"><b>'+t[2]+'</b><small>'+t[3]+'</small></div><div class="hv1b"><button class="hv1w" data-act="hv1go">'+t[4]+'</button><button class="hv1x" data-act="hv1x">'+t[5]+'</button></div></div>'}
 /* b452: "How the app works" — the rules in plain words, for users (owner 21 Nov: keep one place that explains every rule and update it with each change). Same content as claude/app-rules.md in the project. RULESV = build these rules were last checked. English for now; Telugu/Hindi after guru review. */
-var APPRULESV='Build 460 · 23 Nov 2026';
+var APPRULESV='Build 461 · 23 Nov 2026';
 var APPRULES=[
 ['🌅','Your daily practice',[
  'One practice a day, about 10 minutes. Tap <b>Start today’s practice</b> on Today.',
@@ -6229,7 +6229,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=460,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=461,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
