@@ -687,3 +687,13 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Tip screen picture (.g3-tpic, renamed: .g3-pic clashed with the style class g3-pic) for mix/pic/gem.
 - Not themed yet: own-practice screen tags, some hard-coded teal bits in Revise/Learn. Old and New look unchanged.
 - Screens: docs/screens-nov23h/.
+
+## Build 466 (24 Nov 2026) — Guru Test only. Owner's points on the test styles + 4 new styles
+- Resume: rpSave() stores S.rpRes {d,n,round,steps,cut,togR,r} at every round start (rpListen) and on rpClose (also sets GRES). rpStart uses GRES or S.rpRes (same day, same verse, same new/revision kind, round>1): RP.round restored, RP.resumed set, tip skipped, strip says "↪ Carrying on where you stopped". Survives closing, Home, and the app being closed. Cleared when the verse's last round ends (rpNext).
+- Header (New + all test styles, tip and record screens): g4Head(title, sub, level?, closeAct) = one aligned row: ✕ · Verse N / sessPos · level chip · 🗣️ · style menu (g4-sw: emoji label with an invisible <select> over it).
+- rpMix rewritten: one-row see-through player (g4-dock: Hear again · Last verse · Pause · Skip/I'm done · I've got it, + Next verse on revisions instead of Last verse); no separate pill/hint lines. Big timer ring (#rpring, ringBg) in the strip (Guru & śiṣya: face left, ring right). Read aloud min(1.75rem,7.4vw) and words wrap (.wd nowrap) instead of shrinking; script min(1.2rem,5.1vw). Pictures 118 px (pic, gem).
+- I've got it is its own action rpgot and also works while listening (rpGot: skips the current listen + rest of that part). Ask-once via gotNeed2(); Settings › How I practise › "Before I've got it skips ahead: Ask me first / Don't ask" (act gotask, S.gotOK).
+- Progress: hlTick and rpTick are wrapped (g4L / g4T → g4P) to fill the ring and the mala beads (listen fills, your turn drains).
+- New styles: mala (📿 Japa mala: tulasi-bead timer, round mala player with Last verse top, Hear again left, Play centre, Skip/I'm done right, I've got it bottom, tassel), bgp (🌄 Picture behind: guru-śiṣya picture as the whole background, glassy card), side (💬 Guru beside verse: guru face beside the script while he chants, student beside Read aloud on your turn), lotus (🪷 Lotus mandala: picture band, navy-gold strip with mala timer + conch/chakra, manuscript page card, lotus petals inside a mala ring; owner's Gemini picture). Art still the draft art/*.jpg.
+- Meaning: tapping Full meaning / Names / Close no longer stops "Hear it"; the meaning sheet slides up once (MSH.t, .msheet.up) and has its own ▶ Hear it / ⏹ Stop.
+- Screens: docs/screens-nov24/.
