@@ -678,3 +678,12 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - New action rpturnok = end this turn now (rpNext). Tip screen in Guru style shows art/guru-sishya-draft.jpg above the tip.
 - Art is a DRAFT cropped from the owner's Gemini mock-up — replace with our own artwork before going live; guru to approve.
 - Read aloud rows are width-limited by pdFit (one pada per row), so they grow only a little; script grows ~20.8 → ~30 px.
+
+## Build 465 (23 Nov 2026) — Guru Test only. All test styles (owner: "add all styles as options in settings; the whole app in that style")
+- STYS: old, new, mix (Guru & śiṣya), slim, pic (Guru picture), gem (Gemini green), gemm (Gemini maroon, owner's 3rd Gemini screenshot), par (Pārāyaṇam). gNew() = anything but old; gLay() = one of the 6 test styles.
+- Header Old|New switch is now a small <select class="gsel"> with all styles; You › Settings › Practice style has all as chips.
+- render() sets html[data-sty]=gLay(). Theme CSS sets --acc/--soft/--sf with !important (JS writes --acc inline on <html>), so buttons, nav, Today card, chips, done/record banner (.g2-st) and the test-style player follow the style. gem green #1f5d45, gemm maroon #7a1f2b (+ cream bg), par red #b4232a (+ yellow bg).
+- rpMix() handles all 6 layouts: mix = face avatar; pic = picture + glow on guru/student + strip + path; gem = picture with green strip over its edge + dots, pill "Skip → whole verse", right button "I've got it" (ends turn); gemm = maroon strip with step bars "step N of M", Today verse bar in the dock; par = strip + path inside one yellow/maroon card; slim = strip + path. Centred verse for mix/pic/par (.g3c), left for slim/gem/gemm.
+- Tip screen picture (.g3-tpic, renamed: .g3-pic clashed with the style class g3-pic) for mix/pic/gem.
+- Not themed yet: own-practice screen tags, some hard-coded teal bits in Revise/Learn. Old and New look unchanged.
+- Screens: docs/screens-nov23h/.
