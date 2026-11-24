@@ -3109,7 +3109,7 @@ html[data-sty=mala]{--acc:#2f6b3a!important;--soft:#e6f0e2!important}
 .rpsheet.g3-pic .g3-pic2{height:118px}.rpsheet.g3-pic .g3-glow{top:-12px;width:120px;height:120px}
 .rpsheet.g3-gem .g3-pic2{height:118px}
 /* Picture behind */
-.rpsheet.g3-bgp::before{content:'';position:fixed;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(255,250,238,.1),rgba(255,250,238,.3) 45%,rgba(255,250,238,.6)),url(art/guru-sishya-draft.jpg) 42% 50%/cover no-repeat}
+.rpsheet.g3-bgp::before{content:'';position:fixed;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(255,250,238,.1),rgba(255,250,238,.3) 45%,rgba(255,250,238,.6)),url(art/g2-top.jpg) 42% 50%/cover no-repeat}
 .rpsheet.g3-bgp .g3-card{background:rgba(255,253,247,.72);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);border-color:rgba(236,220,182,.8)}
 .rpsheet.g3-bgp .g3-st{background:linear-gradient(135deg,rgba(18,122,115,.9),rgba(13,94,89,.9))}.rpsheet.g3-bgp .g3-st.turn{background:linear-gradient(135deg,rgba(240,138,36,.92),rgba(217,84,26,.92))}
 .rpsheet.g3-bgp .g3-path span:not(.on){background:rgba(243,234,215,.9)}
@@ -3169,6 +3169,163 @@ html[data-sty=lotus]{--acc:#16374f!important;--soft:#e8eef3!important}
 .g4-lot .g4-mb4.b button{width:96px;white-space:nowrap;font-size:.6rem}
 .g4-lot .g4-mb4.b{bottom:46px}
 
+
+/* ===== b467 (owner 24 Nov): common to all test styles ===== */
+/* header: 📖 tips · 🪷 meaning · ⚙️ settings, spaced so they are easy to tap */
+.g4-ics{display:flex;gap:7px;margin-left:auto;flex:0 0 auto}
+.g4-tb .lvch.g4l{margin-left:auto!important}
+.g4-tb .lvch.g4l+.g4-ics{margin-left:0}
+.g4-ib{position:relative;width:38px;height:38px;border-radius:50%;border:1.5px solid #e3d3b0;background:#fffdf7;font-size:1.05rem;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-shadow:0 1px 3px rgba(90,60,20,.12)}
+.g4-ib em{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:1px;font-style:normal;font-size:.52rem;font-weight:800;color:#8a7350;white-space:nowrap;letter-spacing:.02em}
+.g4-ib.dim{opacity:.55}
+.g4-tb{min-height:52px;padding-bottom:6px}
+.g4toast{bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+.gsetsh{max-height:80vh;overflow:auto}.gs-l{font-weight:800;font-size:.8rem;color:#7a6a52;text-transform:uppercase;letter-spacing:.05em;margin:12px 0 6px}
+.gs-seg{display:flex;gap:6px;flex-wrap:wrap}.gs-seg button,.gs-sty button{border:1.5px solid #e3d3b0;background:#fffdf7;border-radius:16px;padding:8px 12px;font:inherit;font-size:.88rem;cursor:pointer}
+.gs-seg button.on,.gs-sty button.on{background:var(--acc,#0f6b66);border-color:var(--acc,#0f6b66);color:#fff;font-weight:700}
+.gs-sty{display:grid;grid-template-columns:1fr 1fr;gap:6px}.gs-sty button{text-align:left}
+/* timer smaller */
+.g4-tm{flex:0 0 44px;width:44px;height:44px}
+.g4-tm i{-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3.5px))}
+.g4-tm b{font-size:1.12rem}.g4-tm .g4-ico{font-size:1rem}
+.g4-mt{flex:0 0 48px;width:48px;height:48px}.g4-mt svg{width:100%;height:100%}.g4-mt b{font-size:1.05rem}
+.g4-st{min-height:54px}
+.g3-av.g3-pr{width:64px;flex:0 0 64px}.g3-av.g3-pr img{width:60px;height:42px;inset:3px auto auto 2px;border-radius:12px;object-fit:cover}
+/* class chanting pill: clear colours */
+.g3-cls,.g3-cls.on{display:inline-flex;align-items:center;gap:5px;background:#fff;color:#17603a;border:0;box-shadow:0 1px 4px rgba(0,0,0,.22);font-weight:800;font-size:.74rem;padding:5px 9px;white-space:nowrap}
+.g3-cls i{width:8px;height:8px;border-radius:50%;background:#22b05f;box-shadow:0 0 0 2px rgba(34,176,95,.25)}
+.g3-cls:not(.on){background:rgba(255,255,255,.88);color:#6b5a48}.g3-cls:not(.on) i{background:#b8a98f;box-shadow:none}
+/* the verse box reaches down to the player; text sits in the space */
+.rpsheet.g4 .g3-card{flex:1 0 auto;display:flex;flex-direction:column}
+.rpsheet.g4 .g3-card>.rpverse,.rpsheet.g4 .g3-card>.hidw,.rpsheet.g4 .g3-card>.hidw>.rpverse{flex:1 1 auto;display:flex;flex-direction:column}
+.rpsheet.g4 .rpverse>:is(.sa,.te,.enb,.prb){flex:1 1 auto;display:flex;flex-direction:column;justify-content:center}
+.rpsheet.g4 .g2-sp{flex:0 0 92px}
+/* box design: soft gold frame with corner flourishes */
+.rpsheet.g3 .g3-card:not(.g4-book){position:relative;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2030%2030%22%3E%3Cpath%20d%3D%22M3%2027V9a6%206%200%200%201%206-6h18%22%20fill%3D%22none%22%20stroke%3D%22%23d6ad5c%22%20stroke-width%3D%221.4%22/%3E%3Cpath%20d%3D%22M7%2027V13a6%206%200%200%201%206-6h14%22%20fill%3D%22none%22%20stroke%3D%22%23e8cf95%22%20stroke-width%3D%221%22/%3E%3Ccircle%20cx%3D%229%22%20cy%3D%229%22%20r%3D%222.4%22%20fill%3D%22%23e0a53a%22/%3E%3C/svg%3E") 4px 4px/24px no-repeat,url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2030%2030%22%3E%3Cpath%20d%3D%22M27%2027V9a6%206%200%200%200-6-6H3%22%20fill%3D%22none%22%20stroke%3D%22%23d6ad5c%22%20stroke-width%3D%221.4%22/%3E%3Cpath%20d%3D%22M23%2027V13a6%206%200%200%200-6-6H3%22%20fill%3D%22none%22%20stroke%3D%22%23e8cf95%22%20stroke-width%3D%221%22/%3E%3Ccircle%20cx%3D%2221%22%20cy%3D%229%22%20r%3D%222.4%22%20fill%3D%22%23e0a53a%22/%3E%3C/svg%3E") calc(100% - 4px) 4px/24px no-repeat,#fffdf7;border:1.5px solid #e2c88e;box-shadow:inset 0 0 0 4px #fffdf7,inset 0 0 0 5px #f1e2bd,0 4px 14px rgba(120,90,30,.08)}
+.rpsheet.g3.g3-gemm .g3-card{border:2px solid #7a1f2b}.rpsheet.g3.g3-par .g3-card{border:2px solid #f3d978}
+/* headings hug their text */
+.rpsheet.g3 .rpverse :is(.sa,.te,.enb,.prb)::before{align-self:flex-start}
+.rpsheet.g3.g3-lotus .rpverse :is(.sa,.te,.enb,.prb)::before{align-self:center}
+.rpsheet.g4,.rpsheet.tipsh.g3{padding-left:12px;padding-right:12px}
+.rpsheet.g3 .g3-card{padding-left:10px!important;padding-right:10px!important}
+/* left aligned (all test styles except the Lotus picture design) */
+.rpsheet.g3:not(.g3-lotus) .rpverse,.rpsheet.g3:not(.g3-lotus) .rpverse .ln .pd{text-align:left!important}
+.rpsheet.g3:not(.g3-lotus) .rpverse :is(.sa,.te,.enb,.prb){align-items:stretch}
+/* headings: bold, coloured, a little bigger; vedic divider between the two parts */
+.rpsheet.g3 .rpverse :is(.sa,.te,.enb):has(+.prb)::before,.rpsheet.g3 .rpverse.dfirst .prb+:is(.sa,.te,.enb)::before{display:table;font:800 .8rem/1.2 "Atkinson Hyperlegible",system-ui,sans-serif;letter-spacing:.06em;color:#8a4b0c;background:linear-gradient(180deg,#fff4d8,#ffe6ae);border:1px solid #e9c77c;border-radius:10px;padding:3px 10px 3px 8px;margin:4px 0 6px}
+.rpsheet.g3 .rpverse :is(.prb.big2,:is(.sa,.te,.enb)+.prb,.dfirst>.prb)::before{display:table;font:800 .82rem/1.2 "Atkinson Hyperlegible",system-ui,sans-serif;letter-spacing:.06em;color:#fff;background:var(--acc,#0f6b66);border-radius:10px;padding:4px 11px 4px 9px;margin:0 0 6px;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.rpsheet.g3 .rpverse :is(.sa,.te,.enb)+.prb{margin-top:6px;padding-top:24px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20300%2020%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23c9963a%22%20stroke-width%3D%221.2%22%3E%3Cpath%20d%3D%22M6%2010H118M182%2010H294%22/%3E%3Cpath%20d%3D%22M118%2010l6-4%206%204-6%204z%22%20fill%3D%22%23e8b84f%22/%3E%3Cpath%20d%3D%22M182%2010l-6-4-6%204%206%204z%22%20fill%3D%22%23e8b84f%22/%3E%3C/g%3E%3Ccircle%20cx%3D%22138%22%20cy%3D%2210%22%20r%3D%221.8%22%20fill%3D%22%23c9963a%22/%3E%3Ccircle%20cx%3D%22162%22%20cy%3D%2210%22%20r%3D%221.8%22%20fill%3D%22%23c9963a%22/%3E%3Cg%20transform%3D%22translate%28150%2015%29%22%3E%3Cpath%20d%3D%22M0%200C-4-4-4-10%200-14%204-10%204-4%200%200z%22%20fill%3D%22%23f2a6a0%22%20stroke%3D%22%23c0533a%22%20stroke-width%3D%22.8%22/%3E%3Cpath%20d%3D%22M0%200C-7-2-10-7-9-11-4-10-1-6%200%200z%22%20fill%3D%22%23f6c0b4%22%20stroke%3D%22%23c0533a%22%20stroke-width%3D%22.8%22/%3E%3Cpath%20d%3D%22M0%200C7-2%2010-7%209-11%204-10%201-6%200%200z%22%20fill%3D%22%23f6c0b4%22%20stroke%3D%22%23c0533a%22%20stroke-width%3D%22.8%22/%3E%3C/g%3E%3C/svg%3E") 50% 2px/92% 20px no-repeat}
+.rpsheet.g3.g3-lotus .rpverse :is(.prb.big2,:is(.sa,.te,.enb)+.prb,.dfirst>.prb)::before,.rpsheet.g3.g3-lotus .rpverse :is(.sa,.te,.enb):has(+.prb)::before{display:none}
+/* sizes: script clear but smaller than read aloud */
+.rpsheet.g3.g4 .rpverse.rpverse.shboth :is(.sa,.te) .ln .pd{font-size:min(1.42rem,6vw);line-height:1.38;white-space:nowrap}
+.rpsheet.g3.g4 .rpverse.rpverse.shboth .enb .ln .pd{font-size:min(1.12rem,4.8vw);white-space:nowrap}
+.rpsheet.g3.g4 .rpverse.rpverse.s0 :is(.sa,.te,.enb) .ln.l2 .pd,.rpsheet.g3.g4 .rpverse.rpverse.s1 :is(.sa,.te,.enb) .ln.l1 .pd{font-size:1.02rem;opacity:.5}
+.rpsheet.g3 .rpverse.rpverse .prb .ln .pd{white-space:nowrap}
+.rpsheet.g3 .rpverse.rpverse .prb.wrp .ln .pd{white-space:normal}
+/* tip screen: script small, read aloud big, buttons always visible */
+.rpsheet.tipsh.g3 .g3-tpic{height:96px;margin:-4px -16px -4px}
+.rpsheet.tipsh.g3 .g3-card{margin-top:2px;padding:2px 10px 8px}
+.rpsheet.tipsh.g3 .g3-card .rpverse.rpverse :is(.sa,.te) .ln .pd{font-size:min(1.15rem,4.9vw);line-height:1.35}
+.rpsheet.tipsh.g3 .g3-card .rpverse.rpverse .enb .ln .pd{font-size:min(1rem,4.3vw)}
+.rpsheet.tipsh.g3 .g3-card .rpverse.rpverse .prb .ln .pd{font-size:min(1.5rem,6.4vw);line-height:1.3}
+.rpsheet.tipsh.g3 .tipc3{padding:8px 12px}.rpsheet.tipsh.g3 .tipsp{flex:0 0 96px}
+/* recording screen in the same look */
+.rpsheet.recg{gap:8px}.g4-rec{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px;border-radius:16px;background:#fff1ee;border:1.5px solid #f1c3b8;color:#8a2a1a}.g4-rec b{font-size:1.05rem}.g4-rec small{color:#7a5a52}
+.rpsheet.recg .g3-card{flex:1 1 auto}.rpsheet.recg .btn.rec{margin-top:4px}
+.rpsheet.recg .rpverse.rpverse :is(.sa,.te) .ln .pd{font-size:min(1.42rem,6vw);white-space:nowrap}
+.rpsheet.recg .rpverse.rpverse .prb .ln .pd{font-size:min(1.75rem,7.4vw);line-height:1.3}
+/* meaning sheet: names one by one at the top when opened from Names */
+.mnms{margin:6px 0 10px;padding:8px 10px;border-radius:14px;background:#fff8e6;border:1px solid #f0dca8}.mnmh{font-weight:800;color:#8a4b0c;margin-bottom:4px}
+/* Guru picture: steps live in the strip, so the verse box sits higher */
+.rpsheet.g3-pic .g3-pic2{height:104px}
+/* Japa mala: kumkum-red beads, gold meru, sandal disc, clear labels; never covers the text */
+.g3-mala .g4-mr .g4-mb{fill:url(#trg4-mr)}.g3-mala .g4-mr .g4-mb.on{fill:url(#tgg4-mr);filter:drop-shadow(0 0 2px #ffd76a)}.g3-mala .g4-ms .g4-mb{fill:url(#trg4-ms);opacity:.7}.g3-mala .g4-ms .g4-mb.on{fill:url(#tgg4-ms);opacity:1}
+.g3-mala .g4-mring{width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,#fffaf0 0 54%,#fbe9c6 55% 66%,transparent 67%)}
+.g3-mala .g4-mring>svg{width:240px;height:240px}
+.g3-mala .g4-mb4 button{gap:3px}
+.g3-mala .g4-mb4:not(.c) button{width:74px;background:#fffdf7;border:1.5px solid #e6c98f;border-radius:14px;padding:4px 2px 4px;box-shadow:0 2px 6px rgba(120,60,10,.18);color:#4a2a10;text-shadow:none;font-size:.64rem}
+.g3-mala .g4-mb4:not(.c) button span{width:26px;height:26px;border:0;background:#fff3dc;color:#a0331f;font-size:.95rem}
+.g3-mala .g4-mb4.c button span{background:radial-gradient(circle at 40% 35%,#c94a2a,#8e2418);box-shadow:0 0 0 3px #f2c86a,0 0 0 5px #fff3d6,0 5px 14px rgba(0,0,0,.25)}
+.g3-mala .g4-mb4.t{top:22px}.g3-mala .g4-mb4.b{bottom:20px}.g3-mala .g4-mb4.l{left:6px}.g3-mala .g4-mb4.r{right:6px}
+.rpsheet.g4.g3-mala .g2-sp{flex:0 0 250px}
+html[data-sty=mala]{--acc:#9c2f1c!important;--soft:#fbe7dc!important}
+.rpsheet.g3-mala .g3-st{background:linear-gradient(135deg,#9c2f1c,#7a2012)}
+.g2-dock.g4-mdock{background:linear-gradient(180deg,rgba(255,253,247,0),rgba(255,253,247,.97) 18%)!important}
+/* Picture behind: small, soft, at the top only; the verse box stays clean */
+.rpsheet.g3-bgp::before{background:url(art/g2-top.jpg) 50% 0/100% auto no-repeat;opacity:.38;bottom:auto;height:260px;-webkit-mask-image:linear-gradient(180deg,#000 40%,transparent);mask-image:linear-gradient(180deg,#000 40%,transparent)}
+.rpsheet.g3-bgp .g3-card{background-color:rgba(255,253,247,.96)!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+/* Guru beside verse: bigger faces, gold ring, sound waves while the guru chants */
+.g4-sav{left:-34px;width:62px}.g4-sav img{width:60px;height:60px;box-shadow:0 0 0 3px #e0b04a,0 4px 10px rgba(0,0,0,.2)}
+.g4-side.sy .g4-sav img{box-shadow:0 0 0 3px #e3661a,0 4px 10px rgba(0,0,0,.2)}
+.g4-sav img.pr{width:64px;height:44px;border-radius:12px}.g4-side.tg .g4-sav{top:38px}
+.g4-wv{display:flex;gap:2px;align-items:flex-end;height:12px;margin-top:3px}.g4-wv i{width:3px;background:var(--acc);border-radius:2px;animation:g4wv .9s ease-in-out infinite}.g4-wv i:nth-child(2){animation-delay:.2s}.g4-wv i:nth-child(3){animation-delay:.4s}
+@keyframes g4wv{0%,100%{height:3px}50%{height:12px}}
+.g4-side .rpverse{padding-left:26px}
+
+/* ===== b467: Lotus mandala rebuilt to the owner's Gemini picture ===== */
+.rpsheet.g3-lotus{gap:7px}
+.rpsheet.g3-lotus .g3-pic2{height:150px;margin:-2px -12px -14px;-webkit-mask-image:none;mask-image:none;border-bottom:3px solid #c9a35a}
+.rpsheet.g3-lotus .g3-pic2 img{object-position:50% 45%}
+.rpsheet.g3-lotus .g3-st{margin:0 -8px;min-height:66px;background:radial-gradient(ellipse at 50% 0,#1e4a66,#0f2d40 70%)!important;border:2px solid #c9a35a;border-radius:6px;box-shadow:inset 0 0 0 2px #0f2d40,inset 0 0 0 3px rgba(201,163,90,.55),0 6px 14px rgba(0,0,0,.25);padding:4px 30px 4px 26px;overflow:visible}
+.rpsheet.g3-lotus .g3-st .g3-tx b{font-size:1.02rem;color:#fff}.rpsheet.g3-lotus .g3-st.turn .g3-tx b{color:#ffd27a}
+.rpsheet.g3-lotus .g3-st .g3-tx small{color:#e9d6a6}
+.rpsheet.g3-lotus .g3-sb i{display:none}.rpsheet.g3-lotus .g3-sb em{margin-left:0;font-size:.78rem;color:#e9d6a6;opacity:1}
+.rpsheet.g3-lotus .g4-mt{flex:0 0 62px;width:62px;height:62px;margin:-8px 0;border-radius:50%;background:radial-gradient(circle,#0f2d40 0 58%,transparent 60%)}
+.rpsheet.g3-lotus .g4-mt b{font-size:1.4rem;padding-bottom:9px}.rpsheet.g3-lotus .g4-mt em{bottom:14px;font-size:.55rem}
+.rpsheet.g3-lotus .g4-ms .g4-mb{fill:#6b4a22;opacity:1}.rpsheet.g3-lotus .g4-ms .g4-mb.on{fill:url(#tgg4-ms);filter:drop-shadow(0 0 1.5px #ffd76a)}
+.rpsheet.g3-lotus .g3-cls,.rpsheet.g3-lotus .g3-cls.on{background:#123d2c;color:#8fe6b4;border:1px solid #2f8a5a;box-shadow:none;font-size:.7rem;padding:4px 9px}
+.rpsheet.g3-lotus .g3-cls:not(.on){background:#2a3440;color:#b8c2cc;border-color:#56606a}
+.g4-orn{font-size:1.05rem}.rpsheet.g3-lotus .g4-orn.l{left:3px}.rpsheet.g3-lotus .g4-orn.r{right:4px;color:#e6c07a}
+.rpsheet.g3-lotus>.rdsel{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:2px 0 0}
+.rpsheet.g3-lotus>.rdsel button{border:1.5px solid #d8bf8e!important;background:#fbf3e2!important;color:#6b4a20!important;border-radius:20px!important;min-height:34px;font-size:.88rem!important;padding:3px 4px!important}
+.rpsheet.g3-lotus>.rdsel button[aria-pressed=true]{background:#16374f!important;color:#fff!important;border-color:#16374f!important;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.rpsheet.g3 .g3-card.g4-book{flex:1 1 auto;display:flex;flex-direction:column;margin:2px 4px 0;background:linear-gradient(90deg,rgba(150,100,40,.18),transparent 6%,transparent 94%,rgba(150,100,40,.18)),linear-gradient(180deg,#f9eed4,#f2e0b8);border:1.5px solid #b98c4a;border-radius:6px;box-shadow:inset 0 0 0 5px #f9eed4,inset 0 0 0 6.5px #c0533a,inset 0 0 0 9px #f9eed4,inset 0 0 0 10px #d9b27a,0 6px 16px rgba(110,70,20,.18);padding:10px 16px 12px!important}
+.g3-card.g4-book::before,.g3-card.g4-book::after{top:40%;width:14px;height:30px;border:2.5px solid #b3261e;border-radius:50%}
+.g4-bkt{display:flex;align-items:center;justify-content:center;gap:6px;font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#7a5a2a;margin:0 0 4px}
+.rpsheet.g3-lotus .rpverse :is(.sa,.te,.enb) .ln .pd{font-weight:700;color:#2a1a0c}
+.rpsheet.g3.g3-lotus .rpverse :is(.sa,.te,.enb)+.prb{padding-top:44px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20300%2020%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23c0533a%22%20stroke-width%3D%221.1%22%3E%3Cpath%20d%3D%22M10%2010H112M188%2010H290%22/%3E%3Ccircle%20cx%3D%22118%22%20cy%3D%2210%22%20r%3D%222.2%22%20fill%3D%22%23c0533a%22/%3E%3Ccircle%20cx%3D%22182%22%20cy%3D%2210%22%20r%3D%222.2%22%20fill%3D%22%23c0533a%22/%3E%3Cpath%20d%3D%22M126%2010c4-6%2010-6%2012%200M174%2010c-4-6-10-6-12%200%22%20stroke%3D%22%23c9963a%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28150%2017%29%22%20stroke%3D%22%23c0533a%22%20stroke-width%3D%22.8%22%3E%3Cpath%20d%3D%22M0%200C-5-5-5-12%200-17%205-12%205-5%200%200z%22%20fill%3D%22%23f5a9a0%22/%3E%3Cpath%20d%3D%22M0%200C-8-2-12-8-11-13-5-12-1-7%200%200z%22%20fill%3D%22%23f8c4b8%22/%3E%3Cpath%20d%3D%22M0%200C8-2%2012-8%2011-13%205-12%201-7%200%200z%22%20fill%3D%22%23f8c4b8%22/%3E%3C/g%3E%3C/svg%3E") 50% 2px/86% 20px no-repeat}
+.rpsheet.g3.g3-lotus .rpverse :is(.sa,.te,.enb)+.prb::after{content:"\1F5E3  Read aloud";position:absolute;top:24px;left:0;right:0;text-align:center;font:700 .82rem/1.2 "Atkinson Hyperlegible",system-ui,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#8a5a14}
+.rpsheet.g3.g3-lotus .rpverse .prb{position:relative}
+.rpsheet.g3-lotus .rpverse .prb .wd{color:#1a1208;font-weight:700;text-decoration:none!important}
+.rpsheet.g3-lotus .rpverse .wd.now{background:linear-gradient(180deg,#fde3ae,#f9c978);border:2px solid #f0a030;border-radius:14px;padding:0 6px;color:#1a1208}
+.rpsheet.g3-lotus .rpverse .wd.heard{background:none}
+.rpsheet.g4.g3-lotus .g2-sp{flex:0 0 244px}
+.g4-lot{width:256px;height:256px;transform:none;margin-top:0}
+@media (max-height:800px){.g4-lot{transform:scale(.84);transform-origin:50% 100%}.rpsheet.g4.g3-lotus .g2-sp{flex-basis:206px}.rpsheet.g3-lotus .g3-pic2{height:118px}}
+.g4-lot .g4-mb4 button{width:66px;font-size:.62rem;font-weight:800;line-height:1.1}
+.g4-lot .g4-mb4 button span{width:24px;height:22px;font-size:1.15rem}
+.g4-lot .g4-mb4.t{top:38px}.g4-lot .g4-mb4.b{bottom:40px}.g4-lot .g4-mb4.l{left:26px}.g4-lot .g4-mb4.r{right:26px}
+.g4-lot .g4-mb4.b button{width:92px;color:#4a2400}.g4-lot .g4-mb4.t button{color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.4)}.g4-lot .g4-mb4.t button span{color:#fff}
+.g4-lot .g4-mb4.c button span{width:58px;height:58px;background:none!important;box-shadow:none!important;font-size:1.3rem}
+.rpsheet.g3-lotus .g4-mr .g4-mb{fill:#7a4a1e}.rpsheet.g3-lotus .g4-mr .g4-mb.on{fill:url(#tgg4-mr);filter:drop-shadow(0 0 2px #ffd76a)}
+.rpsheet.g3-lotus .g2-dock.g4-mdock{background:linear-gradient(180deg,rgba(250,243,228,0),rgba(250,243,228,.96) 14%)!important}
+
+.rpsheet.g3-lotus .g4-book .rpverse{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important}
+.rpsheet.g3-lotus .g3-pic2{height:112px}
+.rpsheet.g3-lotus .g3-st{padding-bottom:22px}
+.rpsheet.g3-lotus .g3-st .g3-cls{position:absolute;right:30px;bottom:4px}
+.rpsheet.g3-lotus .g3-sb{position:absolute;left:96px;bottom:6px;margin:0}
+.rpsheet.g3-lotus .g3-tx{align-self:flex-start;padding-top:6px}
+.g4-lot{transform:scale(.86);transform-origin:50% 100%}.rpsheet.g4.g3-lotus .g2-sp{flex:0 0 216px}
+@media (max-height:800px){.g4-lot{transform:scale(.76)}.rpsheet.g4.g3-lotus .g2-sp{flex-basis:192px}.rpsheet.g3-lotus .g3-pic2{height:92px}}
+
+.rpsheet.g3-lotus .g3-st.turn .g3-sb{display:none}
+.rpsheet.g3-lotus .g3-pic2{height:96px}
+.g4-lot{transform:scale(.8)}.rpsheet.g4.g3-lotus .g2-sp{flex:0 0 200px}
+.rpsheet.g3.g4.g3-lotus .rpverse.rpverse .prb .ln .pd{font-size:min(1.4rem,6vw)}
+.rpsheet.g3.g4.g3-lotus .rpverse.rpverse :is(.sa,.te) .ln .pd{font-size:min(1.3rem,5.5vw)}
+@media (max-height:800px){.g4-lot{transform:scale(.7)}.rpsheet.g4.g3-lotus .g2-sp{flex-basis:176px}.rpsheet.g3-lotus .g3-pic2{height:72px}}
+.rpsheet.g3-bgp::before{top:56px;opacity:.32}
+
+.rpsheet.g3-lotus .g3-pic2{height:84px}
+.g4-lot{transform:scale(.72)}.rpsheet.g4.g3-lotus .g2-sp{flex:0 0 182px}
+.rpsheet.g3.g4.g3-lotus .rpverse.rpverse .prb .ln .pd{font-size:min(1.3rem,5.6vw);line-height:1.25}
+.rpsheet.g3.g4.g3-lotus .rpverse.rpverse.s0 .prb .ln.l2 .pd,.rpsheet.g3.g4.g3-lotus .rpverse.rpverse.s1 .prb .ln.l1 .pd{font-size:1.05rem}
+.rpsheet.g3.g3-lotus .rpverse :is(.sa,.te,.enb)+.prb{padding-top:40px}
+.rpsheet.g3-lotus>.rdsel button{min-height:30px}
+@media (max-height:800px){.g4-lot{transform:scale(.64)}.rpsheet.g4.g3-lotus .g2-sp{flex-basis:162px}.rpsheet.g3-lotus .g3-pic2{height:64px}}
+.rpsheet.g3-lotus .g2-dock.g4-mdock{background:none!important}
+.mnms .wr{display:flex;gap:10px;padding:5px 0;border-top:1px solid rgba(0,0,0,.07);font-size:.92rem;line-height:1.35}.mnms .wr>:first-child{flex:0 0 40%;font-weight:700;overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -3618,10 +3775,9 @@ function svEndS(e,dl,sk){var st=svSt(),nm=S.wdnm==='v'?'svnV':'svnT',rv=dayDone(
   +'<div class="sv-emb s1"><svg class="sv-sd" viewBox="0 0 100 100" aria-hidden="true"><use href="#svshk"/></svg><svg class="sv-nm" viewBox="0 0 64 90" aria-hidden="true"><use href="#'+nm+'"/></svg><svg class="sv-sd" viewBox="0 0 100 100" aria-hidden="true"><use href="#svchak"/></svg></div>'
   +'<div class="sv-kk">Today’s kaiṅkaryam is complete</div><h1>Jai Śrīman Nārāyaṇa</h1><div class="sv-tl">జై శ్రీమన్నారాయణ · जय श्रीमन्नारायण</div>'
   +'<div class="svday">'+(dl.length?'<div class="svr"><span class="svl">✨ Learned</span>'+chip(dl,'l')+'</div>':'')+(rv.length?'<div class="svr"><span class="svl">🔁 Revised</span>'+chip(rv,'r')+'</div>':'')+'<div class="svsk">🪔 <b>'+sk+(sk===1?' day':' days')+'</b> in a row · '+S.learned.length+' of '+TOTAL+' verses</div></div>'
-  +svMang()
   +'<div class="sv-g">Thank your ācārya: <b>Asmad gurubhyo namaḥ</b> 🙏</div>'
-  +'<div class="sv-more"><button data-act="svshare">📤 Share the blessing</button></div>'
-  +'</div></div><button class="btn sf" data-act="enddone">🙏 Done for today</button>'+(e.more?bonusBtn('endmore'):'')+'</div>'}
+  +svMore()
+  +'</div></div><button class="btn sf" data-act="enddone">🙏 Done for today</button>'+(e.more?bonusBtn('endmore'):'')+svBless()+'</div>'}
 function svMang(){var d=window.SVMQ!=null?SVMQ:Math.floor(Date.now()/864e5)%2;
  if(d===0)return '<div class="sv-q"><div class="sv-qh">Tiruppallāṇḍu · maṅgaḷam</div><div class="sv-qs">పల్లాండు పల్లాండు పల్లాయిరత్తాండు పలకోటి నూఱాయిరం<br>మల్లాండ తిణ్ తోళ్ మణివణ్ణా ఉన్ సేవడి సెవ్వి తిరుక్కాప్పు</div><div class="sv-qi">pallāṇḍu pallāṇḍu pallāyirattāṇḍu palakōṭi nūṟāyiram · mallāṇḍa tiṇ tōḷ maṇivaṇṇā un sēvaḍi sevvi tirukkāppu</div><div class="sv-qe">May You live for years and years, for crores of hundred-thousands of years, O gem-coloured Lord with mighty shoulders. May Your lovely red feet be ever protected.</div><small>Periyāzhvār · Tiruppallāṇḍu 1</small></div>';
  return '<div class="sv-q"><div class="sv-qh">The charama ślokam</div><div class="sv-qs">सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज ।<br>अहं त्वा सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः ॥</div><div class="sv-qe">Leave all other means and take refuge in Me alone. I will free you from all sins; do not grieve.</div><small>Bhagavad Gītā 18.66</small></div>'}
@@ -5956,7 +6112,7 @@ function gMB2(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()
 var MSH=null,MSEEN=S.mseen=S.mseen||{};
 function mPills(){var it=LST[vi];if(!it)return '';var n=V[it.i].n;if(!M[n])return '';return '<div class="mprow"><button class="mpill" data-act="mopen" data-v="m">\ud83d\udcd6 Meaning'+(!it.r&&!MSEEN[n]?'<i class="mdot"></i>':'')+'</button>'+(BEN[n]?'<button class="mpill" data-act="mopen" data-v="b">'+BEN[n].ic+' Benefit</button>':'')+'</div>'}
 function nmS(x,l){if(l==='te')return '<span class="sk nmte">'+toTe(x[0])+'</span>';if(l==='en')return '<span class="sk nmen">'+String(x[1]||'').replace(/-/g,'')+'</span>';return '<span class="sk">'+x[0]+'</span>'}
-function mSheet(){if(!MSH)return '';var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]||0,l=cL()||'en';if(!m)return '';var ben=BEN[n]?'<div class="mcb">'+BEN[n].ic+' <b>Special benefit:</b> '+BEN[n].t[l]+'</div>':'';var w=(m.w||[]).map(function(x){return '<div class="wr">'+nmS(x,l)+'<span>'+x[2+k]+'</span></div>'}).join('');return '<div class="msheetbg" data-act="mclose"></div><div class="msheet'+(MSH.t&&Date.now()-MSH.t<600?' up':'')+'" role="dialog" aria-label="Meaning of verse '+n+'"><div class="mgrab"></div><div class="mhead"><b>\ud83d\udcd6 Verse '+n+'</b><button class="chip mshr" data-act="mchear" data-v="'+n+'">'+(MCSPK?'⏹ Stop':'▶ Hear it')+'</button><button class="chip" data-act="mclose">Close \u2715</button></div>'+chipsLang()+(MSH.m==='b'?ben:'')+'<div class="mct">'+mPic(n)+(m.v?m.v[k]:'')+'</div>'+(MSH.m==='b'?'':ben+gxBlock(n))+(w?'<details class="mcw"><summary>See each name \u203a</summary>'+w+'</details>':'')+'</div>'}
+function mSheet(){if(!MSH)return '';var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()]||0,l=cL()||'en';if(!m)return '';var ben=BEN[n]?'<div class="mcb">'+BEN[n].ic+' <b>Special benefit:</b> '+BEN[n].t[l]+'</div>':'';var w=(m.w||[]).map(function(x){return '<div class="wr">'+nmS(x,l)+'<span>'+x[2+k]+'</span></div>'}).join('');return '<div class="msheetbg" data-act="mclose"></div><div class="msheet'+(MSH.t&&Date.now()-MSH.t<600?' up':'')+'" role="dialog" aria-label="Meaning of verse '+n+'"><div class="mgrab"></div><div class="mhead"><b>\ud83d\udcd6 Verse '+n+'</b><button class="chip mshr" data-act="mchear" data-v="'+n+'">'+(MCSPK?'⏹ Stop':'▶ Hear it')+'</button><button class="chip" data-act="mclose">Close \u2715</button></div>'+chipsLang()+(MSH.m==='b'?ben:'')+(MSH.m==='n'&&w?'<div class="mnms"><div class="mnmh">Names one by one</div>'+w+'</div>':'')+'<div class="mct">'+mPic(n)+(m.v?m.v[k]:'')+'</div>'+(MSH.m==='b'?'':ben+gxBlock(n))+(w&&MSH.m!=='n'?'<details class="mcw"><summary>See each name \u203a</summary>'+w+'</details>':'')+'</div>'}
 function moreBox(lite){var it=LST[vi];if(!it)return '';var n=V[it.i].n,t='';if(M[n]&&lite!==2&&lite!==3)t+='<button class="mtile" data-act="mopen" data-v="m"><span>\ud83d\udcd6</span>Meaning'+(!it.r&&!MSEEN[n]?'<i class="mdot"></i>':'')+'</button>';if(BEN[n])t+='<button class="mtile" data-act="mopen" data-v="b"><span>'+BEN[n].ic+'</span>Benefit</button>';if(!lite||lite===3)t+='<button class="mtile" data-act="omw"><span>\ud83d\udd01</span>Whole verse again</button>';if((!lite||lite===3)&&CUTS[RP.n]>0)t+='<button class="mtile" data-act="oml"><span>\ud83e\ude9c</span>Line by line again</button>';if((!lite||lite===3)&&CUTS[RP.n]>0&&PADA[RP.n])t+='<button class="mtile" data-act="omp"><span>\ud83e\udde9</span>Small pieces (p\u0101da)</button>';return t?'<div class="dbox"><div class="dbh">More</div><div class="mtiles">'+t+'</div></div>':''}
 function doneVerse(){return '<details class="dv"><summary>\ud83d\udc41 Show verse</summary>'+sheetVerse().split(' hid" data-act="peek').join('')+'</details>'}
 function rpNav(){var bk=GS.on&&vi>0,nx=GS.on&&LST[vi]&&LST[vi].r&&!RP.recap;if(!bk&&!nx)return '';return '<div class="rpnav">'+(bk?'<button class="navp" data-act="rpback">\u2039 Previous verse</button>':'<span></span>')+(nx?'<button class="navp" data-act="rpnextv">Next verse \u203a</button>':'<span></span>')+'</div>'}
@@ -6367,10 +6523,16 @@ function wordsHTML(s,l,idx){var ws=s.split(' ').filter(Boolean),last=-1;for(var 
 function pdTxt(h){return String(h).replace(/<[^>]*>/g,'').replace(/&[a-z]+;/g,' ').length}
 function pdS(h){var tk=String(h).split(/ (?![^<]*>)/).filter(function(x){return x!==''});if(tk.length<2)return '<span class="pd">'+h+'</span>';var L=tk.map(pdTxt),tot=L.reduce(function(a,b){return a+b},0),best=1,bd=1e9,acc=0;for(var k=1;k<tk.length;k++){acc+=L[k-1];var d=Math.abs(acc-(tot-acc));if(d<bd){bd=d;best=k}}return '<span class="pd">'+tk.slice(0,best).join(' ')+'</span><span class="pd">'+tk.slice(best).join(' ')+'</span>'}
 function pdD(h,n,L){var p=PADA&&PADA[n]&&PADA[n].w?PADA[n].w[L]:null;if(p==null){var c=(String(h).match(/<span class="wd/g)||[]).length;if(c<2)return '<span class="pd">'+h+'</span>';p=Math.round(c/2)}var re=new RegExp('<span class="wd[^"]*" data-l="'+L+'" data-w="'+p+'">'),m=re.exec(h);if(!m)return pdS(h);var i=m.index,lw='<span class="lendw">';if(h.slice(Math.max(0,i-lw.length),i)===lw)i-=lw.length;return '<span class="pd">'+h.slice(0,i).replace(/\s+$/,'')+'</span><span class="pd">'+h.slice(i)+'</span>'}
-function pdFit(){document.querySelectorAll('.rpverse .pd').forEach(function(e){e.style.fontSize='';var w=e.clientWidth;if(!w)return;var sw=e.scrollWidth;if(sw>w+1){var fs=parseFloat(getComputedStyle(e).fontSize)||16;e.style.fontSize=Math.max(fs*0.62,fs*w/sw*0.97).toFixed(1)+'px'}})}
+function pdFit(){document.querySelectorAll('.rpverse .pd').forEach(function(e){e.style.fontSize='';var w=e.clientWidth;if(!w)return;var sw=e.scrollWidth;if(sw>w+1){var fs=parseFloat(getComputedStyle(e).fontSize)||16;e.style.fontSize=Math.max(fs*0.62,fs*w/sw*0.97).toFixed(1)+'px'}});try{g4Fit()}catch(e){}}
+/* b467: test styles. Each read-aloud row on ONE line, all rows the same size (shrinks a little to fit, owner 24 Nov); only if it would get too small, the row wraps at a word. Same for the script rows. */
+function g4Fit(){document.querySelectorAll('.rpsheet.g3 .rpverse').forEach(function(rv){var fd=rv.classList.contains('s0')?'l2':rv.classList.contains('s1')?'l1':'';
+ [['.prb',.6],['.sa',.7],['.te',.7],['.enb',.7]].forEach(function(q){var b=rv.querySelector(q[0]);if(!b)return;b.classList.remove('wrp');var ps=[].slice.call(b.querySelectorAll('.ln'+(fd?':not(.'+fd+')':'')+' .pd'));if(!ps.length)return;
+  ps.forEach(function(e){e.style.fontSize=''});var base=parseFloat(getComputedStyle(ps[0]).fontSize)||20,r=1;
+  ps.forEach(function(e){var w=e.clientWidth,sw=e.scrollWidth;if(w&&sw>w+1)r=Math.min(r,w/sw*0.97)});
+  if(r<q[1]&&q[0]==='.prb'){b.classList.add('wrp');ps.forEach(function(e){e.style.fontSize=(base*0.86).toFixed(1)+'px'})}else if(r<1)ps.forEach(function(e){e.style.fontSize=(base*Math.max(r,q[1])).toFixed(1)+'px'})})})}
 window.addEventListener('resize',function(){try{pdFit()}catch(e){}});try{document.fonts.addEventListener('loadingdone',function(){try{pdFit();vFit()}catch(e){}})}catch(e){}
 function sheetVerse(){var it=LST[vi],v=V[it.i],mn=S.main||'sa',hc=hideNow(it)?' hid" data-act="peek':'',sg=(RP.on&&RP.seg!==undefined&&RP.steps&&RP.steps[0]!==2)?' s'+segL(RP.seg):(RP.on&&RP.steps&&RP.steps[0]===2?' s2':'');var pf=padaFade(v.n);var vA='<div class="'+(mn==='te'?'te':mn==='en'?'enb':'sa')+hc+'"><div class="ln l1">'+pdS(ndn(v[mn][0]))+'</div><div class="ln l2">'+pdS(ndn(v[mn][1]))+'</div></div>',vB='<div class="prb big2'+hc+'"><div class="ln l1">'+pdD((/[|।]\s*$/.test(dP(v)[0])?pf(wordsHTML(dP(v)[0],0,1),0):lendW(pf(wordsHTML(dP(v)[0],0,1),0),'|')),v.n,0)+'</div><div class="ln l2">'+pdD((/[|॥।]\s*$/.test(dP(v)[1])?pf(wordsHTML(dP(v)[1],1,1),1):lendW(pf(wordsHTML(dP(v)[1],1,1),1),'||')),v.n,1)+'</div></div>';var sh=S.prshow||'both';if(sh!=='scr'&&sh!=='dash')sh='both';if(sh==='scr'&&it&&!it.r&&it.rt!=='recap')sh='both';return '<div class="rpverse'+sg+(dFirst()?' dfirst':'')+' sh'+sh+'">'+rdChips()+(sh==='scr'?vA:sh==='dash'?vB:dFirst()?vB+vA:vA+vB)+'</div>'}
-function recSheet(){return '<div class="rpsheet">'+gvHead()+'<div class="rpph rec"><span class="reddot"></span> '+(RECPEND&&!recActive?'Getting the microphone ready…':'Recording <b id="rtime">0:00</b>')+'</div><div class="mute" style="text-align:center;margin-top:-4px">Say the verse, then tap Stop when you finish'+(isFinite(rpA.duration)&&rpA.duration>0?' \u00b7 about '+Math.round(rpA.duration)+'s':'')+'</div>'+sheetVerse()+'<button class="btn rec" data-act="rec">Stop recording</button></div>'}
+function recSheet(){var L=gLay();if(L&&LST[vi])return '<div class="rpsheet g2 g3 g4 g3-'+L+' recg">'+g4Head('Verse '+V[LST[vi].i].n,'Record your take',0,'rec')+'<div class="g4-rec"><span class="reddot"></span><b>'+(RECPEND&&!recActive?'Getting the microphone ready…':'Recording <span id="rtime">0:00</span>')+'</b><small>Say the verse, then tap Stop</small></div><div class="g3-card'+(L==='lotus'?' g4-book':'')+'">'+sheetVerse()+'</div><button class="btn rec" data-act="rec">⏹ Stop recording</button></div>';return '<div class="rpsheet">'+gvHead()+'<div class="rpph rec"><span class="reddot"></span> '+(RECPEND&&!recActive?'Getting the microphone ready…':'Recording <b id="rtime">0:00</b>')+'</div><div class="mute" style="text-align:center;margin-top:-4px">Say the verse, then tap Stop when you finish'+(isFinite(rpA.duration)&&rpA.duration>0?' \u00b7 about '+Math.round(rpA.duration)+'s':'')+'</div>'+sheetVerse()+'<button class="btn rec" data-act="rec">Stop recording</button></div>'}
 var rpA=new Audio(),RP={on:false};
 rpA.addEventListener('playing',function(){if((rpA.src||'').indexOf('data:')===0)return;RP.pl=true;if(RP.on&&RP.blocked){RP.blocked=false;render()}});
 function rpCheck(){clearTimeout(RP.chk);RP.pl=false;RP.chk=setTimeout(function(){if(RP.on&&RP.phase==='listen'&&!RP.paused&&!RP.pl&&!RP.err){RP.blocked=true;render()}},4000)}
@@ -6447,7 +6609,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=466,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=467,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -6494,7 +6656,17 @@ function dvsSh(n){return DVS?'<div class="dmsh-bg" data-act="dvsclose"></div><di
    counts in the strip; the lesson path with counts; one warm centred card where the line you practise is big and the other line small; smaller player. Draft art in art/ (from the owner's mock-up; needs our own artwork). */
 /* b466: test styles redone (owner 24 Nov): one aligned header row, all controls on one row (Japa mala: round mala), read aloud big + script small, transparent smaller player, big timer; new styles Japa mala, Picture behind, Guru beside verse */
 function g4Head(t,sub,lv,ca){var c=S.gsty||'old',lb=(STYS.filter(function(x){return x[0]===c})[0]||['','Old'])[1],ic=/^[A-Za-z]/.test(lb)?lb:lb.split(' ')[0];
- return '<div class="g2-tb g4-tb"><button class="g2-x" data-act="'+(ca||'rpclose')+'" aria-label="Close">✕</button><div class="g2-t g4-t"><b>'+t+'</b>'+(sub?'<small>'+sub+'</small>':'')+'</div>'+(lv?lvlChip('g2l g4l'):'')+'<button class="g2-c g4-c" data-act="rdopen" aria-label="How to say this verse">🗣️</button><span class="g4-sw notr"><span>'+ic+' ▾</span><select aria-label="Practice style" onchange="S.gsty=this.value;sv();render()">'+STYS.map(function(x){return '<option value="'+x[0]+'"'+(c===x[0]?' selected':'')+'>'+x[1]+'</option>'}).join('')+'</select></span></div>'}
+ return '<div class="g2-tb g4-tb"><button class="g2-x" data-act="'+(ca||'rpclose')+'" aria-label="Close">✕</button><div class="g2-t g4-t"><b>'+t+'</b>'+(sub?'<small>'+sub+'</small>':'')+'</div>'+(lv?lvlChip('g2l g4l'):'')+'<span class="g4-ics"><button class="g4-ib" data-act="rdopen" aria-label="Reading tips: how to say this verse">📖<em>Tips</em></button><button class="g4-ib'+(g4MOk()?'':' dim')+'" data-act="g4mean" aria-label="Meaning">🪷<em>Meaning</em></button><button class="g4-ib" data-act="gset" aria-label="Settings">⚙️<em>Settings</em></button></span></div>'+gsetSh()}
+/* b467: meaning icon in the header. New verses: the meaning opens after recording (owner's rule from b457), so the icon only says so. */
+function g4MOk(){var it=LST[vi];if(!it||!V[it.i])return false;var n=V[it.i].n;return !!M[n]&&(!!it.r||it.rt==='recap'||!!MSEEN[n]||(RP&&RP.on&&(RP.phase==='done'||RP.phase==='saved')))}
+function g4Toast(t){try{var d=document.createElement('div');d.className='rdtoast g4toast';d.textContent=t;document.body.appendChild(d);setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d)},2600)}catch(e){}}
+/* b467: ⚙️ practice settings sheet: style, level, what to show, class chanting */
+var GSET=null;
+function gsetSh(){if(!GSET)return '';var c=S.gsty||'old',sh=S.prshow||'both';
+ var sty='<div class="gs-l">Practice style</div><div class="gs-sty">'+STYS.map(function(x){return '<button data-act="gsty" data-v="'+x[0]+'"'+(c===x[0]?' class="on"':'')+'>'+x[1]+'</button>'}).join('')+'</div>';
+ var shw='<div class="gs-l">While chanting, show</div><div class="gs-seg">'+[['both','Both'],['scr','Script only'],['dash','Read aloud only']].map(function(x){return '<button data-act="prshow" data-v="'+x[0]+'"'+(sh===x[0]?' class="on"':'')+'>'+x[1]+'</button>'}).join('')+'</div>';
+ var cl=TRK==='vsn'?'<div class="gs-l">Class chanting on your turn</div><div class="gs-seg"><button data-act="cls" data-v="1"'+(S.cls!=='0'?' class="on"':'')+'>👥 On</button><button data-act="cls" data-v="0"'+(S.cls==='0'?' class="on"':'')+'>Off</button></div>':'';
+ return '<div class="dmsh-bg" data-act="gset"></div><div class="dmsh gsetsh"><div class="hdl"></div><div class="dhh"><b>⚙️ Practice settings</b><button class="chip" data-act="gset">Done</button></div><div class="gs-l">Level</div><div class="gs-lv">'+lvlChip('gs-lvc')+'</div>'+shw+cl+sty+'</div>'}
 /* resume: remember the round when practice is closed or a new round starts, so Continue carries on from there (same day, same verse) */
 function rpSave(cl){try{if(!RP||!RP.on||!GS.on||RP.recap||RP.qk||!RP.steps||(RP.phase!=='listen'&&RP.phase!=='turn'&&RP.phase!=='tip'&&RP.phase!=='tipgap'))return;if(RP.round<=1){if(S.rpRes&&S.rpRes.n===RP.n){delete S.rpRes;sv()}return}var it=LST[vi]||{};S.rpRes={d:tdy(),n:RP.n,round:RP.round,steps:RP.steps,cut:RP.cut,togR:RP.togR||0,r:it.r?1:0};if(cl)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};sv()}catch(e){}}
 function gotNeed2(){return gNew()&&RP.on&&(RP.phase==='turn'||RP.phase==='listen')&&!RP.qk&&!RP.recap&&rpMore()>0&&!S.gotOK}
@@ -6506,15 +6678,18 @@ function g4T(){if(!gLay()||!RP.on||RP.phase!=='turn'||RP.paused)return;g4P(((RP.
 hlTick=(function(f){return function(){f();try{g4L()}catch(e){}}})(hlTick);
 rpTick=(function(f){return function(){f();try{g4T()}catch(e){}}})(rpTick);
 /* a ring of tulasi beads (svg); R radius, N beads, size W */
-function malaSvg(W,R,N,br,cls,meru){var c=W/2,h='<svg class="'+cls+'" viewBox="0 0 '+W+' '+W+'" width="'+W+'" height="'+W+'" aria-hidden="true"><defs><radialGradient id="tb'+cls+'" cx="35%" cy="32%" r="70%"><stop offset="0" stop-color="#d9b27a"/><stop offset=".55" stop-color="#8a5a2a"/><stop offset="1" stop-color="#4a2a0c"/></radialGradient><radialGradient id="tg'+cls+'" cx="35%" cy="32%" r="70%"><stop offset="0" stop-color="#fff4c2"/><stop offset=".5" stop-color="#f2b632"/><stop offset="1" stop-color="#a86a06"/></radialGradient></defs><circle cx="'+c+'" cy="'+c+'" r="'+R+'" fill="none" stroke="#8a5a2a" stroke-opacity=".45" stroke-width="1.2"/>';
+function malaSvg(W,R,N,br,cls,meru){var c=W/2,h='<svg class="'+cls+'" viewBox="0 0 '+W+' '+W+'" width="'+W+'" height="'+W+'" aria-hidden="true"><defs><radialGradient id="tb'+cls+'" cx="35%" cy="32%" r="70%"><stop offset="0" stop-color="#d9b27a"/><stop offset=".55" stop-color="#8a5a2a"/><stop offset="1" stop-color="#4a2a0c"/></radialGradient><radialGradient id="tg'+cls+'" cx="35%" cy="32%" r="70%"><stop offset="0" stop-color="#fff4c2"/><stop offset=".5" stop-color="#f2b632"/><stop offset="1" stop-color="#a86a06"/></radialGradient><radialGradient id="tr'+cls+'" cx="35%" cy="32%" r="70%"><stop offset="0" stop-color="#ff9c7a"/><stop offset=".5" stop-color="#c8361e"/><stop offset="1" stop-color="#6e140a"/></radialGradient></defs><circle cx="'+c+'" cy="'+c+'" r="'+R+'" fill="none" stroke="#8a5a2a" stroke-opacity=".45" stroke-width="1.2"/>';
  for(var k=0;k<N;k++){var a=-Math.PI/2+(k+0.5)*2*Math.PI/N,x=c+R*Math.cos(a),y=c+R*Math.sin(a);h+='<circle class="g4-mb" data-k="'+k+'" data-n="'+N+'" cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+br+'"/>'}
  if(meru)h+='<circle cx="'+c+'" cy="'+(c-R)+'" r="'+(br*1.45)+'" fill="url(#tg'+cls+')" stroke="#7a4a0a" stroke-width=".6"/>';return h+'</svg>'}
 /* b466: Lotus style (owner's Gemini picture 24 Nov): navy-gold strip with mala timer, manuscript page, lotus-petal controls inside a mala */
-function lotusSvg(){var W=232,c=W/2,P='M0,-26 C26,-36 34,-74 0,-96 C-34,-74 -26,-36 0,-26 Z',p2='M0,-30 C16,-40 20,-66 0,-80 C-20,-66 -16,-40 0,-30 Z',h='<svg class="g4-lsv" viewBox="0 0 '+W+' '+W+'" width="'+W+'" height="'+W+'" aria-hidden="true"><defs><radialGradient id="lgd" cx="50%" cy="50%" r="50%"><stop offset=".72" stop-color="#16374f"/><stop offset="1" stop-color="#0c2335"/></radialGradient><linearGradient id="lgo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6d58a"/><stop offset="1" stop-color="#b8862e"/></linearGradient></defs>';
- h+='<circle cx="'+c+'" cy="'+c+'" r="100" fill="url(#lgd)" stroke="url(#lgo)" stroke-width="5"/><circle cx="'+c+'" cy="'+c+'" r="92" fill="none" stroke="#c9a35a" stroke-width="1" stroke-dasharray="2 3"/><g transform="translate('+c+','+c+')">';
- [45,135,225,315].forEach(function(a){h+='<path d="'+p2+'" transform="rotate('+a+')" fill="#e9c77a" stroke="#8a5a14" stroke-width="1"/>'});
- [[0,'#e08a2c'],[90,'#8e2230'],[180,'#e0a83a'],[270,'#e06a1e']].forEach(function(x){h+='<path d="'+P+'" transform="rotate('+x[0]+')" fill="'+x[1]+'" stroke="#f3d38a" stroke-width="2"/>'});
- h+='<circle r="36" fill="#c9a35a"/></g>';return h+'</svg>'}
+function lotusSvg(){var W=232,c=W/2,BP='M0,-30 C24,-40 32,-78 0,-97 C-32,-78 -24,-40 0,-30 Z',FP='M0,-33 C30,-38 45,-68 24,-92 C14,-88 7,-97 0,-101 C-7,-97 -14,-88 -24,-92 C-45,-68 -30,-38 0,-33 Z',IL='M0,-40 C16,-46 26,-66 14,-84 M0,-40 C-16,-46 -26,-66 -14,-84';
+ var h='<svg class="g4-lsv" viewBox="0 0 '+W+' '+W+'" width="'+W+'" height="'+W+'" aria-hidden="true"><defs><radialGradient id="lnv" cx="50%" cy="50%" r="50%"><stop offset=".5" stop-color="#1c4561"/><stop offset="1" stop-color="#0b2233"/></radialGradient><linearGradient id="lgo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8e1a0"/><stop offset=".55" stop-color="#d9ab52"/><stop offset="1" stop-color="#9c6a1e"/></linearGradient><linearGradient id="lbp" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#c99636"/><stop offset="1" stop-color="#f7de9c"/></linearGradient>'
+ +[['lpt','#d9661c','#f7a64c'],['lpr','#6e1420','#b03044'],['lpb','#e08a12','#fbc63e'],['lpl','#d2561a','#f39a3a']].map(function(g){return '<linearGradient id="'+g[0]+'" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="'+g[1]+'"/><stop offset="1" stop-color="'+g[2]+'"/></linearGradient>'}).join('')
+ +'<radialGradient id="lgr" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#3aa06a"/><stop offset=".7" stop-color="#17603d"/><stop offset="1" stop-color="#0d4229"/></radialGradient></defs>';
+ h+='<circle cx="'+c+'" cy="'+c+'" r="114" fill="url(#lgo)" stroke="#7a4e12" stroke-width="1.2"/><circle cx="'+c+'" cy="'+c+'" r="108" fill="none" stroke="#fff2c4" stroke-width="1.6" stroke-dasharray="1.5 4.5"/><circle cx="'+c+'" cy="'+c+'" r="102" fill="url(#lnv)" stroke="#7a4e12" stroke-width="1.2"/><g transform="translate('+c+','+c+')">';
+ for(var k=0;k<8;k++)h+='<path d="'+BP+'" transform="rotate('+(22.5+45*k)+')" fill="url(#lbp)" stroke="#8a5a14" stroke-width="1"/>';
+ [[0,'lpt'],[90,'lpr'],[180,'lpb'],[270,'lpl']].forEach(function(x){h+='<g transform="rotate('+x[0]+')"><path d="'+FP+'" fill="url(#'+x[1]+')" stroke="#f6d58a" stroke-width="2.6"/><path d="'+IL+'" fill="none" stroke="rgba(255,236,190,.45)" stroke-width="1.2"/></g>'});
+ h+='<circle r="40" fill="url(#lgo)" stroke="#7a4e12" stroke-width="1"/><circle r="36.5" fill="none" stroke="#7a4e12" stroke-width="2.4" stroke-dasharray="1 2.2"/><circle r="32" fill="url(#lgr)" stroke="#0b3a24" stroke-width="1"/></g>';return h+'</svg>'}
 function rpMix(ph,it,n,st,sg,stc,tg,tot,idx,hide,head,rem,what){var L=gLay(),turn=ph==='turn'&&!RP.paused,pz=RP.paused;
  var big=RP.togin?'Now, all together':pz?'Paused':tg&&ph==='listen'?'Chant together':(ph==='listen'?'Listen · ':'Your turn · ')+what;
  var cnt=function(t){return tot>1&&!tg?t+' <b class="g3-n">'+idx+' of '+tot+'</b>':''};
@@ -6522,26 +6697,27 @@ function rpMix(ph,it,n,st,sg,stc,tg,tot,idx,hide,head,rem,what){var L=gLay(),tur
  if(RP.resumed===RP.round&&ph==='listen'&&!pz&&!tg)sub='↪ Carrying on where you stopped';
  if(RP.blocked&&ph==='listen'){big='Tap to continue';sub='No sound? Check Silent mode, volume and Bluetooth'}
  var segs=[];st.forEach(function(x){if(segs.indexOf(x)<0)segs.push(x)});var ci=segs.indexOf(sg);
- var cls=ph==='turn'&&TRK==='vsn'&&!RP.qk?'<button class="g3-cls'+(clsOn()?' on':'')+'" data-act="clstg" aria-pressed="'+clsOn()+'">👥 '+(clsOn()?'On':'Off')+'</button>':'';
+ var cls=ph==='turn'&&TRK==='vsn'&&!RP.qk?'<button class="g3-cls'+(clsOn()?' on':'')+'" data-act="clstg" aria-pressed="'+clsOn()+'"><i></i>'+(L==='lotus'?'Class chanting: ':'Class ')+(clsOn()?'On':'Off')+'</button>':'';
  var f0=ph==='turn'?Math.max(0,Math.min(1,((RP.end||0)-Date.now())/(RP.dur||1))):0;
  var ico=pz?'⏸':tg?'🙏':'🎧',num=turn?'<b id="rpcd" data-n="1">'+rem+'</b>':'<b class="g4-ico">'+ico+'</b>';
- var tmr=L==='mala'||L==='lotus'?'<span class="g4-mt'+(turn?' rg':'')+'">'+malaSvg(60,25,18,3.1,'g4-ms',1)+num+(L==='lotus'?'<em>'+(turn?'Timer':'Listen')+'</em>':'')+'</span>'
+ var tmr=L==='mala'||L==='lotus'?'<span class="g4-mt'+(turn?' rg':'')+'">'+malaSvg(60,26,20,3.2,'g4-ms',1)+num+(L==='lotus'?'<em>'+(turn?'Timer':'Listen')+'</em>':'')+'</span>'
   :'<span class="g4-tm'+(turn?' rg':'')+'"><i id="rpring" style="background:'+ringBg(f0*100)+'"></i>'+num+'</span>';
- var av=L==='mix'?'<span class="g3-av"><img src="art/'+(ph==='turn'?'sishya':'guru')+'-face.jpg" alt=""></span>':'';
- var segbar=(L==='gemm'||L==='mala'||L==='lotus')&&!RP.recap?'<span class="g3-sb">'+segs.map(function(x,i){return '<i class="'+(i<ci?'d':i===ci?'on':'')+'"></i>'}).join('')+'<em>'+(L==='mala'||L==='lotus'?(segN(sg)||'Whole verse')+' · ':'')+'step '+(ci+1)+' of '+segs.length+'</em></span>':'';
+ var av=L==='mix'?(tg&&ph==='listen'?'<span class="g3-av g3-pr"><img src="art/g2-pair.jpg" alt=""></span>':'<span class="g3-av"><img src="art/'+(ph==='turn'?'g2-sishya':'g2-guru')+'.jpg" alt=""></span>'):'';
+ var segbar=(L==='gemm'||L==='mala'||L==='lotus'||L==='pic')&&!RP.recap?'<span class="g3-sb">'+segs.map(function(x,i){return '<i class="'+(i<ci?'d':i===ci?'on':'')+'"></i>'}).join('')+'<em>'+(L==='mala'||L==='lotus'||L==='pic'?(segN(sg)||'Whole verse')+' · ':'')+'step '+(ci+1)+' of '+segs.length+'</em></span>':'';
  var dots=L==='gem'&&!RP.recap?'<span class="g3-dt">'+segs.map(function(x,i){return '<i class="'+(i<=ci?'on':'')+'"></i>'}).join('')+'</span>':'';
  var strip='<div class="g3-st g4-st '+(pz?'pz':ph)+'"'+(RP.blocked&&ph==='listen'?' data-act="rpplay" role="button"':'')+'>'+(L==='mix'?av:tmr)+'<span class="g3-tx"><b>'+big+'</b><small>'+sub+'</small>'+segbar+dots+'</span>'+cls+(L==='mix'?tmr:'')+(L==='lotus'?'<i class="g4-orn l">🐚</i><i class="g4-orn r">☸</i>':'')+'<div class="g3-bar"><i id="rpbar" style="width:'+(f0*100)+'%"></i></div></div>';
- var path=RP.recap||L==='gem'||L==='gemm'||L==='mala'||L==='lotus'?'':'<div class="g3-path">'+segs.map(function(x,i){var c=stc.filter(function(y){return y===x}).length;return '<span class="'+(i<ci?'d':i===ci?'on':'')+'">'+(i<ci?'✓ ':'')+(x===2?'Whole verse':segN(x))+' <i>×'+c+'</i></span>'}).join('<em>›</em>')+'</div>';
- var pic=L==='pic'||L==='gem'||L==='lotus'?'<div class="g3-pic2"><img src="art/guru-sishya-draft.jpg" alt="">'+(L==='pic'?'<span class="g3-glow" style="left:'+(ph==='turn'?'60%':'16%')+'"></span>':'')+'</div>':'';
+ var path=RP.recap||L==='gem'||L==='gemm'||L==='mala'||L==='lotus'||L==='pic'?'':'<div class="g3-path">'+segs.map(function(x,i){var c=stc.filter(function(y){return y===x}).length;return '<span class="'+(i<ci?'d':i===ci?'on':'')+'">'+(i<ci?'✓ ':'')+(x===2?'Whole verse':segN(x))+' <i>×'+c+'</i></span>'}).join('<em>›</em>')+'</div>';
+ var pic=L==='pic'||L==='gem'||L==='lotus'?'<div class="g3-pic2"><img src="art/g2-top.jpg" alt="">'+(L==='pic'?'<span class="g3-glow" style="left:'+(ph==='turn'?'60%':'16%')+'"></span>':'')+'</div>':'';
  var more=rpMore(),nv=GS.on&&it.r&&!RP.recap&&!LST.single,canBack=vi>0&&GS.on;
  var B=function(act,ic,lb,c,dis){return '<button class="'+(c||'')+'" data-act="'+act+'"'+(dis?' disabled':'')+'><span>'+ic+'</span>'+lb+'</button>'};
  var bHear=B('rpagain','↺','Hear again'),bBack=B('rpback','⏮','Last verse','',!canBack),bNext=B('rpnextv','→','Next verse'),bPlay=B('rppause',pz?'▶':'❚❚',pz?'Play':'Pause','p'),bSkip=ph==='turn'?B('rpturnok','✓','I’m done'):B('rpskip','⏭','Skip'),bGot=B('rpgot','⏩','I’ve got it','got',more<=0);
  var dock;
- if(L==='mala'||L==='lotus'){var bG2=L==='lotus'?B('rpgot','⏩',(RP.steps||[])[(RP.round||1)-1]===2?'Skip repeats':'Skip → whole verse','got',more<=0):bGot;dock='<div class="g2-dock g3-dock g4-dock g4-mdock"><div class="g4-mring'+(L==='lotus'?' g4-lot':'')+'">'+(L==='lotus'?malaSvg(256,121,46,5,'g4-mr',0)+lotusSvg():malaSvg(224,102,40,5,'g4-mr',0))+'<i class="g4-tas" aria-hidden="true"></i><div class="g4-mb4 t">'+(nv?bNext:bBack)+'</div><div class="g4-mb4 l">'+bHear+'</div><div class="g4-mb4 c">'+bPlay+'</div><div class="g4-mb4 r">'+bSkip+'</div><div class="g4-mb4 b">'+bG2+'</div></div></div>'}
+ if(L==='mala'||L==='lotus'){var bG2=L==='lotus'?B('rpgot','⏩',(RP.steps||[])[(RP.round||1)-1]===2?'Skip repeats':'Skip → whole verse','got',more<=0):bGot;dock='<div class="g2-dock g3-dock g4-dock g4-mdock"><div class="g4-mring'+(L==='lotus'?' g4-lot':'')+'">'+(L==='lotus'?malaSvg(256,122,48,5.2,'g4-mr',0)+lotusSvg():malaSvg(240,110,42,5.6,'g4-mr',0))+'<i class="g4-tas" aria-hidden="true"></i><div class="g4-mb4 t">'+(nv?bNext:bBack)+'</div><div class="g4-mb4 l">'+bHear+'</div><div class="g4-mb4 c">'+bPlay+'</div><div class="g4-mb4 r">'+bSkip+'</div><div class="g4-mb4 b">'+bG2+'</div></div></div>'}
  else dock='<div class="g2-dock g3-dock g4-dock"><div class="g3-b g4-b">'+bHear+(nv?'':bBack)+bPlay+bSkip+bGot+(nv?bNext:'')+'</div></div>';
  var verse=hide?'<div class="hidw">'+sheetVerse()+hidOv()+'</div>':sheetVerse();
  var dayb='<div class="g3-day"><i style="width:'+Math.round(vi/Math.max(1,LST.length)*100)+'%"></i></div>';
- var card=L==='lotus'?'<div class="g3-card g4-book"><div class="g4-bkt">📜 Vishnu Sahasranamam 🪷</div>'+verse+'</div>':L==='side'?'<div class="g3-card g4-side '+(ph==='turn'?'sy':'gy')+'"><span class="g4-sav"><img src="art/'+(ph==='turn'?'sishya':'guru')+'-face.jpg" alt=""><em>'+(ph==='turn'?'You':'Guru')+'</em></span>'+verse+'</div>':'<div class="g3-card">'+verse+'</div>';
+ var rdc=rdChips();if(L==='lotus')verse=verse.replace(rdc,'');
+ var card=L==='lotus'?rdc+'<div class="g3-card g4-book"><div class="g4-bkt"><span>📜</span> Holy scripture · Vishnu Sahasranamam <span>🪷</span></div>'+verse+'</div>':L==='side'?'<div class="g3-card g4-side '+(tg&&ph==='listen'?'tg':ph==='turn'?'sy':'gy')+'"><span class="g4-sav">'+(tg&&ph==='listen'?'<img class="pr" src="art/g2-pair.jpg" alt=""><em>Together</em>':'<img src="art/'+(ph==='turn'?'g2-sishya':'g2-guru')+'.jpg" alt=""><em>'+(ph==='turn'?'You':'Guru')+'</em>'+(ph==='listen'&&!pz?'<b class="g4-wv"><i></i><i></i><i></i></b>':''))+'</span>'+verse+'</div>':'<div class="g3-card">'+verse+'</div>';
  var body=L==='par'?'<div class="g3-card">'+strip+path+verse+'</div>':pic+strip+path+card;
  return '<div class="rpsheet g2 g3 g4 g3-'+L+({mix:1,pic:1,par:1,bgp:1,side:1,lotus:1}[L]?' g3c':'')+'">'+head+dayb+body+gotSheet()+'<div class="g2-sp"></div>'+dock+mSheet()+'</div>'}
 
@@ -6611,7 +6787,7 @@ function ringBg(p){return 'conic-gradient(#fff '+p.toFixed(1)+'%, rgba(255,255,2
 function tipSheet(){var n=RP.n,nw=gNew(),mx={mix:1,pic:1,gem:1}[S.gsty];/* b457: fits one screen; Start / I know it fixed at the bottom with a visible countdown */
  var head=nw?g4Head('Verse '+n,sessPos(),1):'<div class="gtop">'+gvHead()+'<button class="chip" data-act="rpclose">Close</button></div>';
  var cd=RP.tipAt?Math.max(0,Math.ceil((RP.tipAt-Date.now())/1000)):0;
- return '<div class="rpsheet g2 tipsh'+(gLay()?' g3 g3-'+gLay():'')+'">'+head+(mx?'<div class="g3-tpic"><img src="art/guru-sishya-draft.jpg" alt=""></div>':'')+tipCard(n)+sheetVerse()+'<div class="tipsp"></div><div class="g2-dock tipdk">'+(RP.phase==='tip'?'<div class="qkrow"><button class="btn tsb" data-act="tipgo">'+tipRing(cd)+'<span class="tst">Start the verse<small>'+(cd?'Starts by itself':'Learn with the guru')+'</small></span></button><button class="btn o qkb" data-act="qkgo">✓ I know it<small>Quick check · 1 min</small></button></div>':'<div class="tipcd">The guide starts now…</div>')+'</div></div>'}
+ return '<div class="rpsheet g2 tipsh'+(gLay()?' g3 g3-'+gLay():'')+'">'+head+(mx||S.gsty==='lotus'?'<div class="g3-tpic"><img src="art/g2-top.jpg" alt=""></div>':'')+tipCard(n)+(gLay()?'<div class="g3-card'+(S.gsty==='lotus'?' g4-book':'')+'">'+sheetVerse()+'</div>':sheetVerse())+'<div class="tipsp"></div><div class="g2-dock tipdk">'+(RP.phase==='tip'?'<div class="qkrow"><button class="btn tsb" data-act="tipgo">'+tipRing(cd)+'<span class="tst">Start the verse<small>'+(cd?'Starts by itself':'Learn with the guru')+'</small></span></button><button class="btn o qkb" data-act="qkgo">✓ I know it<small>Quick check · 1 min</small></button></div>':'<div class="tipcd">The guide starts now…</div>')+'</div></div>'}
 /* b456: Guru's tip as a short coloured card. Each sentence is one row; the dash words in it are pills. */
 function tipRows(t){return String(t||'').split(/\.\s+(?=[A-Z])/).map(function(x){return x.replace(/\.\s*$/,'')}).filter(Boolean).slice(0,3)}
 function tipPill(x){return x.replace(/\b([A-Z][a-z]*(?:-[a-z]+)+(?:\s+[A-Z][a-z]*(?:-[a-z]+)+)*)/g,'<b class="tpw">$1</b>')}
@@ -6949,7 +7125,7 @@ app.addEventListener('click',function(e){
  else if(a==='panel'){panel=panel===v?'':v;render()}
  else if(a==='rtadd'){var rl1=remList();rl1.push(rl1.length===1?'12:30':'19:30');S.rts=rl1;sv();render()}
  else if(a==='rtdel'){var rl2=remList();rl2.splice(+v,1);S.rts=rl2;S.rt=rl2[0];sv();render()}
- else if(a==='tmx'){clearTimeout(MSGT);MSGT=null;tmClose()}  else if(a==='vbg'){S.vbg=v;sv();render()}  else if(a==='gemt'){S.gem=v;sv();render(1)}  else if(a==='gsty'){S.gsty=v;sv();render()}  else if(a==='clstg'){S.cls=clsOn()?'0':'1';sv();if(RP&&RP.on&&RP.phase==='turn'){if(clsOn())clsPlay();else clsStop()}render()}  else if(a==='cls'){S.cls=v;sv();render()}
+ else if(a==='tmx'){clearTimeout(MSGT);MSGT=null;tmClose()}  else if(a==='vbg'){S.vbg=v;sv();render()}  else if(a==='gemt'){S.gem=v;sv();render(1)}  else if(a==='gsty'){S.gsty=v;sv();render()}  else if(a==='gset'){if(GSET){var gz=GSET.pz;GSET=null;if(gz&&RP.on&&RP.paused)rpPause();else render()}else{var gp=RP.on&&(RP.phase==='listen'||RP.phase==='turn')&&!RP.paused;GSET={pz:gp};if(gp)rpPause();else render()}}  else if(a==='g4mean'){if(g4MOk()){var gp2=RP.on&&(RP.phase==='listen'||RP.phase==='turn')&&!RP.paused;MSH={m:'m',pz:gp2,t:Date.now()};if(gp2)rpPause();else render()}else g4Toast('🪷 The meaning opens after you record this verse')}  else if(a==='clstg'){S.cls=clsOn()?'0':'1';sv();if(RP&&RP.on&&RP.phase==='turn'){if(clsOn())clsPlay();else clsStop()}render()}  else if(a==='cls'){S.cls=v;sv();render()}
  else if(a==='tdmore'){TDM=TDM?'':(v||'r');render()}
  else if(a==='satx'){S.satx=tdy()+'|'+v;sv();render()}
  else if(a==='sdo'){SDO=!SDO;if(!S.ribSeen){S.ribSeen=1;sv()}render()}
@@ -6970,9 +7146,9 @@ app.addEventListener('click',function(e){
  else if(a==='svbless'){SVBL=!SVBL;render()}
  else if(a==='fsx'){S.fsX=1;sv();render()}
  else if(a==='fsgo'){if(fsCan()){var d0=document.documentElement;try{(d0.requestFullscreen||d0.webkitRequestFullscreen).call(d0)}catch(e){}setTimeout(render,400)}else fsShow()}
- else if(a==='mchear'){var mn0=+v;MSEEN[mn0]=1;sv();if(MCSPK){try{speechSynthesis.cancel()}catch(e){}MCSPK=false}else mcSay(mn0);render()}
+ else if(a==='mchear'){var mn0=+v;MSEEN[mn0]=1;sv();if(MCSPK){try{speechSynthesis.cancel()}catch(e){}MCSPK=false}else{mcSay(mn0);if(!MSH)MSH={m:'m',t:Date.now()}}render()}
  else if(a==='mlang'){S.ml=v;sv();if(MCSPK){try{speechSynthesis.cancel()}catch(e){}MCSPK=false}render()}
- else if(a==='mcnames'){var mn1=+v;MCN=MCN===mn1?0:mn1;MSEEN[mn1]=1;sv();render()}
+ else if(a==='mcnames'){var mn1=+v;MCN=0;MSEEN[mn1]=1;sv();MSH={m:'n',t:Date.now()};render()}
  else if(a==='mcread'){MSEEN[+v]=1;sv();render()}
  else if(a==='mopen'){var pz=RP.on&&(RP.phase==='listen'||RP.phase==='turn')&&!RP.paused;MSH={m:v||'m',pz:pz,t:Date.now()};var it0=LST[vi];if(it0){MSEEN[V[it0.i].n]=1;sv()}if(pz)rpPause();else render()}
  else if(a==='mclose'){var rz=MSH&&MSH.pz;MSH=null;if(rz&&RP.on&&RP.paused)rpPause();else render()}
