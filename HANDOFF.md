@@ -748,3 +748,11 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Lotus: palm-leaf card like the owner's reference (red side ribbons, garland divider, 🪷 READ ALOUD). Controls: S.lctl 'row' (default, like the reference: cream dock with gold top and lotus, Last verse · Hear again · big green ▶/❚❚ · Skip/I'm done · I've got it) or 'dial' (owner's Gemini lotus picture art/lt-lotus.webp, live labels). Choice in Settings › How I practise › "Lotus mandala · buttons". Dial play button now shows ▶ or ❚❚ (was always "▶/II", so it looked like it did nothing).
 - Guru beside verse: face moved up beside the line path so it doesn't cover the ribbon.
 - Screens: docs/screens-nov24f/.
+
+## Build 473 (24 Nov 2026) — Guru Test only
+- Owner's 4 Gemini colour pictures saved: docs/gemini-lotus/colours/lotus-{navy,saffron,maroon,green}.jpg.
+- Lotus made like them: ornaments cut from the maroon picture with the cream keyed out (art/gm-div.webp lotus garland, gm-vine.webp side vines, gm-corner-{tl,tr,bl,br}.webp, gm-lotusic.webp, gm-dock.webp control frame with lotuses and tassels; buttons are live HTML on top). Strip: colour gradient + gold corner flourishes + round timer. Title row above the tabs. Colour S.lcol navy (default) / saffron / maroon / green / teal, in Settings › How I practise (Lotus only). Controls row: Last verse · Hear again · ▶/❚❚ · I'm done/Skip · I've got it.
+- Gemini lotus garland (gm-div) is now the divider between verse and read aloud in EVERY style.
+- Sizes (owner): verse 20 px, faded half 17 px, read aloud up to 28 px bold. Recording screen: normal sizes (18 / 20 px), all styles.
+- Guru beside verse: the face sits on the timer in the strip (g7-sw); floating face removed (it covered the line path).
+- Today's blessing backdrop is now a light see-through tint so the kaiṅkaryam screen stays visible behind.
