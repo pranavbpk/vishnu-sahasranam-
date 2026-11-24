@@ -782,3 +782,13 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Tip screen, every style: "👂 Listen for" is ONE line always (also while the tip is spoken), so the verse box never moves down. Tap the line: full tip opens as a small panel over the verse (RP.tipOpen; tipexp toggles); 🔈 on the same line. RP.tipMin no longer used by tipCard.
 - Start the verse: calm cream/gold button with brown text and a gold countdown ring (tipRingBg), every style (was dark blue; Lotus was the theme colour).
 - Screens: docs/screens-nov24j/.
+
+## Build 477 (25 Nov 2026) — Guru Test only. Owner's list after b476
+- No dark navy: Lotus --acc #16374f → calm teal #23806f (tabs, chips, Settings options, You tab, Next verse, step circle). Lotus default strip colour is now teal (Navy chip removed; saved 'navy' shows as Teal; Teal first in the list). Peacock made brighter. Lotus header title text maroon (was navy #1e3358).
+- Read aloud bigger, every style: raFit() runs at the end of pdFit (before g4Dock). If pdFit would shrink a read-aloud block below min(26px, 6.6vw) (faded half: min(19px, 4.8vw)), the rows keep that size and wrap at a word (.pd.raw, text-wrap:balance, words nowrap). Not on the recording screen / verse sheets.
+- Lotus: buttons follow the verse box (margin-top 6px, no longer pushed to the bottom) and are position:sticky bottom:0, so a tall box never hides them. Banner picture only when 100dvh > 880px.
+- Lotus title: Georgia, maroon with gold glow, gold lines + gold lotuses (gm-lotusic) either side, "VERSE 91 OF 108" in a gold pill underneath (slkLbl now wraps the text in em.g7-vn; other styles unchanged).
+- Side buttons coloured, every style that has them: Last verse / Next verse teal, I've got it gold (Lotus row + dial, g3-b row, Japa mala ring, New style g2-b). icSvg() draws ⏮ ⏭ ⏩ ⏸ ▶ (iPhone shows those as blue emoji tiles).
+- Record / after-record screen (.rpsheet.g2d), every style: guru & śiṣya picture (art/guru-sishya-draft.jpg) behind instead of Vishnu.
+- After recording: the meaning stays folded (.mfold "What it means · opens when you have heard yourself and the guru") while You ➜ Guru plays (incl. Hear again); opens when it ends or on Stop.
+- Screens: docs/screens-nov24k/.
