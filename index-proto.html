@@ -3949,6 +3949,45 @@ html[data-vbg]:has(.rpsheet.g2d) body::after,html[data-vbg]:has(.rpsheet.g2d) bo
 /* Meaning folded while you and the guru play */
 .mfold{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:linear-gradient(180deg,#fffaf0,#fbeed2);border:1.5px dashed #d8b26a;border-radius:14px;padding:10px 14px;margin:6px 0;color:#6a4a1a}
 .mfold span{font-size:1.1rem}.mfold b{font-size:.95rem}.mfold small{flex-basis:100%;font-size:.8rem;color:#8a6a3a;margin-left:28px}
+
+/* b478 (owner): Read aloud must fit on the screen. Title ribbon sits ON the top edge of the verse box (no gap above), every style, every screen */
+.rpsheet .g3-card,.rpsheet:not(.g3) .rpverse,.rpsheet.tipsh .g3-card.g3-card,.rpsheet.tipsh:not(.g3) .rpverse{margin-top:20px!important}
+.rpsheet .g3-card,.rpsheet:not(.g3) .rpverse{padding-top:20px!important}
+.rpsheet .g3-card .rpverse{margin-top:0!important;padding-top:0!important}
+.rpsheet .g7-lbl.g7-lbl{top:-15px!important;padding:3px 13px 3px 11px!important;font-size:min(.86rem,3.6vw)!important}
+/* Lotus: same place, its own look (cream, gold border, maroon serif, verse number in a gold pill) */
+.rpsheet.g3-lotus .g3-card.g4-book{margin-top:20px!important;padding-top:22px!important}
+.rpsheet.g3-lotus .g4-book .g7-lbl.g7-lbl{background:linear-gradient(180deg,#fffaf0,#f8ebcc)!important;border:1.5px solid #d8a64a!important;box-shadow:0 0 0 2px #fffaf0,0 2px 6px rgba(150,100,20,.2)!important;gap:6px;align-items:center}
+.rpsheet.g3-lotus .g4-book .g7-lbl b{font-family:Georgia,'Times New Roman',serif!important;color:var(--lc2,#8a1c26)!important;letter-spacing:.02em}
+.rpsheet.g3-lotus .g4-book .g7-lbl i{display:none!important}
+.rpsheet.g3-lotus .g4-book .g7-lbl span:not(.g7-lo){color:#8a5a14!important;font-size:.78em;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.rpsheet.g3-lotus .g4-book .g7-lbl span:not(.g7-lo){margin-left:6px}
+.rpsheet.g3-lotus .g4-book .g7-lbl .g7-vn{display:inline-block;background:linear-gradient(180deg,#fff8e4,#f3dca6);border:1px solid #d8a64a;border-radius:999px;padding:1px 8px}
+/* Lotus: Read aloud starts from the left, like every other style */
+.rpsheet.g3-lotus .rpverse .prb.prb,.rpsheet.g3-lotus .rpverse .prb .ln,.rpsheet.g3-lotus .rpverse .prb .pd{text-align:left!important;justify-content:flex-start!important;align-items:stretch!important}
+
+/* b478: fit steps (vsFit) */
+.rpsheet.vf1 .rpverse .prb.prb{padding-top:38px!important;background-size:min(150px,46%) auto!important}
+.rpsheet.vf1.g3-lotus .rpverse .prb.prb{padding-top:58px!important}
+.rpsheet.vf1.g3-lotus .rpverse .prb.prb::after{top:37px!important}
+.rpsheet.vf1 .g3-st,.rpsheet.vf1 .g2-st,.rpsheet.vf1 .rpph{margin-top:6px!important;margin-bottom:6px!important}
+.rpsheet.vf1 .rpverse>.sa .ln,.rpsheet.vf1 .rpverse>.te .ln,.rpsheet.vf1 .rpverse>.enb .ln{margin-top:3px!important;margin-bottom:3px!important}
+.rpsheet.vf2 .g3-pic2,.rpsheet.vf2 .g3-tpic,.rpsheet.vf2 .g2-top,.rpsheet.vf2 .lt-banner{display:none!important}
+.rpsheet.vf2 .g3-pic2+.g3-st{margin-top:6px!important}
+.rpsheet.vf3 .rpverse.rpverse.rpverse>:is(.sa,.te,.enb) .ln .pd{font-size:min(17px,4.4vw)!important}
+.rpsheet.vf3 .g2-dock .g2-day{display:none!important}
+.rpsheet.vf2.osc .rpnav{margin:0!important}.rpsheet.vf2.osc .rpph{margin-top:2px!important;margin-bottom:4px!important}.rpsheet.vf2.osc .rpbar{margin-bottom:-6px!important}
+/* b478: the end mark never draws over the last word */
+.rpsheet .rpverse .prb .lendw .wd{min-width:auto!important;overflow-wrap:normal!important}
+.rpsheet .rpverse .prb .lendw{max-width:none!important}
+.rpsheet .rpverse .prb .wd{white-space:nowrap!important}
+/* b478 (owner): Tap to record + its line readable over the picture, every style */
+.recbig>b,.recbig>small{display:inline-block!important;background:rgba(255,249,236,.95)!important;border:1.5px solid #e2c27a!important;border-radius:999px!important;box-shadow:0 2px 6px rgba(90,50,10,.12)}
+.recbig>b{color:#5a1a14!important;padding:3px 16px!important;margin-top:6px!important}
+.recbig>small{color:#8a1c26!important;font-weight:700!important;opacity:1!important;padding:4px 14px!important;margin-top:6px!important}
+/* b478: a very long Read aloud word breaks after a syllable dash; the end mark stays right after its last part */
+.rpsheet .rpverse .prb .wbr.wbr{display:inline-block!important;white-space:normal!important;max-width:100%!important}.rpsheet .rpverse .prb .wbr .wd{display:inline!important;white-space:normal!important}
+.rpsheet .rpverse .prb .wbr .lend{white-space:nowrap!important}
 </style>
 </head>
 <body>
@@ -4455,7 +4494,7 @@ function vidCard(){var t=HVT[hvL()];return HOWVID?'<div class="hv-vid"><video id
 /* b421: once, after setup, a small card on Today offers the guide video; gone after Watch or Not now */
 function hv1Card(){if(!HOWVID||!S.setupDone||S.vidSeen)return '';var t=HVT[hvL()];return '<div class="hv1"><span class="hv1i">🎬</span><div class="hv1t"><b>'+t[2]+'</b><small>'+t[3]+'</small></div><div class="hv1b"><button class="hv1w" data-act="hv1go">'+t[4]+'</button><button class="hv1x" data-act="hv1x">'+t[5]+'</button></div></div>'}
 /* b452: "How the app works" — the rules in plain words, for users (owner 21 Nov: keep one place that explains every rule and update it with each change). Same content as claude/app-rules.md in the project. RULESV = build these rules were last checked. English for now; Telugu/Hindi after guru review. */
-var APPRULESV='Build 472 · 24 Nov 2026';
+var APPRULESV='Build 478 · 25 Nov 2026';
 var APPRULES=[
 ['🌅','Your daily practice',[
  'One practice a day, about 10 minutes. Tap <b>Start today’s practice</b> on Today.',
@@ -4500,6 +4539,7 @@ var APPRULES=[
  'If you pass the quick check (✓ I know it), no recording is needed for that verse.',
  'After recording, your take plays, then the guru, so you can compare. The face of the one playing glows; ⏹ <b>Stop</b> stops it, ⏭ jumps to the guru. The meaning stays folded until they finish (or you tap Stop), then it opens.',
  'What to show while chanting (Verse + read-aloud, Verse only, Read-aloud only) changes straight away, also in the middle of a verse.',
+ 'Read aloud starts from the left in every style. The whole Read aloud fits on the screen where the phone allows (smaller gaps, the decoration picture hides first); nothing is cut, and the | / || mark never covers the last word. A very long word moves on to a second row.',
  'The meaning card has EN · తె · हि to switch language; it starts in the language you read the verse in. ▶ Hear it turns into ⏹ Stop while it speaks. Telugu and Hindi need a Telugu / Hindi voice on the phone (iPhone: Settings › Accessibility › Spoken Content › Voices).',
  'Recordings stay on this phone (You › My recordings).']],
 ['📖','Meaning',[
@@ -7155,12 +7195,19 @@ function pdTxt(h){return String(h).replace(/<[^>]*>/g,'').replace(/&[a-z]+;/g,' 
 function pdS(h){var tk=String(h).split(/ (?![^<]*>)/).filter(function(x){return x!==''});if(tk.length<2)return '<span class="pd">'+h+'</span>';var L=tk.map(pdTxt),tot=L.reduce(function(a,b){return a+b},0),best=1,bd=1e9,acc=0;for(var k=1;k<tk.length;k++){acc+=L[k-1];var d=Math.abs(acc-(tot-acc));if(d<bd){bd=d;best=k}}return '<span class="pd">'+tk.slice(0,best).join(' ')+'</span><span class="pd">'+tk.slice(best).join(' ')+'</span>'}
 function pdD(h,n,L){var p=PADA&&PADA[n]&&PADA[n].w?PADA[n].w[L]:null;if(p==null){var c=(String(h).match(/<span class="wd/g)||[]).length;if(c<2)return '<span class="pd">'+h+'</span>';p=Math.round(c/2)}var re=new RegExp('<span class="wd[^"]*" data-l="'+L+'" data-w="'+p+'">'),m=re.exec(h);if(!m)return pdS(h);var i=m.index,lw='<span class="lendw">';if(h.slice(Math.max(0,i-lw.length),i)===lw)i-=lw.length;return '<span class="pd">'+h.slice(0,i).replace(/\s+$/,'')+'</span><span class="pd">'+h.slice(i)+'</span>'}
 function pdFit(){/* b474: one size for all rows of a block (faded rows sized on their own), set as important so it beats the stylesheet sizes */document.querySelectorAll('.rpverse .pd').forEach(function(e){e.style.removeProperty('font-size');e.classList.remove('pdw');e.classList.remove('raw')});
- document.querySelectorAll('.rpverse').forEach(function(rv){var fd=rv.classList.contains('s0')?'l2':rv.classList.contains('s1')?'l1':'';[].forEach.call(rv.querySelectorAll('.sa,.te,.enb,.prb'),function(b){[false,true].forEach(function(fa){var ps=[].slice.call(b.querySelectorAll('.ln .pd')).filter(function(e){var l=e.closest('.ln');return !!(fd&&l&&l.classList.contains(fd))===fa});var r=1,ok=0;ps.forEach(function(e){var w=e.clientWidth,sw=e.scrollWidth;if(!w)return;ok=1;if(sw>w+1)r=Math.min(r,w/sw*0.97)});if(!ok||r>=1)return;ps.forEach(function(e){var fs=parseFloat(getComputedStyle(e).fontSize)||16;if(r<0.5){e.classList.add('pdw');e.style.setProperty('font-size',(fs*0.72).toFixed(1)+'px','important')}else e.style.setProperty('font-size',(fs*r).toFixed(1)+'px','important')})})})});try{g4Fit()}catch(e){}try{raFit()}catch(e){}try{g4Dock()}catch(e){}}
+ document.querySelectorAll('.rpverse').forEach(function(rv){var fd=rv.classList.contains('s0')?'l2':rv.classList.contains('s1')?'l1':'';[].forEach.call(rv.querySelectorAll('.sa,.te,.enb,.prb'),function(b){[false,true].forEach(function(fa){var ps=[].slice.call(b.querySelectorAll('.ln .pd')).filter(function(e){var l=e.closest('.ln');return !!(fd&&l&&l.classList.contains(fd))===fa});var r=1,ok=0;ps.forEach(function(e){var w=e.clientWidth,sw=e.scrollWidth;if(!w)return;ok=1;if(sw>w+1)r=Math.min(r,w/sw*0.97)});if(!ok||r>=1)return;ps.forEach(function(e){var fs=parseFloat(getComputedStyle(e).fontSize)||16;if(r<0.5){e.classList.add('pdw');e.style.setProperty('font-size',(fs*0.72).toFixed(1)+'px','important')}else e.style.setProperty('font-size',(fs*r).toFixed(1)+'px','important')})})})});try{g4Fit()}catch(e){}try{raFit()}catch(e){}try{vsFit()}catch(e){}try{g4Dock()}catch(e){}}
+/* b478 (owner): the whole Read aloud should be on the screen without scrolling, every style, every screen (practice, revision, play). If the last row would sit under the buttons, step by step: 1 smaller lotus divider and tighter gaps, 2 hide the decorative picture, 3 the verse script a little smaller. Read aloud size never changes. If it still doesn't fit, the existing auto-scroll keeps the chanted line in view. */
+function vsFit(){[].forEach.call(document.querySelectorAll('.rpsheet'),function(sh){sh.classList.remove('vf1','vf2','vf3');if(sh.classList.contains('recg')||sh.closest('.recg,.dvsh,.dmsh'))return;var pr=sh.querySelector('.rpverse .prb');if(!pr||!pr.offsetHeight)return;
+ function over(){var ls=pr.querySelectorAll('.ln'),l=ls[ls.length-1];if(!l)return 0;var lim=window.innerHeight;[].forEach.call(sh.querySelectorAll('.g2-dock .g3-b,.g2-dock .g4-b,.g2-dock .g2-b,.g2-dock .g2-day,.g2-dock .g4-mring,.g8-b'),function(x){var r=x.getBoundingClientRect();if(r.height)lim=Math.min(lim,r.top-(x.classList.contains('g8-b')?24:0))});return l.getBoundingClientRect().bottom+(sh.scrollTop||0)-(lim-8)}
+ ['vf1','vf2','vf3'].some(function(c){if(over()<=0)return true;sh.classList.add(c);return false})})}
 /* b477 (owner): Read aloud clearly bigger than the verse, every style. If a row would shrink below this size, it keeps the size and wraps at a word instead. */
 function raFit(){var vw=Math.min(window.innerWidth||400,520);document.querySelectorAll('.rpsheet .rpverse .prb').forEach(function(b){if(b.closest('.recg,.dvsh,.dmsh'))return;var rv=b.closest('.rpverse'),fd=rv.classList.contains('s0')?'l2':rv.classList.contains('s1')?'l1':'';
  [false,true].forEach(function(fa){var ps=[].filter.call(b.querySelectorAll('.ln .pd'),function(e){var l=e.closest('.ln');return !!(fd&&l&&l.classList.contains(fd))===fa});if(!ps.length)return;
   var mn=fa?Math.min(19,vw*.048):Math.min(26,vw*.066),cur=parseFloat(getComputedStyle(ps[0]).fontSize)||16;if(cur>=mn-.5)return;
-  ps.forEach(function(e){e.classList.remove('pdw');e.classList.add('raw');e.style.setProperty('font-size',mn.toFixed(1)+'px','important')})})})}
+  ps.forEach(function(e){e.classList.remove('pdw');e.classList.add('raw');e.style.setProperty('font-size',mn.toFixed(1)+'px','important')})})})
+ /* b478 (owner): nothing cut, the end mark | / || never sits on the last word. A row that still doesn't fit (one long word + ||) gets just a little smaller, only that row. */
+ document.querySelectorAll('.rpsheet .rpverse .prb .ln').forEach(function(l){if(l.closest('.recg,.dvsh,.dmsh'))return;var e=l.querySelector('.pd')||l,cw=e.clientWidth;if(!cw)return;var ws=[].filter.call(l.querySelectorAll('.lendw,.wd'),function(w){return !(w.classList.contains('wd')&&w.parentElement.classList.contains('lendw'))});ws.forEach(function(w){w.style.removeProperty('font-size');w.classList.remove('wbr')});
+  for(var k=0;k<5;k++){var ov=Math.max(e.scrollWidth,l.scrollWidth)-cw;if(ov<=1)break;var big=null,bw=0;ws.forEach(function(w){var x=w.getBoundingClientRect().width;if(x>bw){bw=x;big=w}});if(!big||bw<=ov)break;/* a very long word: break it after a syllable dash (same size) instead of making it tiny */if((bw-ov)/bw<0.85&&!big.classList.contains('wbr')&&/-/.test(big.textContent)){big.classList.add('wbr');continue}var fs=parseFloat(getComputedStyle(big).fontSize)||16;big.style.setProperty('font-size',(fs*(bw-ov)/bw*0.97).toFixed(1)+'px','important')}})}
 /* b467: test styles. Each read-aloud row on ONE line, all rows the same size (shrinks a little to fit, owner 24 Nov); only if it would get too small, the row wraps at a word. Same for the script rows. */
 function g4Fit(){document.querySelectorAll('.rpsheet.g3 .rpverse').forEach(function(rv){var fd=rv.classList.contains('s0')?'l2':rv.classList.contains('s1')?'l1':'';
  [['.prb',.5],['.sa',.5],['.te',.5],['.enb',.5]].forEach(function(q){var b=rv.querySelector(q[0]);if(!b)return;b.classList.remove('wrp');var ps=[].slice.call(b.querySelectorAll('.ln'+(fd?':not(.'+fd+')':'')+' .pd'));if(!ps.length)return;
@@ -7250,7 +7297,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=477,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=478,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -7368,8 +7415,8 @@ function rpMix(ph,it,n,st,sg,stc,tg,tot,idx,hide,head,rem,what){var L=gLay(),tur
  else dock='<div class="g2-dock g3-dock g4-dock"><div class="g3-b g4-b">'+bHear+(nv?'':bBack)+bPlay+bSkip+bGot+(nv?bNext:'')+'</div></div>';
  var verse=hide?'<div class="hidw">'+sheetVerse()+hidOv()+'</div>':sheetVerse();
  var dayb='<div class="g3-day"><i style="width:'+Math.round(vi/Math.max(1,LST.length)*100)+'%"></i></div>';
- var rdc=rdChips();if(L==='lotus')verse=verse.replace(rdc,'');var sll=slkLbl();if(L==='lotus'&&sll)verse=verse.replace(sll,'');
- var card=L==='lotus'?sll+rdc+'<div class="g3-card g4-book">'+verse+'</div>':L==='side'?'<div class="g3-card g4-side '+(tg&&ph==='listen'?'tg':ph==='turn'?'sy':'gy')+'"><span class="g4-sav">'+(tg&&ph==='listen'?'<img class="pr" src="art/g2-pair.jpg" alt=""><em>Together</em>':'<img src="art/'+(ph==='turn'?'g2-sishya':'g2-guru')+'.jpg" alt=""><em>'+(ph==='turn'?'You':'Guru')+'</em>'+(ph==='listen'&&!pz?'<b class="g4-wv"><i></i><i></i><i></i></b>':''))+'</span>'+verse+'</div>':'<div class="g3-card">'+verse+'</div>';
+ var rdc=rdChips();if(L==='lotus')verse=verse.replace(rdc,'');/* b478: Lotus title sits on the box edge like every style (owner: Read aloud must fit on screen) */
+ var card=L==='lotus'?rdc+'<div class="g3-card g4-book">'+verse+'</div>':L==='side'?'<div class="g3-card g4-side '+(tg&&ph==='listen'?'tg':ph==='turn'?'sy':'gy')+'"><span class="g4-sav">'+(tg&&ph==='listen'?'<img class="pr" src="art/g2-pair.jpg" alt=""><em>Together</em>':'<img src="art/'+(ph==='turn'?'g2-sishya':'g2-guru')+'.jpg" alt=""><em>'+(ph==='turn'?'You':'Guru')+'</em>'+(ph==='listen'&&!pz?'<b class="g4-wv"><i></i><i></i><i></i></b>':''))+'</span>'+verse+'</div>':'<div class="g3-card">'+verse+'</div>';
  var body=L==='par'?'<div class="g3-card">'+strip+path+verse+'</div>':pic+strip+path+card;
  return '<div class="rpsheet g2 g3 g4 g3-'+L+({mix:1,pic:1,par:1,bgp:1,side:1,lotus:1}[L]?' g3c':'')+(L==='lotus'?(S.lctl==='dial'?' g6m':' g8m')+' lc-'+((S.lcol&&S.lcol!=='navy')?S.lcol:'teal'):'')+'">'+head+dayb+body+gotSheet()+'<div class="g2-sp"></div>'+dock+mSheet()+'</div>'}
 

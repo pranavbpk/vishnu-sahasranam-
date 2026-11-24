@@ -792,3 +792,12 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Record / after-record screen (.rpsheet.g2d), every style: guru & śiṣya picture (art/guru-sishya-draft.jpg) behind instead of Vishnu.
 - After recording: the meaning stays folded (.mfold "What it means · opens when you have heard yourself and the guru") while You ➜ Guru plays (incl. Hear again); opens when it ends or on Stop.
 - Screens: docs/screens-nov24k/.
+
+## Build 478 (25 Nov 2026) — Guru Test only. Owner: Read aloud must fit on screen, nothing cut
+- Title ribbon ("Vishnu Sahasranāmam · Verse N of 108") now sits ON the top edge of the verse box in every style (box margin-top 20 px, ribbon top −15 px; was a 46 px gap). Lotus too: slkLbl is no longer pulled out above the tabs; it stays inside the g4-book card with its own cream/gold look (serif maroon name + gold VERSE N OF 108 pill), one line.
+- Lotus Read aloud starts from the left like every other style (verse script unchanged).
+- vsFit() (runs in pdFit after raFit, before g4Dock): if the last Read aloud row would sit under the buttons (.g2-dock rows, Japa mala ring, Lotus .g8-b row −24 px for the garland), it adds step classes to .rpsheet: vf1 smaller lotus divider + tighter gaps; vf2 hides the decorative picture (g3-pic2 / g3-tpic / g2-top / lt-banner) and Old-style gaps; vf3 verse script min(17px,4.4vw) and New style's "Today · verse" row. Read aloud size never changes. Not on the recording screen. Auto-scroll still covers small phones / Japa mala.
+- End mark: .lendw .wd min-width auto (the | / || no longer draws over the last word), words nowrap. raFit end: per .ln, if the row is wider than its box, the widest word (+mark) gets smaller; if it would drop below 85 % and has syllable dashes, it gets .wbr instead (inline-block, breaks after a dash, same size, mark stays after the last part).
+- Tap to record + "Say the verse once, on your own": cream pills with gold border, dark maroon text (were hard to read on the guru & śiṣya picture).
+- In-app rules + APPRULESV updated.
+- Screens: docs/screens-nov25a/.
