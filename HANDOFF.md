@@ -737,3 +737,14 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 ## Build 471 (24 Nov 2026) — Guru Test only. Lotus layout notes from Gemini (owner forwarded)
 - Strip is one flex row: bead timer (number + Timer) · title + step text · class chanting switch on the right; no absolute layers.
 - Dial: clamp(180px, 48vw, 220px), own dock with 12 px gap above, buttons 54 px.
+
+## Build 472 (24 Nov 2026) — Guru Test only. Owner's list after b471 (most items common to all styles)
+- One verse-box design for every style (Old, New, all test styles; bgp keeps its picture): palm-leaf card (#fdf9f0→#f8efe0, #d4b483 border, thin red inner line, gold corner flourishes --g7tl/tr/bl/br), verse heading = saffron ribbon, read aloud heading = teal ribbon, lotus garland divider (--g7div SVG) between them, current word saffron pill. Script 17 px (faded half 14.5), read aloud up to 28 px bold (pdFit still shrinks), faded read-aloud half fixed 17 px.
+- slkLbl() ribbon ("🪷 Vishnu Sahasranāmam · Verse 82 of 108") sits ON the box's top edge (absolute, maroon/gold), so it takes almost no height. Lotus: moved from above the tabs onto the card.
+- After recording: "You ➜ Guru" row with both faces; the one playing glows with sound bars; ⏭ (to the guru) and ⏹ Stop while playing. Hear again (after it finished) re-shows the row with Stop (mgplay now renders; mgMark('') always re-renders). New act mgnext.
+- Today's blessing sheet: near-opaque warm backdrop + forced warm colours inside, in every Well-done layout (was grey on the maroon/navy/brown ones).
+- What to show: verified mid-verse in every style (same handler).
+- Old style: ✓ I've got it while listening (gold), and Last verse / Next verse always shown (greyed when not usable); 4 controls in one row.
+- Lotus: palm-leaf card like the owner's reference (red side ribbons, garland divider, 🪷 READ ALOUD). Controls: S.lctl 'row' (default, like the reference: cream dock with gold top and lotus, Last verse · Hear again · big green ▶/❚❚ · Skip/I'm done · I've got it) or 'dial' (owner's Gemini lotus picture art/lt-lotus.webp, live labels). Choice in Settings › How I practise › "Lotus mandala · buttons". Dial play button now shows ▶ or ❚❚ (was always "▶/II", so it looked like it did nothing).
+- Guru beside verse: face moved up beside the line path so it doesn't cover the ribbon.
+- Screens: docs/screens-nov24f/.
