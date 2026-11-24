@@ -709,3 +709,13 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Japa mala: ring 204 px, labels see-through (no tiles), strip uses the plain ring timer (no bead timer).
 - Lotus: player scaled .62 (.56 under 800 px, .52 + no top picture under 760 px). Waiting for the owner's Gemini picture to rebuild it exactly (not in the repo; only cut art).
 - Screens: docs/screens-nov24c/.
+
+## Build 469 (24 Nov 2026) — Guru Test only. Lotus style built from the owner's own Gemini pictures
+- Owner sent the full Lotus picture, a blank version of it and the lotus player alone (originals in docs/gemini-lotus/).
+- New art cut from the blank picture: art/lt-top.jpg (top picture), art/lt-strip.webp (teal strip with gold frame and bead circle, transparent outside), art/lt-book.jpg (open book with cords; divider and the bead overlap painted out), art/lt-lotus.webp (lotus player inside the bead ring with tassel, transparent outside).
+- Lotus header (g4Head, c==='lotus'): maroon title, level pill, ⚙️ circle, Close pill (as the picture). 📖 Tips and 🪷 Meaning are not in the Lotus header.
+- Strip: live text over lt-strip; number + Timer/Listen/Paused in the bead circle (.g6-tm); gold conch hidden, chakra SVG right (G6ORN).
+- Book: .g4-book uses lt-book.jpg stretched to the box (100% 100%).
+- Player (.g6-dock/.g6-ring): lt-lotus image with 5 invisible buttons over the petals: top Last/Next verse, left Hear again, right Skip / I'm done, bottom Skip → whole verse (rpgot), centre ▶/II. Ring 186 px (170 under 800 px, 156 under 700 px).
+- Top picture height = clamp(0, 100dvh − 664 px, 212 px); hidden under 700 px. Page background plain cream (Vishnu backdrop hidden in Lotus).
+- Screens: docs/screens-nov24d/.
