@@ -756,3 +756,15 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Sizes (owner): verse 20 px, faded half 17 px, read aloud up to 28 px bold. Recording screen: normal sizes (18 / 20 px), all styles.
 - Guru beside verse: the face sits on the timer in the strip (g7-sw); floating face removed (it covered the line path).
 - Today's blessing backdrop is now a light see-through tint so the kaiṅkaryam screen stays visible behind.
+
+## Build 474 (24 Nov 2026) — Guru Test only. Owner's list (most items for every style)
+- Strip in every style (New g2-st, all test styles via rpMix, Lotus g6-st): faceAv() on the left = guru face while listening, śiṣya on your turn, guru & śiṣya picture when chanting together (label GURU / YOU / TOGETHER, soft glow while chanting); timer ring on the right. Class switch moved into the second row (.g9-r2) so the title never gets cut. Old style: face beside the Listen / Your turn heading (oFace). Old per-style faces (mix av, side g7-sw, pic pair) replaced by this.
+- Chant together = purple strip in every style (.g3-st.tog; Lotus keeps its gold frame). The 🙏 icon in the timer is gone (🎶 now).
+- Line highlight: the line being chanted has a soft gold band in the script and in Read aloud. Static for Line 1 / Line 2 steps (.rpverse.s0/.s1), follows the guide's voice on whole-verse listening (hlTick adds .lcur). hlTick now keeps the faded-word class (pf). Not on the recording screen.
+- Read aloud words underlined again (gold, 2 px) in every style, Lotus too.
+- Verse box: 2.5 px gold border + kumkum inner line, corners 38 px; heading ribbons 1.5 px gold borders.
+- Lotus divider smaller (min(210px,62%)); Read aloud up to 31 px, faded half 21 px. pdFit now gives all rows of a block one size (faded rows sized on their own) and sets it as important, so faded rows shrink to fit too.
+- Title ribbon ("Vishnu Sahasranāmam · Verse N of 108") now has a gap above the box (top −41 px, box margin-top 46 px), temple colours (maroon/red with gold double ring). Practice + recording, every style. Lotus keeps its plain title line.
+- Lotus: 2 new colours, 🪔 Vedic (kumkum → saffron) and 🦚 Peacock (Settings › How I practise). Verse text in maroon, Read aloud in each colour's dark tone (--lsc / --lrt); language tab and title follow the colour.
+- Small phones (375×667): Japa mala ring over the verse box is as before (b473), not new.
+- Screens: docs/screens-nov24h/.
