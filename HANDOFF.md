@@ -697,3 +697,15 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - New styles: mala (📿 Japa mala: tulasi-bead timer, round mala player with Last verse top, Hear again left, Play centre, Skip/I'm done right, I've got it bottom, tassel), bgp (🌄 Picture behind: guru-śiṣya picture as the whole background, glassy card), side (💬 Guru beside verse: guru face beside the script while he chants, student beside Read aloud on your turn), lotus (🪷 Lotus mandala: picture band, navy-gold strip with mala timer + conch/chakra, manuscript page card, lotus petals inside a mala ring; owner's Gemini picture). Art still the draft art/*.jpg.
 - Meaning: tapping Full meaning / Names / Close no longer stops "Hear it"; the meaning sheet slides up once (MSH.t, .msheet.up) and has its own ▶ Hear it / ⏹ Stop.
 - Screens: docs/screens-nov24/.
+
+## Build 468 (24 Nov 2026) — Guru Test only. Owner's second style list (all styles)
+- Verse (sheetVerse, every style incl. Old): script = one row per half-line (`.pd.sl`, no pdS split), so line 1 = pādas 1+2, line 2 = pādas 3+4; read aloud unchanged = one pāda per row (4 rows). pdFit/g4Fit shrink down to 50% before wrapping (`.pdw` / `.wrp`). Fixed CSS specificity: `.prb:not(.wrp) .ln .pd{nowrap}` (b467's nowrap lost to an older `white-space:normal`, so read-aloud rows were wrapping).
+- Box vs player: g3-card no longer stretched to the dock; g4Dock() (called from pdFit) sets .g2-sp to (screen bottom − top of the player) + 16 px, so the box always ends above the controls (works with the scaled mala/lotus rings).
+- Class chanting: clsSw() = label + on/off switch (role=switch). New style: the switch sits in the "Line 1 · step 1 of 3" row (g2-sl), no separate pill row.
+- ⚙️ in the practice header now opens the real Settings: Home's settings HTML moved into setBody() (homeOld calls it); gsetSh() shows it in a sheet, practice paused, "How I practise" opened. Done resumes.
+- Old style: Pause (theme colour), I've got it (green), Hear again (saffron). After "Hear yourself, then the guide" finishes (MGD[vi]), the card folds away and a small "👂 Hear again" chip (id mgS) sits next to Record again; mgMark re-renders for Old too.
+- Recording screen in all test styles (recSheet, class g5rec): the Old/New layout (red Recording bar, one hint line, compact verse, Stop) with the style's colours; Stop is sticky at the bottom. Lotus = parchment verse; Picture behind / Guru beside = faded picture behind the verse.
+- Picture behind: picture moved from the top band into the verse box background (84% cream over it).
+- Japa mala: ring 204 px, labels see-through (no tiles), strip uses the plain ring timer (no bead timer).
+- Lotus: player scaled .62 (.56 under 800 px, .52 + no top picture under 760 px). Waiting for the owner's Gemini picture to rebuild it exactly (not in the repo; only cut art).
+- Screens: docs/screens-nov24c/.
