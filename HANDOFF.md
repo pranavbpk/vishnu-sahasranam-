@@ -719,3 +719,17 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Player (.g6-dock/.g6-ring): lt-lotus image with 5 invisible buttons over the petals: top Last/Next verse, left Hear again, right Skip / I'm done, bottom Skip → whole verse (rpgot), centre ▶/II. Ring 186 px (170 under 800 px, 156 under 700 px).
 - Top picture height = clamp(0, 100dvh − 664 px, 212 px); hidden under 700 px. Page background plain cream (Vishnu backdrop hidden in Lotus).
 - Screens: docs/screens-nov24d/.
+
+## Build 470 (24 Nov 2026) — Guru Test only. Owner's list after b469 (all styles)
+- Audio never cut: audio/segends.json redone (/tmp script, same idea as tools/make-segends.py but: threshold p95−26 dB, line-1 / half-line end = just before the next sound (onset held 60 ms) − 0.08 s, never earlier than b463, at most +0.45 s, still < cut+0.5 so segB accepts it). 41 verses' line-1 ends moved later (soft tails were clipped, e.g. v2, v19, v57).
+- Bug: Pause then I've got it / Skip started the next part playing but still showed Paused. rpListen and rpTurn now set RP.paused=false.
+- Meaning ▶ Hear it in Telugu/Hindi: pickVoice(l) picks a real te/hi voice (iPhone used the English voice = silence); if the phone has none, a toast says where to add it (Settings › Accessibility › Spoken Content › Voices).
+- What to show while chanting: "Script only" now applies straight away, new verses too (the forced 'both' for new verses removed).
+- After-recording screen: Old style now uses the same screen as the other styles (gcontSheet → g2Done('saved')). While "You → Guide" plays it is one small row with Skip (.g7-mg); Hear again · Record again · Send to guru · Verse (· Benefit) are always-visible tiles (.g7-sc) above the meaning, so nothing jumps and Verse is never pushed off.
+- slkLbl(): "🪷 Vishnu Sahasranāmam · Verse N of 108" (other parts: "Dhyānam · śloka N of M" etc.) at the top of every verse box, all styles.
+- Lotus (owner forwarded Gemini's advice: no full picture pieces): banner picture art/lt-banner.jpg only; strip = CSS teal gradient #2b7e70→#1f6358 with #d9a74a frame, 24-bead SVG timer (number + Timer), 2 rows (title; step text + class switch); book = CSS palm-leaf card (#fdf9f0→#f8efe0, #d4b483 border, red side stitching), script 16.5 px, read aloud 23 px bold, current word #f8d377; dial = SVG (44-bead ring + lotusSvg + tassel) with 5 buttons 60 px, in the page flow (never over the text). art/lt-top/strip/book/lotus/band/bead kept but unused.
+- New style: verse box with two soft panels (saffron verse, teal read aloud), no underlines, current word saffron pill; I've got it (turn) is a golden button (.g7-got).
+- Today's blessing: a clear card button "Tap to open · a verse for you" with a soft pulse; its sheet has a warm, light backdrop (svbbg) instead of grey.
+- Guru picture: chant together shows the guru & student picture in the strip (.g7-pr). Styles with their own guru picture (pic, gem, bgp, side, mix, lotus) no longer show the Vishnu picture behind.
+- Guru beside verse: face is small (44 px) on the card's top corner (guru left, you right), card full width.
+- Screens: docs/screens-nov24e/.
