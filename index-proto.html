@@ -4207,7 +4207,7 @@ function vidCard(){var t=HVT[hvL()];return HOWVID?'<div class="hv-vid"><video id
 /* b421: once, after setup, a small card on Today offers the guide video; gone after Watch or Not now */
 function hv1Card(){if(!HOWVID||!S.setupDone||S.vidSeen)return '';var t=HVT[hvL()];return '<div class="hv1"><span class="hv1i">🎬</span><div class="hv1t"><b>'+t[2]+'</b><small>'+t[3]+'</small></div><div class="hv1b"><button class="hv1w" data-act="hv1go">'+t[4]+'</button><button class="hv1x" data-act="hv1x">'+t[5]+'</button></div></div>'}
 /* b452: "How the app works" — the rules in plain words, for users (owner 21 Nov: keep one place that explains every rule and update it with each change). Same content as claude/app-rules.md in the project. RULESV = build these rules were last checked. English for now; Telugu/Hindi after guru review. */
-var APPRULESV='Build 465 · 23 Nov 2026';
+var APPRULESV='Build 472 · 24 Nov 2026';
 var APPRULES=[
 ['🌅','Your daily practice',[
  'One practice a day, about 10 minutes. Tap <b>Start today’s practice</b> on Today.',
@@ -4250,8 +4250,9 @@ var APPRULES=[
 ['🎙','Recording',[
  'Record each new verse straight after you learn it, while it is fresh (about 1 minute).',
  'If you pass the quick check (✓ I know it), no recording is needed for that verse.',
- 'After recording, your take plays, then the guide, so you can compare. Then the meaning.',
- 'The meaning card has EN · తె · हि to switch language; it starts in the language you read the verse in. ▶ Hear it turns into ⏹ Stop while it speaks.',
+ 'After recording, your take plays, then the guru, so you can compare. The face of the one playing glows; ⏹ <b>Stop</b> stops it, ⏭ jumps to the guru. Then the meaning.',
+ 'What to show while chanting (Verse + read-aloud, Verse only, Read-aloud only) changes straight away, also in the middle of a verse.',
+ 'The meaning card has EN · తె · हि to switch language; it starts in the language you read the verse in. ▶ Hear it turns into ⏹ Stop while it speaks. Telugu and Hindi need a Telugu / Hindi voice on the phone (iPhone: Settings › Accessibility › Spoken Content › Voices).',
  'Recordings stay on this phone (You › My recordings).']],
 ['📖','Meaning',[
  'After a new verse, a short meaning appears: ▶ Hear it, Names one by one, or Full meaning.',
