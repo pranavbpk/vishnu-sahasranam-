@@ -3579,6 +3579,19 @@ html:is([data-sty=pic],[data-sty=gem],[data-sty=bgp],[data-sty=side],[data-sty=m
 .rpsheet .g4-side .g7-lbl{padding:0 28px;font-size:.7rem}
 .rpsheet .g4-side .g4-sav,.rpsheet .g4-side.sy .g4-sav{top:-34px!important}
 .rpsheet .g4-side{margin-top:24px!important}
+
+/* b471: Gemini's layout notes — strip is one flex row (timer · text · switch), dial in its own dock with a clear gap */
+.rpsheet.g3-lotus .g3-st.g4-st.g6-st{display:flex!important;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px!important;height:auto;min-height:62px}
+.g6-st .g6-tm{position:relative!important;left:auto!important;top:auto!important;transform:none!important;flex:0 0 56px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.g6-tx{flex:1;min-width:0;text-align:left;gap:2px}
+.g6-r2s{color:#d8efe6;font-size:.76rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rpsheet.g3-lotus .g6-st>.g3-cls{position:static!important;transform:none!important;flex:0 0 auto;white-space:nowrap;display:inline-flex!important;align-items:center;gap:6px;margin:0!important;font-size:.66rem!important;padding:3px 8px!important}
+.rpsheet.g3-lotus .g6-st .g3-bar{left:12px!important;right:12px!important;bottom:4px!important}
+.g6-ring{width:clamp(180px,48vw,220px)!important;height:clamp(180px,48vw,220px)!important}
+.rpsheet.g3-lotus .g2-dock.g6-dock{flex-shrink:0;margin-top:12px!important;padding:8px 12px calc(40px + env(safe-area-inset-bottom,0px))!important}
+.g6-b button{width:54px!important;height:54px!important;font-size:.58rem!important}
+.g6-b.b button{width:62px!important;font-size:.55rem!important}
+.g6-b.c button{width:52px!important;height:52px!important}
 </style>
 </head>
 <body>
@@ -6868,7 +6881,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=470,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=471,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -6972,7 +6985,7 @@ function rpMix(ph,it,n,st,sg,stc,tg,tot,idx,hide,head,rem,what){var L=gLay(),tur
  var segbar=(L==='gemm'||L==='mala'||L==='lotus'||L==='pic')&&!RP.recap?'<span class="g3-sb">'+segs.map(function(x,i){return '<i class="'+(i<ci?'d':i===ci?'on':'')+'"></i>'}).join('')+'<em>'+(L==='mala'||L==='lotus'||L==='pic'?(segN(sg)||'Whole verse')+' · ':'')+'step '+(ci+1)+' of '+segs.length+'</em></span>':'';
  var dots=L==='gem'&&!RP.recap?'<span class="g3-dt">'+segs.map(function(x,i){return '<i class="'+(i<=ci?'on':'')+'"></i>'}).join('')+'</span>':'';
  if(L==='lotus'){var r2=turn?sub:pz?'Tap ▶ to carry on':(RP.recap?'':'Step '+(ci+1)+' of '+segs.length)+(tot>1&&!tg?(RP.recap?'':' · ')+'time '+idx+' of '+tot:'');}
- var strip=L==='lotus'?'<div class="g3-st g4-st g6-st '+(pz?'pz':ph)+'"'+(RP.blocked&&ph==='listen'?' data-act="rpplay" role="button"':'')+'>'+tmr+'<span class="g6-tx"><b>'+big+'</b><span class="g6-r2"><small>'+r2+'</small>'+cls+'</span></span>'+G6ORN+'<div class="g3-bar"><i id="rpbar" style="width:'+(f0*100)+'%"></i></div></div>':'<div class="g3-st g4-st '+(pz?'pz':ph)+'"'+(RP.blocked&&ph==='listen'?' data-act="rpplay" role="button"':'')+'>'+(L==='mix'?av:L==='pic'&&ph==='listen'&&(tg||RP.togin)?'<span class="g3-av g3-pr g7-pr"><img src="art/g2-pair.jpg" alt="Guru and student"></span>':tmr)+'<span class="g3-tx"><b>'+big+'</b><small>'+sub+'</small>'+segbar+dots+'</span>'+cls+(L==='mix'?tmr:'')+(L==='lotus'?G6ORN:'')+'<div class="g3-bar"><i id="rpbar" style="width:'+(f0*100)+'%"></i></div></div>';
+ var strip=L==='lotus'?'<div class="g3-st g4-st g6-st '+(pz?'pz':ph)+'"'+(RP.blocked&&ph==='listen'?' data-act="rpplay" role="button"':'')+'>'+tmr+'<span class="g6-tx"><b>'+big+'</b><small class="g6-r2s">'+r2+'</small></span>'+cls+'<div class="g3-bar"><i id="rpbar" style="width:'+(f0*100)+'%"></i></div></div>':'<div class="g3-st g4-st '+(pz?'pz':ph)+'"'+(RP.blocked&&ph==='listen'?' data-act="rpplay" role="button"':'')+'>'+(L==='mix'?av:L==='pic'&&ph==='listen'&&(tg||RP.togin)?'<span class="g3-av g3-pr g7-pr"><img src="art/g2-pair.jpg" alt="Guru and student"></span>':tmr)+'<span class="g3-tx"><b>'+big+'</b><small>'+sub+'</small>'+segbar+dots+'</span>'+cls+(L==='mix'?tmr:'')+(L==='lotus'?G6ORN:'')+'<div class="g3-bar"><i id="rpbar" style="width:'+(f0*100)+'%"></i></div></div>';
  var path=RP.recap||L==='gem'||L==='gemm'||L==='mala'||L==='lotus'||L==='pic'?'':'<div class="g3-path">'+segs.map(function(x,i){var c=stc.filter(function(y){return y===x}).length;return '<span class="'+(i<ci?'d':i===ci?'on':'')+'">'+(i<ci?'✓ ':'')+(x===2?'Whole verse':segN(x))+' <i>×'+c+'</i></span>'}).join('<em>›</em>')+'</div>';
  var pic=L==='pic'||L==='gem'||L==='lotus'?'<div class="g3-pic2"><img src="art/'+(L==='lotus'?'lt-banner':'g2-top')+'.jpg" alt="">'+(L==='pic'?'<span class="g3-glow" style="left:'+(ph==='turn'?'60%':'16%')+'"></span>':'')+'</div>':'';
  var more=rpMore(),nv=GS.on&&it.r&&!RP.recap&&!LST.single,canBack=vi>0&&GS.on;

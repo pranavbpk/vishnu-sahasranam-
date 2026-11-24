@@ -733,3 +733,7 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Guru picture: chant together shows the guru & student picture in the strip (.g7-pr). Styles with their own guru picture (pic, gem, bgp, side, mix, lotus) no longer show the Vishnu picture behind.
 - Guru beside verse: face is small (44 px) on the card's top corner (guru left, you right), card full width.
 - Screens: docs/screens-nov24e/.
+
+## Build 471 (24 Nov 2026) — Guru Test only. Lotus layout notes from Gemini (owner forwarded)
+- Strip is one flex row: bead timer (number + Timer) · title + step text · class chanting switch on the right; no absolute layers.
+- Dial: clamp(180px, 48vw, 220px), own dock with 12 px gap above, buttons 54 px.
