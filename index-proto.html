@@ -3874,7 +3874,6 @@ html[data-sty=bgp] .rpsheet .g3-card{background-image:none!important}
 .rpsheet.tipsh.g3-lotus .tipc3.tmin{display:flex;color:var(--lc2,#0b2233);padding:6px 12px}
 .rpsheet.tipsh.g3-lotus .tipc3.tmin>b{color:var(--lc2,#0b2233)}
 .rpsheet.tipsh.g3-lotus .rdsel button[aria-pressed=true]{background:var(--lc2)!important;border-color:var(--lc2)!important;color:#fff!important}
-.rpsheet.tipsh.g3-lotus .tipdk .tsb{background:linear-gradient(180deg,var(--lc1),var(--lc2))!important;border-color:var(--lc2)!important}
 /* After recording: You ➜ Guru with a line on top and bright buttons (every style) */
 .g7-mg.g7-mg2{flex-direction:column;align-items:stretch;gap:5px;padding:6px 8px 7px}
 .g7-mg2 .g7-mgh{font-size:.84rem;font-weight:700;color:#7a4a10;text-align:center;opacity:1}
@@ -3884,6 +3883,22 @@ html[data-sty=bgp] .rpsheet .g3-card{background-image:none!important}
 .g7-mg .g7-mb .g7-nx{background:linear-gradient(180deg,#ffa233,#e8730c)!important;color:#fff!important}
 .g7-mg .g7-mb .g7-stop{background:linear-gradient(180deg,#e53935,#b71c1c)!important;color:#fff!important}
 .g7-mg .g7-mb .g7-ply{background:linear-gradient(180deg,#2fa66a,#167a48)!important;color:#fff!important}
+
+/* b476: tip is one line in every style; full tip opens over the verse (nothing moves) */
+.rpsheet.tipsh .tipc3.t1{position:relative;display:flex;align-items:center;gap:8px;padding:6px 8px 6px 12px!important;margin:4px 0 0!important;width:auto!important;max-width:none!important;z-index:6}
+.tipc3.t1 .t1b{flex:1;min-width:0;display:flex;align-items:center;gap:8px;border:0;background:none;padding:0;font:inherit;text-align:left;cursor:pointer;color:inherit}
+.tipc3.t1 .t1b>b{white-space:nowrap;font-size:.9rem;flex:0 0 auto}
+.tipc3.t1 .t1x{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.86rem;color:#4a3a28}
+.tipc3.t1 .t1x .tpw{font-size:.84rem;padding:0 6px}
+.tipc3.t1 .tc3s{flex:0 0 32px;width:32px;height:32px}
+.tipc3.t1 .t1pop{position:absolute;left:0;right:0;top:calc(100% + 4px);background:#fffdf7;border:1.5px solid #d8a64a;border-radius:14px;padding:6px 12px;box-shadow:0 8px 22px rgba(60,40,10,.25);z-index:7;cursor:pointer}
+.tipc3.t1 .t1pop .tc3r{color:#3a2c18}
+.rpsheet.tipsh.g3-lotus .tipc3.t1 .t1b>b{color:var(--lc2,#0b2233)}
+/* b476: Start the verse calmer (was dark blue / theme colour), every style */
+.rpsheet.tipsh .tipdk .btn.tsb{background:linear-gradient(180deg,#fff9ec,#f8e8c4)!important;color:#5a3a10!important;border:2px solid #d4a24a!important;box-shadow:0 2px 6px rgba(120,80,20,.15)!important}
+.rpsheet.tipsh .tipdk .tsb small{color:#8a6a3a!important;opacity:1}
+.rpsheet.tipsh .tipdk button .tring::after{background:#a8681a}
+.rpsheet.tipsh .tipdk button .tring.idle{background:#a8681a!important;color:#fff}
 </style>
 </head>
 <body>
@@ -7178,7 +7193,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=475,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=476,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -7360,14 +7375,15 @@ document.addEventListener('touchend',acWake,{passive:true});document.addEventLis
 function tipStop(){TIPK++;clearTimeout(RP.tipT);clearInterval(RP.tipI);RP.tipAt=0;try{speechSynthesis.cancel()}catch(e){}}
 function tipSay(){tipStop();var k=TIPK,n=RP.n,t=tipTxt(n);RP.tipst=0;try{var u=new SpeechSynthesisUtterance('Verse '+n+'. Listen for this. '+t.replace(/-/g,''));u.rate=0.9;var vs=speechSynthesis.getVoices(),pv=vs.filter(function(x){return /en-IN/i.test(x.lang)})[0]||vs.filter(function(x){return /^en/i.test(x.lang)})[0];if(pv)u.voice=pv;u.onstart=function(){if(k===TIPK)RP.tipst=1};u.onend=function(){acWake();if(k===TIPK){RP.tipMin=1;RP.tipst=2;render();tipEnd(TIPWAIT)}};u.onerror=function(){if(k===TIPK&&RP.tipst!==1){RP.tipst=-1;render();tipEnd(8000)}};speechSynthesis.speak(u)}catch(e){RP.tipst=-1;tipEnd(8000)}
  setTimeout(function(){if(k===TIPK&&RP.on&&RP.phase==='tip'&&!RP.tipst){RP.tipst=-1;render();tipEnd(8000)}},2500)}
-var TIPWAIT=6000;function tipEnd(ms){var k=TIPK;clearTimeout(RP.tipT);clearInterval(RP.tipI);RP.tipAt=Date.now()+ms;RP.tipT=setTimeout(function(){if(k===TIPK&&RP.on&&RP.phase==='tip')tipGoOn()},ms);RP.tipMs=ms;render();RP.tipI=setInterval(function(){if(k!==TIPK||!RP.on||RP.phase!=='tip'){clearInterval(RP.tipI);return}var e=$('tipcd'),r=$('tipring'),left=Math.max(0,RP.tipAt-Date.now());if(e)e.textContent=Math.ceil(left/1000);if(r)r.style.background=ringBg(left/(RP.tipMs||6000)*100)},200)}
+var TIPWAIT=6000;function tipEnd(ms){var k=TIPK;clearTimeout(RP.tipT);clearInterval(RP.tipI);RP.tipAt=Date.now()+ms;RP.tipT=setTimeout(function(){if(k===TIPK&&RP.on&&RP.phase==='tip')tipGoOn()},ms);RP.tipMs=ms;render();RP.tipI=setInterval(function(){if(k!==TIPK||!RP.on||RP.phase!=='tip'){clearInterval(RP.tipI);return}var e=$('tipcd'),r=$('tipring'),left=Math.max(0,RP.tipAt-Date.now());if(e)e.textContent=Math.ceil(left/1000);if(r)r.style.background=tipRingBg(left/(RP.tipMs||6000)*100)},200)}
 function tipGoOn(){clearInterval(RP.tipI);RP.tipAt=0;var sp=false;try{sp=speechSynthesis.speaking||speechSynthesis.pending}catch(e){}TIPK++;clearTimeout(RP.tipT);if(sp){try{speechSynthesis.cancel()}catch(e){}}TIPDONE[RP.n]=1;RP.phase='tipgap';acWake();render();var R0=RP;/* b442: let the iPhone switch back from the phone voice before the guide plays, or the first line got cut */setTimeout(function(){if(RP===R0&&RP.on&&RP.phase==='tipgap')rpListen()},sp?1500:900)}
 function tipGo(){RP.phase='tip';RP.tipMin=0;render();tipSay()}
 /* b456: quick check (owner 23 Nov): hear the guide once, say it once from memory, then Yes, I know it (learned, revision in 3 days) / Not fully (normal lesson). */
 function qkGo(){RP.steps=[2];RP.round=1;RP.togR=0;RP.qk=1;tipGoOn()}
 function qkSheet(){var n=RP.n;return '<div class="rpsheet"><div class="gtop">'+gvHead()+'<button class="chip" data-act="rpclose">Close</button></div><div class="qkban"><span>✓</span><div><b>Well said</b><small>Verse '+n+' · quick check</small></div></div><div class="qkask"><b>Did it come out right?</b><button class="btn" data-act="qkyes">👍 Yes, I know it<small>Counts as learned · back for revision in 3 days</small></button><button class="btn o" data-act="qkno">🔁 Not fully · teach me<small>The normal lesson starts</small></button><div class="mute" style="margin-top:8px;font-size:.82rem">Be honest: your revision depends on it.</div></div><div class="g2-sc"><button class="chip" data-act="qkagain">👂 Hear the guide again</button><button class="chip" data-act="dvsopen">👁 Verse</button></div>'+(DVS?'<div class="dmsh-bg" data-act="dvsclose"></div><div class="dmsh dvsh"><div class="hdl"></div><div class="dhh"><b>Verse '+n+'</b><button class="chip" data-act="dvsclose">✕</button></div>'+sheetVerse().split(' hid" data-act="peek').join('')+'</div>':'')+'</div>'}
 /* b459 (owner 23 Nov): same round countdown as on your turn, inside the Start button */
-function tipRing(cd){if(!cd)return '<span class="tring idle">▶</span>';var p=Math.max(0,(RP.tipAt-Date.now())/(RP.tipMs||6000)*100);return '<span class="tring" id="tipring" style="background:'+ringBg(p)+'"><b id="tipcd">'+cd+'</b></span>'}
+function tipRing(cd){if(!cd)return '<span class="tring idle">▶</span>';var p=Math.max(0,(RP.tipAt-Date.now())/(RP.tipMs||6000)*100);return '<span class="tring" id="tipring" style="background:'+tipRingBg(p)+'"><b id="tipcd">'+cd+'</b></span>'}
+function tipRingBg(p){return 'conic-gradient(#c8922e '+p.toFixed(1)+'%, rgba(200,146,46,.25) '+p.toFixed(1)+'%)'}
 function ringBg(p){return 'conic-gradient(#fff '+p.toFixed(1)+'%, rgba(255,255,255,.28) '+p.toFixed(1)+'%)'}
 function tipSheet(){var n=RP.n,nw=gNew(),mx={mix:1,pic:1,gem:1}[S.gsty];/* b457: fits one screen; Start / I know it fixed at the bottom with a visible countdown */
  var head=nw?g4Head('Verse '+n,sessPos(),1):'<div class="gtop">'+gvHead()+'<button class="chip" data-act="rpclose">Close</button></div>';
@@ -7377,9 +7393,10 @@ function tipSheet(){var n=RP.n,nw=gNew(),mx={mix:1,pic:1,gem:1}[S.gsty];/* b457:
 function tipRows(t){return String(t||'').split(/\.\s+(?=[A-Z])/).map(function(x){return x.replace(/\.\s*$/,'')}).filter(Boolean).slice(0,3)}
 function tipPill(x){return x.replace(/\b([A-Z][a-z]*(?:-[a-z]+)+(?:\s+[A-Z][a-z]*(?:-[a-z]+)+)*)/g,'<b class="tpw">$1</b>')}
 function tipCard(n){var R=tipRows(tipTxt(n)),sp=RP.tipst!==-1&&RP.tipst!==2&&RP.phase==='tip';
- /* b458 (owner 23 Nov): once the tip has been spoken it folds into one line, so the verse moves up. Tap to open again. */
- if(RP.tipMin&&RP.phase==='tip'){var ws=R.map(function(r){var i=r.indexOf(':');return i>0&&i<40?r.slice(0,i).trim():''}).filter(Boolean);return '<button class="tipc3 tmin" data-act="tipexp"><b>👂 Listen for</b><span class="tmw">'+(ws.length?ws.map(function(w){return '<b class="tpw">'+w+'</b>'}).join(''):'tap to read the tip')+'</span><span class="tmx">▾</span></button>'}
- return '<div class="tipc3"><div class="tc3h"><b>👂 Listen for</b><button class="tc3s'+(sp?' on':'')+'" data-act="tipagain" aria-label="Hear the tip">'+(sp?'🔊':'🔈')+'</button></div>'+R.map(function(r){var i=r.indexOf(':');return '<div class="tc3r">'+(i>0&&i<40?tipPill(r.slice(0,i))+'<span>'+r.slice(i+1).trim()+'</span>':'<span>'+tipPill(r)+'</span>')+'</div>'}).join('')+'</div>'}
+ /* b476 (owner 24 Nov): the tip is ONE line, always (also while it is spoken), so the verse box never moves. Tap it: the full tip opens on top of the verse, tap again to close. */
+ var one=R.join('. ');
+ return '<div class="tipc3 t1'+(RP.tipOpen?' op':'')+'"><button class="t1b" data-act="tipexp"><b>👂 Listen for</b><span class="t1x">'+tipPill(one)+'</span><span class="tmx">'+(RP.tipOpen?'▴':'▾')+'</span></button><button class="tc3s'+(sp?' on':'')+'" data-act="tipagain" aria-label="Hear the tip">'+(sp?'🔊':'🔈')+'</button>'
+  +(RP.tipOpen?'<div class="t1pop" data-act="tipexp">'+R.map(function(r){var i=r.indexOf(':');return '<div class="tc3r">'+(i>0&&i<40?tipPill(r.slice(0,i))+'<span>'+r.slice(i+1).trim()+'</span>':'<span>'+tipPill(r)+'</span>')+'</div>'}).join('')+'</div>':'')+'</div>'}
 function recLater(){/* b457 (owner 23 Nov): record each new verse straight after learning it, while it is fresh */return false;var it=LST[vi];if(!GS.on||!it||it.r||it.rt==='recap'||LST.single)return false;for(var i=vi+1;i<LST.length;i++){if(!LST[i].r&&LST[i].rt!=='recap')return true}return false}
 function laterNote(){return '<div class="reclater"><span style="font-size:1.5rem">🎙</span><span><b>No recording now</b><small>You’ll record once, after your last new verse today.</small></span></div>'}
 function mgEl(){if(!MGA){MGA=new Audio();MGA.preload='auto'}return MGA}
@@ -7743,7 +7760,7 @@ app.addEventListener('click',function(e){
  else if(a==='rpplay'){RP.blocked=false;rpCheck();var q2=rpA.play();if(q2&&q2.catch)q2.catch(function(){});render()}
  else if(a==='tipgo'){tipGoOn()}
  else if(a==='tipagain'){RP.tipMin=0;tipSay();render()}
- else if(a==='tipexp'){RP.tipMin=0;render()}
+ else if(a==='tipexp'){RP.tipOpen=!RP.tipOpen;render()}
  else if(a==='qkgo'){qkGo()}
  else if(a==='qkagain'){RP.round=1;RP.phase='listen';DVS=false;rpListen()}
  else if(a==='qkno'){RP.qk=0;DVS=false;TIPDONE[RP.n]=1;rpStart()}

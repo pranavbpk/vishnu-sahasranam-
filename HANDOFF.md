@@ -777,3 +777,8 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Lotus tip screen: sheet now gets the lc-<colour> class, so verse (maroon --lsc), Read aloud (--lrt), language tab and Start button follow the chosen colour. Tip card: cream with gold border and a colour stripe, fits its text (fit-content), smaller font.
 - After recording (every style): "🎧 Compare your pronunciation with the guru" line above You ➜ Guru; ⏭ bright orange, Stop bright red, ▶ Play bright green. (They looked faded because an old rule set opacity .55 on every span in .g7-mg, including the button group.)
 - Screens: docs/screens-nov24i/.
+
+## Build 476 (24 Nov 2026) — Guru Test only
+- Tip screen, every style: "👂 Listen for" is ONE line always (also while the tip is spoken), so the verse box never moves down. Tap the line: full tip opens as a small panel over the verse (RP.tipOpen; tipexp toggles); 🔈 on the same line. RP.tipMin no longer used by tipCard.
+- Start the verse: calm cream/gold button with brown text and a gold countdown ring (tipRingBg), every style (was dark blue; Lotus was the theme colour).
+- Screens: docs/screens-nov24j/.
