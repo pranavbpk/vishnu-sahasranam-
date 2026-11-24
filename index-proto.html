@@ -3847,6 +3847,43 @@ html[data-sty=bgp] .rpsheet .g3-card{background-image:none!important}
 .rpsheet.g3-lotus .g6-tx>b{color:var(--lct)!important;text-shadow:0 1px 2px rgba(0,0,0,.35)}
 .rpsheet.g3-lotus .g6-r2s{color:#f8e6bd!important}
 .rpsheet.g3-lotus .g6-st.tog .g6-tx>b{color:#ffe29a!important}
+
+/* b475 (owner 24 Nov) */
+/* pause icon drawn, not the ⏸ emoji (blue tile on iPhone) */
+.pzi{display:inline-flex;align-items:center;justify-content:center;gap:5px;height:20px;vertical-align:middle}
+.pzi i{display:block;width:5px;height:18px;border-radius:2px;background:currentColor}
+.g4-tm .pzi{color:#fff}
+.rpsheet.g3-lotus .g6-tm .pzi{color:var(--lct,#ffe08a)}
+.rpsheet.g3-lotus .g6-st.pz .g6-tm{background:rgba(0,0,0,.22)!important}
+.rpsheet.g3-lotus .g6-st.pz .g6-tx>b{color:var(--lct,#ffe08a)!important}
+.rpsheet.g3-lotus .g6-st.pz .g9-av img,.rpsheet.g3-lotus .g6-st.pz .g6-av img{filter:none!important;opacity:1!important}
+/* class switch a little further from "Say it" (every style) */
+.rpsheet .g3-st .g9-r2{width:100%}
+.rpsheet .g3-st .g9-r2>.g3-cls.g3-cls{margin-left:auto!important;margin-right:4px!important}
+/* the title ribbon never sits on the tip (every style) */
+.rpsheet.tipsh .g3-card.g3-card,.rpsheet.tipsh:not(.g3) .rpverse{margin-top:46px!important}
+/* Lotus tip screen: verse and Read aloud in the chosen colour, tip card small and in the theme */
+.rpsheet.tipsh.g3-lotus .rpverse.rpverse :is(.sa,.te) .ln .pd{color:var(--lsc)!important}
+.rpsheet.tipsh.g3-lotus .rpverse .prb .wd{color:var(--lrt)!important}
+.rpsheet.tipsh.g3-lotus .tipc3{width:fit-content;max-width:100%;margin:4px auto 0;background:linear-gradient(180deg,#fffaf0,#fdf1dc);border:1.5px solid #d8a64a;border-left:5px solid var(--lc1,#1c4561);border-radius:14px;padding:7px 12px 8px;box-shadow:0 2px 6px rgba(90,60,20,.12);color:#4a3518}
+.rpsheet.tipsh.g3-lotus .tipc3 .tc3h{gap:10px;margin-bottom:2px}
+.rpsheet.tipsh.g3-lotus .tipc3 .tc3h>b{color:var(--lc2,#0b2233);font-size:.9rem}
+.rpsheet.tipsh.g3-lotus .tipc3 .tc3r{font-size:.86rem;line-height:1.35;color:#4a3518}
+.rpsheet.tipsh.g3-lotus .tipc3 .tc3s{background:#fff;border-color:#d8a64a}
+.rpsheet.tipsh.g3-lotus .tipc3 .tpw{background:var(--lc1,#1c4561);color:#fff}
+.rpsheet.tipsh.g3-lotus .tipc3.tmin{display:flex;color:var(--lc2,#0b2233);padding:6px 12px}
+.rpsheet.tipsh.g3-lotus .tipc3.tmin>b{color:var(--lc2,#0b2233)}
+.rpsheet.tipsh.g3-lotus .rdsel button[aria-pressed=true]{background:var(--lc2)!important;border-color:var(--lc2)!important;color:#fff!important}
+.rpsheet.tipsh.g3-lotus .tipdk .tsb{background:linear-gradient(180deg,var(--lc1),var(--lc2))!important;border-color:var(--lc2)!important}
+/* After recording: You ➜ Guru with a line on top and bright buttons (every style) */
+.g7-mg.g7-mg2{flex-direction:column;align-items:stretch;gap:5px;padding:6px 8px 7px}
+.g7-mg2 .g7-mgh{font-size:.84rem;font-weight:700;color:#7a4a10;text-align:center;opacity:1}
+.g7-mg2 .g7-mgr{display:flex;align-items:center;gap:6px}
+.g7-mg .g7-mb,.g7-mg .g7-mb *{opacity:1!important}
+.g7-mg .g7-mb .chip{font-weight:800;border:0!important;box-shadow:0 2px 6px rgba(0,0,0,.18);padding:7px 12px!important;font-size:.88rem!important}
+.g7-mg .g7-mb .g7-nx{background:linear-gradient(180deg,#ffa233,#e8730c)!important;color:#fff!important}
+.g7-mg .g7-mb .g7-stop{background:linear-gradient(180deg,#e53935,#b71c1c)!important;color:#fff!important}
+.g7-mg .g7-mb .g7-ply{background:linear-gradient(180deg,#2fa66a,#167a48)!important;color:#fff!important}
 </style>
 </head>
 <body>
@@ -7141,7 +7178,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=474,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=475,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -7184,7 +7221,7 @@ function g2Done(ph){var it=LST[vi]||{},n=RP.on&&RP.n?RP.n:(V[it.i]?V[it.i].n:0),
  var dock='<div class="g2-dock"><div class="g2-day"><span>TODAY · VERSE '+(vi+1)+' OF '+LST.length+'</span><span>'+(last?'last one':(LST.length-vi-1)+' to go')+'</span></div>'+(bl?'<div class="g2-blk">'+bl+'</div>':'')+(rd&&it.rt==='due'?'':'<button class="btn g2-go'+(main&&!recLater()?' ghost':'')+'" data-act="'+go+'">'+gl+'</button>')+(go!=='rpclose'?'<button class="lnkb" data-act="'+(saved?'gstop':'rpclose')+'">Stop here</button>':'')+'</div>';
  if(saved){var mgc=mgCard(n),cdn=!mgc||!!MGD[vi],w0=MGW||'';var T=function(act,ic,lb,x){return '<button class="g7-t'+(x||'')+'" data-act="'+act+'"'+(act==='recsend'?' data-v="n:'+n+'"':'')+'><span>'+ic+'</span>'+lb+'</button>'};var sc=[];if(mgc&&cdn&&!w0)sc.push(T('mgplay','👂','Hear again'));sc.push(T('rec','🎙','Record again'));sc.push(T('recsend','📤','Send to guru',' sndg'));sc.push(T('dvsopen','📜','Verse'));if(BEN[n])sc.push(T('mopen','✨','Benefit').replace('data-act="mopen"','data-act="mopen" data-v="b"'));
   /* b470: while it plays, one small row (You → Guide · Skip) instead of the big card, so nothing below jumps */
-  var mini=mgc&&(!cdn||w0)?'<div class="g7-mg'+(w0?' pl':'')+'"><span id="mgA" class="g7-p'+(w0==='a'?' on':w0?' dn':'')+'"><img src="art/g2-sishya.jpg" alt=""><b>You</b><i class="g7-eq"><u></u><u></u><u></u></i></span><span class="mga">➜</span><span id="mgB" class="g7-p'+(w0==='b'?' on':'')+'"><img src="art/g2-guru.jpg" alt=""><b>Guru</b><i class="g7-eq"><u></u><u></u><u></u></i></span><span class="g7-mb">'+(w0?'<button class="chip" id="mgN" data-act="mgnext"'+(w0==='a'?'':' style="visibility:hidden"')+'>⏭</button><button class="chip g7-stop" data-act="mgskip">⏹ Stop</button>':'<button class="chip" data-act="mgplay">▶ Play</button>')+'</span></div>':'';
+  var mini=mgc&&(!cdn||w0)?'<div class="g7-mg g7-mg2'+(w0?' pl':'')+'"><div class="g7-mgh">🎧 Compare your pronunciation with the guru</div><div class="g7-mgr"><span id="mgA" class="g7-p'+(w0==='a'?' on':w0?' dn':'')+'"><img src="art/g2-sishya.jpg" alt=""><b>You</b><i class="g7-eq"><u></u><u></u><u></u></i></span><span class="mga">➜</span><span id="mgB" class="g7-p'+(w0==='b'?' on':'')+'"><img src="art/g2-guru.jpg" alt=""><b>Guru</b><i class="g7-eq"><u></u><u></u><u></u></i></span><span class="g7-mb">'+(w0?'<button class="chip g7-nx" id="mgN" data-act="mgnext" aria-label="Skip to the guru"'+(w0==='a'?'':' style="visibility:hidden"')+'>⏭</button><button class="chip g7-stop" data-act="mgskip">■ Stop</button>':'<button class="chip g7-ply" data-act="mgplay">▶ Play</button>')+'</span></div></div>':'';
   var dvs=DVS?'<div class="dmsh-bg" data-act="dvsclose"></div><div class="dmsh dvsh"><div class="hdl"></div><div class="dhh"><b>Verse '+n+'</b><button class="chip" data-act="dvsclose">✕</button></div>'+sheetVerse().split(' hid" data-act="peek').join('')+'</div>':'';
   return '<div class="rpsheet g2 g2d g2sv cdn g7sv'+(gNew()?'':' g7old')+'">'+head+ban+(stepStrip(1)?'<div class="g2-ss">'+stepStrip(1)+'</div>':'')+mini+'<div class="g7-sc">'+sc.join('')+'</div>'+mn+'<div class="g2-sp"></div>'+dock+mSheet()+dvs+'</div>'}
  return '<div class="rpsheet g2 g2d">'+head+ban+(stepStrip(saved?1:0)?'<div class="g2-ss">'+stepStrip(saved?1:0)+'</div>':'')+(rev?vBand(n):'')+main+(saved?mgCard(n):'')+mn+box+(ag.length?'':doneVerse())+'<div class="g2-sp"></div>'+dock+mSheet()+dvsSh(n)+'</div>'}
@@ -7238,7 +7275,7 @@ function rpMix(ph,it,n,st,sg,stc,tg,tot,idx,hide,head,rem,what){var L=gLay(),tur
  var segs=[];st.forEach(function(x){if(segs.indexOf(x)<0)segs.push(x)});var ci=segs.indexOf(sg);
  var cls=ph==='turn'&&TRK==='vsn'&&!RP.qk?clsSw('g3-cls','Class'):'';
  var f0=ph==='turn'?Math.max(0,Math.min(1,((RP.end||0)-Date.now())/(RP.dur||1))):0;
- var ico=pz?'⏸':tg?'🎶':'🎧',num=turn?'<b id="rpcd" data-n="1">'+rem+'</b>':'<b class="g4-ico">'+ico+'</b>';
+ var ico=pz?'<span class="pzi" aria-label="Paused"><i></i><i></i></span>':tg?'🎶':'🎧',num=turn?'<b id="rpcd" data-n="1">'+rem+'</b>':'<b class="g4-ico">'+ico+'</b>';
  var tmr=L==='lotus'?'<span class="g6-tm g9-tm'+(turn?' rg':'')+'">'+num+(turn?'<em>Timer</em>':'')+'</span>'
   :'<span class="g4-tm'+(turn?' rg':'')+'"><i id="rpring" style="background:'+ringBg(f0*100)+'"></i>'+num+'</span>';
  var av=L==='mix'||L==='side'?(tg&&ph==='listen'?'<span class="g3-av g3-pr"><img src="art/g2-pair.jpg" alt=""></span>':'<span class="g3-av"><img src="art/'+(ph==='turn'?'g2-sishya':'g2-guru')+'.jpg" alt=""></span>'):'';
@@ -7335,7 +7372,7 @@ function ringBg(p){return 'conic-gradient(#fff '+p.toFixed(1)+'%, rgba(255,255,2
 function tipSheet(){var n=RP.n,nw=gNew(),mx={mix:1,pic:1,gem:1}[S.gsty];/* b457: fits one screen; Start / I know it fixed at the bottom with a visible countdown */
  var head=nw?g4Head('Verse '+n,sessPos(),1):'<div class="gtop">'+gvHead()+'<button class="chip" data-act="rpclose">Close</button></div>';
  var cd=RP.tipAt?Math.max(0,Math.ceil((RP.tipAt-Date.now())/1000)):0;
- return '<div class="rpsheet g2 tipsh'+(gLay()?' g3 g3-'+gLay():'')+'">'+head+(mx||S.gsty==='lotus'?'<div class="g3-tpic"><img src="art/'+(S.gsty==='lotus'?'lt-banner':'g2-top')+'.jpg" alt=""></div>':'')+tipCard(n)+(gLay()?'<div class="g3-card'+(S.gsty==='lotus'?' g4-book':'')+'">'+sheetVerse()+'</div>':sheetVerse())+'<div class="tipsp"></div><div class="g2-dock tipdk">'+(RP.phase==='tip'?'<div class="qkrow"><button class="btn tsb" data-act="tipgo">'+tipRing(cd)+'<span class="tst">Start the verse<small>'+(cd?'Starts by itself':'Learn with the guru')+'</small></span></button><button class="btn o qkb" data-act="qkgo">✓ I know it<small>Quick check · 1 min</small></button></div>':'<div class="tipcd">The guide starts now…</div>')+'</div></div>'}
+ return '<div class="rpsheet g2 tipsh'+(gLay()?' g3 g3-'+gLay():'')+(S.gsty==='lotus'?' lc-'+(S.lcol||'navy'):'')+'">'+head+(mx||S.gsty==='lotus'?'<div class="g3-tpic"><img src="art/'+(S.gsty==='lotus'?'lt-banner':'g2-top')+'.jpg" alt=""></div>':'')+tipCard(n)+(gLay()?'<div class="g3-card'+(S.gsty==='lotus'?' g4-book':'')+'">'+sheetVerse()+'</div>':sheetVerse())+'<div class="tipsp"></div><div class="g2-dock tipdk">'+(RP.phase==='tip'?'<div class="qkrow"><button class="btn tsb" data-act="tipgo">'+tipRing(cd)+'<span class="tst">Start the verse<small>'+(cd?'Starts by itself':'Learn with the guru')+'</small></span></button><button class="btn o qkb" data-act="qkgo">✓ I know it<small>Quick check · 1 min</small></button></div>':'<div class="tipcd">The guide starts now…</div>')+'</div></div>'}
 /* b456: Guru's tip as a short coloured card. Each sentence is one row; the dash words in it are pills. */
 function tipRows(t){return String(t||'').split(/\.\s+(?=[A-Z])/).map(function(x){return x.replace(/\.\s*$/,'')}).filter(Boolean).slice(0,3)}
 function tipPill(x){return x.replace(/\b([A-Z][a-z]*(?:-[a-z]+)+(?:\s+[A-Z][a-z]*(?:-[a-z]+)+)*)/g,'<b class="tpw">$1</b>')}
@@ -7586,7 +7623,7 @@ app.addEventListener('click',function(e){
  else if(a==='ftshare'){ftShare()}
  else if(a==='docsh'){var dv=String(v).split('|');docShare(dv[0],dv[1])}
  else if(a==='jrep'){var jv0=$('jv');JVV=jv0?jv0.value:JVV;S.jrep=+v;sv();render()}
- else if(a==='omw'||a==='oml'||a==='omp'){var lnm=(a==='oml'||a==='omp')&&CUTS[RP.n]>0;RP.steps=a==='omp'&&lnm&&PADA[RP.n]?[5,6,0,7,8,1,2,2,2]:lnm?(S.lx!=='1'?[0,1,2,2,2]:[0,0,1,1,2,2,2]):[2,2,2];RP.cut=CUTS[RP.n]||0;RP.round=1;RP.paused=false;RP.err=false;try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){RP.wl=l}).catch(function(){})}catch(e){}rpListen()}
+ else if(a==='omw'||a==='oml'||a==='omp'){var lnm=(a==='oml'||a==='omp')&&CUTS[RP.n]>0;RP.steps=a==='omp'&&lnm&&PADA[RP.n]?[5,6,0,7,8,1,2,2,2]:lnm?(S.lx!=='1'?[0,1,2,2,2]:[0,0,1,1,2,2,2]):[2,2,2];RP.cut=CUTS[RP.n]||0;/* b475: fresh chant-together step for the new set (old togR cut the counts: Line 2 ×0, Whole verse ×0) */RP.togR=0;RP.togin=false;if(togOn()){RP.steps=RP.steps.concat([2]);RP.togR=RP.steps.length}RP.round=1;RP.paused=false;RP.err=false;try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){RP.wl=l}).catch(function(){})}catch(e){}rpListen()}
  else if(a==='recapfin'){RP.on=false;vi=LST.length-1;skipN=true;goNext()}
  else if(a==='recapagain'){vi=0;tab='say';render(1);rpStart()}
  else if(a==='rpagain'){clearInterval(RP.tm);rpA.pause();rpListen()}

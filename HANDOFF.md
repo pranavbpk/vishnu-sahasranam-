@@ -768,3 +768,12 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Lotus: 2 new colours, 🪔 Vedic (kumkum → saffron) and 🦚 Peacock (Settings › How I practise). Verse text in maroon, Read aloud in each colour's dark tone (--lsc / --lrt); language tab and title follow the colour.
 - Small phones (375×667): Japa mala ring over the verse box is as before (b473), not new.
 - Screens: docs/screens-nov24h/.
+
+## Build 475 (24 Nov 2026) — Guru Test only. Owner's list after b474
+- Bug: "Practise this verse again" (Small pieces / Line by line / Whole verse) on the record screen kept the old chant-together step number (RP.togR), so the counts were cut: Line 2 ×0, Whole verse ×0, no "1 of 3", and Line 2 became "Chant together". omw/oml/omp now reset RP.togR/togin and add the chant-together step fresh. Every style.
+- Paused: the ⏸ emoji (blue tile on iPhone) replaced by two drawn bars (.pzi), every style; Lotus timer gets a darker centre and gold bars, title stays gold.
+- Class switch pushed to the right end of the strip's second row (margin-left:auto), every style that has it there.
+- Tip screen: the title ribbon no longer sits on the (folded) tip — card margin-top 46 px on .tipsh, every style.
+- Lotus tip screen: sheet now gets the lc-<colour> class, so verse (maroon --lsc), Read aloud (--lrt), language tab and Start button follow the chosen colour. Tip card: cream with gold border and a colour stripe, fits its text (fit-content), smaller font.
+- After recording (every style): "🎧 Compare your pronunciation with the guru" line above You ➜ Guru; ⏭ bright orange, Stop bright red, ▶ Play bright green. (They looked faded because an old rule set opacity .55 on every span in .g7-mg, including the button group.)
+- Screens: docs/screens-nov24i/.
