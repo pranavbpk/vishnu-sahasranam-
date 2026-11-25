@@ -814,3 +814,10 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Bug fixed: g4Fit set script sizes without !important (lost to the stylesheet) and ran before vsFit changed sizes, so in the line-2 step the verse script row could be cut (e.g. ॥८५॥). g4Fit now uses !important; vsFit re-checks every script row at the end and shrinks only a row that is cut.
 - Test: iPhone Pro size with insets, all 108 verses × every style (except Japa mala), revision whole verse + line 1 step + line 2 step + Start the verse: no overflow, nothing cut. Play screen (Lotus) 0.
 - Screens: docs/screens-nov25c/.
+
+## Build 481 (25 Nov 2026) — Guru Test only. Owner: Verse only / Read aloud only must be big
+- What to show: one choice for practice and parayanam (prshow and fcshow are set together; Settings shows one row "Practice and Parayanam"). Owner had picked Read-aloud only and still saw the verse (probably the Parayanam row).
+- Read-aloud only (rpverse.shdash): raFit size 30 px (faded line 22 px). Verse only (rpverse.shscr): script 30 px (faded 22 px), words fill each row (.pd display block, white-space normal), line 2 on a new row; pdFit/g4Fit don't shrink it.
+- vsFit: also works for Verse only (measures the script block); after the vf steps, if Verse only / Read aloud only still doesn't fit, it steps the size down (×0.96) but never below 24 px. A sticky dock (Lotus) is measured where it would stick at the bottom, not right under a short box. The final "no script row cut" check now includes Verse only (a very long compound shrinks only its own line, e.g. verse 15 line 2).
+- Test (iPhone Pro size with insets): all 108 verses × Lotus, New, Old, Mix, Gemini green, Picture (+ Slim, Palm, Side, Background, Gemini maroon for Read aloud only) × revision whole verse / line 1 / line 2 + Start the verse, for all three choices: 0 overflow, nothing cut.
+- Screens: docs/screens-nov25d/.
