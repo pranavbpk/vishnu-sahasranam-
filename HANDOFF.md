@@ -808,3 +808,9 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - vsFit: new step vf4 = Read aloud rows closer (line-height 1.22, no row margins; letter size unchanged) and script line-height 1.3. Also counts the tip-screen buttons (.tipdk) and, on the play screen, the progress bar under the verse (.rpsheet>.rpbar, only when it is below the Read aloud top). New style vf2 also hides the strip's dots + bar (the text already says "time 1 of 3").
 - Test method: copy of index-proto with env(safe-area-inset-top)=59px / bottom=34px at 393×852 (iPhone 15/16 Pro), all 108 verses, revision + Start the verse, every style: 0 overflow except Japa mala (ring). Play screen (Lotus, New) 0. Telugu script can't be measured here (no Telugu font in the test browser); vsFit uses the phone's real sizes.
 - Screens: docs/screens-nov25b/.
+
+## Build 480 (25 Nov 2026) — Guru Test only. Owner: Read aloud rows should be filled, not one word per row
+- Read aloud (practice sheets, not recording/compare): each verse line (.ln) is one flowing block; its .pd rows are display:inline (a space between), so words fill a row and go to the next row only when it is full. Line 2 starts on a new row. pdFit and g4Fit no longer shrink .prb in .rpsheet; raFit always sets the fixed size (26 px, faded line 19 px, capped by screen width).
+- Bug fixed: g4Fit set script sizes without !important (lost to the stylesheet) and ran before vsFit changed sizes, so in the line-2 step the verse script row could be cut (e.g. ॥८५॥). g4Fit now uses !important; vsFit re-checks every script row at the end and shrinks only a row that is cut.
+- Test: iPhone Pro size with insets, all 108 verses × every style (except Japa mala), revision whole verse + line 1 step + line 2 step + Start the verse: no overflow, nothing cut. Play screen (Lotus) 0.
+- Screens: docs/screens-nov25c/.
