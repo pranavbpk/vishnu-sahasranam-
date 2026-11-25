@@ -801,3 +801,10 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Tap to record + "Say the verse once, on your own": cream pills with gold border, dark maroon text (were hard to read on the guru & śiṣya picture).
 - In-app rules + APPRULESV updated.
 - Screens: docs/screens-nov25a/.
+
+## Build 479 (25 Nov 2026) — Guru Test only. Owner: verse 84 (and every verse) still needed scrolling; everything from the left
+- Verse script starts from the left in every style too (Lotus was centred); script rows get 7 px left padding so the first letter never sits under the gold line band.
+- Long Read aloud words: the b478 JS shrink / .wbr code is gone. CSS only: .wd and .lendw are max-width 100 %, white-space normal → a word stays on one row when it fits, a longer word breaks after a syllable dash at full size; .lend nowrap keeps | / || after the last part. Nothing gets smaller.
+- vsFit: new step vf4 = Read aloud rows closer (line-height 1.22, no row margins; letter size unchanged) and script line-height 1.3. Also counts the tip-screen buttons (.tipdk) and, on the play screen, the progress bar under the verse (.rpsheet>.rpbar, only when it is below the Read aloud top). New style vf2 also hides the strip's dots + bar (the text already says "time 1 of 3").
+- Test method: copy of index-proto with env(safe-area-inset-top)=59px / bottom=34px at 393×852 (iPhone 15/16 Pro), all 108 verses, revision + Start the verse, every style: 0 overflow except Japa mala (ring). Play screen (Lotus, New) 0. Telugu script can't be measured here (no Telugu font in the test browser); vsFit uses the phone's real sizes.
+- Screens: docs/screens-nov25b/.
