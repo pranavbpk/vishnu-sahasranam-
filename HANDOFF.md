@@ -828,3 +828,10 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Pranam / Today's lesson: label and chips on one row; revision verses as small number chips, 3+ in a row merged (81–86); count badge; I am ready + Not now in one sticky row at the bottom; smaller lamp/text; with more than 8 verses the subtitle and message hide (.prsm); under 700 px tall the subtitle hides. Fits 393×852 at every text size up to 25 revisions + 3 new; on a 375×667 phone 15+ revisions still scroll (button stays visible).
 - Listen for tip: the round button is ⏸ while the tip is spoken, ▶ otherwise. Pause stops the voice and the countdown; the guide waits for Start the verse. ▶ plays the tip again (countdown after it).
 - Screens: docs/screens-nov26a/.
+
+## Build 483 (26 Nov 2026) — Guru Test only. Owner: verse script a little bigger; "Say it 2 of 4"
+- Verse + Read aloud (shboth, not Read-aloud-first), every style incl. Lotus: verse script 23 px (was 20 px, line 2 always 17 px, and g4Fit shrank each line to fit one row). Now one size for both lines, wraps at a word (scrW name joints for long compounds); g4Fit skips it. Faded line in a line step stays 17 px. vf3 (tight screens) steps it to 20 px. Recording screen unchanged.
+- Bug: after "I've got it" skipped line rounds and the phone was locked / app left (rpAway → GRES), GRES had no togR, so on return the chant-together step was counted as an extra whole verse ("Say it 2 of 4", should be 2 of 3). GRES now saves togR; restore clamps togR to the steps length. Reproduced and checked in the test browser.
+- Test (393×852, insets 59/34): all 108 verses × te/sa × Lotus, Mix, Old, Gemini maroon, Picture, Slim, Side, Background, Palm, Gemini green × revision whole verse / line 2 step / Start the verse: 0 cut, 0 under the buttons.
+- Ribbon "Vishnu Sahasranāmam · Verse N of 108": not changed in b482/b483.
+- Screens: docs/screens-nov26b/.

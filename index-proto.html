@@ -4007,7 +4007,7 @@ html[data-vbg]:has(.rpsheet.g2d) body::after,html[data-vbg]:has(.rpsheet.g2d) bo
 .rpsheet .rpverse.shscr>:is(.sa,.te,.enb) .ln{display:block!important;text-align:left!important}
 .rpsheet .rpverse.shscr>:is(.sa,.te,.enb) .ln .pd{display:block!important;white-space:normal!important;text-wrap:wrap!important;overflow-wrap:normal!important;line-height:1.5!important}
 .rpsheet .rpverse.shscr>:is(.sa,.te,.enb) .ln+.ln{margin-top:8px!important}
-/* b482 */.rpverse.shscr .vw{white-space:normal}
+/* b482 */.rpverse:is(.shscr,.shboth) .vw{white-space:normal}
 /* b482 (owner): Today's lesson fits without scrolling: label above, revision verses as small number chips, I am ready stays in view */
 .prrow{flex-direction:row;align-items:center;flex-wrap:wrap;gap:6px 10px}.prlab{flex:0 0 auto}.prpills{gap:6px;flex:1 1 180px}
 .prw{padding:58px 14px 14px}.prart{width:170px;top:-14px}.prsk{font-size:1.1rem}.prsub{font-size:.76rem;margin-top:2px}.prt h1{font-size:1.15rem;margin:6px 0 4px}.prmsg{font-size:.84rem;line-height:1.35}
@@ -4018,6 +4018,13 @@ html[data-vbg]:has(.rpsheet.g2d) body::after,html[data-vbg]:has(.rpsheet.g2d) bo
 .prw.prsm .prsub,.prw.prsm .prmsg{display:none}.prw.prsm{padding-top:52px}
 @media (max-height:700px){.prw .prsub{display:none}.prw{padding-top:50px}.prart{width:150px}}
 .tc3s{flex:0 0 38px!important;width:38px!important;height:38px!important;display:grid;place-items:center;padding:0;color:#8a5a12}.tc3s.on{color:#fff}.tc3s .ics{width:17px;height:17px}
+/* b483 (owner): verse script a little bigger in Verse + Read aloud (was 20 px, shrunk to fit one row; now 23 px, wraps at a word; faded line unchanged) */
+.rpsheet:not(.recg) .rpverse.rpverse.rpverse.shboth:not(.dfirst)>:is(.sa,.te) .ln .pd{font-size:min(23px,5.9vw);white-space:normal}
+.rpsheet:not(.recg) .rpverse.rpverse.rpverse.shboth.s0:not(.dfirst)>:is(.sa,.te) .ln.l2 .pd,.rpsheet:not(.recg) .rpverse.rpverse.rpverse.shboth.s1:not(.dfirst)>:is(.sa,.te) .ln.l1 .pd{font-size:min(17px,4.4vw)}
+.rpsheet.vf3:not(.recg) .rpverse.rpverse.rpverse.shboth>:is(.sa,.te) .ln .pd{font-size:min(20px,5.1vw)!important}
+.rpsheet.g3.g4.g3-lotus.g3-lotus:not(.recg) .rpverse.rpverse.rpverse.shboth:not(.dfirst)>:is(.sa,.te) .ln .pd{font-size:min(23px,5.9vw)}
+.rpsheet.g3.g4.g3-lotus.g3-lotus:not(.recg) .rpverse.rpverse.rpverse.shboth.s0:not(.dfirst)>:is(.sa,.te) .ln.l2 .pd,.rpsheet.g3.g4.g3-lotus.g3-lotus:not(.recg) .rpverse.rpverse.rpverse.shboth.s1:not(.dfirst)>:is(.sa,.te) .ln.l1 .pd{font-size:min(17px,4.4vw)}
+.rpsheet.vf3.g3.g4.g3-lotus.g3-lotus:not(.recg) .rpverse.rpverse.rpverse.shboth>:is(.sa,.te) .ln .pd{font-size:min(20px,5.1vw)!important}
 </style>
 </head>
 <body>
@@ -7250,7 +7257,7 @@ function raFit(){var vw=Math.min(window.innerWidth||400,520);document.querySelec
 }
 /* b467: test styles. Each read-aloud row on ONE line, all rows the same size (shrinks a little to fit, owner 24 Nov); only if it would get too small, the row wraps at a word. Same for the script rows. */
 function g4Fit(){document.querySelectorAll('.rpsheet.g3 .rpverse').forEach(function(rv){var fd=rv.classList.contains('s0')?'l2':rv.classList.contains('s1')?'l1':'';
- [['.prb',.5],['.sa',.5],['.te',.5],['.enb',.5]].forEach(function(q){var b=rv.querySelector(q[0]);if(!b)return;if((q[0]==='.prb'||rv.classList.contains('shscr'))&&!b.closest('.recg,.dvsh,.dmsh'))return;b.classList.remove('wrp');var ps=[].slice.call(b.querySelectorAll('.ln'+(fd?':not(.'+fd+')':'')+' .pd'));if(!ps.length)return;
+ [['.prb',.5],['.sa',.5],['.te',.5],['.enb',.5]].forEach(function(q){var b=rv.querySelector(q[0]);if(!b)return;if((q[0]==='.prb'||rv.classList.contains('shscr')||(q[0]!=='.enb'&&rv.classList.contains('shboth')&&!rv.classList.contains('dfirst')&&rv.closest('.rpsheet')))&&!b.closest('.recg,.dvsh,.dmsh'))return;/* b483: Verse + Read aloud: the script keeps one bigger size and wraps at a word instead of shrinking */b.classList.remove('wrp');var ps=[].slice.call(b.querySelectorAll('.ln'+(fd?':not(.'+fd+')':'')+' .pd'));if(!ps.length)return;
   ps.forEach(function(e){e.style.removeProperty('font-size')});var base=parseFloat(getComputedStyle(ps[0]).fontSize)||20,r=1;
   ps.forEach(function(e){var w=e.clientWidth,sw=e.scrollWidth;if(w&&sw>w+1)r=Math.min(r,w/sw*0.97)});
   if(r<q[1]){b.classList.add('wrp');ps.forEach(function(e){e.style.setProperty('font-size',(base*0.62).toFixed(1)+'px','important')})}else if(r<1)ps.forEach(function(e){e.style.setProperty('font-size',(base*Math.max(r,q[1])).toFixed(1)+'px','important')})})})}
@@ -7332,12 +7339,12 @@ function gvHead(){var it=LST[vi];if(!it||!V[it.i])return '';var n=V[it.i].n,rt=i
 function sheetVerseDone(){var it=LST[vi];if(hideNow(it))return '<details class="peek"><summary>\ud83d\udc41 Peek at the verse</summary>'+sheetVerse().split(' hid" data-act="peek').join('')+'</details>';return '<div class="vcomp">'+sheetVerse()+'</div>'}
 function gMB(){var it=LST[vi];if(!it)return '';var n=V[it.i].n,m=M[n],k=LI[cL()],l=cL()||'en',o='';if(m&&m.v)o+='<details><summary>\ud83d\udcd6 Meaning of this verse</summary><div class="plain" style="margin-top:8px">'+m.v[k]+'</div></details>';if(BEN[n])o+='<details><summary>'+BEN[n].ic+' Benefit of this verse</summary>'+spCard(n)+'</details>';return o?'<div class="gmb">'+o+'</div>':''}
 var GPAUSED=false,LOCKP=false,GRES=null;
-function rpAway(){if(!(RP.on&&GS.on&&(RP.phase==='listen'||RP.phase==='turn')))return;LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};var v0=view;view='verse';GS.on=true;rpClose();view=v0;GPAUSED=true}
+function rpAway(){if(!(RP.on&&GS.on&&(RP.phase==='listen'||RP.phase==='turn')))return;LOCKP=true;if(!RP.recap&&RP.steps)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut,togR:RP.togR||0};var v0=view;view='verse';GS.on=true;rpClose();view=v0;GPAUSED=true}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&view==='verse')rpAway()});
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=482,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=483,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -7402,7 +7409,7 @@ function gsetSh(){if(!GSET)return '';return '<div class="dmsh-bg" data-act="gset
  var cl=TRK==='vsn'?'<div class="gs-l">Class chanting on your turn</div><div class="gs-seg"><button data-act="cls" data-v="1"'+(S.cls!=='0'?' class="on"':'')+'>👥 On</button><button data-act="cls" data-v="0"'+(S.cls==='0'?' class="on"':'')+'>Off</button></div>':'';
  return '<div class="dmsh-bg" data-act="gset"></div><div class="dmsh gsetsh"><div class="hdl"></div><div class="dhh"><b>⚙️ Practice settings</b><button class="chip" data-act="gset">Done</button></div><div class="gs-l">Level</div><div class="gs-lv">'+lvlChip('gs-lvc')+'</div>'+shw+cl+sty+'</div>'}
 /* resume: remember the round when practice is closed or a new round starts, so Continue carries on from there (same day, same verse) */
-function rpSave(cl){try{if(!RP||!RP.on||!GS.on||RP.recap||RP.qk||!RP.steps||(RP.phase!=='listen'&&RP.phase!=='turn'&&RP.phase!=='tip'&&RP.phase!=='tipgap'))return;if(RP.round<=1){if(S.rpRes&&S.rpRes.n===RP.n){delete S.rpRes;sv()}return}var it=LST[vi]||{};S.rpRes={d:tdy(),n:RP.n,round:RP.round,steps:RP.steps,cut:RP.cut,togR:RP.togR||0,r:it.r?1:0};if(cl)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut};sv()}catch(e){}}
+function rpSave(cl){try{if(!RP||!RP.on||!GS.on||RP.recap||RP.qk||!RP.steps||(RP.phase!=='listen'&&RP.phase!=='turn'&&RP.phase!=='tip'&&RP.phase!=='tipgap'))return;if(RP.round<=1){if(S.rpRes&&S.rpRes.n===RP.n){delete S.rpRes;sv()}return}var it=LST[vi]||{};S.rpRes={d:tdy(),n:RP.n,round:RP.round,steps:RP.steps,cut:RP.cut,togR:RP.togR||0,r:it.r?1:0};if(cl)GRES={n:RP.n,vi:vi,round:RP.round,steps:RP.steps,cut:RP.cut,togR:RP.togR||0};sv()}catch(e){}}
 function gotNeed2(){return gNew()&&RP.on&&(RP.phase==='turn'||RP.phase==='listen')&&!RP.qk&&!RP.recap&&rpMore()>0&&!S.gotOK}
 function rpGot(){if(RP.togin||RP.phase!=='listen'){rpSkip();return}try{rpA.pause()}catch(e){}clearInterval(RP.sm);clearInterval(RP.hl);var k=rpMore();if(k>0){RP.steps=RP.steps.slice(0,RP.round).concat(RP.steps.slice(RP.round+k));if(RP.togR)RP.togR-=k}RP.paused=false;rpNext()}
 /* progress: ring + mala beads (listen fills, your turn drains) */
@@ -7555,7 +7562,7 @@ function rpStart(){rpKill();if(gA)gA.pause();try{var AC0=window.AudioContext||wi
  var lmE=(S.lm||'auto')==='auto'&&lvl()==='b'&&!(LST[vi]||{}).r?'pada':(S.lm||'auto');
  if((lmE==='line'||lmE==='pada'||(lmE==='auto'&&!(LST[vi]||{}).r))&&CUTS[n]===undefined){RP={on:true,n:n,round:1,phase:'listen',paused:false,tried:0,steps:[2,2,2],wait:true};render();getCut(n).then(function(){if(RP.on&&RP.n===n&&RP.wait){RP.wait=false;rpStart()}});return}
  var it0=LST[vi]||{},mode0=lmE,wantLine=mode0==='line'||mode0==='pada'||(mode0==='auto'&&!it0.r),lm=wantLine&&CUTS[n]>0,pd=lm&&mode0==='pada'&&!it0.r&&PADA[n];
- RP={on:true,n:n,round:1,phase:'listen',paused:false,tried:0,steps:pd?[5,6,0,7,8,1,2,2,2]:lm?(S.lx!=='1'?[0,1,2,2,2]:[0,0,1,1,2,2,2]):[2,2,2],cut:lm?CUTS[n]:0};if(togOn()){RP.steps=RP.steps.concat([2]);RP.togR=RP.steps.length}var gr0=GRES&&GRES.n===n?GRES:(S.rpRes&&S.rpRes.d===tdy()&&S.rpRes.n===n&&!!S.rpRes.r===!!it0.r&&GS.on?S.rpRes:null);if(gr0&&gr0.steps&&gr0.round>1){RP.steps=gr0.steps.slice();RP.cut=gr0.cut;RP.round=Math.min(gr0.round,gr0.steps.length);if(gr0.togR)RP.togR=gr0.togR;RP.resumed=RP.round}GRES=null;
+ RP={on:true,n:n,round:1,phase:'listen',paused:false,tried:0,steps:pd?[5,6,0,7,8,1,2,2,2]:lm?(S.lx!=='1'?[0,1,2,2,2]:[0,0,1,1,2,2,2]):[2,2,2],cut:lm?CUTS[n]:0};if(togOn()){RP.steps=RP.steps.concat([2]);RP.togR=RP.steps.length}var gr0=GRES&&GRES.n===n?GRES:(S.rpRes&&S.rpRes.d===tdy()&&S.rpRes.n===n&&!!S.rpRes.r===!!it0.r&&GS.on?S.rpRes:null);if(gr0&&gr0.steps&&gr0.round>1){RP.steps=gr0.steps.slice();RP.cut=gr0.cut;RP.round=Math.min(gr0.round,gr0.steps.length);if(gr0.togR)RP.togR=gr0.togR;/* b483: after I've got it + phone locked, the chant-together step was counted as a 4th whole verse ("2 of 4") */if(RP.togR>RP.steps.length)RP.togR=RP.steps.length;RP.resumed=RP.round}GRES=null;
  try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){RP.wl=l}).catch(function(){})}catch(e){}
  if(!RP.resumed&&tipWant())tipGo();else rpListen()}
 function rpListen(){clsStop();clearInterval(RP.tm);RP.phase='listen';RP.paused=false;/* b470: a skip while paused (I've got it, Skip) starts the next part playing, so it must not stay 'Paused' */rpSave();RP.blocked=false;rpCheck();listenCount[RP.n]=(listenCount[RP.n]||0)+1;
