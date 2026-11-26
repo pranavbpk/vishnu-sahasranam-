@@ -835,3 +835,10 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Test (393×852, insets 59/34): all 108 verses × te/sa × Lotus, Mix, Old, Gemini maroon, Picture, Slim, Side, Background, Palm, Gemini green × revision whole verse / line 2 step / Start the verse: 0 cut, 0 under the buttons.
 - Ribbon "Vishnu Sahasranāmam · Verse N of 108": not changed in b482/b483.
 - Screens: docs/screens-nov26b/.
+
+## Guru Test build 484 (27 Nov 2026) — not live
+- Owner: top bar was cluttered (level chip, Tips, Meaning, Settings). Now the practice top bar (g4Head, all g4/g6 styles) is only ✕ · title · ⚙️ (plain gear, no label). Level chip removed from the practice screen (still in setup, Settings, Today card, after practice).
+- Tips and Meaning moved onto the verse card: vActs(n) row at the bottom of .rpverse, only on practice screens (sheetVerse(1) in rpMix/rpSheet2). "💡 Tips · verse N" (rdopen) always; "🪷 Meaning · verse N" (g4mean) only when g4MOk() (revision, seen, or after recording) — no dimmed button.
+- vsFit over() now measures the .vacts row too; on crowded verses (vf2+) the row tightens. 393×852: 3 of 648 verse/style/script combos still go 2–8 px under the buttons (auto-scroll keeps the line in view); 430×932 none. Small phones (SE) already scrolled before.
+- Labels are English only for now (no te/hi UIT yet).
+- Screens: docs/screens-nov27a/.
