@@ -6648,7 +6648,8 @@ function scrW(t,mn,n,L){t=String(t).trim();var d=(mn==='te'||mn==='sa')&&typeof 
  return out.join(' ')}
 function lendW(h,mk){var i=h.lastIndexOf('<span class="wd');if(i<0)return h+'<span class="lend">\u00a0'+mk+'</span>';return h.slice(0,i)+'<span class="lendw">'+h.slice(i)+'<span class="lend">\u00a0'+mk+'</span></span>'}
 function cL(){return S.ml||S.lang||'en'}
-function rdL(){if(S.rd)return S.rd;var m=S.main||'sa';return m==='te'?'te':m==='en'?'en':(S.lang==='hi'?'hi':'sa')}
+/* b487: the tab is the only thing that decides (app language no longer turns Sanskrit into Hindi) */
+function rdL(){var m=S.main||'sa';if(S.rd&&(S.rd==='hi'?m==='sa':S.rd===(m==='te'?'te':m==='en'?'en':'sa')))return S.rd;return m==='te'?'te':m==='en'?'en':'sa'}
 /* b486 (owner 27 Nov): Read aloud follows the script tab on every screen: Telugu tab → Telugu letters, Hindi → Hindi, Sanskrit / English → English. The old Settings override (S.dl) made the Telugu tab show English, so it is no longer used. */
 function dashL(){var r=rdL();return r==='te'?'te':r==='hi'?'hi':'en'}
 /* b470 (owner): which part of the chant this is, on top of every verse box, all styles */
@@ -7357,7 +7358,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 /* b306: another sound starting (class audio, video, My slokas, players) pauses Repeat after me */
 (function(){var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){try{var t=this,u=t.currentSrc||t.src||'';if(RP&&RP.on&&GS.on&&t!==rpA&&!(typeof gA!=='undefined'&&t===gA)&&!t.muted&&u&&!/^data:audio\/wav/.test(u)&&(t===window.SWA||t===window.MYA||t.tagName==='VIDEO'||(typeof PL!=='undefined'&&PL.on)||/\/audio\/(v\d|all108|gx|story)/.test(u)))setTimeout(rpAway,0)}catch(e){}return op.apply(this,arguments)}})();
 setTimeout(function(){try{offInit()}catch(e){}},1200);
-var APPV=486,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
+var APPV=487,NEWV=0,VCHK=0;VLBL='Guru Test \u00b7 build '+APPV;
 function verCheck(){var t=Date.now();if(t-VCHK<600000)return;VCHK=t;try{fetch(location.pathname+'?vc='+t,{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(x){var m=/var APPV=(\d+)/.exec(x||'');if(m&&+m[1]>APPV){NEWV=+m[1];if(view==='home')render()}}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')verCheck()});setTimeout(verCheck,1500);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible'||!PL.on||!PL.all||PL.paused)return;if(!plA.paused){wlOn();return}if(S.plmute&&sm()){var q=plA.play();if(q&&q.catch)q.catch(function(){PL.paused=true;render()})}});
@@ -7881,7 +7882,7 @@ app.addEventListener('click',function(e){
  else if(a==='dhgo'){fcStop();DHI=+v;DMS=-1;render(1)}
  else if(a==='dmean'){DMS=+v;render()}
  else if(a==='dhall'){DHALL=!DHALL;DMS=-1;render(1)}
- else if(a==='uiset'){S.lang=v;S.uiSet=1;if(v==='te')S.main='te';else if(v==='hi')S.main='sa';sv();render(1)}
+ else if(a==='uiset'){S.lang=v;S.uiSet=1;if(v==='te')S.main='te';else if(v==='hi'){S.main='sa';S.rd='hi'}sv();render(1)}
  else if(a==='tab'){if(tab==='say'&&v!=='say')stopRecIfActive();tab=v;selW=0;render()}
  else if(a==='word'){selW=+v;render()}
  else if(a==='sc'){S.sc[v]=S.sc[v]?0:1;sv();render()}
@@ -7954,7 +7955,7 @@ app.addEventListener('change',function(e){var t=e.target;
  else if(t.dataset.act==='startsel'){S.startV=+t.value;if(!S.learned.length){S.pos=Math.max(0,vIdx(S.startV))}sv();render()}
  else if(t.dataset.act==='pace'){S.pace=+t.value;sv();render()}
  else if(t.dataset.act==='goto'){S.pos=+t.value;sv();render()}
- else if(t.dataset.act==='main'){S.main=t.value;sv();render()}
+ else if(t.dataset.act==='main'){S.main=t.value;delete S.rd;sv();render()}
  else if(t.dataset.act==='rt'){var rl3=remList();rl3[+t.dataset.i||0]=t.value||'05:30';S.rts=rl3;S.rt=rl3[0];sv();render()}});
 
 /* ===== b304 ===== */

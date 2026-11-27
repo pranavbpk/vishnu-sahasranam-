@@ -853,3 +853,8 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - Tips / Meaning (vActs) moved to the top of the card: zero-height .vacw before the first block, buttons absolute at the right of the 📜 VERSE label row. Script-only mode and Lotus (no label row) get an in-flow right-aligned row (.vacw.fl). Labels shortened to "💡 Tips" / "🪷 Meaning". Soft (.q, opacity .5) while the guide chants or it's your turn. vsFit no longer counts the row. Checked 11 styles × both/read-aloud/script: no overlap with tabs or verse.
 - Weekly recap Good/Not yet idea dropped (owner left it to Claude; revisions already bring weak verses back).
 - Screens: docs/screens-nov27b/.
+
+## Guru Test build 487 (27 Nov 2026) — not live
+- Owner still saw read-aloud mismatch. Agreed rule: Sanskrit → English read aloud, Telugu → Telugu, Hindi → Hindi, English → English. The tab is the only thing that decides.
+- rdL() no longer turns Sanskrit into Hindi when the app language is Hindi, and ignores a stale S.rd that doesn't match the shown script (S.main). Settings main-script dropdown now clears S.rd; choosing Hindi as app language at first setup sets the Hindi tab.
+- Tested: app language en/te/hi × Mix/Lotus/Old × tapping each of the 4 tabs, with the old S.dl='en' saved — verse and read aloud match every time.
