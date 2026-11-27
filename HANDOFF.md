@@ -842,3 +842,8 @@ Learn (meanings, stories, how to read), Telugu/Hindi interface.
 - vsFit over() now measures the .vacts row too; on crowded verses (vf2+) the row tightens. 393×852: 3 of 648 verse/style/script combos still go 2–8 px under the buttons (auto-scroll keeps the line in view); 430×932 none. Small phones (SE) already scrolled before.
 - Labels are English only for now (no te/hi UIT yet).
 - Screens: docs/screens-nov27a/.
+
+## Guru Test build 485 (27 Nov 2026) — not live
+- Owner: Read aloud should be English dash lines for every script tab. dashL() now returns 'en' unless S.dl is 'te'/'hi' (Settings › Read-aloud lines: English / తెలుగు / हिन्दी; "Same as the verse" removed). Before, Telugu/Hindi tabs switched the dash lines to Telugu/Hindi letters. Flashcards / 108-cards (FCSC) now follow dashL() too. Checked practice + Listen to all, Mix/Lotus/Old, te/sa/hi tabs.
+- Listen to all / Play a verse (plSheet): Back/Pause/Next chips had been pushed below the screen by the bigger verse (b477–483). Now a fixed dock (.g2-dock.pldock): seek bar + ⏮ Last verse · ⏸ Pause/▶ Play · ⏭ Next verse (one verse: Start / Next disabled). Close stays at the top. Sheet gets bottom padding (.plsh) so the verse scrolls above the dock.
+- Weekly recap unchanged (steps [2]: guru once, you once; hidden on your turn at Normal/Advanced since recap items count as revision).
