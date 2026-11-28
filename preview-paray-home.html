@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · Parayanam start screen (Sri Vaishnava)</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Tiro+Devanagari+Sanskrit&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Atkinson Hyperlegible',system-ui,sans-serif;background:#e9e4da;color:#2a1a12;min-height:100vh}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.dv{font-family:'Tiro Devanagari Sanskrit','Noto Serif Devanagari',serif}
+.cg{font-family:'Cormorant Garamond',Georgia,serif}
+/* preview switcher (not part of the app) */
+.pv{position:sticky;top:0;z-index:20;background:#2a1a12;color:#f6e7c4;padding:8px 10px calc(8px);display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:.78rem}
+.pv b{margin-right:4px}
+.pv button{padding:5px 10px;border-radius:99px;background:rgba(255,255,255,.12)}
+.pv button[aria-pressed=true]{background:#e0b25a;color:#2a1a12;font-weight:700}
+.pv .sp{flex:1}
+.wrap{max-width:420px;margin:0 auto;min-height:calc(100vh - 44px)}
+.scr{display:none;min-height:calc(100vh - 44px);flex-direction:column}
+.scr.on{display:flex}
+.note{max-width:420px;margin:0 auto;padding:14px 16px 30px;font-size:.78rem;color:#5a4a3c;line-height:1.5}
+.note b{color:#2a1a12}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(10px);background:#2a1a12;color:#f6e7c4;padding:9px 14px;border-radius:99px;font-size:.8rem;opacity:0;transition:.25s;pointer-events:none;z-index:30;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ============ A · Grantham (book page) ============ */
+#A{background:#f8f4ea radial-gradient(rgba(139,115,85,.07) 1px,transparent 0) 0 0/16px 16px;padding:10px 18px 18px}
+#A .hd{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;color:#7a6a5a}
+#A .hd .sri{color:#b83a2d;letter-spacing:.15em;font-size:.95rem}
+#A .emb{display:flex;justify-content:center;align-items:flex-end;gap:14px;margin:10px 0 2px}
+#A .emb img{height:30px}#A .emb img.n{height:38px}
+#A .sr{text-align:center;color:#8a2a1e;font-size:.82rem;font-style:italic}
+#A .t1{text-align:center;color:#b83a2d;font-size:1.02rem;margin-top:8px}
+#A .t2{text-align:center;font-size:1.7rem;font-weight:700;line-height:1.1}
+#A .dt{text-align:center;font-size:.78rem;color:#7a6a5a;margin-top:4px}
+#A .dt b{color:#8a2a1e;font-weight:700}
+#A .div{display:flex;align-items:center;gap:10px;margin:12px 0}
+#A .div:before,#A .div:after{content:"";flex:1;height:1px;background:#d8cdb8}
+#A .div i{width:7px;height:7px;background:#b83a2d;transform:rotate(45deg)}
+#A .lb{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:#9a8a78;font-weight:700;margin:12px 0 6px}
+#A .occ{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+#A .occ button{flex:0 0 auto;padding:7px 11px;border-radius:12px;border:1px solid #d8cdb8;background:#fffdf7;font-size:.8rem;line-height:1.15;text-align:center}
+#A .occ button small{display:block;font-size:.64rem;color:#8a7a68}
+#A .occ button[aria-pressed=true]{background:#2a1a12;color:#f8f4ea;border-color:#2a1a12}
+#A .occ button[aria-pressed=true] small{color:#e0c58a}
+#A .seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#efe7d6;border-radius:12px;padding:4px}
+#A .seg button{padding:8px;border-radius:9px;font-size:.84rem;color:#6a5a48}
+#A .seg button[aria-pressed=true]{background:#fff;color:#8a2a1e;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+#A .sk{margin-top:12px;text-align:center;padding:12px 10px;border-top:1px dashed #d8cdb8;border-bottom:1px dashed #d8cdb8}
+#A .sk .dv{font-size:1.02rem;color:#2a1a12;line-height:1.55}
+#A .sk .en{font-size:.76rem;color:#7a6a5a;margin-top:5px;line-height:1.4}
+#A .sk .pr{display:inline-block;margin-top:7px;font-size:.78rem;color:#b83a2d;border-bottom:1px dashed #b83a2d}
+#A .sk input{margin-top:7px;width:100%;border:0;border-bottom:1px dashed #b83a2d;background:transparent;text-align:center;font:italic .9rem 'Atkinson Hyperlegible';color:#2a1a12;padding:3px;display:none}
+#A .sp{flex:1;min-height:14px}
+#A .go{position:relative;width:100%;text-align:left;background:#22170f;color:#f8f4ea;border-radius:18px;padding:14px 16px;overflow:hidden;box-shadow:0 6px 16px rgba(40,20,10,.25)}
+#A .go:after{content:"";position:absolute;top:0;right:22px;width:13px;height:30px;background:#b83a2d;clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%)}
+#A .go small{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:#b8a890}
+#A .go b{display:block;font-size:1.15rem;margin-top:2px}
+#A .go span{font-size:.74rem;color:#b8a890}
+#A .lk{display:flex;justify-content:space-between;margin-top:10px;font-size:.84rem}
+#A .lk button{text-decoration:underline;text-underline-offset:4px;color:#4a3a2a;padding:4px 2px}
+#A .ct{display:flex;justify-content:space-between;margin-top:12px;padding-top:9px;border-top:1px solid #e2d8c4;font-size:.76rem;color:#7a6a5a}
+#A .ct b{color:#2a1a12}
+
+/* ============ B · Goshti (maroon and gold) ============ */
+#B{background:#fbf6ec}
+#B .top{background:linear-gradient(#5a1414,#7a1f1a);color:#f8ecd2;padding:10px 16px 26px;position:relative;text-align:center}
+#B .top:after{content:"";position:absolute;left:0;right:0;bottom:-9px;height:10px;background:radial-gradient(circle at 10px 0,#7a1f1a 9px,transparent 10px) 0 0/20px 10px repeat-x}
+#B .hd{display:flex;justify-content:space-between;align-items:center}
+#B .ib{width:32px;height:32px;border-radius:50%;border:1px solid rgba(224,178,90,.5);color:#e0b25a;font-size:.9rem}
+#B .sr{font-size:.78rem;color:#e0b25a;font-style:italic}
+#B .emb{display:flex;justify-content:center;align-items:flex-end;gap:16px;margin:4px 0 4px}
+#B .emb img{height:34px}#B .emb img.n{height:44px}
+#B h1{font-size:1.45rem;line-height:1.1}
+#B .dt{font-size:.74rem;color:#e8d3a8;margin-top:3px}
+#B .bd{padding:18px 14px 16px;display:flex;flex-direction:column;flex:1}
+#B .card{background:#fffdf8;border:1.5px solid #e0c27a;border-radius:16px;padding:11px 12px;box-shadow:0 2px 6px rgba(120,70,10,.08)}
+#B .ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+#B .ch span{font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:#9e6b1e;font-weight:700}
+#B .ch button{font-size:.72rem;padding:4px 10px;border-radius:99px;background:#f3ebdd;border:1px solid #e0c27a;color:#5a1414;font-weight:700}
+#B .ch button.dn{background:#5a1414;color:#f5d78e;border-color:#5a1414}
+#B .tn{text-align:center}
+#B .tn .dv{font-size:1rem;line-height:1.55;color:#5a1414}
+#B .tn .ro{font-size:.74rem;color:#7a5a48;font-style:italic;line-height:1.35;margin-top:2px}
+#B .tn+.tn{margin-top:8px;padding-top:8px;border-top:1px dashed #e8d6b0}
+#B .kr{display:flex;align-items:center;gap:0;margin:12px 0 2px;overflow-x:auto;scrollbar-width:none}
+#B .kr button{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;width:58px;font-size:.6rem;line-height:1.15;color:#7a5a48;text-align:center}
+#B .kr i{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;border:1.5px solid #e0c27a;background:#fff;font-style:normal;font-size:.68rem;font-weight:700;color:#9e6b1e;margin-bottom:3px}
+#B .kr button.ok i{background:#5a1414;border-color:#5a1414;color:#f5d78e}
+#B .kr button.now i{background:#e0b25a;border-color:#c08a2a;color:#3a1010}
+#B .kr button.now{color:#5a1414;font-weight:700}
+#B .kr em{flex:0 0 8px;height:1.5px;background:#e0c27a;margin-top:-16px}
+#B .row{display:flex;gap:8px;margin-top:12px}
+#B .seg{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:3px;background:#f0e4cc;border-radius:12px;padding:3px}
+#B .seg button{padding:8px 4px;border-radius:9px;font-size:.8rem;color:#6a3a2a}
+#B .seg button[aria-pressed=true]{background:#5a1414;color:#fbf6ec;font-weight:700}
+#B .sel{flex:1;position:relative}
+#B select{width:100%;appearance:none;-webkit-appearance:none;padding:10px 26px 10px 10px;border-radius:12px;border:1.5px solid #e0c27a;background:#fffdf8;font:700 .8rem 'Atkinson Hyperlegible';color:#5a1414}
+#B .sel:after{content:"▾";position:absolute;right:10px;top:50%;transform:translateY(-50%);color:#9e6b1e;pointer-events:none}
+#B .grp{display:none;margin-top:8px;font-size:.76rem;color:#6a4a3a;background:#f6eedd;border-radius:12px;padding:8px 10px}
+#B .grp.on{display:block}
+#B .grp label{display:inline-flex;align-items:center;gap:5px;margin-right:12px}
+#B .sk{margin-top:10px;text-align:center;font-size:.8rem;color:#6a4a3a;line-height:1.45}
+#B .sk .dv{font-size:.95rem;color:#3a1010}
+#B .spc{flex:1;min-height:12px}
+#B .go{width:100%;padding:13px 14px;border-radius:18px;background:linear-gradient(#e7bd63,#c99236);color:#3a1010;box-shadow:0 5px 14px rgba(120,70,10,.3);border:1px solid #b07a20}
+#B .go b{display:block;font-size:1rem}
+#B .go span{font-size:.72rem;opacity:.85}
+#B .two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+#B .two button{padding:9px;border-radius:12px;background:#f3ebdd;border:1px solid #e0c27a;font-size:.78rem;font-weight:700;color:#5a1414}
+#B .ct{text-align:center;font-size:.74rem;color:#7a5a48;margin-top:10px}
+#B .ct b{color:#5a1414}
+</style>
+</head>
+<body>
+<div class="pv">
+  <b>Preview</b>
+  <button data-s="A" aria-pressed="true">A · Simple book</button>
+  <button data-s="B" aria-pressed="false">B · Goshti</button>
+  <span class="sp"></span>
+  <button data-k="th" aria-pressed="true">Thenkalai</button>
+  <button data-k="va" aria-pressed="false">Vadakalai</button>
+</div>
+
+<div class="wrap">
+<!-- ================= A ================= -->
+<section class="scr on" id="A">
+  <div class="hd"><button data-t="Closes the parayanam">✕</button><span class="sri dv">॥ श्रीः ॥</span><button data-t="Settings: tradition, bell, text size">⚙︎</button></div>
+  <div class="emb"><img src="img/preview/sv-shankha.png" alt=""><img class="n" src="img/preview/sv-namam.png" alt=""><img src="img/preview/sv-chakra.png" alt=""></div>
+  <div class="sr">śrīmate rāmānujāya namaḥ</div>
+  <div class="t1 dv">श्रीविष्णुसहस्रनामस्तोत्रम्</div>
+  <div class="t2 cg">Vishnu Sahasranāma Pārāyaṇam</div>
+  <div class="dt">Saturday 28 November · next: <b>Utpanna Ekādaśī, Fri 4 Dec</b></div>
+  <div class="div"><i></i></div>
+
+  <div class="lb">Today's sitting</div>
+  <div class="occ" data-g="occ">
+    <button aria-pressed="true">Nitya<small>daily</small></button>
+    <button aria-pressed="false">Ekādaśī<small>fortnightly</small></button>
+    <button aria-pressed="false">Tiruvōṇam<small>monthly</small></button>
+    <button aria-pressed="false">Satsang<small>group</small></button>
+    <button aria-pressed="false">Special<small>utsavam</small></button>
+  </div>
+  <div class="lb">Chanting</div>
+  <div class="seg" data-g="who"><button aria-pressed="true" data-w="1">🙏 On my own</button><button aria-pressed="false" data-w="2">👥 Together</button></div>
+
+  <div class="sk">
+    <div class="dv skt"></div>
+    <div class="en ske"></div>
+    <button class="pr" data-act="pr">+ add a prayer (optional)</button>
+    <input placeholder="e.g. for Amma's health">
+  </div>
+
+  <div class="sp"></div>
+  <button class="go" data-t="Opens the chant at Sahasranāma · verse 42"><small>Carry on</small><b>Sahasranāma · verse 42 →</b><span>Taniyans first, then from where you stopped</span></button>
+  <div class="lk"><button data-t="Starts with the taniyans and Pūrva bhāga">Start from the beginning</button><button data-t="Opens Choose a part">Choose a part ›</button></div>
+  <div class="ct"><span>Parayanams completed</span><span><b>3</b> · this month <b>2</b></span></div>
+</section>
+
+<!-- ================= B ================= -->
+<section class="scr" id="B">
+  <div class="top">
+    <div class="hd"><button class="ib" data-t="Closes the parayanam">✕</button><span class="sr">śrīmate rāmānujāya namaḥ</span><button class="ib" data-t="Settings: tradition, bell, text size">⚙︎</button></div>
+    <div class="emb"><img src="img/preview/sv-shankha.png" alt=""><img class="n" src="img/preview/sv-namam.png" alt=""><img src="img/preview/sv-chakra.png" alt=""></div>
+    <h1 class="cg">Vishnu Sahasranāma Pārāyaṇam</h1>
+    <div class="dt">Saturday 28 November · next: Utpanna Ekādaśī, Fri 4 Dec</div>
+  </div>
+  <div class="bd">
+    <div class="card">
+      <div class="ch"><span>Guru paramparā · taniyan</span><button data-act="tan">🔈 Chant first</button></div>
+      <div class="tn"><div class="dv">लक्ष्मीनाथसमारम्भां नाथयामुनमध्यमाम् ।<br>अस्मदाचार्यपर्यन्तां वन्दे गुरुपरम्पराम् ॥</div><div class="ro">lakṣmīnātha samārambhāṁ nāthayāmuna madhyamām · asmadācārya paryantāṁ vande guru paramparām</div></div>
+      <div class="tn ac"></div>
+    </div>
+
+    <div class="kr">
+      <button class="ok" data-t="Taniyans: guru paramparā"><i>1</i>Taniyan</button><em></em>
+      <button data-t="Pūrva bhāga: Viṣvaksena, opening, question, nyāsa, dhyānam"><i>2</i>Pūrva bhāga</button><em></em>
+      <button class="now" data-t="The 108 verses · you stopped at verse 42"><i>3</i>1000 names</button><em></em>
+      <button data-t="Uttara bhāga: phala-śruti (still to be recorded)"><i>4</i>Uttara bhāga</button><em></em>
+      <button data-t="Sāttumurai: closing, Sarvaṁ Śrī Kṛṣṇārpaṇam"><i>5</i>Sāttumurai</button>
+    </div>
+
+    <div class="row">
+      <div class="seg" data-g="who"><button aria-pressed="true" data-w="1">On my own</button><button aria-pressed="false" data-w="2">Together</button></div>
+      <div class="sel"><select aria-label="Occasion"><option>Nitya · daily</option><option>Ekādaśī</option><option>Tiruvōṇam · monthly</option><option>Satsang</option><option>Special day</option></select></div>
+    </div>
+    <div class="grp"><b>How together?</b><br><label><input type="radio" name="g" checked> Everyone chants all</label><label><input type="radio" name="g"> Leader first half, all second</label></div>
+
+    <div class="sk"><div class="dv skt"></div><div class="ske"></div></div>
+
+    <div class="spc"></div>
+    <button class="go" data-t="Opens the chant at verse 42"><b>🙏 Carry on · verse 42</b><span>1000 names · about 18 min left</span></button>
+    <div class="two"><button data-t="Starts with the taniyans">From the beginning</button><button data-t="Opens Choose a part">Choose a part ›</button></div>
+    <div class="ct">Parayanams completed <b>3</b> · this month <b>2</b></div>
+  </div>
+</section>
+</div>
+
+<div class="note">
+  <b>What this is:</b> a clickable look only — no sound, numbers are made up. Not in Guru Test yet.<br>
+  <b>Sri Vaishnava way used here:</b> guru paramparā (taniyan) first; the saṅkalpa offers the chant as kaiṅkaryam for the Lord's pleasure, with your own prayer optional; "On my own / Together" changes <i>kariṣye</i> (I) to <i>kariṣyāmaḥ</i> (we).<br>
+  <b>For guru review:</b> taniyan choice, saṅkalpa wording, the order Taniyan › Pūrva bhāga › 1000 names › Uttara bhāga › Sāttumurai, and which days to list.
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+var K='th',W=1;
+var ACH={th:['श्रीशैलेशदयापात्रं धीभक्त्यादिगुणार्णवम् ।<br>यतीन्द्रप्रवणं वन्दे रम्यजामातरं मुनिम् ॥','śrīśaileśa dayāpātraṁ dhībhaktyādi guṇārṇavam · yatīndra pravaṇaṁ vande ramya jāmātaraṁ munim'],
+         va:['श्रीमान् वेङ्कटनाथार्यः कवितार्किककेसरी ।<br>वेदान्ताचार्यवर्यो मे सन्निधत्तां सदा हृदि ॥','śrīmān veṅkaṭanāthāryaḥ kavitārkika kesarī · vedāntācārya varyo me sannidhattāṁ sadā hṛdi']};
+function sk(){var v=W===2?'करिष्यामः':'करिष्ये';
+  return ['श्रीभगवदाज्ञया भगवत्कैङ्कर्यरूपं श्रीमन्नारायणप्रीत्यर्थं<br>श्रीविष्णुसहस्रनामपारायणं '+v+' ॥',
+          'By the Lord\'s will, as service to Him, for the joy of Śrīman Nārāyaṇa, '+(W===2?'we':'I')+' chant Śrī Vishnu Sahasranāmam.']}
+function draw(){var s=sk();
+  document.querySelectorAll('.skt').forEach(function(e){e.innerHTML=s[0]});
+  document.querySelectorAll('.ske').forEach(function(e){e.textContent=s[1]});
+  var a=ACH[K];document.querySelector('#B .ac').innerHTML='<div class="dv">'+a[0]+'</div><div class="ro">'+a[1]+'</div>';
+  document.querySelector('#B .grp').classList.toggle('on',W===2);
+  document.querySelectorAll('[data-g=who] button').forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.w===W)});
+}
+var tt;function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on')},2200)}
+document.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+  if(b.dataset.s){document.querySelectorAll('[data-s]').forEach(function(x){x.setAttribute('aria-pressed',x===b)});document.querySelectorAll('.scr').forEach(function(x){x.classList.toggle('on',x.id===b.dataset.s)});scrollTo(0,0);return}
+  if(b.dataset.k){K=b.dataset.k;document.querySelectorAll('[data-k]').forEach(function(x){x.setAttribute('aria-pressed',x===b)});draw();toast(K==='th'?'Thenkalai: Maṇavāḷa Māmunigaḷ taniyan':'Vadakalai: Vedānta Deśika taniyan');return}
+  if(b.dataset.w){W=+b.dataset.w;draw();toast(W===2?'Together: “we chant” (kariṣyāmaḥ)':'On my own: “I chant” (kariṣye)');return}
+  var g=b.parentElement.dataset.g;if(g==='occ'){b.parentElement.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});toast('Sitting: '+b.firstChild.textContent);return}
+  if(b.dataset.act==='pr'){b.style.display='none';var i=b.nextElementSibling;i.style.display='block';i.focus();return}
+  if(b.dataset.act==='tan'){var d=b.classList.toggle('dn');b.textContent=d?'✓ Chanted':'🔈 Chant first';toast(d?'In the app: the taniyan plays in the guide\'s voice, then ✓':'Not chanted yet');return}
+  if(b.dataset.t)toast(b.dataset.t);
+});
+draw();
+</script>
+</body>
+</html>
